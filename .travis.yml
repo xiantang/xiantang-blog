@@ -19,13 +19,12 @@ before_script:
 script:
     - hugo 2> /dev/null
     - echo "$CNAME_URL" > public/CNAME
-
 deploy:
   provider: pages
   skip-cleanup: true
-  github-token: fce89ae8204cd526bf47fc19f894c62fc3bffb6f  # Set in travis-ci.org dashboard, marked secure
-  email: zhujingdi1998@gmail.com
-  name: xiantang
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  email: $GITHUB_EMAIL
+  name: $GITHUB_USERNAME
   verbose: true
   keep-history: true
   local-dir: public
