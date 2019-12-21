@@ -32,8 +32,8 @@ deploy:
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
-  email: $GITHUB_EMAIL
-  name: $GITHUB_USERNAME
+  email: zhujingdi1998@gmail.com
+  name: xiantang
   verbose: true
   keep-history: true
   local-dir: public
