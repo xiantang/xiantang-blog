@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="写了一个工具类用来加密解密数据库的 app字段
+本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。
+这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。
+我这边采用的是引入第三方库：
+&#34;org.bouncycastle&#34; % &#34;bcprov-jdk16&#34; % &#34;1.45&#34; private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() =&gt; Cipher.getInstance(&#34;AES/ECB/PKCS5Padding&#34;, new BouncyCastleProvider())) 这样就解决了 No installed provider supports this key 的问题。
+但是提到了测试环境，又出现了问题:
+显示没有合法的AES key
+首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。
+我们需要明确一下本地环境和线上环境的不同:
+ 本地: Jdk 安全目录 含有 unlimit 的jar包，也就是支持 16 24 32 位的key 线上: Jdk 安全目录 只含有 limit 的jar包，只支持 16 位的key  有两种解决方式1.线上安装 unlimit 的jar包 2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/scala/aes-%E9%99%90%E5%88%B6%E9%95%BF%E5%BA%A6/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="写了一个工具类用来加密解密数据库的 app字段
+本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。
+这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。
+我这边采用的是引入第三方库：
+&#34;org.bouncycastle&#34; % &#34;bcprov-jdk16&#34; % &#34;1.45&#34; private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() =&gt; Cipher.getInstance(&#34;AES/ECB/PKCS5Padding&#34;, new BouncyCastleProvider())) 这样就解决了 No installed provider supports this key 的问题。
+但是提到了测试环境，又出现了问题:
+显示没有合法的AES key
+首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。
+我们需要明确一下本地环境和线上环境的不同:
+ 本地: Jdk 安全目录 含有 unlimit 的jar包，也就是支持 16 24 32 位的key 线上: Jdk 安全目录 只含有 limit 的jar包，只支持 16 位的key  有两种解决方式1.线上安装 unlimit 的jar包 2.">
+
+<meta itemprop="wordCount" content="101">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="写了一个工具类用来加密解密数据库的 app字段
+本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。
+这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。
+我这边采用的是引入第三方库：
+&#34;org.bouncycastle&#34; % &#34;bcprov-jdk16&#34; % &#34;1.45&#34; private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() =&gt; Cipher.getInstance(&#34;AES/ECB/PKCS5Padding&#34;, new BouncyCastleProvider())) 这样就解决了 No installed provider supports this key 的问题。
+但是提到了测试环境，又出现了问题:
+显示没有合法的AES key
+首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。
+我们需要明确一下本地环境和线上环境的不同:
+ 本地: Jdk 安全目录 含有 unlimit 的jar包，也就是支持 16 24 32 位的key 线上: Jdk 安全目录 只含有 limit 的jar包，只支持 16 位的key  有两种解决方式1.线上安装 unlimit 的jar包 2."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        SCALAS
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>写了一个工具类用来加密解密数据库的 app字段</p>
+<p>本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。</p>
+<p><img src="../images/image-20191109145633818.png" alt="image-20191109145633818"></p>
+<p>这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。</p>
+<p>我这边采用的是引入第三方库：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#e6db74">&#34;org.bouncycastle&#34;</span> <span style="color:#f92672">%</span> <span style="color:#e6db74">&#34;bcprov-jdk16&#34;</span> <span style="color:#f92672">%</span> <span style="color:#e6db74">&#34;1.45&#34;</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> localCipher<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">ThreadLocal</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Cipher</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span> <span style="color:#a6e22e">ThreadLocal</span><span style="color:#f92672">.</span>withInitial<span style="color:#f92672">(</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span> <span style="color:#a6e22e">Cipher</span><span style="color:#f92672">.</span>getInstance<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;AES/ECB/PKCS5Padding&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">BouncyCastleProvider</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+</code></pre></div><p>这样就解决了 No installed provider supports this key 的问题。</p>
+<p>但是提到了测试环境，又出现了问题:</p>
+<p><img src="../images/image-20191109150457772.png" alt="image-20191109150457772"></p>
+<p>显示没有合法的AES key</p>
+<p>首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。</p>
+<p>我们需要明确一下本地环境和线上环境的不同:</p>
+<ul>
+<li>本地: Jdk 安全目录 含有 unlimit 的jar包，也就是支持 16 24 32 位的key</li>
+<li>线上: Jdk 安全目录 只含有 limit 的jar包，只支持 16 位的key</li>
+</ul>
+<p>有两种解决方式1.线上安装 unlimit 的jar包 2. 使用16位的key</p>
+<p>因为线上是容器环境，比较难更改 jdk jar 包，所以采用第二种。</p>
+<p>只需要将对 SEED 加密的散列算法改为 MD5 加密就行，因为MD5 会将SEED 转换为一个长度为 16 个字符的字符串。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-groovy" data-lang="groovy"><span style="color:#f92672">import</span> java.nio.charset.StandardCharsets
+<span style="color:#f92672">import</span> java.security.MessageDigest
+
+String a <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;----------------&#34;</span>
+<span style="color:#66d9ef">def</span> instance <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;MD5&#34;</span><span style="color:#f92672">)</span>
+secret <span style="color:#f92672">=</span> instance<span style="color:#f92672">.</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>a<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">String</span><span style="color:#f92672">(</span>secret<span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+</code></pre></div><ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

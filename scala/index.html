@@ -95,50 +95,21 @@
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Scala</span>
     <h1 class="f3 near-black">
-      <a href="https://xiantang.github.io/scala/akka-%E6%BA%90%E7%A0%81/" class="link black dim">
+      <a href="https://xiantang.github.io/scala/aes-%E9%99%90%E5%88%B6%E9%95%BF%E5%BA%A6/" class="link black dim">
         
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      object Main1 extends App { val system = ActorSystem(&#34;HelloSystem&#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件  system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件  // 只有 musicListener 接收到这个事件  system.eventStream.publish(Electronic(&#34;Parov Stelar&#34;)) // jazzListener 和 musicListener 都会收到这个事件  system.eventStream.publish(Jazz(&#34;Sonny Rollins&#34;)) } subscribe 逻辑 同步地将 subcriber 和 to 加入到 subscriptions 中，diff 应该是和之前的一次比较保证不会重复发送?
-def subscribe(subscriber: Subscriber, to: Classifier): Boolean = subscriptions.synchronized { val diff = subscriptions.
-    </div>
-  </div>
-</div>
-</div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Scala</span>
-    <h1 class="f3 near-black">
-      <a href="https://xiantang.github.io/scala/learn-scala/" class="link black dim">
-        
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      声明隐式转换
-这里的问题是 2*r 等价于 2. 叫 r)，因此这是一个对 2 这个整数的方法调 用。 但Int类并没有一个接收Rational参数的乘法方法一一它没法有这样一 个方法，因为 Rational 类并不是 Scala类库中的标准类
-不过， Scala有另外一种方式来解决这个问题 :可以创建一个隐式转换( implicit conversion )，在需要时自动将整数转换成有理数 。 可以往解释器里添加行:
-implicit def inToRational(x :Int) = new Rational(x) val r = new Rational(2,3) println(2*r) 生成器
-def scalaFiles = for { file &lt;- fileHere if file.getName.endsWith(&#34;.sh&#34;) } yield file scalaFiles 每次迭代生成一个可以被记住的值
-函数和闭包 局部函数 既然现在 processLine 定义在 processFile 内部，我们还可以做另一项 改进 。 注意到 filename 和 width 被直接透传给助手函数，完全没有变吗?这 里的传递不是必须的，因为局部函数可以访问包含它们的函数的参数 。 可以直 接使用外部的 processFile 函数的参数.
-    </div>
-  </div>
-</div>
-</div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Scala</span>
-    <h1 class="f3 near-black">
-      <a href="https://xiantang.github.io/scala/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="link black dim">
-        
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Sbt.
-常用命令[ ](https://www.scala-sbt.org/1.x/docs/zh-cn/Running.html#常用命令) 下面是一些非常常用的的 sbt 命令。更加详细的列表请参见 命令行参考。
-   clean 删除所有生成的文件 （在 target 目录下）。     compile 编译源文件（在 src/main/scala 和 src/main/java 目录下）。   test 编译和运行所有测试。   console 进入到一个包含所有编译的文件和所有依赖的 classpath 的 Scala 解析器。输入 :quit， Ctrl+D （Unix），或者 Ctrl+Z （Windows） 返回到 sbt。   run &lt;参数&gt;* 在和 sbt 所处的同一个虚拟机上执行项目的 main class。   package 将 src/main/resources 下的文件和 src/main/scala 以及 src/main/java 中编译出来的 class 文件打包成一个 jar 文件。   help &lt;命令&gt; 显示指定的命令的详细帮助信息。如果没有指定命令，会显示所有命令的简介。   reload 重新加载构建定义（build.
+      写了一个工具类用来加密解密数据库的 app字段
+本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。
+这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。
+我这边采用的是引入第三方库：
+&#34;org.bouncycastle&#34; % &#34;bcprov-jdk16&#34; % &#34;1.45&#34; private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() =&gt; Cipher.getInstance(&#34;AES/ECB/PKCS5Padding&#34;, new BouncyCastleProvider())) 这样就解决了 No installed provider supports this key 的问题。
+但是提到了测试环境，又出现了问题:
+显示没有合法的AES key
+首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。
+我们需要明确一下本地环境和线上环境的不同:
+ 本地: Jdk 安全目录 含有 unlimit 的jar包，也就是支持 16 24 32 位的key 线上: Jdk 安全目录 只含有 limit 的jar包，只支持 16 位的key  有两种解决方式1.线上安装 unlimit 的jar包 2.
     </div>
   </div>
 </div>
