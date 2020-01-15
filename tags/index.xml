@@ -6,9 +6,19 @@
     <description>Recent content in Tags on xiantang</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Wed, 30 Aug 2017 01:37:56 +0800</lastBuildDate>
     
 	<atom:link href="https://xiantang.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>scala</title>
+      <link>https://xiantang.github.io/tags/scala/</link>
+      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/tags/scala/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

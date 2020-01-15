@@ -6,9 +6,28 @@
     <description>Recent content in Categories on xiantang</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Wed, 30 Aug 2017 01:37:56 +0800</lastBuildDate>
     
 	<atom:link href="https://xiantang.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>scala</title>
+      <link>https://xiantang.github.io/categories/scala/</link>
+      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/categories/scala/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>中文</title>
+      <link>https://xiantang.github.io/categories/%E4%B8%AD%E6%96%87/</link>
+      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/categories/%E4%B8%AD%E6%96%87/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

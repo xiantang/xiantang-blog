@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>xiantang</title>
-    <link>https://xiantang.github.io/</link>
-    <description>Recent content on xiantang</description>
+    <title>Posts on xiantang</title>
+    <link>https://xiantang.github.io/post/</link>
+    <description>Recent content in Posts on xiantang</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 30 Aug 2017 01:37:56 +0800</lastBuildDate>
     
-	<atom:link href="https://xiantang.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xiantang.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,24 +17,6 @@
       <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
       
       <guid>https://xiantang.github.io/post/scala/aes_limit_length/</guid>
-      <description>写了一个工具类用来加密解密数据库的 app字段
-本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。
-这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。
-我这边采用的是引入第三方库：
-&amp;#34;org.bouncycastle&amp;#34; % &amp;#34;bcprov-jdk16&amp;#34; % &amp;#34;1.45&amp;#34; private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() =&amp;gt; Cipher.getInstance(&amp;#34;AES/ECB/PKCS5Padding&amp;#34;, new BouncyCastleProvider())) 这样就解决了 No installed provider supports this key 的问题。
-但是提到了测试环境，又出现了问题:
-显示没有合法的AES key
-首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。
-我们需要明确一下本地环境和线上环境的不同:
- 本地: Jdk 安全目录 含有 unlimit 的jar包，也就是支持 16 24 32 位的key 线上: Jdk 安全目录 只含有 limit 的jar包，只支持 16 位的key  有两种解决方式1.线上安装 unlimit 的jar包 2.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://xiantang.github.io/scala/aes-%E9%99%90%E5%88%B6%E9%95%BF%E5%BA%A6/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://xiantang.github.io/scala/aes-%E9%99%90%E5%88%B6%E9%95%BF%E5%BA%A6/</guid>
       <description>写了一个工具类用来加密解密数据库的 app字段
 本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。
 这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。

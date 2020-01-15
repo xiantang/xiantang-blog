@@ -34,7 +34,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://xiantang.github.io/categories/" />
-
+<meta property="og:updated_time" content="2017-08-30T01:37:56+08:00" />
 <meta itemprop="name" content="Categories">
 <meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Categories"/>
@@ -95,6 +95,68 @@
   </article>
   <div class="mw8 center">
     <section class="ph4">
+      
+        <h2 class="f1">
+          <a href="/categories/scala" class="link blue hover-black">
+            Category: scala
+          </a>
+        </h2>
+        
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Post</span>
+    <h1 class="f3 near-black">
+      <a href="https://xiantang.github.io/post/scala/aes_limit_length/" class="link black dim">
+        AES 需要限制 SEED 长度
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      写了一个工具类用来加密解密数据库的 app字段
+本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。
+这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。
+我这边采用的是引入第三方库：
+&#34;org.bouncycastle&#34; % &#34;bcprov-jdk16&#34; % &#34;1.45&#34; private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() =&gt; Cipher.getInstance(&#34;AES/ECB/PKCS5Padding&#34;, new BouncyCastleProvider())) 这样就解决了 No installed provider supports this key 的问题。
+但是提到了测试环境，又出现了问题:
+显示没有合法的AES key
+首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。
+我们需要明确一下本地环境和线上环境的不同:
+ 本地: Jdk 安全目录 含有 unlimit 的jar包，也就是支持 16 24 32 位的key 线上: Jdk 安全目录 只含有 limit 的jar包，只支持 16 位的key  有两种解决方式1.线上安装 unlimit 的jar包 2.
+    </div>
+  </div>
+</div>
+
+        
+      
+        <h2 class="f1">
+          <a href="/categories/%E4%B8%AD%E6%96%87" class="link blue hover-black">
+            Category: 中文
+          </a>
+        </h2>
+        
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Post</span>
+    <h1 class="f3 near-black">
+      <a href="https://xiantang.github.io/post/scala/aes_limit_length/" class="link black dim">
+        AES 需要限制 SEED 长度
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      写了一个工具类用来加密解密数据库的 app字段
+本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。
+这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。
+我这边采用的是引入第三方库：
+&#34;org.bouncycastle&#34; % &#34;bcprov-jdk16&#34; % &#34;1.45&#34; private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() =&gt; Cipher.getInstance(&#34;AES/ECB/PKCS5Padding&#34;, new BouncyCastleProvider())) 这样就解决了 No installed provider supports this key 的问题。
+但是提到了测试环境，又出现了问题:
+显示没有合法的AES key
+首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。
+我们需要明确一下本地环境和线上环境的不同:
+ 本地: Jdk 安全目录 含有 unlimit 的jar包，也就是支持 16 24 32 位的key 线上: Jdk 安全目录 只含有 limit 的jar包，只支持 16 位的key  有两种解决方式1.线上安装 unlimit 的jar包 2.
+    </div>
+  </div>
+</div>
+
+        
       
     </section>
   </div>
