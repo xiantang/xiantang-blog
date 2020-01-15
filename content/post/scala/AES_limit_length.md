@@ -60,3 +60,4 @@ def instance = MessageDigest.getInstance("MD5")
 secret = instance.digest(a.getBytes())
 new String(secret).length()
 ```
+
