@@ -3,24 +3,24 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://example.org/posts/kubectl-n-k8s-marketing-automation-exec-ti-k8s-marketing-automation-opm-687d45b94d-4vvt6-bash-kubeconfigusersxian/</loc>
+    <loc>http://xiantang.info/posts/k/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://example.org/categories/</loc>
+    <loc>http://xiantang.info/categories/</loc>
   </url>
   
   <url>
-    <loc>http://example.org/posts/</loc>
+    <loc>http://xiantang.info/posts/</loc>
   </url>
   
   <url>
-    <loc>http://example.org/tags/</loc>
+    <loc>http://xiantang.info/tags/</loc>
   </url>
   
   <url>
-    <loc>http://example.org/</loc>
+    <loc>http://xiantang.info/</loc>
   </url>
   
 </urlset>
