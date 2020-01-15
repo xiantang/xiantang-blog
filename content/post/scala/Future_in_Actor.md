@@ -1,5 +1,5 @@
 ---
-title: "Future_in_Actor"
+title: "Actor 如何处理阻塞消息"
 date: 2020-01-15T17:51:36+08:00
 draft: true
 ---
