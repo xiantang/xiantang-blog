@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>xiantang</title>
-    <link>http://xiantang.info/</link>
+    <link>https://xiantang.github.io/</link>
     <description>Recent content on xiantang</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="http://xiantang.info/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xiantang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title></title>
-      <link>http://xiantang.info/posts/k/</link>
+      <link>https://xiantang.github.io/posts/k/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://xiantang.info/posts/k/</guid>
+      <guid>https://xiantang.github.io/posts/k/</guid>
       <description>kubectl -n k8s-marketing-automation exec -ti k8s-marketing-automation-opm-687d45b94d-4vvt6 bash &amp;ndash;kubeconfig=/Users/xiantang/project-conf/k8s-config
 kubectl -n k8s-marketing-automation get pods &amp;ndash;kubeconfig=/Users/xiantang/project-conf/k8s-config
 { //纬度 &amp;#34;dimensions&amp;#34;: [ &amp;#34;tm&amp;#34; ], // 粒度 &amp;#34;granularities&amp;#34;: [ { &amp;#34;id&amp;#34;: &amp;#34;tm&amp;#34;, &amp;#34;interval&amp;#34;: 3600000, &amp;#34;period&amp;#34;: &amp;#34;abs:1573488000000,1573574399999&amp;#34; } ], // 指标 &amp;#34;metrics&amp;#34;: [ { &amp;#34;id&amp;#34;: &amp;#34;uc&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;prepared&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;用户量&amp;#34; } ], &amp;#34;targetUser&amp;#34;: &amp;#34;uv&amp;#34;, //时间 &amp;#34;timeRange&amp;#34;: &amp;#34;day:2,1&amp;#34;, // 是否只进行聚合计算 &amp;#34;aggregation&amp;#34;: true, // 聚合函数 &amp;#34;aggregator&amp;#34;: &amp;#34;sum&amp;#34; } </description>
