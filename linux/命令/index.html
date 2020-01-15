@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="ngrok 内网映射 ./ngrok authtoken 5ioHp3Qr1ztsMz9adXTH7_5GF6YTpEnczVrjGvmyd6R
+./ngrok http 80
+重启nginx ps -ef | grep nginx 
+从容停止 kill -QUIT 主进程号 快速停止 kill -TERM 主进程号 强制停止 kill -9 nginx
+关闭nginx 开机自动启动 systemctl disable nginx.service
+重启redis
+etc/init.d/redis-server restart
+验证密码
+auth 123456zjd
+ OK
+ 远程连接
+redis-cli -h 111.231.255.225 -p 6379
+scrapy-redis 设置密码
+REDIS_URL = &#39;redis://:{psw}@{host}:{port}&#39;.format( host=&#39;111.231.255.225&#39;, # your server ip port=&#39;6379&#39;, psw=&#39;123456zjd&#39;, ) 查找指定进程  ps -ef | grep mmp-front //mmp-front是进程关键字
+VNC 关闭指定屏幕" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/linux/%E5%91%BD%E4%BB%A4/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="ngrok 内网映射 ./ngrok authtoken 5ioHp3Qr1ztsMz9adXTH7_5GF6YTpEnczVrjGvmyd6R
+./ngrok http 80
+重启nginx ps -ef | grep nginx 
+从容停止 kill -QUIT 主进程号 快速停止 kill -TERM 主进程号 强制停止 kill -9 nginx
+关闭nginx 开机自动启动 systemctl disable nginx.service
+重启redis
+etc/init.d/redis-server restart
+验证密码
+auth 123456zjd
+ OK
+ 远程连接
+redis-cli -h 111.231.255.225 -p 6379
+scrapy-redis 设置密码
+REDIS_URL = &#39;redis://:{psw}@{host}:{port}&#39;.format( host=&#39;111.231.255.225&#39;, # your server ip port=&#39;6379&#39;, psw=&#39;123456zjd&#39;, ) 查找指定进程  ps -ef | grep mmp-front //mmp-front是进程关键字
+VNC 关闭指定屏幕">
+
+<meta itemprop="wordCount" content="74">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="ngrok 内网映射 ./ngrok authtoken 5ioHp3Qr1ztsMz9adXTH7_5GF6YTpEnczVrjGvmyd6R
+./ngrok http 80
+重启nginx ps -ef | grep nginx 
+从容停止 kill -QUIT 主进程号 快速停止 kill -TERM 主进程号 强制停止 kill -9 nginx
+关闭nginx 开机自动启动 systemctl disable nginx.service
+重启redis
+etc/init.d/redis-server restart
+验证密码
+auth 123456zjd
+ OK
+ 远程连接
+redis-cli -h 111.231.255.225 -p 6379
+scrapy-redis 设置密码
+REDIS_URL = &#39;redis://:{psw}@{host}:{port}&#39;.format( host=&#39;111.231.255.225&#39;, # your server ip port=&#39;6379&#39;, psw=&#39;123456zjd&#39;, ) 查找指定进程  ps -ef | grep mmp-front //mmp-front是进程关键字
+VNC 关闭指定屏幕"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        LINUXES
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="ngrok-内网映射">ngrok 内网映射</h2>
+<p>./ngrok authtoken 5ioHp3Qr1ztsMz9adXTH7_5GF6YTpEnczVrjGvmyd6R</p>
+<p>./ngrok http 80</p>
+<h2 id="重启nginx">重启nginx</h2>
+<p><code>ps -ef | grep nginx </code></p>
+<p>从容停止   kill -QUIT 主进程号
+快速停止   kill -TERM 主进程号
+强制停止   kill -9 nginx</p>
+<p>关闭nginx 开机自动启动
+<code>systemctl disable nginx.service</code></p>
+<p>重启<code>redis</code></p>
+<p><code>etc/init.d/redis-server restart</code><br>
+验证密码</p>
+<p><code>auth 123456zjd</code></p>
+<blockquote>
+<p>OK</p>
+</blockquote>
+<p>远程连接</p>
+<p><code>redis-cli -h 111.231.255.225 -p 6379</code></p>
+<p>scrapy-redis 设置密码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3">REDIS_URL <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">redis://:</span><span style="color:#e6db74">{psw}</span><span style="color:#e6db74">@</span><span style="color:#e6db74">{host}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">{port}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(
+    host<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">111.231.255.225</span><span style="color:#e6db74">&#39;</span>, <span style="color:#75715e"># your server ip</span>
+    port<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">6379</span><span style="color:#e6db74">&#39;</span>,
+    psw<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">123456zjd</span><span style="color:#e6db74">&#39;</span>,
+)
+</code></pre></div><p>查找指定进程
+<code> ps -ef | grep mmp-front //mmp-front是进程关键字</code></p>
+<h3 id="vnc">VNC</h3>
+<p>关闭指定屏幕</p>
+<p>vncserver -kill :1</p>
+<p>开启屏幕</p>
+<p>vncserver -geometry 1440x900 :1</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

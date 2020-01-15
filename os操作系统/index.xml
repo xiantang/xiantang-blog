@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Os(操作系统)s on xiantang</title>
+    <link>https://xiantang.github.io/os%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+    <description>Recent content in Os(操作系统)s on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://xiantang.github.io/os%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://xiantang.github.io/os%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/assembly/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiantang.github.io/os%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/assembly/</guid>
+      <description>基础知识 汇编语言的组成  汇编指令 伪指令 其他符号  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xiantang.github.io/os%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/udacity-os/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiantang.github.io/os%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/udacity-os/</guid>
+      <description>Concept OS Elements  Abstractions  process thread file socket memory page   Mechanisms  create schedule open write allocate(分配)   Policies(策略)  least-recently used(LRU) earliest deadline first (EDF)    关于Mechanisms 和 Polices的区别我其实迷惑了很久。
+其实总结出来很简单Mechanisms 机制 指的是 what to do
+Polices 指的是 how to do
+也可以这样理解机制是策略的更高一层抽象，策略是指具体如何实现的方式，机制则是我需要这个功能，但是不关注实现。
+举个例子就是Linux内核的调度器（scheduler），提供了任务调度需要的原语操作和结构，并且实现了多种调度算法。
+Process what is a Process : state of a program when executing loaded in memory. (active entity)
+ instance of an executing program Synonymous with &amp;ldquo;task&amp;rdquo; or &amp;ldquo;job&amp;rdquo;  A process is like an order of toys</description>
+    </item>
+    
+  </channel>
+</rss>

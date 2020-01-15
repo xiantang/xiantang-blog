@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Framework(框架)s on xiantang</title>
+    <link>https://xiantang.github.io/framework%E6%A1%86%E6%9E%B6/</link>
+    <description>Recent content in Framework(框架)s on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://xiantang.github.io/framework%E6%A1%86%E6%9E%B6/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://xiantang.github.io/framework%E6%A1%86%E6%9E%B6/spring/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiantang.github.io/framework%E6%A1%86%E6%9E%B6/spring/</guid>
+      <description>1.step1-最基本的容器 IoC最基本的角色有两个：容器(BeanFactory)和Bean本身。这里使用BeanDefinition来封装了bean对象，这样可以保存一些额外的元信息。测试代码：
+// 1.初始化beanfactory BeanFactory beanFactory = new BeanFactory(); // 2.注入bean BeanDefinition beanDefinition = new BeanDefinition(new HelloWorldService()); beanFactory.registerBeanDefinition(&amp;#34;helloWorldService&amp;#34;, beanDefinition); // 3.获取bean HelloWorldService helloWorldService = (HelloWorldService) beanFactory.getBean(&amp;#34;helloWorldService&amp;#34;); helloWorldService.helloWorld(); 对于 BeanFactory 我们使用的容器是 ConcurrentHashMap
+public class BeanFactory { /** * Spring 通过线程池的方式来publishEvent ApplicationListener的实现类是在线程中运行的 */ private Map&amp;lt;String, BeanDefinition&amp;gt; beanDefinitionMap = new ConcurrentHashMap&amp;lt;&amp;gt;(); public Object getBean(String name){ return beanDefinitionMap.get(name).getBean(); } public void registerBeanDefinition(String name, BeanDefinition beanDefinition) { beanDefinitionMap.put(name, beanDefinition); } } 2.step2-将bean创建放入工厂 step1中的bean是初始化好之后再set进去的，实际使用中，我们希望容器来管理bean的创建。于是我们将bean的初始化放入BeanFactory中。为了保证扩展性，我们使用Extract Interface的方法，将BeanFactory替换成接口，而使用AbstractBeanFactory和AutowireCapableBeanFactory作为其实现。&amp;ldquo;AutowireCapable&amp;quot;的意思是“可自动装配的”，为我们后面注入属性做准备。
+// 1.</description>
+    </item>
+    
+  </channel>
+</rss>

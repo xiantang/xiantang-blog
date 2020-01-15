@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="GrowingIO Marketing API Java Library 概述 GrowingIO Marketing API 的 Java 版本封装库。
+对应的 REST API 文档：REST API - Push.
+安装 maven 方式 将下边的依赖条件放到你项目的 maven pom.xml 文件里。
+&lt;dependency&gt; &lt;groupId&gt;com.growingio&lt;/groupId&gt; &lt;artifactId&gt;marketing-api-java-client&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;/dependency&gt; 样例 推送 API  构建推送对象：所有平台，推送目标是别名为 &ldquo;alias1&rdquo;，通知内容为 ALERT。 构建 PushMessage:  // 需要替换成使用者的自己的变量  String clientId = &#34;clientId&#34;; String secret = &#34;secret&#34;; String projectUid = &#34;projectUid&#34;; String ai = &#34;ai&#34;; PushMessageClient client = PushMessageClient.getInstance(clientId, secret, projectUid, ai); Options options = Options." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/translate%E7%BF%BB%E8%AF%91%E4%BD%9C%E5%93%81/sdk/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="GrowingIO Marketing API Java Library 概述 GrowingIO Marketing API 的 Java 版本封装库。
+对应的 REST API 文档：REST API - Push.
+安装 maven 方式 将下边的依赖条件放到你项目的 maven pom.xml 文件里。
+&lt;dependency&gt; &lt;groupId&gt;com.growingio&lt;/groupId&gt; &lt;artifactId&gt;marketing-api-java-client&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;/dependency&gt; 样例 推送 API  构建推送对象：所有平台，推送目标是别名为 &ldquo;alias1&rdquo;，通知内容为 ALERT。 构建 PushMessage:  // 需要替换成使用者的自己的变量  String clientId = &#34;clientId&#34;; String secret = &#34;secret&#34;; String projectUid = &#34;projectUid&#34;; String ai = &#34;ai&#34;; PushMessageClient client = PushMessageClient.getInstance(clientId, secret, projectUid, ai); Options options = Options.">
+
+<meta itemprop="wordCount" content="357">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="GrowingIO Marketing API Java Library 概述 GrowingIO Marketing API 的 Java 版本封装库。
+对应的 REST API 文档：REST API - Push.
+安装 maven 方式 将下边的依赖条件放到你项目的 maven pom.xml 文件里。
+&lt;dependency&gt; &lt;groupId&gt;com.growingio&lt;/groupId&gt; &lt;artifactId&gt;marketing-api-java-client&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;/dependency&gt; 样例 推送 API  构建推送对象：所有平台，推送目标是别名为 &ldquo;alias1&rdquo;，通知内容为 ALERT。 构建 PushMessage:  // 需要替换成使用者的自己的变量  String clientId = &#34;clientId&#34;; String secret = &#34;secret&#34;; String projectUid = &#34;projectUid&#34;; String ai = &#34;ai&#34;; PushMessageClient client = PushMessageClient.getInstance(clientId, secret, projectUid, ai); Options options = Options."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        TRANSLATE(翻译作品)S
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="growingio-marketing-api-java-library">GrowingIO Marketing API Java Library</h1>
+<h2 id="概述">概述</h2>
+<p>GrowingIO Marketing API 的 Java 版本封装库。</p>
+<p>对应的 REST API 文档：<a href="https://shimo.im/docs/rvKhdc3wDkhxRt8Y/read">REST API - Push</a>.</p>
+<h2 id="安装">安装</h2>
+<h3 id="maven-方式">maven 方式</h3>
+<p>将下边的依赖条件放到你项目的 maven pom.xml 文件里。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependency</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;groupId</span><span style="color:#f92672">&gt;</span>com.growingio<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId</span><span style="color:#f92672">&gt;</span>marketing-api-java-client<span style="color:#f92672">&lt;/artifactId&gt;</span>
+    <span style="color:#f92672">&lt;version</span><span style="color:#f92672">&gt;</span>1.0-SNAPSHOT<span style="color:#f92672">&lt;/version&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div><h3 id="样例">样例</h3>
+<h4 id="推送-api">推送 API</h4>
+<ul>
+<li>构建推送对象：所有平台，推送目标是别名为 &ldquo;alias1&rdquo;，通知内容为 ALERT。
+构建 <code>PushMessage</code>:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 需要替换成使用者的自己的变量
+</span><span style="color:#75715e"></span>      String clientId <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;clientId&#34;</span><span style="color:#f92672">;</span>
+      String secret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;secret&#34;</span><span style="color:#f92672">;</span>
+      String projectUid <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;projectUid&#34;</span><span style="color:#f92672">;</span>
+      String ai <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ai&#34;</span><span style="color:#f92672">;</span>
+  
+      PushMessageClient client <span style="color:#f92672">=</span> PushMessageClient<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span>clientId<span style="color:#f92672">,</span> secret<span style="color:#f92672">,</span> projectUid<span style="color:#f92672">,</span> ai<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  
+      Options options <span style="color:#f92672">=</span> Options<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">setApnsProduction</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+      PushNotification notification <span style="color:#f92672">=</span>
+          PushNotification<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">setTitle</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;推送标题&#34;</span><span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">setAlert</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;推送内容&#34;</span><span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">setActionType</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;openApp&#34;</span><span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">setActionTarget</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;com.hello.world&#34;</span><span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  
+      PushMessage message <span style="color:#f92672">=</span>
+          PushMessage<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">setCid</span><span style="color:#f92672">(</span>UUID<span style="color:#f92672">.</span><span style="color:#a6e22e">randomUUID</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;测试名字&#34;</span><span style="color:#f92672">+</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">currentTimeMillis</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">setPackageName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;com.growingio.giodemo&#34;</span><span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">addAllAudience</span><span style="color:#f92672">(</span>Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;alias1&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">setNotification</span><span style="color:#f92672">(</span>notification<span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">setOptions</span><span style="color:#f92672">(</span>options<span style="color:#f92672">)</span>
+              <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+
+</code></pre></div><p>推送 <code>PushMessage</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">      <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+        HttpResponse response <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span><span style="color:#a6e22e">send</span><span style="color:#f92672">(</span>message<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>response<span style="color:#f92672">.</span><span style="color:#a6e22e">isSuccess</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Send push message successful!&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;code: {}, body: {}&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getCode</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getBody</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        assertTrue<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">isSuccess</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  
+      <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">error</span><span style="color:#f92672">(</span>e<span style="color:#f92672">.</span><span style="color:#a6e22e">getLocalizedMessage</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> e<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+      <span style="color:#f92672">}</span> 
+</code></pre></div><h4 id="弹窗">弹窗</h4>
+<ul>
+<li>构建弹窗对象：推送目标是别名为 &ldquo;alias2&rdquo;，通知内容为 ALERT，消息素材 &ldquo;https://xxxxxxxx/1130img.jpeg&rdquo;。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 创建targets
+</span><span style="color:#75715e"></span>HashMap<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> parameter1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+parameter1<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;key1&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;value1&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+parameter1<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;key2&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;value2&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+HashMap<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> parameter2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+parameter2<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;key1&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;value1&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+parameter2<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;key2&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;value2&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+Target target1 <span style="color:#f92672">=</span> Target<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setProductId</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;xxxx&#34;</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setType</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;openUrl&#34;</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setUrl</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;XxxActivity&#34;</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">putAllParameter</span><span style="color:#f92672">(</span>parameter1<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+List<span style="color:#f92672">&lt;</span>Target<span style="color:#f92672">&gt;</span> targets <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>Target<span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+Target target2 <span style="color:#f92672">=</span> Target<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setProductId</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;xxxx&#34;</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setType</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;openUrl&#34;</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setUrl</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;XxxActivity&#34;</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">putAllParameter</span><span style="color:#f92672">(</span>parameter2<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+targets<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>target1<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+targets<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>target2<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+
+
+<span style="color:#75715e">// 根据 targets 创建 Rule
+</span><span style="color:#75715e"></span>Rule rule <span style="color:#f92672">=</span> Rule<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setAction</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;xxxOpen&#34;</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setLimit</span><span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">addAllTargets</span><span style="color:#f92672">(</span>targets<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setStartAt</span><span style="color:#f92672">(</span>1575092361116L<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setEndAt</span><span style="color:#f92672">(</span>1575095961116L<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setTriggerCd</span><span style="color:#f92672">(</span>86400L<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+
+<span style="color:#75715e">// 根据 rule 创建 InAppMessage
+</span><span style="color:#75715e"></span>InAppMessage message <span style="color:#f92672">=</span> InAppMessage<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;testest&#34;</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setAudience</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;alias2&#34;</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setRule</span><span style="color:#f92672">(</span>rule<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setContent</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;https://xxxxxxxx/1130img.jpeg&#34;</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+</code></pre></div><ul>
+<li>创建弹窗</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">InAppMessageClient client <span style="color:#f92672">=</span> InAppMessageClient<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span>clientId<span style="color:#f92672">,</span> secret<span style="color:#f92672">,</span> projectUid<span style="color:#f92672">,</span> ai<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+HttpResponse response <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span><span style="color:#a6e22e">send</span><span style="color:#f92672">(</span>message<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>response<span style="color:#f92672">.</span><span style="color:#a6e22e">isSuccess</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Send push message successful!&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;code: {}, body: {}&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getCode</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getBody</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+</code></pre></div><ul>
+<li>更新弹窗 需要提供指定的messageId</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">InAppMessageClient client <span style="color:#f92672">=</span> InAppMessageClient<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span>clientId<span style="color:#f92672">,</span> secret<span style="color:#f92672">,</span> projectUid<span style="color:#f92672">,</span> ai<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+HttpResponse response <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span><span style="color:#a6e22e">update</span><span style="color:#f92672">(</span>messageId<span style="color:#f92672">,</span>message<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>response<span style="color:#f92672">.</span><span style="color:#a6e22e">isSuccess</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Send push message successful!&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;code: {}, body: {}&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getCode</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getBody</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+assertTrue<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">isSuccess</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+</code></pre></div><ul>
+<li>删除弹窗 只需要提供指定的messageId</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">InAppMessageClient client <span style="color:#f92672">=</span> InAppMessageClient<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span>clientId<span style="color:#f92672">,</span> secret<span style="color:#f92672">,</span> projectUid<span style="color:#f92672">,</span> ai<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+HttpResponse response <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span><span style="color:#a6e22e">delete</span><span style="color:#f92672">(</span>messageId<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>response<span style="color:#f92672">.</span><span style="color:#a6e22e">isSuccess</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Send push message successful!&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;code: {}, body: {}&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getCode</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getBody</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+assertTrue<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">isNoContent</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+</code></pre></div><ul>
+<li>检索弹窗 根据 projectUid 来查询该项目下的所有弹窗</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> InAppMessageClient client <span style="color:#f92672">=</span> InAppMessageClient<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span>clientId<span style="color:#f92672">,</span> secret<span style="color:#f92672">,</span> projectUid<span style="color:#f92672">,</span> ai<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+HttpResponse response <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span><span style="color:#a6e22e">index</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>response<span style="color:#f92672">.</span><span style="color:#a6e22e">isSuccess</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Send push message successful!&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;code: {}, body: {}&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getCode</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getBody</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+assertTrue<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">isSuccess</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+</code></pre></div><ul>
+<li>上传媒体文件  返回该文件在服务器的地址</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">InAppMessageClient client <span style="color:#f92672">=</span> InAppMessageClient<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span>clientId<span style="color:#f92672">,</span> secret<span style="color:#f92672">,</span> projectUid<span style="color:#f92672">,</span> ai<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#75715e">// 构建媒体对象
+</span><span style="color:#75715e"></span>Media media <span style="color:#f92672">=</span> Media<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+  <span style="color:#f92672">.</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test.png&#34;</span><span style="color:#f92672">)</span>
+  <span style="color:#f92672">.</span><span style="color:#a6e22e">setFile</span><span style="color:#f92672">(</span>fileString<span style="color:#f92672">)</span>
+  <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+HttpResponse response <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span><span style="color:#a6e22e">uploadMedia</span><span style="color:#f92672">(</span>media<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>response<span style="color:#f92672">.</span><span style="color:#a6e22e">isSuccess</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Send push message successful!&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+LOG<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;code: {}, body: {}&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getCode</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getBody</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+assertTrue<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">isSuccess</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+</code></pre></div><ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

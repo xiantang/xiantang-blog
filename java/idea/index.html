@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="在 Intelij IDEA 中修改 maven 为国内镜像 国内镜像：阿里 打开 IntelliJ IDEA-&gt;Settings -&gt;Build, Execution, Deployment -&gt; Build Tools &gt; Maven 或者直接搜索 maven 具体如下图所示： 而一般情况下在 c:\Users\xx.m2 \ 这个目录下面没有 settings.xml 文件，我们可以新建一个，settings.xml 文件下的内容是：直接粘贴复制保存在上图所示的目录下面就可以了. 需要注意的是，需要点击上图所示右下角的 override。
+&lt;settings xmlns=&#34;http://maven.apache.org/SETTINGS/1.0.0&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34; xsi:schemaLocation=&#34;http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd&#34;&gt; &lt;mirrors&gt; &lt;mirror&gt; &lt;id&gt;alimaven&lt;/id&gt; &lt;name&gt;aliyun maven&lt;/name&gt; &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt; &lt;mirrorOf&gt;central&lt;/mirrorOf&gt; &lt;/mirror&gt; &lt;/mirrors&gt; &lt;/settings&gt; 如果是 linux 系统，操作过程基本相同，只是 settings.xml 文件的存放路径不一样，不过都可以通过上面截图所示的页面中查到。
+idea 常用快捷键 ctrl&#43;N 生成代码
+ctrl&#43;shift&#43;A 命令全搜索.
+This is almost always followed by Ctrl &#43; Alt &#43; Left to get back to where I was (Ctrl &#43; Alt &#43; Right works to “go forward” again)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/java/idea/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="在 Intelij IDEA 中修改 maven 为国内镜像 国内镜像：阿里 打开 IntelliJ IDEA-&gt;Settings -&gt;Build, Execution, Deployment -&gt; Build Tools &gt; Maven 或者直接搜索 maven 具体如下图所示： 而一般情况下在 c:\Users\xx.m2 \ 这个目录下面没有 settings.xml 文件，我们可以新建一个，settings.xml 文件下的内容是：直接粘贴复制保存在上图所示的目录下面就可以了. 需要注意的是，需要点击上图所示右下角的 override。
+&lt;settings xmlns=&#34;http://maven.apache.org/SETTINGS/1.0.0&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34; xsi:schemaLocation=&#34;http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd&#34;&gt; &lt;mirrors&gt; &lt;mirror&gt; &lt;id&gt;alimaven&lt;/id&gt; &lt;name&gt;aliyun maven&lt;/name&gt; &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt; &lt;mirrorOf&gt;central&lt;/mirrorOf&gt; &lt;/mirror&gt; &lt;/mirrors&gt; &lt;/settings&gt; 如果是 linux 系统，操作过程基本相同，只是 settings.xml 文件的存放路径不一样，不过都可以通过上面截图所示的页面中查到。
+idea 常用快捷键 ctrl&#43;N 生成代码
+ctrl&#43;shift&#43;A 命令全搜索.
+This is almost always followed by Ctrl &#43; Alt &#43; Left to get back to where I was (Ctrl &#43; Alt &#43; Right works to “go forward” again).">
+
+<meta itemprop="wordCount" content="100">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="在 Intelij IDEA 中修改 maven 为国内镜像 国内镜像：阿里 打开 IntelliJ IDEA-&gt;Settings -&gt;Build, Execution, Deployment -&gt; Build Tools &gt; Maven 或者直接搜索 maven 具体如下图所示： 而一般情况下在 c:\Users\xx.m2 \ 这个目录下面没有 settings.xml 文件，我们可以新建一个，settings.xml 文件下的内容是：直接粘贴复制保存在上图所示的目录下面就可以了. 需要注意的是，需要点击上图所示右下角的 override。
+&lt;settings xmlns=&#34;http://maven.apache.org/SETTINGS/1.0.0&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34; xsi:schemaLocation=&#34;http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd&#34;&gt; &lt;mirrors&gt; &lt;mirror&gt; &lt;id&gt;alimaven&lt;/id&gt; &lt;name&gt;aliyun maven&lt;/name&gt; &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt; &lt;mirrorOf&gt;central&lt;/mirrorOf&gt; &lt;/mirror&gt; &lt;/mirrors&gt; &lt;/settings&gt; 如果是 linux 系统，操作过程基本相同，只是 settings.xml 文件的存放路径不一样，不过都可以通过上面截图所示的页面中查到。
+idea 常用快捷键 ctrl&#43;N 生成代码
+ctrl&#43;shift&#43;A 命令全搜索.
+This is almost always followed by Ctrl &#43; Alt &#43; Left to get back to where I was (Ctrl &#43; Alt &#43; Right works to “go forward” again)."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        JAVAS
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="在-intelij-idea-中修改-maven-为国内镜像">在 Intelij IDEA 中修改 maven 为国内镜像</h2>
+<p>国内镜像：阿里
+打开 IntelliJ IDEA-&gt;Settings -&gt;Build, Execution, Deployment -&gt; Build Tools &gt; Maven
+或者直接搜索 maven
+具体如下图所示：
+而一般情况下在 c:\Users\xx.m2 \ 这个目录下面没有 settings.xml 文件，我们可以新建一个，settings.xml 文件下的内容是：直接粘贴复制保存在上图所示的目录下面就可以了. 需要注意的是，需要点击上图所示右下角的 override。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://maven.apache.org/SETTINGS/1.0.0&#34;</span>
+      <span style="color:#a6e22e">xmlns:xsi=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+      <span style="color:#a6e22e">xsi:schemaLocation=</span><span style="color:#e6db74">&#34;http://maven.apache.org/SETTINGS/1.0.0
+</span><span style="color:#e6db74">                          https://maven.apache.org/xsd/settings-1.0.0.xsd&#34;</span><span style="color:#f92672">&gt;</span>
+
+      <span style="color:#f92672">&lt;mirrors</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;mirror</span><span style="color:#f92672">&gt;</span>  
+            <span style="color:#f92672">&lt;id</span><span style="color:#f92672">&gt;</span>alimaven<span style="color:#f92672">&lt;/id&gt;</span>  
+            <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>aliyun maven<span style="color:#f92672">&lt;/name&gt;</span>  
+            <span style="color:#f92672">&lt;url</span><span style="color:#f92672">&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span style="color:#f92672">&lt;/url&gt;</span>  
+            <span style="color:#f92672">&lt;mirrorOf</span><span style="color:#f92672">&gt;</span>central<span style="color:#f92672">&lt;/mirrorOf&gt;</span>          
+        <span style="color:#f92672">&lt;/mirror&gt;</span>  
+      <span style="color:#f92672">&lt;/mirrors&gt;</span>
+<span style="color:#f92672">&lt;/settings&gt;</span>
+</code></pre></div><p>如果是 linux 系统，操作过程基本相同，只是 settings.xml 文件的存放路径不一样，不过都可以通过上面截图所示的页面中查到。</p>
+<h2 id="idea-常用快捷键">idea 常用快捷键</h2>
+<p>ctrl+N 生成代码</p>
+<p>ctrl+shift+A 命令全搜索.<br>
+This is almost always followed by Ctrl + Alt + Left to get back to where I was (Ctrl + Alt + Right works to “go forward” again).  <br>
+Ctrl+N 创建class</p>
+<p>Ctrl + J 查看方法JavaDoc</p>
+<h2 id="自动导入静态包">自动导入静态包</h2>
+<p><code>command+enter</code> 对于测试的很多静态方法无法方便的导入。<br>
+需要添加对模糊的包进行导入就可以完成</p>
+<pre><code>Perferences-&gt;Editor-&gt;General-&gt;Auto Import-&gt;java-&gt;add unambigous import on fly   
+</code></pre><ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

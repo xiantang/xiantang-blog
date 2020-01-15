@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="在解释Tomcat 的NIO 连接器之前我们可以来聊一个Tomcat 的StringManage 类
+StringManage StringManage 其实是Tomcat用来处理消息的公用类。
+其实思路就是每个包名对应一个Stringmanager对象，而非所有公用一个Stringmanager对象！
+Tomcat为每一个包提供一个StringManager实例，相当于一个包一个单例的效果
+我们来康康这个一个包一个单例是如何实现的呢？
+/** * Get the StringManager for a particular package and Locale. If a manager * for a package/Locale combination already exists, it will be reused, else * a new StringManager will be created and returned. * * @param packageName The package name * @param locale The Locale */ public static final synchronized StringManager getManager( String packageName, Locale locale) { Map&lt;Locale,StringManager&gt; map = managers." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/tomcat/tomcat-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-2-%E8%BF%9E%E6%8E%A5%E5%99%A8/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="在解释Tomcat 的NIO 连接器之前我们可以来聊一个Tomcat 的StringManage 类
+StringManage StringManage 其实是Tomcat用来处理消息的公用类。
+其实思路就是每个包名对应一个Stringmanager对象，而非所有公用一个Stringmanager对象！
+Tomcat为每一个包提供一个StringManager实例，相当于一个包一个单例的效果
+我们来康康这个一个包一个单例是如何实现的呢？
+/** * Get the StringManager for a particular package and Locale. If a manager * for a package/Locale combination already exists, it will be reused, else * a new StringManager will be created and returned. * * @param packageName The package name * @param locale The Locale */ public static final synchronized StringManager getManager( String packageName, Locale locale) { Map&lt;Locale,StringManager&gt; map = managers.">
+
+<meta itemprop="wordCount" content="816">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="在解释Tomcat 的NIO 连接器之前我们可以来聊一个Tomcat 的StringManage 类
+StringManage StringManage 其实是Tomcat用来处理消息的公用类。
+其实思路就是每个包名对应一个Stringmanager对象，而非所有公用一个Stringmanager对象！
+Tomcat为每一个包提供一个StringManager实例，相当于一个包一个单例的效果
+我们来康康这个一个包一个单例是如何实现的呢？
+/** * Get the StringManager for a particular package and Locale. If a manager * for a package/Locale combination already exists, it will be reused, else * a new StringManager will be created and returned. * * @param packageName The package name * @param locale The Locale */ public static final synchronized StringManager getManager( String packageName, Locale locale) { Map&lt;Locale,StringManager&gt; map = managers."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        TOMCATS
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>在解释Tomcat 的NIO 连接器之前我们可以来聊一个Tomcat 的StringManage 类</p>
+<h1 id="stringmanage">StringManage</h1>
+<p>StringManage 其实是Tomcat用来处理消息的公用类。</p>
+<p><strong>其实思路就是每个包名对应一个Stringmanager对象，而非所有公用一个Stringmanager对象</strong>！</p>
+<p>Tomcat为每一个包提供一个StringManager实例，<strong>相当于一个包一个单例的效果</strong></p>
+<p>我们来康康这个一个包一个单例是如何实现的呢？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * Get the StringManager for a particular package and Locale. If a manager
+</span><span style="color:#75715e">     * for a package/Locale combination already exists, it will be reused, else
+</span><span style="color:#75715e">     * a new StringManager will be created and returned.
+</span><span style="color:#75715e">     *
+</span><span style="color:#75715e">     * @param packageName The package name
+</span><span style="color:#75715e">     * @param locale      The Locale
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">synchronized</span> StringManager <span style="color:#a6e22e">getManager</span><span style="color:#f92672">(</span>
+            String packageName<span style="color:#f92672">,</span> Locale locale<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+
+        Map<span style="color:#f92672">&lt;</span>Locale<span style="color:#f92672">,</span>StringManager<span style="color:#f92672">&gt;</span> map <span style="color:#f92672">=</span> managers<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>packageName<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>map <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            map <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Hashtable<span style="color:#f92672">&lt;</span>Locale<span style="color:#f92672">,</span> StringManager<span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            managers<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>packageName<span style="color:#f92672">,</span> map<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+        StringManager mgr <span style="color:#f92672">=</span> map<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>locale<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>mgr <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            mgr <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringManager<span style="color:#f92672">(</span>packageName<span style="color:#f92672">,</span> locale<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>locale<span style="color:#f92672">,</span> mgr<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> mgr<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><p>我简单的翻译一下注释，获取一个StringManage 实例根据包名和国际化的local对象,如果查找到就复用，如果未查找到，就创建一个并且返回。</p>
+<p>Local 对象我们简要的说明一下，每一个Locale对象都代表了一个特定的地理、政治和文化地区。</p>
+<p>Tomcat 是采用的获取默认的Local  <code>Locale.getDefault()</code></p>
+<p>这个单例是如何实现的呢？</p>
+<p>StringManage 有一个静态的变量:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Map<span style="color:#f92672">&lt;</span>Locale<span style="color:#f92672">,</span>StringManager<span style="color:#f92672">&gt;</span><span style="color:#f92672">&gt;</span> managers <span style="color:#f92672">=</span>
+        <span style="color:#66d9ef">new</span> Hashtable<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Map<span style="color:#f92672">&lt;</span>Locale<span style="color:#f92672">,</span>StringManager<span style="color:#f92672">&gt;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+</code></pre></div><p>他存储着Tomcat 所有包的 StringManage，用包名去作为key，value 是每个地区这个包的StringManage，可以根据Local 对象来获取，并且初始化的时候是空的，需要使用的时候才开始创建。</p>
+<p>这就是每个包一个单例的实现。</p>
+<p>下面我们来看看这个他是如何获取每个包的属性资源的：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e">    Get a string from the underlying resource bundle or return
+</span><span style="color:#75715e">    null if the String is not found.
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">    @param key to desired resource String
+</span><span style="color:#75715e">    @return resource String matching &lt;i&gt;key&lt;/i&gt; from underlying
+</span><span style="color:#75715e">            bundle or null if not found.
+</span><span style="color:#75715e">    @throws IllegalArgumentException if &lt;i&gt;key&lt;/i&gt; is null.
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span>String key<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>key <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+        String msg <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;key may not have a null value&#34;</span><span style="color:#f92672">;</span>
+
+        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalArgumentException<span style="color:#f92672">(</span>msg<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    String str <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// Avoid NPE if bundle is null and treat it like an MRE
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>bundle <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            str <span style="color:#f92672">=</span> bundle<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span>key<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span><span style="color:#f92672">(</span>MissingResourceException mre<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">//bad: shouldn&#39;t mask an exception the following way:
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//   str = &#34;[cannot find message associated with key &#39;&#34; + key +
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//         &#34;&#39; due to &#34; + mre + &#34;]&#34;;
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     because it hides the fact that the String was missing
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     from the calling code.
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//good: could just throw the exception (or wrap it in another)
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//      but that would probably cause much havoc on existing
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//      code.
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//better: consistent with container pattern to
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//      simply return null.  Calling code can then do
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//      a null check.
+</span><span style="color:#75715e"></span>       <span style="color:#75715e">// 这个注释好像有很棒的设计理念在里面
+</span><span style="color:#75715e"></span>       <span style="color:#75715e">// 如果你在设计底层的代码的时候
+</span><span style="color:#75715e"></span>       <span style="color:#75715e">// 需要去做一个异常处理 
+</span><span style="color:#75715e"></span>       <span style="color:#75715e">// 但是如果你的异常只是简单的像赋值一样覆盖掉
+</span><span style="color:#75715e"></span>       <span style="color:#75715e">// 其他开发者是不会知道这个问题的(没有注释)
+</span><span style="color:#75715e"></span>       <span style="color:#75715e">// 如果你向上抛出异常，是一个很不错的方式 
+</span><span style="color:#75715e"></span>       <span style="color:#75715e">// 但是会影响到一大片存在的代码 
+</span><span style="color:#75715e"></span>       <span style="color:#75715e">// 如果你返回一个空值会更好，
+</span><span style="color:#75715e"></span>       <span style="color:#75715e">// 调用的代码只需要添加一个空值检验就可以了
+</span><span style="color:#75715e"></span>        str <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">return</span> str<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>他内部调用了 bundle 对象的方法</p>
+<p>bundle 是通过 <code>ResourceBundle.getBundle(bundleName, locale);</code> 来的来的</p>
+<p>对于这个方法是这样的：</p>
+<p>ResourceBundle支持多国语言：先把文件名取成类似这样myres_zh_CN.properties</p>
+<p>然后：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Locale locale1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Locale<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;zh&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;CN&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+ResourceBundle resb1 <span style="color:#f92672">=</span> ResourceBundle<span style="color:#f92672">.</span><span style="color:#a6e22e">getBundle</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;myres&#34;</span><span style="color:#f92672">,</span> locale1<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+resb1<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;aaa&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+</code></pre></div><p>有了bundle 对象之后我们就能够通过getString()来获得对应的异常消息了。</p>
+<h1 id="请求处理的流程">请求处理的流程</h1>
+<p>Tomcat 对于Poller 感知到的触发了感兴趣的事件的 socketChannel 会调用Poller的 processKey 方法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>iterator <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;</span><span style="color:#f92672">&amp;</span> iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">hasNext</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  SelectionKey sk <span style="color:#f92672">=</span> iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  KeyAttachment attachment <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>KeyAttachment<span style="color:#f92672">)</span>sk<span style="color:#f92672">.</span><span style="color:#a6e22e">attachment</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  <span style="color:#75715e">// Attachment may be null if another thread has called
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// cancelledKey()
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>attachment <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+    attachment<span style="color:#f92672">.</span><span style="color:#a6e22e">access</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    iterator<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    processKey<span style="color:#f92672">(</span>sk<span style="color:#f92672">,</span> attachment<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span><span style="color:#75715e">//while
+</span></code></pre></div><p>紧接着会通过processKey 调用processSocket 方法调用线程池来执行对应的任务</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">SocketProcessor sc <span style="color:#f92672">=</span> processorCache<span style="color:#f92672">.</span><span style="color:#a6e22e">poll</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span> sc <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">)</span> sc <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> SocketProcessor<span style="color:#f92672">(</span>socket<span style="color:#f92672">,</span>status<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">else</span> sc<span style="color:#f92672">.</span><span style="color:#a6e22e">reset</span><span style="color:#f92672">(</span>socket<span style="color:#f92672">,</span>status<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span> dispatch <span style="color:#f92672">&amp;</span><span style="color:#f92672">&amp;</span> getExecutor<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">!</span><span style="color:#f92672">=</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+  getExecutor<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">execute</span><span style="color:#f92672">(</span>sc<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>并且我们可以发现Tomcat 为了提升效率为 SocketProcessor 也设置了缓存</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e">     * Cache for SocketProcessor objects
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">protected</span> ConcurrentLinkedQueue<span style="color:#f92672">&lt;</span>SocketProcessor<span style="color:#f92672">&gt;</span> processorCache <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ConcurrentLinkedQueue<span style="color:#f92672">&lt;</span>SocketProcessor<span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span>
+</code></pre></div><p>SocketProcessor 线程也设置了复用的方法并且在任务执行完成之后清除引用并且压入队列：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">protected</span> NioChannel socket <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">protected</span> SocketStatus status <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">SocketProcessor</span><span style="color:#f92672">(</span>NioChannel socket<span style="color:#f92672">,</span> SocketStatus status<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  reset<span style="color:#f92672">(</span>socket<span style="color:#f92672">,</span>status<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">reset</span><span style="color:#f92672">(</span>NioChannel socket<span style="color:#f92672">,</span> SocketStatus status<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">socket</span> <span style="color:#f92672">=</span> socket<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">status</span> <span style="color:#f92672">=</span> status<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#a6e22e">@Override</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">boolean</span> launch <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">synchronized</span> <span style="color:#f92672">(</span>socket<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    
+    <span style="color:#75715e">// Process the request from this socket
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>status <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      state <span style="color:#f92672">=</span> handler<span style="color:#f92672">.</span><span style="color:#a6e22e">process</span><span style="color:#f92672">(</span>
+        <span style="color:#f92672">(</span>KeyAttachment<span style="color:#f92672">)</span> key<span style="color:#f92672">.</span><span style="color:#a6e22e">attachment</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span>
+        SocketStatus<span style="color:#f92672">.</span><span style="color:#a6e22e">OPEN</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+      state <span style="color:#f92672">=</span> handler<span style="color:#f92672">.</span><span style="color:#a6e22e">process</span><span style="color:#f92672">(</span>
+        <span style="color:#f92672">(</span>KeyAttachment<span style="color:#f92672">)</span> key<span style="color:#f92672">.</span><span style="color:#a6e22e">attachment</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span>
+        status<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+      <span style="color:#75715e">// 略
+</span><span style="color:#75715e"></span>      socket <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+      status <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+      <span style="color:#75715e">//return to cache
+</span><span style="color:#75715e"></span>      processorCache<span style="color:#f92672">.</span><span style="color:#a6e22e">offer</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span>
+
+</code></pre></div><p>这个 run 方法中就有我们最重要的一个调用，handler.process() 负责将Request 从SocketChannel 解析出来。</p>
+<p>接着process 会调用 <code>state = processor.process(socket);</code></p>
+<p>并且这个 processor 对象也是用一个对象持来维护的，可以用来复用processor</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">protected</span> RecycledProcessors<span style="color:#f92672">&lt;</span>P<span style="color:#f92672">,</span>S<span style="color:#f92672">&gt;</span> recycledProcessors <span style="color:#f92672">=</span>
+            <span style="color:#66d9ef">new</span> RecycledProcessors<span style="color:#f92672">&lt;</span>P<span style="color:#f92672">,</span>S<span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RecycledProcessors</span><span style="color:#f92672">&lt;</span>P <span style="color:#66d9ef">extends</span> Processor<span style="color:#f92672">&lt;</span>S<span style="color:#f92672">&gt;</span><span style="color:#f92672">,</span> S<span style="color:#f92672">&gt;</span>
+  <span style="color:#66d9ef">extends</span> ConcurrentLinkedQueue<span style="color:#f92672">&lt;</span>Processor<span style="color:#f92672">&lt;</span>S<span style="color:#f92672">&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> serialVersionUID <span style="color:#f92672">=</span> 1L<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">transient</span> AbstractConnectionHandler<span style="color:#f92672">&lt;</span>S<span style="color:#f92672">,</span>P<span style="color:#f92672">&gt;</span> handler<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">protected</span> AtomicInteger size <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> AtomicInteger<span style="color:#f92672">(</span>0<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+
+  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">RecycledProcessors</span><span style="color:#f92672">(</span>AbstractConnectionHandler<span style="color:#f92672">&lt;</span>S<span style="color:#f92672">,</span>P<span style="color:#f92672">&gt;</span> handler<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">handler</span> <span style="color:#f92672">=</span> handler<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">offer</span><span style="color:#f92672">(</span>Processor<span style="color:#f92672">&lt;</span>S<span style="color:#f92672">&gt;</span> processor<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">int</span> cacheSize <span style="color:#f92672">=</span> handler<span style="color:#f92672">.</span><span style="color:#a6e22e">getProtocol</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getProcessorCache</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">boolean</span> offer <span style="color:#f92672">=</span> cacheSize <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#f92672">-</span>1 <span style="color:#f92672">?</span> <span style="color:#66d9ef">true</span> <span style="color:#f92672">:</span> size<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">&lt;</span> cacheSize<span style="color:#f92672">;</span>
+    <span style="color:#75715e">//avoid over growing our cache or add after we have stopped
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">boolean</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>offer<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      result <span style="color:#f92672">=</span> <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">offer</span><span style="color:#f92672">(</span>processor<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>result<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        size<span style="color:#f92672">.</span><span style="color:#a6e22e">incrementAndGet</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+      <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#f92672">!</span>result<span style="color:#f92672">)</span> handler<span style="color:#f92672">.</span><span style="color:#a6e22e">unregister</span><span style="color:#f92672">(</span>processor<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> Processor<span style="color:#f92672">&lt;</span>S<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">poll</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    Processor<span style="color:#f92672">&lt;</span>S<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">poll</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>result <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      size<span style="color:#f92672">.</span><span style="color:#a6e22e">decrementAndGet</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">clear</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    Processor<span style="color:#f92672">&lt;</span>S<span style="color:#f92672">&gt;</span> next <span style="color:#f92672">=</span> poll<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>next <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      handler<span style="color:#f92672">.</span><span style="color:#a6e22e">unregister</span><span style="color:#f92672">(</span>next<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+      next <span style="color:#f92672">=</span> poll<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">clear</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    size<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>0<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>主要的方法也和之前的做法大同小异，使用一个队列来维护 processor 如果没有元素就新建元素放入队列，对于完成任务的process 对他进行reset() 然后重新入队，这样大大降低了空间，与 GC 的压力。</p>
+<p>我们再来看看这个 AbstactHttp11Processor 的process 方法的实现吧:</p>
+<p>代码十分的长，整个方法有200多行代码，看来Tomcat 也不是守开发规范的啊！</p>
+<p>主要分为三段:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> SocketState <span style="color:#a6e22e">process</span><span style="color:#f92672">(</span>SocketWrapper<span style="color:#f92672">&lt;</span>S<span style="color:#f92672">&gt;</span> socketWrapper<span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+      <span style="color:#75715e">// 1.解析请求行
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#f92672">!</span>getInputBuffer<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">parseRequestLine</span><span style="color:#f92672">(</span>keptAlive<span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>handleIncompleteRequestLineRead<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+      <span style="color:#f92672">}</span> 
+      <span style="color:#75715e">// 略
+</span><span style="color:#75715e"></span>      <span style="color:#75715e">// 2.解析header
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#f92672">!</span>getInputBuffer<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">parseHeaders</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// We&#39;ve read part of the request, don&#39;t recycle it
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// instead associate it with the socket
+</span><span style="color:#75715e"></span>        openSocket <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+        readComplete <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+      <span style="color:#f92672">}</span>
+      
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#f92672">!</span>error<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+          rp<span style="color:#f92672">.</span><span style="color:#a6e22e">setStage</span><span style="color:#f92672">(</span>org<span style="color:#f92672">.</span><span style="color:#a6e22e">apache</span><span style="color:#f92672">.</span><span style="color:#a6e22e">coyote</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Constants</span><span style="color:#f92672">.</span><span style="color:#a6e22e">STAGE_SERVICE</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+          adapter<span style="color:#f92672">.</span><span style="color:#a6e22e">service</span><span style="color:#f92672">(</span>request<span style="color:#f92672">,</span> response<span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#75715e">// 3.真正处理的方法 CoyoteAdapter
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+      <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><p>这里的adapter  实际上是CoyoteAdapter的实例，该 adapter 的作用是从connector 到 container</p>
+<p>的入口来使用的:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>postParseSuccess<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#75715e">//check valves if we support async
+</span><span style="color:#75715e"></span>                request<span style="color:#f92672">.</span><span style="color:#a6e22e">setAsyncSupported</span><span style="color:#f92672">(</span>connector<span style="color:#f92672">.</span><span style="color:#a6e22e">getService</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getContainer</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getPipeline</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">isAsyncSupported</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+                <span style="color:#75715e">// Calling the container 调用 容器
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// 获取并且调用
+</span><span style="color:#75715e"></span>                connector<span style="color:#f92672">.</span><span style="color:#a6e22e">getService</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getContainer</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getPipeline</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getFirst</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>request<span style="color:#f92672">,</span> response<span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#75715e">// 一个复杂的调用
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</code></pre></div><p>当从适配的connector中获取容器后，就会使用容器的一个重要结构: 管道。</p>
+<p>每个容器类组件都有一个pipeline属性，这个属性控制请求的处理过程，在pipeline上可以添加Valve，进而可以控制请求的处理流程。可以将请求想象成水的流动，请求需要在各个组件之间流动，中间经过若干的水管和水阀，等所有的水阀走完，请求也就处理完了，而每个组件都会有一个默认的水阀（以Standard作为类的前缀）来进行请求的处理，如果业务需要的话，可以自定义Valve，将其安装到容器中。</p>
+<p>我们将在之后独立出来一个容器的章节来讲述Tomcat 的容器和管道是如何实现的。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="static 的sync 和 实例的sync 垃圾回收器 内存碎片 二叉树的转链表 JVM 排查命令 JVM OOM 有哪几种情况 juc 下面的栅栏 这些类有了解过吗？ Java 内存模型 线程池参数 主要作用 我爱小a redis 数据结构 有限状态机 CAS 是什么 ABA 问题 分布式锁的实现 JVM 内存模型 数据库索引的实现 叶子节点内部节点的区别 rabbitMQ 怎么用吗 java 的垃圾回收机制 HashMap 为什么线程不安全 场景 hashcode 怎么用 equal重写  对于一个指定位置的水坑，他所能承载的水的垂直数目取决于左右两边最高中的较小的那一块，所以通过遍历，就可以得出。
+class Solution { public int trap(int[] height) { int sum = 0; int left = 0; int right = height.length-1; int left_max =0; int right_max = 0; while(left&lt;right){ if(height[left]&lt;height[right]){ if(height[left]&gt;left_max){ left_max = height[left]; } else{ sum &#43;= left_max-height[left]; } left&#43;&#43;; } else{ if(height[right]&gt;right_max){ right_max = height[right]; } else{ sum &#43;= right_max-height[right]; } right--; } } return sum; } } 用双指针来做，对于一个数组，我们分别定义left，right 如果height[left]&gt;height[right] 说明right决定了这个位置水的容量 如果大于最大的就跟新小于就sum&#43;&#43;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/java/%E9%9D%A2%E7%BB%8F/%E5%A4%B4%E6%9D%A1%E4%B8%80%E9%9D%A2/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="static 的sync 和 实例的sync 垃圾回收器 内存碎片 二叉树的转链表 JVM 排查命令 JVM OOM 有哪几种情况 juc 下面的栅栏 这些类有了解过吗？ Java 内存模型 线程池参数 主要作用 我爱小a redis 数据结构 有限状态机 CAS 是什么 ABA 问题 分布式锁的实现 JVM 内存模型 数据库索引的实现 叶子节点内部节点的区别 rabbitMQ 怎么用吗 java 的垃圾回收机制 HashMap 为什么线程不安全 场景 hashcode 怎么用 equal重写  对于一个指定位置的水坑，他所能承载的水的垂直数目取决于左右两边最高中的较小的那一块，所以通过遍历，就可以得出。
+class Solution { public int trap(int[] height) { int sum = 0; int left = 0; int right = height.length-1; int left_max =0; int right_max = 0; while(left&lt;right){ if(height[left]&lt;height[right]){ if(height[left]&gt;left_max){ left_max = height[left]; } else{ sum &#43;= left_max-height[left]; } left&#43;&#43;; } else{ if(height[right]&gt;right_max){ right_max = height[right]; } else{ sum &#43;= right_max-height[right]; } right--; } } return sum; } } 用双指针来做，对于一个数组，我们分别定义left，right 如果height[left]&gt;height[right] 说明right决定了这个位置水的容量 如果大于最大的就跟新小于就sum&#43;&#43;">
+
+<meta itemprop="wordCount" content="120">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="static 的sync 和 实例的sync 垃圾回收器 内存碎片 二叉树的转链表 JVM 排查命令 JVM OOM 有哪几种情况 juc 下面的栅栏 这些类有了解过吗？ Java 内存模型 线程池参数 主要作用 我爱小a redis 数据结构 有限状态机 CAS 是什么 ABA 问题 分布式锁的实现 JVM 内存模型 数据库索引的实现 叶子节点内部节点的区别 rabbitMQ 怎么用吗 java 的垃圾回收机制 HashMap 为什么线程不安全 场景 hashcode 怎么用 equal重写  对于一个指定位置的水坑，他所能承载的水的垂直数目取决于左右两边最高中的较小的那一块，所以通过遍历，就可以得出。
+class Solution { public int trap(int[] height) { int sum = 0; int left = 0; int right = height.length-1; int left_max =0; int right_max = 0; while(left&lt;right){ if(height[left]&lt;height[right]){ if(height[left]&gt;left_max){ left_max = height[left]; } else{ sum &#43;= left_max-height[left]; } left&#43;&#43;; } else{ if(height[right]&gt;right_max){ right_max = height[right]; } else{ sum &#43;= right_max-height[right]; } right--; } } return sum; } } 用双指针来做，对于一个数组，我们分别定义left，right 如果height[left]&gt;height[right] 说明right决定了这个位置水的容量 如果大于最大的就跟新小于就sum&#43;&#43;"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        JAVAS
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><ul>
+<li>static 的sync 和 实例的sync</li>
+<li>垃圾回收器 内存碎片</li>
+<li>二叉树的转链表</li>
+<li>JVM 排查命令</li>
+<li>JVM OOM 有哪几种情况</li>
+<li>juc 下面的栅栏 这些类有了解过吗？</li>
+<li>Java 内存模型</li>
+<li>线程池参数 主要作用 我爱小a</li>
+<li>redis 数据结构</li>
+<li>有限状态机</li>
+<li>CAS 是什么 ABA 问题</li>
+<li>分布式锁的实现</li>
+<li>JVM 内存模型</li>
+<li>数据库索引的实现 叶子节点内部节点的区别</li>
+<li>rabbitMQ 怎么用吗</li>
+<li>java 的垃圾回收机制</li>
+<li>HashMap 为什么线程不安全 场景 hashcode 怎么用 equal重写</li>
+</ul>
+<p>对于一个指定位置的水坑，他所能承载的水的垂直数目取决于左右两边最高中的较小的那一块，所以通过遍历，就可以得出。</p>
+<pre><code>class Solution {
+    public int trap(int[] height) {
+        int sum = 0;
+        int left = 0;
+        int right = height.length-1;
+        int left_max =0;
+        int right_max = 0;
+        while(left&lt;right){
+            if(height[left]&lt;height[right]){
+                if(height[left]&gt;left_max){
+                    left_max = height[left];
+                }
+                else{
+                    sum += left_max-height[left];
+                }
+                left++;
+            }
+            else{
+                if(height[right]&gt;right_max){
+                    right_max = height[right];
+                }
+                else{
+                    sum += right_max-height[right];
+                }
+                
+                right--;
+            }
+        }
+        return sum;
+    }
+}
+</code></pre><p>用双指针来做，对于一个数组，我们分别定义left，right 如果height[left]&gt;height[right] 说明right决定了这个位置水的容量 如果大于最大的就跟新小于就sum++</p>
+<h3 id="内核态-和-用户态的区别">内核态 和 用户态的区别</h3>
+<p><a href="https://github.com/xiantang/Java-BackEnd-Notes/blob/master/doc/images/431521-20160523163606881-813374140.png"><img src="https://github.com/xiantang/Java-BackEnd-Notes/raw/master/doc/images/431521-20160523163606881-813374140.png" alt="img"></a></p>
+<p>内核本质是一种软件-控制操作系统的硬件资源，并提供上层应用程序运行的环境。</p>
+<p>用户态：上层应用程序的活动空间，应用程序的执行必须依托于内核提供的资源，包括CPU资源、存储资源、I/O资源等。</p>
+<p>为了让上层使用访问这些资源，内核必须为上层提供访问接口：系统调用</p>
+<p>用户态可以使用三种方式访问内核态的资源：</p>
+<ul>
+<li>系统调用</li>
+<li>库函数</li>
+<li>Shell 脚本</li>
+</ul>
+<p>Linux操作系统中主要采用了0和3两个特权级，分别对应的就是内核态和用户态。</p>
+<p>运行于用户态的进程可以执行的操作和访问的资源都会受到极大的限制，而运行在内核态的进程则可以执行任何操作并且在资源的使用上没有限制。</p>
+<p>很多程序开始运行于用户态，但是执行的过程中，一些操作需要在内核限权中执行，就涉及到一个<strong>用户态切换到内核态的过程</strong></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

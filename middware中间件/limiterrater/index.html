@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="QS 接口调用频率限制
+背景
+分析了一下之前 890 的事故，结合之前的代码逻辑聊一下吧.
+因为我们服务端调用代码的逻辑为异步，所以在请求的过程中是没有阻塞的。
+def usersList(projectId: Int, ai: String, groupId: String, field: String, attrList: Seq[String], start: Int, end: Int): Future[Seq[UserInfo]] = { var index = start val requests = new ArrayBuffer[GroupUsersRequest]() // todo: 一个登陆用户对应多个设备的情况下 total 小于实际设备数  while (index &lt; end) { val request = GroupUsersRequest( ....... ) } // 同时向qs请求  Future.traverse(requests.toList) { request =&gt; requestInsight(request) }.map(_.flatten) } 18 w 个用户数据 会被切分成为 180 个 1000为单位的查询请求，由于没有阻塞 所以每台机器会瞬间发送 45 个请求到qs，也就是几毫秒发 180 连接到 QS，最终这些请求会变成查询压力打到数据库，将数据打挂。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/middware%E4%B8%AD%E9%97%B4%E4%BB%B6/limiterrater/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="QS 接口调用频率限制
+背景
+分析了一下之前 890 的事故，结合之前的代码逻辑聊一下吧.
+因为我们服务端调用代码的逻辑为异步，所以在请求的过程中是没有阻塞的。
+def usersList(projectId: Int, ai: String, groupId: String, field: String, attrList: Seq[String], start: Int, end: Int): Future[Seq[UserInfo]] = { var index = start val requests = new ArrayBuffer[GroupUsersRequest]() // todo: 一个登陆用户对应多个设备的情况下 total 小于实际设备数  while (index &lt; end) { val request = GroupUsersRequest( ....... ) } // 同时向qs请求  Future.traverse(requests.toList) { request =&gt; requestInsight(request) }.map(_.flatten) } 18 w 个用户数据 会被切分成为 180 个 1000为单位的查询请求，由于没有阻塞 所以每台机器会瞬间发送 45 个请求到qs，也就是几毫秒发 180 连接到 QS，最终这些请求会变成查询压力打到数据库，将数据打挂。">
+
+<meta itemprop="wordCount" content="440">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="QS 接口调用频率限制
+背景
+分析了一下之前 890 的事故，结合之前的代码逻辑聊一下吧.
+因为我们服务端调用代码的逻辑为异步，所以在请求的过程中是没有阻塞的。
+def usersList(projectId: Int, ai: String, groupId: String, field: String, attrList: Seq[String], start: Int, end: Int): Future[Seq[UserInfo]] = { var index = start val requests = new ArrayBuffer[GroupUsersRequest]() // todo: 一个登陆用户对应多个设备的情况下 total 小于实际设备数  while (index &lt; end) { val request = GroupUsersRequest( ....... ) } // 同时向qs请求  Future.traverse(requests.toList) { request =&gt; requestInsight(request) }.map(_.flatten) } 18 w 个用户数据 会被切分成为 180 个 1000为单位的查询请求，由于没有阻塞 所以每台机器会瞬间发送 45 个请求到qs，也就是几毫秒发 180 连接到 QS，最终这些请求会变成查询压力打到数据库，将数据打挂。"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        MIDDWARE(中间件)S
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>QS 接口调用频率限制</p>
+<p><strong>背景</strong></p>
+<p>分析了一下之前 890 的事故，结合之前的代码逻辑聊一下吧.</p>
+<p>因为我们服务端调用代码的逻辑为异步，所以在请求的过程中是没有阻塞的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">def</span> usersList<span style="color:#f92672">(</span>projectId<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span> ai<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">String</span><span style="color:#f92672">,</span> groupId<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">String</span><span style="color:#f92672">,</span> field<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">String</span><span style="color:#f92672">,</span> attrList<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Seq</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">]</span><span style="color:#f92672">,</span> start<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span> end<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Future</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Seq</span><span style="color:#f92672">[</span><span style="color:#66d9ef">UserInfo</span><span style="color:#f92672">]</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">var</span> index <span style="color:#66d9ef">=</span> start
+  <span style="color:#66d9ef">val</span> requests <span style="color:#66d9ef">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArrayBuffer</span><span style="color:#f92672">[</span><span style="color:#66d9ef">GroupUsersRequest</span><span style="color:#f92672">]</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+  <span style="color:#75715e">// todo: 一个登陆用户对应多个设备的情况下 total 小于实际设备数
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>index <span style="color:#f92672">&lt;</span> end<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">val</span> request <span style="color:#66d9ef">=</span> <span style="color:#a6e22e">GroupUsersRequest</span><span style="color:#f92672">(</span>
+      <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+   <span style="color:#f92672">)</span>
+  <span style="color:#f92672">}</span> 
+  <span style="color:#75715e">// 同时向qs请求
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Future</span><span style="color:#f92672">.</span>traverse<span style="color:#f92672">(</span>requests<span style="color:#f92672">.</span>toList<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> request <span style="color:#66d9ef">=&gt;</span>
+    requestInsight<span style="color:#f92672">(</span>request<span style="color:#f92672">)</span>
+  <span style="color:#f92672">}</span><span style="color:#f92672">.</span>map<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">.</span>flatten<span style="color:#f92672">)</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>18 w 个用户数据 会被切分成为 180 个 1000为单位的查询请求，由于没有阻塞 所以每台机器会瞬间发送 45 个请求到qs，也就是几毫秒发 180 连接到 QS，最终这些请求会变成查询压力打到数据库，将数据打挂。</p>
+<p>目前的解决方案</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#a6e22e">@scala</span><span style="color:#f92672">.</span>annotation<span style="color:#f92672">.</span>tailrec
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">def</span> requestInsightBatch<span style="color:#f92672">(</span>index<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span> contexts<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Seq</span><span style="color:#f92672">[</span><span style="color:#66d9ef">GroupUserRequestContext</span><span style="color:#f92672">]</span><span style="color:#f92672">,</span> result<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Future</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Seq</span><span style="color:#f92672">[</span><span style="color:#66d9ef">UserInfo</span><span style="color:#f92672">]</span><span style="color:#f92672">]</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Future</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Seq</span><span style="color:#f92672">[</span><span style="color:#66d9ef">UserInfo</span><span style="color:#f92672">]</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span> <span style="color:#f92672">{</span>
+  index <span style="color:#66d9ef">match</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">case</span> end <span style="color:#66d9ef">if</span> end <span style="color:#f92672">&gt;=</span> contexts<span style="color:#f92672">.</span>size <span style="color:#66d9ef">=&gt;</span> result
+    <span style="color:#66d9ef">case</span> i <span style="color:#66d9ef">=&gt;</span>
+      <span style="color:#66d9ef">val</span> currentResult <span style="color:#66d9ef">=</span> <span style="color:#66d9ef">for</span> <span style="color:#f92672">{</span>
+        userInfos <span style="color:#66d9ef">&lt;-</span> result
+        next <span style="color:#66d9ef">&lt;-</span> requestInsight<span style="color:#f92672">(</span>contexts<span style="color:#f92672">(</span>i<span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+      <span style="color:#f92672">}</span> <span style="color:#66d9ef">yield</span> userInfos <span style="color:#f92672">++</span> next
+      <span style="color:#66d9ef">val</span> delayMills <span style="color:#66d9ef">=</span> <span style="color:#a6e22e">ThreadLocalRandom</span><span style="color:#f92672">.</span>current<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span>nextInt<span style="color:#f92672">(</span>configParams<span style="color:#f92672">.</span>qsRequestDelayMinMillis<span style="color:#f92672">,</span> configParams<span style="color:#f92672">.</span>qsRequestDelayMaxMillis<span style="color:#f92672">)</span>
+      <span style="color:#a6e22e">TimeUnit</span><span style="color:#f92672">.</span><span style="color:#a6e22e">MILLISECONDS</span><span style="color:#f92672">.</span>sleep<span style="color:#f92672">(</span>delayMills<span style="color:#f92672">)</span>
+      requestInsightBatch<span style="color:#f92672">(</span>i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> contexts<span style="color:#f92672">,</span> currentResult<span style="color:#f92672">)</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>采用尾递归的方式，因为要让异步请求一个接一个的请求显然比较麻烦，这里相当于一个flatMap 接着一个 flatMap，然后中间再伴随着 1～5 秒的睡眠。</p>
+<p>可以判断每次基本的睡眠时间会在 2.5 s 左右，那么4 台机器将会是 0.7 秒一个请求打到 QS 上 一分钟能打 85个请求，也就是能查8w5的用户每分钟。查询的速率还是比较慢，并且没有利用好QS的性能。</p>
+<p>我的解决方案:</p>
+<p>采用类似guava的 RateLimiter :</p>
+<p>基于令牌桶算法的限流器</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Runner</span> <span style="color:#66d9ef">implements</span> Runnable<span style="color:#f92672">{</span>
+
+        <span style="color:#66d9ef">private</span> RateLimiter rateLimiter<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Runner</span><span style="color:#f92672">(</span>RateLimiter rateLimiter<span style="color:#f92672">,</span> String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">rateLimiter</span> <span style="color:#f92672">=</span> rateLimiter<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">double</span> acquire <span style="color:#f92672">=</span> rateLimiter<span style="color:#f92672">.</span><span style="color:#a6e22e">acquire</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>name<span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; current &#34;</span><span style="color:#f92672">+</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">currentTimeMillis</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;  wait&#34;</span> <span style="color:#f92672">+</span> acquire<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[</span><span style="color:#f92672">]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        RateLimiter rateLimiter <span style="color:#f92672">=</span> RateLimiter<span style="color:#f92672">.</span><span style="color:#a6e22e">create</span><span style="color:#f92672">(</span>0<span style="color:#f92672">.</span><span style="color:#a6e22e">5</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        Runner runner2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Runner<span style="color:#f92672">(</span>rateLimiter<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        Runner runner1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Runner<span style="color:#f92672">(</span>rateLimiter<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;1&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        Runner runner4 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Runner<span style="color:#f92672">(</span>rateLimiter<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        Runner runner5 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Runner<span style="color:#f92672">(</span>rateLimiter<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;5&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        Runner runner3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Runner<span style="color:#f92672">(</span>rateLimiter<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;3&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+
+        <span style="color:#66d9ef">new</span> Thread<span style="color:#f92672">(</span>runner1<span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">start</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">new</span> Thread<span style="color:#f92672">(</span>runner2<span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">start</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">new</span> Thread<span style="color:#f92672">(</span>runner3<span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">start</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">new</span> Thread<span style="color:#f92672">(</span>runner5<span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">start</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">new</span> Thread<span style="color:#f92672">(</span>runner4<span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">start</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+</code></pre></div><p>以上示例，创建一个RateLimiter，指定每秒放0.5个令牌（2秒放1个令牌），其输出见下
+1 current 1577935707363  wait0.0
+3 current 1577935709366  wait1.99697
+2 current 1577935711365  wait3.996949
+5 current 1577935713366  wait5.995537
+1 current 1577935715362  wait7.995519
+4 current 1577935717365  wait9.993848</p>
+<p>但是有个缺点就是没办法在多进程（多机器）内共享这个 RateLimiter</p>
+<p>我的解决方案是采用 Redis 来存储令牌,同时借鉴了 guava RateLimiter 的内部实现:</p>
+<p>不是采用传统的每隔两秒放入一次令牌，而是使用一种懒计算的方式,只有在要获取令牌的时候才进行令牌数目计算操作:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">case</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RedisPermits</span><span style="color:#f92672">(</span>
+                    name<span style="color:#66d9ef">:</span><span style="color:#66d9ef">String</span><span style="color:#f92672">,</span>
+                    maxPermits<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Long</span><span style="color:#f92672">,</span>
+                    storePermits<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Long</span><span style="color:#f92672">,</span>
+                    intervalMillis<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Long</span><span style="color:#f92672">,</span>
+                    nextFreeTicketMillis<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Long</span>
+                  <span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><p>这个令牌有几个需要注意的字段
+name 令牌的名字 分布式锁的名字也与他有关
+maxPermits 最大存储的令牌数
+storePermits  存储的令牌数目
+intervalMillis 每次放入令牌的间隔
+nextFreeTicketMillis 下一次可以获取令牌的时间</p>
+<p>我们的懒计算分为两种可能</p>
+<ol>
+<li>现在可以获取令牌</li>
+<li>现在不能获取令牌</li>
+</ol>
+<p>第一种情况就是初始化的时候 <code>nextFreeTicketMillis</code> 为 0 ,但是当前的redis 时间已经为</p>
+<p>![image-20200102115023086](/Users/xiantang/Library/Application Support/typora-user-images/image-20200102115023086.png)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">val</span> newPermits <span style="color:#66d9ef">=</span> <span style="color:#f92672">(</span>now <span style="color:#f92672">-</span> permits<span style="color:#f92672">.</span>nextFreeTicketMillis<span style="color:#f92672">)</span> <span style="color:#f92672">/</span> permits<span style="color:#f92672">.</span>intervalMillis
+<span style="color:#66d9ef">val</span> storedPermits <span style="color:#66d9ef">=</span> math<span style="color:#f92672">.</span>min<span style="color:#f92672">(</span>permits<span style="color:#f92672">.</span>maxPermits<span style="color:#f92672">,</span> newPermits <span style="color:#f92672">+</span> permits<span style="color:#f92672">.</span>storePermits<span style="color:#f92672">)</span>
+</code></pre></div><p>因为我们要匀速的请求所以会将最大的存储的数目设置为 1. 也就是当第一次请求的时候就存储了一个令牌。</p>
+<p>第二种情况就是现在还没有到达 <code>nextFreeTicketMillis</code></p>
+<p>![image-20200102120043445](/Users/xiantang/Library/Application Support/typora-user-images/image-20200102120043445.png)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">val</span> tobeSpend <span style="color:#66d9ef">=</span> <span style="color:#a6e22e">Math</span><span style="color:#f92672">.</span>min<span style="color:#f92672">(</span>permits<span style="color:#f92672">.</span>storePermits<span style="color:#f92672">,</span> requiredPermits<span style="color:#f92672">)</span>
+<span style="color:#66d9ef">val</span> freshPermits <span style="color:#66d9ef">=</span> requiredPermits <span style="color:#f92672">-</span> tobeSpend
+<span style="color:#66d9ef">val</span> waitTime <span style="color:#66d9ef">=</span> freshPermits <span style="color:#f92672">*</span> permits<span style="color:#f92672">.</span>intervalMillis
+<span style="color:#66d9ef">val</span> storePermits <span style="color:#66d9ef">=</span> permits<span style="color:#f92672">.</span>storePermits <span style="color:#f92672">-</span> tobeSpend
+<span style="color:#66d9ef">val</span> nextFreeTicketMillis <span style="color:#66d9ef">=</span> permits<span style="color:#f92672">.</span>nextFreeTicketMillis <span style="color:#f92672">+</span> waitTime
+</code></pre></div><p>会将 <code>nextFreeTicketMillis</code> 向后推需要睡眠的时间。</p>
+<p>然后计算出等待的时间，并且睡眠 需要等待的时间;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#66d9ef">val</span> lockName <span style="color:#66d9ef">=</span> name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:lock&#34;</span>
+    lockManager<span style="color:#f92672">.</span>lock<span style="color:#f92672">(</span>lockName<span style="color:#f92672">)</span><span style="color:#f92672">.</span>flatMap <span style="color:#f92672">{</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Some</span><span style="color:#f92672">(</span>lock<span style="color:#f92672">)</span> <span style="color:#66d9ef">=&gt;</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">&lt;-</span> checkPermits<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+          waitLength <span style="color:#66d9ef">&lt;-</span> reserveAndGetWaitLength<span style="color:#f92672">(</span>permits<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">&lt;-</span> lockManager<span style="color:#f92672">.</span>unLock<span style="color:#f92672">(</span>lock<span style="color:#f92672">)</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">yield</span> <span style="color:#f92672">{</span>
+          waitLength
+        <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">None</span> <span style="color:#66d9ef">=&gt;</span>
+        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Exception</span><span style="color:#f92672">(</span><span style="color:#e6db74">s&#34;</span><span style="color:#e6db74">can not  get the lock , name :</span><span style="color:#e6db74">${</span>lockName<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"> <span style="color:#66d9ef">def</span> acquire<span style="color:#f92672">(</span>permits<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Future</span><span style="color:#f92672">[</span><span style="color:#66d9ef">Double</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">=</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">{</span>
+      microsToWait <span style="color:#66d9ef">&lt;-</span> reserve<span style="color:#f92672">(</span>permits<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+      <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">&lt;-</span> <span style="color:#a6e22e">Future</span> <span style="color:#f92672">{</span>
+        <span style="color:#a6e22e">TimeUnit</span><span style="color:#f92672">.</span><span style="color:#a6e22e">MILLISECONDS</span><span style="color:#f92672">.</span>sleep<span style="color:#f92672">(</span>microsToWait<span style="color:#f92672">)</span>
+      <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">yield</span> <span style="color:#f92672">{</span>
+      microsToWait
+    <span style="color:#f92672">}</span>
+
+  <span style="color:#f92672">}</span>
+</code></pre></div><ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

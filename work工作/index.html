@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+      <link href="/work%E5%B7%A5%E4%BD%9C/index.xml" rel="alternate" type="application/rss+xml" title="xiantang" />
+      <link href="/work%E5%B7%A5%E4%BD%9C/index.xml" rel="feed" type="application/rss+xml" title="xiantang" />
+      
+    
+    
+    <meta property="og:title" content="Work(工作)s" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://xiantang.github.io/work%E5%B7%A5%E4%BD%9C/" />
+
+<meta itemprop="name" content="Work(工作)s">
+<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Work(工作)s"/>
+<meta name="twitter:description" content=""/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Work(工作)s
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <article class="pa3 pa4-ns nested-copy-line-height nested-img">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"></section>
+    <section class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Work(工作)</span>
+    <h1 class="f3 near-black">
+      <a href="https://xiantang.github.io/work%E5%B7%A5%E4%BD%9C/aes-%E9%99%90%E5%88%B6%E9%95%BF%E5%BA%A6/" class="link black dim">
+        
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      写了一个工具类用来加密解密数据库的 app字段
+本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。
+![image-20191109145633818](/Users/xiantang/Library/Application Support/typora-user-images/image-20191109145633818.png)
+这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。
+我这边采用的是引入第三方库：
+&#34;org.bouncycastle&#34; % &#34;bcprov-jdk16&#34; % &#34;1.45&#34; private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() =&gt; Cipher.getInstance(&#34;AES/ECB/PKCS5Padding&#34;, new BouncyCastleProvider())) 这样就解决了 No installed provider supports this key 的问题。
+但是提到了测试环境，又出现了问题:
+![image-20191109150457772](/Users/xiantang/Library/Application Support/typora-user-images/image-20191109150457772.png)
+显示没有合法的AES key
+首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。
+我们需要明确一下本地环境和线上环境的不同:
+ 本地: Jdk 安全目录 含有 unlimit 的jar包，也就是支持 16 24 32 位的key 线上: Jdk 安全目录 只含有 limit 的jar包，只支持 16 位的key  有两种解决方式1.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Work(工作)</span>
+    <h1 class="f3 near-black">
+      <a href="https://xiantang.github.io/work%E5%B7%A5%E4%BD%9C/docker-skywalking/" class="link black dim">
+        
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Docker 部署 SkyWalking OAP &amp; UI ▶ 获取镜像  当前版本：6.1.0 自制镜像：Docker 镜像 - 构建 SkyWalking OAP &amp; UI
+ # oap docker pull registry.cn-hangzhou.aliyuncs.com/anoy/skywalking-oap # ui docker pull registry.cn-hangzhou.aliyuncs.com/anoy/skywalking-ui ▶ 部署 SkyWalking OAP 简易部署（仅供体验）
+docker run -d \ --name skywalking-oap \ -p 11800:11800 \ -e TZ=Asia/Shanghai \ registry.cn-hangzhou.aliyuncs.com/anoy/skywalking-oap 端口说明
+ 0.0.0.0/11800：gRPC APIs，用于 Java、.NetCore、Node.js、Istio 探针 0.0.0.0/12800：http rest APIs，用于 SkyWalking UI 请求，做 GraphQL 查询  自定义配置
+配置挂载路径 /skywalking/config，配置文件说明：
+ application.yml：基本配置，参考 application.yml component-libraries.yml：组件库配置，参考 component-libraries.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Work(工作)</span>
+    <h1 class="f3 near-black">
+      <a href="https://xiantang.github.io/work%E5%B7%A5%E4%BD%9C/k8s-pod/" class="link black dim">
+        
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Kubernetes对象模型中可部署的最小对象。
+了解Pod Pod是Kubernetes创建或部署的最小/最简单的基本单位，一个Pod代表集群上正在运行的一个进程。
+一个Pod封装一个应用容器（也可以有多个容器），存储资源、一个独立的网络IP以及管理控制容器运行方式的策略选项。Pod代表部署的一个单位：Kubernetes中单个应用的实例，它可能由单个容器或多个容器共享组成的资源。
+ Docker是Kubernetes Pod中最常见的runtime ，Pods也支持其他容器runtimes。
+ Kubernetes中的Pod使用可分两种主要方式：
+ Pod中运行一个容器。“one-container-per-Pod”模式是Kubernetes最常见的用法; 在这种情况下，你可以将Pod视为单个封装的容器，但是Kubernetes是直接管理Pod而不是容器。 Pods中运行多个需要一起工作的容器。Pod可以封装紧密耦合的应用，它们需要由多个容器组成，它们之间能够共享资源，这些容器可以形成一个单一的内部service单位 - 一个容器共享文件，另一个“sidecar”容器来更新这些文件。Pod将这些容器的存储资源作为一个实体来管理。  
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Work(工作)</span>
+    <h1 class="f3 near-black">
+      <a href="https://xiantang.github.io/work%E5%B7%A5%E4%BD%9C/pushchannle-work/" class="link black dim">
+        
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      每个流程都是实现于 EventHandler
+Called when a publisher has published an event to the RingBuffer
+public interface EventHandler&lt;T&gt; { /***Called when a publisher has published an event to the {@link RingBuffer} **@param event published to the {@link RingBuffer} *@param sequence of the event being processed *@param endOfBatch flag to indicate if this is the last event in a batch from the {@link RingBuffer} *@throws Exception if the EventHandler would like the exception handled further up the chain.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Work(工作)</span>
+    <h1 class="f3 near-black">
+      <a href="https://xiantang.github.io/work%E5%B7%A5%E4%BD%9C/qlb/" class="link black dim">
+        
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      术语解析:
+负载调度器（Load Balancer）:负载调度器能无缝地将网络请求调度到真实服务器上，从而使得服务器集群的结构对客户是透明的，客户访问集群系统提供的网络服务就像访 问一台高性能、高可用的服务器一样。客户程序不受服务器集 群的影响不需作任何修改。系统的伸缩性通过在服务机群中透明地加入和删除一个节点来达到，通过检 测节点或服务进程故障和正确地重置系统达到高可用性。
+LVS: Linux 虚拟服务器(Linux Virtual Server) 负载调度技术在内核中实现。
+LVS 负载均衡技术   NAT
+通过网络地址转换，调度器重写请求报文的目标地址，根据预设的算法，将请求分派给后端的真实服务器。真实服务器的响应报文通过调度器时，报文的源地址被重写，再返回给客户，完成整个负载调度过程。
+  DR
+通过改写请求报文的MAC地址，将请求发送到真实服务器，而真实服务器将响应直接返回给客户。可以极大的提高集群系统的伸缩性。这种方法没有IP隧道的开销，对集群中的真实服务器也没有必须支持IP隧道协议的要求，但是要求调度器与真实服务器都有一块网卡连 在同一物理网段上。
+  LVS集群的特点 功能 支持持久的虚拟化服务，并提供详尽的统计数据。能及时将故障屏蔽，实现系统的高可用性。主、从调度器能周期性地进行状态同步，从而实现更高的可用性。
+适用性 后端服务器可运行任何支持TCP/IP的操作系统，包括Linux，各种Unix（如FreeBSD、Sun Solaris、HP Unix等），Mac/OS和Windows NT/2000等。
+负载调度器能够支持绝大多数的TCP和UDP协议：
+   协议 内 容     TCP HTTP，FTP，PROXY，SMTP，POP3，IMAP4，DNS，LDAP，HTTPS，SSMTP等   UDP DNS，NTP，ICP，视频、音频流播放协议等    集群模式 主备 
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Work(工作)</span>
+    <h1 class="f3 near-black">
+      <a href="https://xiantang.github.io/work%E5%B7%A5%E4%BD%9C/qs-%E6%9F%A5%E8%AF%A2%E9%87%8D%E8%AF%95%E7%AD%96%E7%95%A5/" class="link black dim">
+        
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      方案:
+1.对于查询 QueryActor 的失败查询，传入封装好的 GroupUsersRequest 内部包含对应的请求偏移量给 重试的Actor
+2.通过模式匹配获得数组的第一个睡眠的时间长度，随后先执行睡眠操作，因为上一次的重试或者QueryActor 刚刚结束。
+3.随后执行对应的请求操作，判断是否成功。
+4.如果重试成功，记录当前重试的次数，与重试的总计用时，以及GroupUsersRequest 中的ai，查询的url ，写入retry_qs_invoke 表中,随后对成功的数据执行 QueryActor 相同的逻辑，对数据根据channel 分类随后建立 JobContext 交付给 checkpointTaskActor 处理，逻辑和 QueryActor 查询成功的逻辑类似。 5.A:如果重试失败，并且剩下的重试 List 为空，就记录重试的总计用时，以及GroupUsersRequest 中的 ai，查询的url ，写入 retry_qs_invoke 表中。B:如果重试失败，并且剩下的List不为空，就将剩下的List 与 GroupUsersRequest 传入 RetryActor 调用自己。
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Work(工作)</span>
+    <h1 class="f3 near-black">
+      <a href="https://xiantang.github.io/work%E5%B7%A5%E4%BD%9C/release-%E7%8E%AF%E5%A2%83remote-debug/" class="link black dim">
+        
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      JAVA_OPTIONS=&#34;-server -XX:+UseG1GC -Xmx512M -XX:MaxDirectMemorySize=128M&#34; =&gt;
+JAVA_OPTIONS=&#34;-server -XX:+UseG1GC -Xmx512M -XX:MaxDirectMemorySize=128M -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005&#34; 
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Work(工作)</span>
+    <h1 class="f3 near-black">
+      <a href="https://xiantang.github.io/work%E5%B7%A5%E4%BD%9C/scala-i18%E5%9D%91/" class="link black dim">
+        
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      i18n 无法加入编译 Can&rsquo;t find bundle for base name filename.properties, locale ch_CN
+真的坑
+是因为编译没把资源文件编译进去
+复制resource里面 注意是里面!!!! 的文件到 target/scala-2.12 文件夹下面
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Work(工作)</span>
+    <h1 class="f3 near-black">
+      <a href="https://xiantang.github.io/work%E5%B7%A5%E4%BD%9C/sonar/" class="link black dim">
+        
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      安装 SonarScanner https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/
+下载Mac OS X 64-bit 版本
+配置环境变量
+vim ~/.bash_profile export SONAR_SCANNER_HOME=/yourpath/sonar-scanner-4.2.0.1873-macosx/ source ~/.bash_profile Plugin.sbt
+addSbtPlugin(&#34;com.github.mwz&#34; % &#34;sbt-sonar&#34; % &#34;1.3.0&#34;) addSbtPlugin(&#34;com.github.sbt&#34; % &#34;sbt-jacoco&#34; % &#34;3.1.0&#34;) sonar-project.properties
+# more parameters https://docs.sonarqube.org/display/SONAR/Analysis+Parameters # must be unique in a given SonarQube instance sonar.projectKey=com.growingio:growing-marketing # this is the name and version displayed in the SonarQube UI. Was mandatory prior to SonarQube 6.1. sonar.projectName=growing-marketing sonar.projectVersion=1.0 sonar.host.url = http://sonarqube.growingio.com # Path is relative to the sonar-project.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Work(工作)</span>
+    <h1 class="f3 near-black">
+      <a href="https://xiantang.github.io/work%E5%B7%A5%E4%BD%9C/vpn/" class="link black dim">
+        
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      当前配置
+VPN 不走全局流量
+    </div>
+  </div>
+</div>
+</div>
+      
+    </section>
+
+</article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="网络概论笔记 传输层 TCP:客户端与服务器端需要维持会话，TCP需要传输的文件进行分段 传输进行可靠传输
+流量控制功能
+UDP: 一个数据包就能够完成数据传输，不需要建立绘画，不需要流量控制
+etc：DNS
+屏幕 广播 （多播）
+传输层协议和应用层协议的关系
+HTTP =TCP &#43; 80
+HTTPS = TCP&#43;443
+RDP = TCP&#43;3389
+FTP = TCP &#43; 31
+telnet = TCP &#43; 23
+SQL = TCP&#43;1433
+DNS = UDP &#43; 53
+POP3 = TCP &#43;110
+IP 层协议主要提供了主机之间的逻辑通讯
+TCP/UDP 主要提供了应用程序之间的逻辑通讯
+传输层的端口：TCP 6 UDP 17 ICMP 17
+登记端口号：数值1024~49151
+客户端端口号：数值49152~6553
+UDP 需要从 网络层提炼出20个字节 一起计算首部
+伪首部 源地址
+目标地址
+源地址&#43;目标地址 总和为8个字节
+全 0 和 UDP 协议号以及 UDP 的长度" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/network%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E6%A6%82%E8%AE%BA%E7%AC%94%E8%AE%B0/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="网络概论笔记 传输层 TCP:客户端与服务器端需要维持会话，TCP需要传输的文件进行分段 传输进行可靠传输
+流量控制功能
+UDP: 一个数据包就能够完成数据传输，不需要建立绘画，不需要流量控制
+etc：DNS
+屏幕 广播 （多播）
+传输层协议和应用层协议的关系
+HTTP =TCP &#43; 80
+HTTPS = TCP&#43;443
+RDP = TCP&#43;3389
+FTP = TCP &#43; 31
+telnet = TCP &#43; 23
+SQL = TCP&#43;1433
+DNS = UDP &#43; 53
+POP3 = TCP &#43;110
+IP 层协议主要提供了主机之间的逻辑通讯
+TCP/UDP 主要提供了应用程序之间的逻辑通讯
+传输层的端口：TCP 6 UDP 17 ICMP 17
+登记端口号：数值1024~49151
+客户端端口号：数值49152~6553
+UDP 需要从 网络层提炼出20个字节 一起计算首部
+伪首部 源地址
+目标地址
+源地址&#43;目标地址 总和为8个字节
+全 0 和 UDP 协议号以及 UDP 的长度">
+
+<meta itemprop="wordCount" content="410">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="网络概论笔记 传输层 TCP:客户端与服务器端需要维持会话，TCP需要传输的文件进行分段 传输进行可靠传输
+流量控制功能
+UDP: 一个数据包就能够完成数据传输，不需要建立绘画，不需要流量控制
+etc：DNS
+屏幕 广播 （多播）
+传输层协议和应用层协议的关系
+HTTP =TCP &#43; 80
+HTTPS = TCP&#43;443
+RDP = TCP&#43;3389
+FTP = TCP &#43; 31
+telnet = TCP &#43; 23
+SQL = TCP&#43;1433
+DNS = UDP &#43; 53
+POP3 = TCP &#43;110
+IP 层协议主要提供了主机之间的逻辑通讯
+TCP/UDP 主要提供了应用程序之间的逻辑通讯
+传输层的端口：TCP 6 UDP 17 ICMP 17
+登记端口号：数值1024~49151
+客户端端口号：数值49152~6553
+UDP 需要从 网络层提炼出20个字节 一起计算首部
+伪首部 源地址
+目标地址
+源地址&#43;目标地址 总和为8个字节
+全 0 和 UDP 协议号以及 UDP 的长度"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        NETWORK(计算机网络)S
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="网络概论笔记">网络概论笔记</h2>
+<p><img src="../../images/1564670779560.png" alt="1564670779560"></p>
+<h2 id="传输层">传输<strong>层</strong></h2>
+<p>TCP:客户端与服务器端需要维持会话，TCP需要传输的文件进行分段 传输进行可靠传输</p>
+<p>流量控制功能</p>
+<p>UDP:  一个数据包就能够完成数据传输，不需要建立绘画，不需要流量控制</p>
+<p>etc：DNS</p>
+<p>屏幕  广播 （多播）</p>
+<p>传输层协议和应用层协议的关系</p>
+<p><img src="../../images/1565518391960.png" alt="1565518391960"></p>
+<p>HTTP =TCP + 80</p>
+<p>HTTPS = TCP+443</p>
+<p>RDP = TCP+3389</p>
+<p>FTP = TCP + 31</p>
+<p>telnet = TCP + 23</p>
+<p>SQL = TCP+1433</p>
+<p>DNS = UDP + 53</p>
+<p>POP3 = TCP +110</p>
+<p>IP 层协议主要提供了主机之间的逻辑通讯</p>
+<p>TCP/UDP 主要提供了应用程序之间的逻辑通讯</p>
+<p>传输层的端口：TCP 6 UDP 17 ICMP 17</p>
+<p>登记端口号：数值1024~49151</p>
+<p>客户端端口号：数值49152~6553</p>
+<h3 id="udp">UDP</h3>
+<p><img src="../../images/1565613365296.png" alt="1565613365296"></p>
+<p><img src="../../images/1565613534148.png" alt="1565613534148"></p>
+<p>需要从 网络层提炼出20个字节 一起计算首部</p>
+<h4 id="伪首部">伪首部</h4>
+<p>源地址</p>
+<p><img src="../../images/1565613764987.png" alt="1565613764987"></p>
+<p>目标地址</p>
+<p><img src="../../images/1565613821427.png" alt="1565613821427"></p>
+<p>源地址+目标地址 总和为8个字节</p>
+<p><img src="../../images/1565613896473.png" alt="1565613896473"></p>
+<p>全 0 和 UDP 协议号以及 UDP 的长度</p>
+<p>就组成了一个伪首部</p>
+<p><img src="../../images/1565614271546.png" alt="1565614271546"></p>
+<h3 id="tcp">TCP</h3>
+<p>TCP 学什么？</p>
+<ul>
+<li>TCP 特点</li>
+<li>如何实现可靠传输</li>
+<li>如何实现流量控制</li>
+<li>如何避免网络拥塞</li>
+</ul>
+<p>面向连接的传输协议</p>
+<p>每条 TCP 连接只能有两个端点 点对点</p>
+<p>提供可靠传输的服务</p>
+<p>TCP 提供全双工通讯： 因为需要反馈 才能确定自己发的消息是否是对方能听到的</p>
+<p>面向字节流</p>
+<p>socket = （IP地址：端口）</p>
+<p><img src="../../images/1559226409029.png" alt="1559226409029"></p>
+<p>SEQ:你data中第一个byte的seq number</p>
+<p>ACKs: 你希望下一次收到的seq number （隐含了之前都收到了）</p>
+<p>对于没有按照顺序的封包：看开发者的实现方式。</p>
+<h4 id="tcp-round-trip-time-and-timeout">TCP Round Trip Time and Timeout</h4>
+<p>timeout 应该大于RTT</p>
+<p>使用 SampleRTT：采用取样的方式，测量时间直到收到ACK，忽略重送的封包时间。</p>
+<p><img src="../../images/1559226186513.png" alt="1559226186513"></p>
+<h4 id="快速重传">快速重传</h4>
+<p>resend segment before timer expires</p>
+<p>在定时器结束之前重传。</p>
+<h3 id="1-如何实现可靠传输与三次握手">1. 如何实现可靠传输与三次握手</h3>
+<h4 id="停止等待协议">停止等待协议</h4>
+<h5 id="无差错">无差错</h5>
+<p><img src="../../images/1565616025008.png" alt="1565616025008"></p>
+<h5 id="有差错">有差错</h5>
+<p><img src="../../images/1565616052121.png" alt="1565616052121"></p>
+<p>超时重传的等待时间为一个往返的时间稍微长一些</p>
+<h5 id="确认丢失">确认丢失</h5>
+<p><img src="../../images/1565616247238.png" alt="1565616247238"></p>
+<h5 id="确认迟到">确认迟到</h5>
+<p><img src="../../images/1565616348312.png" alt="1565616348312"></p>
+<p>使用上述的确认和重传机制，就可以在不可靠的网络上实现可靠的通讯。 <code>自动重传请求 ARQ</code></p>
+<h4 id="信道利用率">信道利用率</h4>
+<p>RTT 数据包往返时间
+$$
+U = \frac{T_D}{T_D+RTT+T_A}
+$$
+发送一个数据包的时间占用总共是时间的比率</p>
+<p>所以需要提高 Td 的占比就可以提高信道利用率</p>
+<p>流水线传输：发送方连续的发送多个分组</p>
+<p><img src="../../images/1565617807857.png" alt="1565617807857"></p>
+<p>但是问题又来了 如何实现可靠的传输在流水线传输的基础上：</p>
+<p>我们使用一个窗口将数据包放在里面</p>
+<p><img src="../../images/1565618081029.png" alt=""></p>
+<p>每当最左边的数据包收到就向左移动一格</p>
+<h4 id="累计确认">累计确认</h4>
+<p>对于发送方A 和 接受方B</p>
+<p><img src="../../images/1565618412458.png" alt="1565618412458"></p>
+<p>B 收到了 3个数据包分别是 1 2 3 这时 B 对应 3 的ACK 发送到了A 但是 1 2 的ACK 没有收到，这个时候 A 就会默认 1 和 2 是已经收到了，不需要确认了。</p>
+<h4 id="返回最大有序的ack">返回最大有序的ACK</h4>
+<p><a href="https://github.com/xiantang/Java-BackEnd-Notes/blob/master/doc/images/1559222070250.png"><img src="../../images/1559222070250-1565618604591.png" alt="1559222070250"></a></p>
+<p>如果是out-of-order:</p>
+<ul>
+<li>丢弃封包</li>
+<li>回复一个最大的有序的数组</li>
+</ul>
+<p>就像上图如果中间一个2号封包丢失了，receiver收到3号封包的时候，是处于out-of-order的情况所以需要返回一个最大的in-order数字也就是回复1号。</p>
+<p>TCP 每发送一个报文段，就要对报文段设置一次计时器。只要计时器设置的重传时间还没有收到确认，就要重传这一段报文段。</p>
+<h5 id="tcp-报文段-segment">TCP 报文段 segment</h5>
+<p>TCP 首部</p>
+<p><img src="../../images/1565619272559.png" alt="1565619272559"></p>
+<p><a href="https://github.com/xiantang/Java-BackEnd-Notes/blob/master/doc/images/1559224720528.png"><img src="../../images/1559224720528-1565619704251.png" alt="1559224720528"></a></p>
+<p>Receive window : 这个参数指的是滑动窗口的长度</p>
+<p>序号 sequence number：指的是这个段中的数据的第一个字节 占在第几个位置</p>
+<p>确认号 acknowledgement number: 发送当前收到的有序的数据包在对面的位置+1</p>
+<p>偏移量 head len: TCP 数据 是从多少个字节之后开始的  因为TCP 数据包是除了20字节的首部 还有一定的长度 所以头部是可变长的</p>
+<p>S: SYN 建立连线</p>
+<p>F: FIN 连线完成</p>
+<p>R: RST 关闭连线 就像点击浏览器的×一样 一方关闭连接</p>
+<p><img src="../../images/1565703106108.png" alt="1565703106108"></p>
+<h3 id="heading"></h3>
+<p>SYN: 发起一个链接</p>
+<p><img src="../../images/d8bf92c7906718271fdb8b0d2d5fe5b4" alt="img"></p>
+<ol>
+<li>发送SYN为1的segment到服务器
+<ul>
+<li>确定初始化的seq</li>
+<li>不需要data</li>
+</ul>
+</li>
+<li>接受SYN
+<ul>
+<li>申请buffers</li>
+<li>确定server的初始化seq</li>
+</ul>
+</li>
+<li>客户端收到SYNACK。还要再回复一个ACK，但是这个封包可能含有数据。</li>
+</ol>
+<p><img src="../../images/191918-81271b7d3443a160.webp" alt="img"></p>
+<p>TCP 传输数据 客户端发送 SEQ 和 100 byte 的数据 服务端收到 并且将ACK number 设置成 SEQ + 100 byte +1 表示这个ack number 之前的数据都已经收到了。</p>
+<h4 id="tcp-连接管理">TCP 连接管理</h4>
+<p><strong>客户端结束</strong>：</p>
+<p><img src="../../images/1559283754130.png" alt="1559283754130"></p>
+<p>一个connection 有两个buffer 分别是sender的和receiver的。</p>
+<p>为什么TCP为什么是四次挥手？</p>
+<p>因为是全双工通信的</p>
+<ol>
+<li>第一次挥手发送fin 表示主动方不会再继续发送报文了，但是可以发送报文</li>
+<li>第二次挥手被动方可能有相应的数据报文需要发送，需要发送ACK，告诉主动方我知道你要断开请求了</li>
+<li>第三次挥手被动方在处理完数据报文后，便发送给主动方FIN报文；这样可以保证数据通信正常可靠地完成。发送完FIN报文后，被动方进入LAST_ACK阶段（超时等待）。</li>
+<li>如果主动方及时发送ACK报文进行连接中断的确认，这时被动方就直接释放连接，进入可用状态。</li>
+</ol>
+<p>为什么要等2MSL ?</p>
+<ul>
+<li>ack 是 主动端发送的是吧 然后 服务器不一定能收到这个ack 如果收不到服务器就会重发一个FIN-ACK回去 这就是两个RTT MSL 大于一个RTT</li>
+<li>防止重发的数据骚扰服务端</li>
+</ul>
+<h3 id="2flow-control-流量控制">2.flow control 流量控制</h3>
+<p><img src="../../images/1559282483503.png" alt="1559282483503"></p>
+<p>流量控制指的是 sender 不要把 receiver 塞爆。</p>
+<p>sender 能送多少的数据取决于接受端RevWindow 的大小</p>
+<p>这个的大小会存储在segment的字段中。</p>
+<p>receiver 来控制sender 送的频率，如果不想让sender 送数据那么就将传送过去的window的大小设置为0。</p>
+<p>如果发送端收到一个 rwnd 的长度为0的ACK 并且一直在等待，但是接收方一直不发送长度不为0的ACK 过来索要数据，发送端需要发送一个心跳包确保连接是否还建立。</p>
+<h3 id="3拥塞控制">3.拥塞控制</h3>
+<ul>
+<li>
+<p>定义：分组交换网络中传送分组的数目太多时，由于存储转发节点的资源有限而造成网络传输性能下降的情况。</p>
+</li>
+<li>
+<p>现象：</p>
+<ul>
+<li>掉封包</li>
+<li>封包queue中，很长时间的延迟</li>
+</ul>
+</li>
+<li>
+<p>解决方式：</p>
+<ul>
+<li>根据自己手上有的资讯进行判断</li>
+<li>根据路由器的埋点进行通知发送方</li>
+</ul>
+</li>
+</ul>
+<p>但是TCP 主要采用的是通过两端的发送方和接受方的进行判断的。</p>
+<p><strong>AIMD</strong></p>
+<p><img src="../../images/1565708534295.png" alt="1565708534295"></p>
+<p>首先探测网络的频宽有多大，所以他会越送越快，直到掉落分包为止。</p>
+<ul>
+<li>每一个RTT时间就增加一个MSS(最大segment的大小) ，每个RTT 直到丢失封包</li>
+<li>减少一半的<strong>CongWin</strong></li>
+</ul>
+<p><img src="../../images/1234352-e9c36c1963b96e3b.webp" alt="img">
+$$
+rate = \frac{CongWin}{RTT}    Bytes/sec
+$$</p>
+<h5 id="慢开始">慢开始</h5>
+<p>一开始比较慢，然后指数增长 CongWin 的大小，也就是MSS的数目。</p>
+<p>当连接开始的时候，提升每个 RTT 发送的 CongWin 的大小。</p>
+<ul>
+<li>收到ACK的时候提升两倍CongWin的大小，也是就是两倍的segment的数目。</li>
+</ul>
+<h5 id="快重传">快重传</h5>
+<p><img src="../../images/1565712724516.png" alt="1565712724516"></p>
+<p>B 收到1 2 4 个包 这时 3 就被确认为挂了</p>
+<p>我们就将直接发送3 个 3 的ACK  发现丢包立刻让A重发</p>
+<p>推断丢包</p>
+<ul>
+<li>收到3个重复的ACK
+<ul>
+<li>CongWin cut 一半</li>
+<li>线性增加CongWin的大小</li>
+<li>直接进入 加法增加</li>
+</ul>
+</li>
+<li>发生timeout
+<ul>
+<li>CongWin 替换为 1MSS</li>
+<li>window 先指数增长</li>
+<li>到达临界值的时候线性增长</li>
+</ul>
+</li>
+</ul>
+<p><img src="../../images/1234352-2738b3eb14207b1c.webp" alt="img"></p>
+<h4 id="总结">总结</h4>
+<ul>
+<li>双向的连接</li>
+<li>每个seq的单位是1byte</li>
+<li>根据流量控制和拥塞控制来决定窗口的大小</li>
+</ul>
+<h2 id="网络层">网络层</h2>
+<h3 id="网络层最重要的两个服务">网络层最重要的两个服务</h3>
+<p>负责在网络之间尽力转发数据包，基于数据包的ip地址转发</p>
+<p>不负责丢失重传 不负责顺序</p>
+<ul>
+<li>转发:将一个封包从一个路由器转发到最合适的出口路由器</li>
+<li>路由:决定你的封包的起点到终点的路径</li>
+</ul>
+<h3 id="arp-协议">ARP 协议：</h3>
+<p>对于一个ip 我们先判断是否是当前网段，根据子网掩码</p>
+<p>在根据子网掩码判断目标地址在哪个网段</p>
+<p>如果是同一个网段 就使用arp解析目标地址ip地址的MAC</p>
+<p>如果是当前网段就向前面发送一个广播包，交换机遇到这个广播包就会发送这个全为1的包，被动方回应主机的MAC地址</p>
+<p>计算机要想跨网段通讯必须得配网关</p>
+<h3 id="无连接的服务">无连接的服务</h3>
+<h4 id="datagram-networks">Datagram networks</h4>
+<ul>
+<li>不需要建立连接</li>
+<li>不需要记录之前的路径</li>
+<li>根据查表走路径</li>
+</ul>
+<p><strong>转发表</strong>：</p>
+<p>前缀匹配: 只要知道前面的bit数目，就可以知道对应的Link interface</p>
+<p><img src="../../images/1559307942030.png" alt="1559307942030"></p>
+<p>当好几个项都匹配的时候，去到那个最长的匹配的接口。</p>
+<h4 id="ip-datagram-format">IP datagram format</h4>
+<p><img src="../../images/1559310072992.png" alt="1559310072992"></p>
+<ul>
+<li>offset:封包对于原来封包所在的位置</li>
+<li>16-bit identifien:确定是哪个segment</li>
+</ul>
+<h4 id="subnets">Subnets</h4>
+<p>可以直接沟通不通过其他路由器</p>
+<ul>
+<li>subnet part(高位bit)</li>
+<li>host part(低位bit)</li>
+</ul>
+<h3 id="ipv6">IPv6</h3>
+<h4 id="headercont">Header(Cont)</h4>
+<p><img src="../../images/1559741999036.png" alt="1559741999036"></p>
+<ul>
+<li>Checksum: 从IPV4 中去掉了</li>
+<li>ICMPv6: 封包太大的异常 群播</li>
+</ul>
+<h4 id="转移-ipv4-ipv6">转移 IPv4-&gt;IPv6</h4>
+<p>隧道:IPv6的封包放到IPv4里面</p>
+<p><img src="../../images/1559742437450.png" alt="1559742437450"></p>
+<p>其实就是将V6的封包包在V4中而已</p>
+<p><img src="../../images/1559742541710.png" alt="1559742541710"></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

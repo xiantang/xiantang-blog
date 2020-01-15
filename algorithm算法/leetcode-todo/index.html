@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="链表    链表的必备知识要点(包括基础知识、刷题中使用的STL等知识)     链表逆序(LeetCode 92,206. Reverse Linked List 1,2)     求两个链表的交点(LeetCode 160. Intersection of Two Linked Lists)     链表的节点交换(LeetCode 24. Swap Nodes in Pairs)     链表求环(LeetCode 141,142. Linked List Cycle 1,2)     链表重新构造(LeetCode 86. Partition List)     复杂的链表复制(LeetCode 138. Copy List with Random Pointer)     排序链表合并(2个与多个) (LeetCode 21,23 Merge Two(k) Sorted ListsLeetCode)    栈、队列、堆    栈、队列知识要点与实现(数组、链表)     使用队列实现栈(LeetCode 232." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/algorithm%E7%AE%97%E6%B3%95/leetcode-todo/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="链表    链表的必备知识要点(包括基础知识、刷题中使用的STL等知识)     链表逆序(LeetCode 92,206. Reverse Linked List 1,2)     求两个链表的交点(LeetCode 160. Intersection of Two Linked Lists)     链表的节点交换(LeetCode 24. Swap Nodes in Pairs)     链表求环(LeetCode 141,142. Linked List Cycle 1,2)     链表重新构造(LeetCode 86. Partition List)     复杂的链表复制(LeetCode 138. Copy List with Random Pointer)     排序链表合并(2个与多个) (LeetCode 21,23 Merge Two(k) Sorted ListsLeetCode)    栈、队列、堆    栈、队列知识要点与实现(数组、链表)     使用队列实现栈(LeetCode 232.">
+
+<meta itemprop="wordCount" content="394">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="链表    链表的必备知识要点(包括基础知识、刷题中使用的STL等知识)     链表逆序(LeetCode 92,206. Reverse Linked List 1,2)     求两个链表的交点(LeetCode 160. Intersection of Two Linked Lists)     链表的节点交换(LeetCode 24. Swap Nodes in Pairs)     链表求环(LeetCode 141,142. Linked List Cycle 1,2)     链表重新构造(LeetCode 86. Partition List)     复杂的链表复制(LeetCode 138. Copy List with Random Pointer)     排序链表合并(2个与多个) (LeetCode 21,23 Merge Two(k) Sorted ListsLeetCode)    栈、队列、堆    栈、队列知识要点与实现(数组、链表)     使用队列实现栈(LeetCode 232."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        ALGORITHM(算法)S
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="链表">链表</h2>
+<ul>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">链表的必备知识要点(包括基础知识、刷题中使用的STL等知识)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">链表逆序(LeetCode 92,206. Reverse Linked List 1,2)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">求两个链表的交点(LeetCode 160. Intersection of Two Linked Lists)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">链表的节点交换(LeetCode 24. Swap Nodes in Pairs)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">链表求环(LeetCode 141,142. Linked List Cycle 1,2)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">链表重新构造(LeetCode 86. Partition List)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">复杂的链表复制(LeetCode 138. Copy List with Random Pointer)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">排序链表合并(2个与多个) (LeetCode 21,23 Merge Two(k) Sorted ListsLeetCode)</li>
+</ul>
+</li>
+</ul>
+<h2 id="栈队列堆">栈、队列、堆</h2>
+<ul>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">栈、队列知识要点与实现(数组、链表)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">使用队列实现栈(LeetCode 232. Implement Queue using Stacks)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">使用栈实现队列(LeetCode 225. Implement Stack using Queues)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">包含min函数的栈(LeetCode 155. Min Stack)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">简单的计算器(栈的应用)( LeetCode 224. Basic Calculator)  不会做</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">堆(优先级队列)知识要点与实现</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">数组中第K大的数(堆的应用) (LeetCode 215. Kth Largest Element in an Array)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">寻找中位数(堆的应用)( LeetCode 295 Find Median from Data Stream)</li>
+</ul>
+</li>
+</ul>
+<h2 id="贪心">贪心</h2>
+<ul>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">贪心算法知识要点，刷题必备的STL知识</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">贪心题目1(LeetCode 455. Assign Cookies)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">贪心题目2(LeetCode 402. Remove K Digits)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">贪心题目3(LeetCode 134. Gas Station)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">贪心题目4(LeetCode 135. Candy)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">贪心题目5(LeetCode 502. IPO)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">贪心题目6(LeetCode 321. Create Maximum Number)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">贪心题目7(codeforces 582A GCD Table)</li>
+</ul>
+</li>
+</ul>
+<h2 id="递归分制回溯">递归、分制、回溯</h2>
+<ul>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">递归的知识要点，回溯算法</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">生成组合数(LeetCode 39. Combination Sum, LeetCode 40. Combination Sum II)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">生成排列数(LeetCode 46. Permutations, LeetCode 47. Permutations II)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">N皇后问题(LeetCode 51. N-Queens, LeetCode 52. N-Queens II)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">分制算法知识要点</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">快速排序算法与经典实现</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">不同的加括号方法(LeetCode 241. Different Ways to Add Parentheses)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">两个数组的中位数(LeetCode 4. Median of Two Sorted Arrays)</li>
+</ul>
+</li>
+</ul>
+<h2 id="树与图">树与图</h2>
+<ul>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">树与图的数据结构与基本算法</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">树遍历的回调函数实现，并使用自动机概念实现非递归树前、中、后遍历</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">树与链表的转换(LeetCode 114. Flatten Binary Tree to Linked List)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">最近的公共祖先(LeetCode 236. Lowest Common Ancestor of a Binary Tree)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">树的层次遍历应用(LeetCode 199. Binary Tree Right Side View)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">树的改造(LeetCode 117. Populating Next Right Pointers in Each Node 1,2)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">图的复制(LeetCode 133. Clone Graph)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">图的搜索与应用(LeetCode 207.Course Schedule)</li>
+</ul>
+</li>
+</ul>
+<h2 id="二分查找二叉排序树位运算的应用">二分查找、二叉排序树、位运算的应用</h2>
+<ul>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">二分查找、二叉排序树的知识要点</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">数组的二分查找(LeetCode 33,81 Search in Rotated Sorted Array 1,2)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">区间二分查找(LeetCode 34. Search for a Range)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">排序链表转换为二叉排序树(LeetCode 109. Convert Sorted List to B- Search Tree)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">二叉排序树的遍历与改造(LeetCode 538 Convert BST to Greater Tree)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">二叉排序树中的第K大的数(LeetCode 230. Kth Smallest Element in a BST)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">位运算的知识要点</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">使用位运算表示集合(LeetCode 78. Subsets)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">位运算应用题目(LeetCode 136,137,260. Single Number1,2,3)</li>
+</ul>
+</li>
+</ul>
+<h2 id="哈希表与字符串">哈希表与字符串</h2>
+<ul>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">哈希表与字符串知识要点</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">哈希题目 (LeetCode 290. Word Pattern)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">哈希与字符串综合 (LeetCode 3.Longest Substring Without Repeating Characters)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">哈希与字符串综合 (LeetCode 76. Minimum Window Substring)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">哈希与字符串综合 (LeetCode 30. Substring with Concatenation of All Words)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">字符串题目 (LeetCode 459. Repeated Substring Pattern)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">字符串题目 (LeetCode 468. Validate IP Address)</li>
+</ul>
+</li>
+</ul>
+<h2 id="搜索">搜索</h2>
+<ul>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">深度优先搜索与广度优先搜索算法</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">深搜题目 (LeetCode 200. Number of Islands)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">深搜题目 (LeetCode 473. Matchsticks to Square)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">深搜题目 (LeetCode 491. Increasing Subsequences)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">广搜题目 (LeetCode 126,127 Word Ladder 1,2)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">广搜题目 (LeetCode 417. Pacific Atlantic Water Flow)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">广搜题目 (LeetCode 407. Trapping Rain Water II)</li>
+</ul>
+</li>
+</ul>
+<h2 id="动态规划">动态规划</h2>
+<ul>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">动态规划知识要点</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">动态规划题目1(LeetCode 120. Triangle)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">动态规划题目2(LeetCode 53. Maximum Subarray)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">动态规划题目3(LeetCode 198. House Robber 1,2)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">动态规划题目3(LeetCode 213. House Robber 2)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input checked="" disabled="" type="checkbox">动态规划题目4(LeetCode 322. Coin Change)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">动态规划题目5(LeetCode 72. Edit Distance)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">动态规划题目6(LeetCode 174. Dungeon Game)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">动态规划题目7(codeforces 711C Coloring Trees)</li>
+</ul>
+</li>
+</ul>
+<h2 id="复杂数据结构">复杂数据结构</h2>
+<ul>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">Trie树的构造与基本算法</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">Trie树的构造 (LeetCode 208. Implement Trie (Prefix Tree))</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">Trie树的应用 (LeetCode 212. Word Search II)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">并查集的基本算法</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">并查集的应用 (LeetCode 547. Friend Circles)</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">线段树与树状数组</li>
+</ul>
+</li>
+<li>
+<ul>
+<li><input disabled="" type="checkbox">线段树与树状数组的应用(LeetCode 307. Range Sum Query – Mutable)</li>
+</ul>
+</li>
+</ul>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

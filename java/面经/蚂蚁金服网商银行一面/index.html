@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="1500w数据怎么用redis去重 （答了布隆过滤器）
+  AB两个索引 是复合索引 where B=&rdquo;?&rdquo; 会走复合索引吗？
+ 利用索引中的附加列可以减少搜索的范围，但使用一个具有两列的索引 不同于使用两个单独的索引。如果您知道姓，电话簿将非常有用；如果您知道姓和名，电话簿则更为有用，但如果您只知道名不姓，电话簿将没有用处。 在创建复合索引的时候，应该仔细考虑列的顺序。索引中的所有列执行搜索，或者针对前几条的搜索可以使用复合索引。 最左前缀原则是最左优先，以最左边的为起点任何连续的索引都能匹配上    1500w 怎么确定between and 范围
+  怎么优化1500w数据中一个区间的数据的查询（我答了limit 1）
+  有限状态机的概念
+  有限状态机在某个状态出现问题 怎么处理 怎么返回原来的状态
+  事务中出现了长时间操作该如何处理
+  事务的隔离级别（我答了事务传播。。。。。）
+ READ UNCOMMITTED（未提交读） 事务的修改即使没有提交对其他事务都是可见的，事务可以读取未提交的数据也就被称为脏读（Dirty Read） 一般很少使用。 READ COMMITED（提交读） 一个事务开始的时候只能“看见”已经提交事务所做的修改，也就是说一个事务从开始到提交之前，所做的任何修改 都是对其他事务不可见的。 REPEATABLE READ（可重复读） MySQL 的默认事务隔离级别 无法解决环行（Phantom Row） SERIALIZABLE（可串行化）    开启事务的时候update一个数据 被另一个数据操作了怎么处理
+  mysql 的锁 了解过吗？
+  线程池了解吗" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/java/%E9%9D%A2%E7%BB%8F/%E8%9A%82%E8%9A%81%E9%87%91%E6%9C%8D%E7%BD%91%E5%95%86%E9%93%B6%E8%A1%8C%E4%B8%80%E9%9D%A2/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="1500w数据怎么用redis去重 （答了布隆过滤器）
+  AB两个索引 是复合索引 where B=&rdquo;?&rdquo; 会走复合索引吗？
+ 利用索引中的附加列可以减少搜索的范围，但使用一个具有两列的索引 不同于使用两个单独的索引。如果您知道姓，电话簿将非常有用；如果您知道姓和名，电话簿则更为有用，但如果您只知道名不姓，电话簿将没有用处。 在创建复合索引的时候，应该仔细考虑列的顺序。索引中的所有列执行搜索，或者针对前几条的搜索可以使用复合索引。 最左前缀原则是最左优先，以最左边的为起点任何连续的索引都能匹配上    1500w 怎么确定between and 范围
+  怎么优化1500w数据中一个区间的数据的查询（我答了limit 1）
+  有限状态机的概念
+  有限状态机在某个状态出现问题 怎么处理 怎么返回原来的状态
+  事务中出现了长时间操作该如何处理
+  事务的隔离级别（我答了事务传播。。。。。）
+ READ UNCOMMITTED（未提交读） 事务的修改即使没有提交对其他事务都是可见的，事务可以读取未提交的数据也就被称为脏读（Dirty Read） 一般很少使用。 READ COMMITED（提交读） 一个事务开始的时候只能“看见”已经提交事务所做的修改，也就是说一个事务从开始到提交之前，所做的任何修改 都是对其他事务不可见的。 REPEATABLE READ（可重复读） MySQL 的默认事务隔离级别 无法解决环行（Phantom Row） SERIALIZABLE（可串行化）    开启事务的时候update一个数据 被另一个数据操作了怎么处理
+  mysql 的锁 了解过吗？
+  线程池了解吗">
+
+<meta itemprop="wordCount" content="76">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="1500w数据怎么用redis去重 （答了布隆过滤器）
+  AB两个索引 是复合索引 where B=&rdquo;?&rdquo; 会走复合索引吗？
+ 利用索引中的附加列可以减少搜索的范围，但使用一个具有两列的索引 不同于使用两个单独的索引。如果您知道姓，电话簿将非常有用；如果您知道姓和名，电话簿则更为有用，但如果您只知道名不姓，电话簿将没有用处。 在创建复合索引的时候，应该仔细考虑列的顺序。索引中的所有列执行搜索，或者针对前几条的搜索可以使用复合索引。 最左前缀原则是最左优先，以最左边的为起点任何连续的索引都能匹配上    1500w 怎么确定between and 范围
+  怎么优化1500w数据中一个区间的数据的查询（我答了limit 1）
+  有限状态机的概念
+  有限状态机在某个状态出现问题 怎么处理 怎么返回原来的状态
+  事务中出现了长时间操作该如何处理
+  事务的隔离级别（我答了事务传播。。。。。）
+ READ UNCOMMITTED（未提交读） 事务的修改即使没有提交对其他事务都是可见的，事务可以读取未提交的数据也就被称为脏读（Dirty Read） 一般很少使用。 READ COMMITED（提交读） 一个事务开始的时候只能“看见”已经提交事务所做的修改，也就是说一个事务从开始到提交之前，所做的任何修改 都是对其他事务不可见的。 REPEATABLE READ（可重复读） MySQL 的默认事务隔离级别 无法解决环行（Phantom Row） SERIALIZABLE（可串行化）    开启事务的时候update一个数据 被另一个数据操作了怎么处理
+  mysql 的锁 了解过吗？
+  线程池了解吗"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        JAVAS
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><ul>
+<li>
+<p><del>1500w数据怎么用redis去重 （答了布隆过滤器）</del></p>
+</li>
+<li>
+<p><del>AB两个索引 是复合索引 where B=&rdquo;?&rdquo; 会走复合索引吗？</del></p>
+<ul>
+<li>利用索引中的附加列可以减少搜索的范围，但使用一个具有两列的索引 不同于使用两个单独的索引。如果您知道姓，电话簿将非常有用；如果您知道姓和名，电话簿则更为有用，但如果您只知道名不姓，电话簿将没有用处。</li>
+<li>在创建复合索引的时候，应该仔细考虑列的顺序。索引中的所有列执行搜索，或者针对前几条的搜索可以使用复合索引。</li>
+<li>最左前缀原则是最左优先，以最左边的为起点任何连续的索引都能匹配上</li>
+</ul>
+</li>
+<li>
+<p><del>1500w 怎么确定between and 范围</del></p>
+</li>
+<li>
+<p><del>怎么优化1500w数据中一个区间的数据的查询（我答了limit 1）</del></p>
+</li>
+<li>
+<p><del>有限状态机的概念</del></p>
+</li>
+<li>
+<p><del>有限状态机在某个状态出现问题 怎么处理 怎么返回原来的状态</del></p>
+</li>
+<li>
+<p><del>事务中出现了长时间操作该如何处理</del></p>
+</li>
+<li>
+<p><del>事务的隔离级别（我答了事务传播。。。。。）</del></p>
+<ul>
+<li>READ UNCOMMITTED（未提交读）
+事务的修改即使没有提交对其他事务都是可见的，事务可以读取未提交的数据也就被称为脏读（Dirty Read）
+一般很少使用。</li>
+<li>READ COMMITED（提交读）
+一个事务开始的时候只能“看见”已经提交事务所做的修改，也就是说一个事务从开始到提交之前，所做的任何修改
+都是对其他事务不可见的。</li>
+<li>REPEATABLE READ（可重复读）
+MySQL 的默认事务隔离级别
+无法解决环行（Phantom Row）</li>
+<li>SERIALIZABLE（可串行化）</li>
+</ul>
+</li>
+<li>
+<p><del>开启事务的时候update一个数据 被另一个数据操作了怎么处理</del></p>
+</li>
+<li>
+<p><del>mysql 的锁 了解过吗？</del></p>
+</li>
+<li>
+<p><del>线程池了解吗</del></p>
+</li>
+<li>
+<p><del>synchronized 和显式的Lock 锁有什么区别 答了字面意思</del></p>
+</li>
+<li>
+<p><del>sysnchronized底层实现 在集群下的特性</del></p>
+</li>
+<li>
+<p><del>两台机器分布式部署一个应用 sysnchronized 怎么锁</del></p>
+</li>
+</ul>
+<p>多线程同时写一个商品的最低价格  并发一个写3快 一个写4块  怎么能保证写最低价格</p>
+<ul>
+<li><del>为什么在wait（）外面要包while循环</del></li>
+</ul>
+<p>rabbitMq 消费者无法接收 消费者重复接收</p>
+<p>如果rabbitMq 在发送邮件的时候，邮件服务器挂了怎么办（面试官说太依赖redis了。。。）</p>
+<p>数据库只是在用的层面（面试官评价）</p>
+<p>Java多线程在写吗？</p>
+<p>线程池是如何工作的？</p>
+<p>Thread sleep（）和join（）的区别</p>
+<p>sleep（）会释放锁吗？</p>
+<p>Thread run（） 和 start（）区别</p>
+<p>双亲委派模型</p>
+<p>Java的内存回收机制</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

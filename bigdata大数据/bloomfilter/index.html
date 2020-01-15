@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="算法描述 一个empty bloom filter是一个有m bits的bit array，每一个bit位都初始化为0。并且定义有k个不同的hash function，每个都以uniform random distribution将元素hash到m个不同位置中的一个。在下面的介绍中n为元素数，m为布隆过滤器或哈希表的slot数，k为布隆过滤器重hash function数。
+添加一个元素 用k个hash function 将hash得到的bloom filter中的k个bit位 置为1。
+查询元素是否存在 用k个hash function 将他的hash得到k个bit位，如果任意一位为0，则这个元素必不存在。
+误判 当add 的元素过多，n/m（n元素数目 m 是bloom filter的bit数目） 过大，会导致false positive 此时就需要重新组建filter，但这种情况相对少见。
+优势 时间 add 和 query 时间复杂度只有 O(k)
+空间 对于一个有1%误报率和一个最优k值的布隆过滤器来说，无论元素的类型及大小，每个元素只需要9.6 bits来存储。
+当 -1/m 很大 并且趋于0的时候误判率会降低，n降低也会使误判率降低。
+输入 1000w 误判率1% 计算占用空间9000w bit 100M 这样 并且空间占用率50% m = 9000w n = 1000w
+hashfunction 0.7*9 = 7
+空间占用估计 ： k=0.7*(l/n) # 约等于 f=0.6185^(l/n) # ^ 表示次方计算，也就是 math." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/bigdata%E5%A4%A7%E6%95%B0%E6%8D%AE/bloomfilter/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="算法描述 一个empty bloom filter是一个有m bits的bit array，每一个bit位都初始化为0。并且定义有k个不同的hash function，每个都以uniform random distribution将元素hash到m个不同位置中的一个。在下面的介绍中n为元素数，m为布隆过滤器或哈希表的slot数，k为布隆过滤器重hash function数。
+添加一个元素 用k个hash function 将hash得到的bloom filter中的k个bit位 置为1。
+查询元素是否存在 用k个hash function 将他的hash得到k个bit位，如果任意一位为0，则这个元素必不存在。
+误判 当add 的元素过多，n/m（n元素数目 m 是bloom filter的bit数目） 过大，会导致false positive 此时就需要重新组建filter，但这种情况相对少见。
+优势 时间 add 和 query 时间复杂度只有 O(k)
+空间 对于一个有1%误报率和一个最优k值的布隆过滤器来说，无论元素的类型及大小，每个元素只需要9.6 bits来存储。
+当 -1/m 很大 并且趋于0的时候误判率会降低，n降低也会使误判率降低。
+输入 1000w 误判率1% 计算占用空间9000w bit 100M 这样 并且空间占用率50% m = 9000w n = 1000w
+hashfunction 0.7*9 = 7
+空间占用估计 ： k=0.7*(l/n) # 约等于 f=0.6185^(l/n) # ^ 表示次方计算，也就是 math.">
+
+<meta itemprop="wordCount" content="74">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="算法描述 一个empty bloom filter是一个有m bits的bit array，每一个bit位都初始化为0。并且定义有k个不同的hash function，每个都以uniform random distribution将元素hash到m个不同位置中的一个。在下面的介绍中n为元素数，m为布隆过滤器或哈希表的slot数，k为布隆过滤器重hash function数。
+添加一个元素 用k个hash function 将hash得到的bloom filter中的k个bit位 置为1。
+查询元素是否存在 用k个hash function 将他的hash得到k个bit位，如果任意一位为0，则这个元素必不存在。
+误判 当add 的元素过多，n/m（n元素数目 m 是bloom filter的bit数目） 过大，会导致false positive 此时就需要重新组建filter，但这种情况相对少见。
+优势 时间 add 和 query 时间复杂度只有 O(k)
+空间 对于一个有1%误报率和一个最优k值的布隆过滤器来说，无论元素的类型及大小，每个元素只需要9.6 bits来存储。
+当 -1/m 很大 并且趋于0的时候误判率会降低，n降低也会使误判率降低。
+输入 1000w 误判率1% 计算占用空间9000w bit 100M 这样 并且空间占用率50% m = 9000w n = 1000w
+hashfunction 0.7*9 = 7
+空间占用估计 ： k=0.7*(l/n) # 约等于 f=0.6185^(l/n) # ^ 表示次方计算，也就是 math."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        BIGDATA(大数据)S
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="算法描述">算法描述</h2>
+<p>一个empty bloom filter是一个有m bits的bit array，每一个bit位都初始化为0。并且定义有k个不同的hash function，每个都以uniform random distribution将元素hash到m个不同位置中的一个。在下面的介绍中n为元素数，m为布隆过滤器或哈希表的slot数，k为布隆过滤器重hash function数。</p>
+<h2 id="添加一个元素">添加一个元素</h2>
+<p>用k个hash function 将hash得到的bloom filter中的k个bit位 置为1。</p>
+<h2 id="查询元素是否存在">查询元素是否存在</h2>
+<p>用k个hash function 将他的hash得到k个bit位，如果任意一位为0，则这个元素必不存在。</p>
+<h2 id="误判">误判</h2>
+<p>当add 的元素过多，n/m（n元素数目 m 是bloom filter的bit数目） 过大，会导致false positive 此时就需要重新组建filter，但这种情况相对少见。</p>
+<h2 id="优势">优势</h2>
+<h3 id="时间">时间</h3>
+<p>add 和 query 时间复杂度只有 O(k)</p>
+<h3 id="空间">空间</h3>
+<p>对于一个有1%误报率和一个最优k值的布隆过滤器来说，无论元素的类型及大小，每个元素只需要9.6 bits来存储。</p>
+<p><img src="http://ww1.sinaimg.cn/large/006d4JA0ly1g1pebftymgj30lh0lkjs6.jpg" alt=""></p>
+<p>当 -1/m 很大 并且趋于0的时候误判率会降低，n降低也会使误判率降低。</p>
+<p><img src="http://ww1.sinaimg.cn/large/006d4JA0ly1g1pfb746nkj30lp0q5ab3.jpg" alt=""></p>
+<p>输入 1000w 误判率1%
+计算占用空间9000w bit 100M 这样 并且空间占用率50%
+m = 9000w
+n = 1000w</p>
+<p>hashfunction 0.7*9 = 7</p>
+<h3 id="空间占用估计-">空间占用估计 ：</h3>
+<p>k=0.7*(l/n) # 约等于
+f=0.6185^(l/n) # ^ 表示次方计算，也就是 math.pow</p>
+<p>对于1亿个url 我们使误判率在0.1%的情况 下，可以计算出他所需要的哈希函数的个数为多少。然后得出所需要占用的空间为多少。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

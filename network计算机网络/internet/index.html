@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="计算机网络 网络分层  应用层:网络进程到应用程序。针对也定的应用规定各层协议。端系统用软件实现。 表示层:负责数据的加密解密，把数据转换成独立于机器的数据。 会话层:主机间通讯，管理应用程序之间的会话。 传输层:在网络的各个节点之前可靠的分发数据包。 网络层:进行地址分配和路由。 数据链路层:可靠的点对点数据直链。 物理层:不一定可靠的点对点数据直链。  底层网络协议 ARP 基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。在每台安装有TCP/IP协议的电脑或路由器里都有一个ARP缓存表，表里的IP地址与MAC地址是一对应的。
+NAT 基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。在每台安装有TCP/IP协议的电脑或路由器里都有一个ARP缓存表，表里的IP地址与MAC地址是一对应的。
+HTTP 协议  构建在TCP/IP协议之上 默认端口号80 无连接无状态  状态码含义  1** 服务器收到请求，需要请求者继续执行操作。 2** 成功,操作被成功接收并处理。 3** 重定向，需要进一步的操作以完成请求。  301 Moved Permanently。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替 302 Moved Temporarily。与301类似。但资源只是临时被移动。客户端应继续使用原有URI 304 Not Modified。所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源。   4**	客户端错误，请求包含语法错误或无法完成请求  400 Bad Request 由于客户端请求有语法错误，不能被服务器所理解。 401 Unauthorized 请求未经授权。这个状态代码必须和WWW-Authenticate报头域一起使用 403 Forbidden 服务器收到请求，但是拒绝提供服务。服务器通常会在响应正文中给出不提供服务的原因 404 Not Found 请求的资源不存在，例如，输入了错误的UR   5**	服务器错误，服务器在处理请求的过程中发生了错误  500 Internal Server Error 服务器发生不可预期的错误，导致无法完成客户端的请求。 503 Service Unavailable 服务器当前不能够处理客户端的请求，在一段时间之后，服务器可能会恢复正常。    GET 和 POST 的区别 GET可提交的数据量受到URL长度的限制，HTTP协议规范没有对URL长度进行限制。这个限制是特定的浏览器及服务器对它的限制。 理论上讲，POST是没有大小限制的，HTTP协议规范也没有进行大小限制，出于安全考虑，服务器软件在实现时会做一定限制。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/network%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/internet/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="计算机网络 网络分层  应用层:网络进程到应用程序。针对也定的应用规定各层协议。端系统用软件实现。 表示层:负责数据的加密解密，把数据转换成独立于机器的数据。 会话层:主机间通讯，管理应用程序之间的会话。 传输层:在网络的各个节点之前可靠的分发数据包。 网络层:进行地址分配和路由。 数据链路层:可靠的点对点数据直链。 物理层:不一定可靠的点对点数据直链。  底层网络协议 ARP 基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。在每台安装有TCP/IP协议的电脑或路由器里都有一个ARP缓存表，表里的IP地址与MAC地址是一对应的。
+NAT 基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。在每台安装有TCP/IP协议的电脑或路由器里都有一个ARP缓存表，表里的IP地址与MAC地址是一对应的。
+HTTP 协议  构建在TCP/IP协议之上 默认端口号80 无连接无状态  状态码含义  1** 服务器收到请求，需要请求者继续执行操作。 2** 成功,操作被成功接收并处理。 3** 重定向，需要进一步的操作以完成请求。  301 Moved Permanently。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替 302 Moved Temporarily。与301类似。但资源只是临时被移动。客户端应继续使用原有URI 304 Not Modified。所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源。   4**	客户端错误，请求包含语法错误或无法完成请求  400 Bad Request 由于客户端请求有语法错误，不能被服务器所理解。 401 Unauthorized 请求未经授权。这个状态代码必须和WWW-Authenticate报头域一起使用 403 Forbidden 服务器收到请求，但是拒绝提供服务。服务器通常会在响应正文中给出不提供服务的原因 404 Not Found 请求的资源不存在，例如，输入了错误的UR   5**	服务器错误，服务器在处理请求的过程中发生了错误  500 Internal Server Error 服务器发生不可预期的错误，导致无法完成客户端的请求。 503 Service Unavailable 服务器当前不能够处理客户端的请求，在一段时间之后，服务器可能会恢复正常。    GET 和 POST 的区别 GET可提交的数据量受到URL长度的限制，HTTP协议规范没有对URL长度进行限制。这个限制是特定的浏览器及服务器对它的限制。 理论上讲，POST是没有大小限制的，HTTP协议规范也没有进行大小限制，出于安全考虑，服务器软件在实现时会做一定限制。">
+
+<meta itemprop="wordCount" content="83">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="计算机网络 网络分层  应用层:网络进程到应用程序。针对也定的应用规定各层协议。端系统用软件实现。 表示层:负责数据的加密解密，把数据转换成独立于机器的数据。 会话层:主机间通讯，管理应用程序之间的会话。 传输层:在网络的各个节点之前可靠的分发数据包。 网络层:进行地址分配和路由。 数据链路层:可靠的点对点数据直链。 物理层:不一定可靠的点对点数据直链。  底层网络协议 ARP 基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。在每台安装有TCP/IP协议的电脑或路由器里都有一个ARP缓存表，表里的IP地址与MAC地址是一对应的。
+NAT 基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。在每台安装有TCP/IP协议的电脑或路由器里都有一个ARP缓存表，表里的IP地址与MAC地址是一对应的。
+HTTP 协议  构建在TCP/IP协议之上 默认端口号80 无连接无状态  状态码含义  1** 服务器收到请求，需要请求者继续执行操作。 2** 成功,操作被成功接收并处理。 3** 重定向，需要进一步的操作以完成请求。  301 Moved Permanently。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替 302 Moved Temporarily。与301类似。但资源只是临时被移动。客户端应继续使用原有URI 304 Not Modified。所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源。   4**	客户端错误，请求包含语法错误或无法完成请求  400 Bad Request 由于客户端请求有语法错误，不能被服务器所理解。 401 Unauthorized 请求未经授权。这个状态代码必须和WWW-Authenticate报头域一起使用 403 Forbidden 服务器收到请求，但是拒绝提供服务。服务器通常会在响应正文中给出不提供服务的原因 404 Not Found 请求的资源不存在，例如，输入了错误的UR   5**	服务器错误，服务器在处理请求的过程中发生了错误  500 Internal Server Error 服务器发生不可预期的错误，导致无法完成客户端的请求。 503 Service Unavailable 服务器当前不能够处理客户端的请求，在一段时间之后，服务器可能会恢复正常。    GET 和 POST 的区别 GET可提交的数据量受到URL长度的限制，HTTP协议规范没有对URL长度进行限制。这个限制是特定的浏览器及服务器对它的限制。 理论上讲，POST是没有大小限制的，HTTP协议规范也没有进行大小限制，出于安全考虑，服务器软件在实现时会做一定限制。"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        NETWORK(计算机网络)S
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="计算机网络">计算机网络</h1>
+<h2 id="网络分层">网络分层</h2>
+<ul>
+<li>应用层:网络进程到应用程序。针对也定的应用规定各层协议。端系统用软件实现。</li>
+<li>表示层:负责数据的加密解密，把数据转换成独立于机器的数据。</li>
+<li>会话层:主机间通讯，管理应用程序之间的会话。</li>
+<li>传输层:在网络的各个节点之前可靠的分发数据包。</li>
+<li>网络层:进行地址分配和路由。</li>
+<li>数据链路层:可靠的点对点数据直链。</li>
+<li>物理层:不一定可靠的点对点数据直链。</li>
+</ul>
+<h2 id="底层网络协议">底层网络协议</h2>
+<h3 id="arp">ARP</h3>
+<p>基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。在每台安装有TCP/IP协议的电脑或路由器里都有一个ARP缓存表，表里的IP地址与MAC地址是一对应的。</p>
+<h3 id="nat">NAT</h3>
+<p>基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。在每台安装有TCP/IP协议的电脑或路由器里都有一个ARP缓存表，表里的IP地址与MAC地址是一对应的。</p>
+<h1 id="http-协议">HTTP 协议</h1>
+<ul>
+<li>构建在TCP/IP协议之上 默认端口号80</li>
+<li>无连接无状态</li>
+</ul>
+<h2 id="状态码含义">状态码含义</h2>
+<ul>
+<li>1** 服务器收到请求，需要请求者继续执行操作。</li>
+<li>2** 成功,操作被成功接收并处理。</li>
+<li>3** 重定向，需要进一步的操作以完成请求。
+<ul>
+<li>301 Moved Permanently。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替</li>
+<li>302 Moved Temporarily。与301类似。但资源只是临时被移动。客户端应继续使用原有URI</li>
+<li>304 Not Modified。所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源。</li>
+</ul>
+</li>
+<li>4**	客户端错误，请求包含语法错误或无法完成请求
+<ul>
+<li>400 Bad Request 由于客户端请求有语法错误，不能被服务器所理解。</li>
+<li>401 Unauthorized 请求未经授权。这个状态代码必须和WWW-Authenticate报头域一起使用</li>
+<li>403 Forbidden 服务器收到请求，但是拒绝提供服务。服务器通常会在响应正文中给出不提供服务的原因</li>
+<li>404 Not Found 请求的资源不存在，例如，输入了错误的UR</li>
+</ul>
+</li>
+<li>5**	服务器错误，服务器在处理请求的过程中发生了错误
+<ul>
+<li>500 Internal Server Error 服务器发生不可预期的错误，导致无法完成客户端的请求。</li>
+<li>503 Service Unavailable 服务器当前不能够处理客户端的请求，在一段时间之后，服务器可能会恢复正常。</li>
+</ul>
+</li>
+</ul>
+<h2 id="get和-post-的区别">GET 和 POST 的区别</h2>
+<p>GET可提交的数据量受到URL长度的限制，HTTP协议规范没有对URL长度进行限制。这个限制是特定的浏览器及服务器对它的限制。
+理论上讲，POST是没有大小限制的，HTTP协议规范也没有进行大小限制，出于安全考虑，服务器软件在实现时会做一定限制。</p>
+<h2 id="http会话的过程">Http会话的过程</h2>
+<ul>
+<li>建立tcp连接</li>
+<li>发出请求文档</li>
+<li>发出响应文档</li>
+<li>释放tcp连接</li>
+</ul>
+<h3 id="ipv6-缩写">IPV6 缩写</h3>
+<ol>
+<li>连续段的0可以用::来省略（单个的也可以） 但是最多只能出现一次</li>
+<li>单个0000可以简化成0 例如： FE80:0000:0000:0000:AAAA:0000:00C2:0002 等价于 FE80:0:0:0:AAAA:0000:00C2:0002</li>
+<li>前导的0可以被省略</li>
+</ol>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="术语解析:
+负载调度器（Load Balancer）:负载调度器能无缝地将网络请求调度到真实服务器上，从而使得服务器集群的结构对客户是透明的，客户访问集群系统提供的网络服务就像访 问一台高性能、高可用的服务器一样。客户程序不受服务器集 群的影响不需作任何修改。系统的伸缩性通过在服务机群中透明地加入和删除一个节点来达到，通过检 测节点或服务进程故障和正确地重置系统达到高可用性。
+LVS: Linux 虚拟服务器(Linux Virtual Server) 负载调度技术在内核中实现。
+LVS 负载均衡技术   NAT
+通过网络地址转换，调度器重写请求报文的目标地址，根据预设的算法，将请求分派给后端的真实服务器。真实服务器的响应报文通过调度器时，报文的源地址被重写，再返回给客户，完成整个负载调度过程。
+  DR
+通过改写请求报文的MAC地址，将请求发送到真实服务器，而真实服务器将响应直接返回给客户。可以极大的提高集群系统的伸缩性。这种方法没有IP隧道的开销，对集群中的真实服务器也没有必须支持IP隧道协议的要求，但是要求调度器与真实服务器都有一块网卡连 在同一物理网段上。
+  LVS集群的特点 功能 支持持久的虚拟化服务，并提供详尽的统计数据。能及时将故障屏蔽，实现系统的高可用性。主、从调度器能周期性地进行状态同步，从而实现更高的可用性。
+适用性 后端服务器可运行任何支持TCP/IP的操作系统，包括Linux，各种Unix（如FreeBSD、Sun Solaris、HP Unix等），Mac/OS和Windows NT/2000等。
+负载调度器能够支持绝大多数的TCP和UDP协议：
+   协议 内 容     TCP HTTP，FTP，PROXY，SMTP，POP3，IMAP4，DNS，LDAP，HTTPS，SSMTP等   UDP DNS，NTP，ICP，视频、音频流播放协议等    集群模式 主备 " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/work%E5%B7%A5%E4%BD%9C/qlb/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="术语解析:
+负载调度器（Load Balancer）:负载调度器能无缝地将网络请求调度到真实服务器上，从而使得服务器集群的结构对客户是透明的，客户访问集群系统提供的网络服务就像访 问一台高性能、高可用的服务器一样。客户程序不受服务器集 群的影响不需作任何修改。系统的伸缩性通过在服务机群中透明地加入和删除一个节点来达到，通过检 测节点或服务进程故障和正确地重置系统达到高可用性。
+LVS: Linux 虚拟服务器(Linux Virtual Server) 负载调度技术在内核中实现。
+LVS 负载均衡技术   NAT
+通过网络地址转换，调度器重写请求报文的目标地址，根据预设的算法，将请求分派给后端的真实服务器。真实服务器的响应报文通过调度器时，报文的源地址被重写，再返回给客户，完成整个负载调度过程。
+  DR
+通过改写请求报文的MAC地址，将请求发送到真实服务器，而真实服务器将响应直接返回给客户。可以极大的提高集群系统的伸缩性。这种方法没有IP隧道的开销，对集群中的真实服务器也没有必须支持IP隧道协议的要求，但是要求调度器与真实服务器都有一块网卡连 在同一物理网段上。
+  LVS集群的特点 功能 支持持久的虚拟化服务，并提供详尽的统计数据。能及时将故障屏蔽，实现系统的高可用性。主、从调度器能周期性地进行状态同步，从而实现更高的可用性。
+适用性 后端服务器可运行任何支持TCP/IP的操作系统，包括Linux，各种Unix（如FreeBSD、Sun Solaris、HP Unix等），Mac/OS和Windows NT/2000等。
+负载调度器能够支持绝大多数的TCP和UDP协议：
+   协议 内 容     TCP HTTP，FTP，PROXY，SMTP，POP3，IMAP4，DNS，LDAP，HTTPS，SSMTP等   UDP DNS，NTP，ICP，视频、音频流播放协议等    集群模式 主备 ">
+
+<meta itemprop="wordCount" content="37">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="术语解析:
+负载调度器（Load Balancer）:负载调度器能无缝地将网络请求调度到真实服务器上，从而使得服务器集群的结构对客户是透明的，客户访问集群系统提供的网络服务就像访 问一台高性能、高可用的服务器一样。客户程序不受服务器集 群的影响不需作任何修改。系统的伸缩性通过在服务机群中透明地加入和删除一个节点来达到，通过检 测节点或服务进程故障和正确地重置系统达到高可用性。
+LVS: Linux 虚拟服务器(Linux Virtual Server) 负载调度技术在内核中实现。
+LVS 负载均衡技术   NAT
+通过网络地址转换，调度器重写请求报文的目标地址，根据预设的算法，将请求分派给后端的真实服务器。真实服务器的响应报文通过调度器时，报文的源地址被重写，再返回给客户，完成整个负载调度过程。
+  DR
+通过改写请求报文的MAC地址，将请求发送到真实服务器，而真实服务器将响应直接返回给客户。可以极大的提高集群系统的伸缩性。这种方法没有IP隧道的开销，对集群中的真实服务器也没有必须支持IP隧道协议的要求，但是要求调度器与真实服务器都有一块网卡连 在同一物理网段上。
+  LVS集群的特点 功能 支持持久的虚拟化服务，并提供详尽的统计数据。能及时将故障屏蔽，实现系统的高可用性。主、从调度器能周期性地进行状态同步，从而实现更高的可用性。
+适用性 后端服务器可运行任何支持TCP/IP的操作系统，包括Linux，各种Unix（如FreeBSD、Sun Solaris、HP Unix等），Mac/OS和Windows NT/2000等。
+负载调度器能够支持绝大多数的TCP和UDP协议：
+   协议 内 容     TCP HTTP，FTP，PROXY，SMTP，POP3，IMAP4，DNS，LDAP，HTTPS，SSMTP等   UDP DNS，NTP，ICP，视频、音频流播放协议等    集群模式 主备 "/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        WORK(工作)S
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>术语解析:</p>
+<p>负载调度器（Load Balancer）:负载调度器能无缝地将网络请求调度到真实服务器上，从而使得服务器集群的结构对客户是透明的，客户访问集群系统提供的网络服务就像访 问一台高性能、高可用的服务器一样。客户程序不受服务器集 群的影响不需作任何修改。系统的伸缩性通过在服务机群中透明地加入和删除一个节点来达到，通过检 测节点或服务进程故障和正确地重置系统达到高可用性。</p>
+<p>LVS:  Linux 虚拟服务器(Linux Virtual Server) 负载调度技术在内核中实现。</p>
+<p><img src="http://linuxvirtualserver.org/zh/lvs1/2.jpg" alt=""></p>
+<h1 id="lvs">LVS</h1>
+<h2 id="负载均衡技术">负载均衡技术</h2>
+<ul>
+<li>
+<p>NAT</p>
+<p>通过网络地址转换，调度器重写请求报文的目标地址，根据预设的算法，将请求分派给后端的真实服务器。真实服务器的响应报文通过调度器时，报文的源地址被重写，再返回给客户，完成整个负载调度过程。</p>
+</li>
+<li>
+<p>DR</p>
+<p>通过改写请求报文的MAC地址，将请求发送到真实服务器，而真实服务器将响应直接返回给客户。可以极大的提高集群系统的伸缩性。这种方法没有IP隧道的开销，对集群中的真实服务器也没有必须支持IP隧道协议的要求，但是要求调度器与真实服务器都有一块网卡连 在同一物理网段上。</p>
+</li>
+</ul>
+<h2 id="lvs集群的特点">LVS集群的特点</h2>
+<h3 id="功能">功能</h3>
+<p>支持持久的虚拟化服务，并提供详尽的统计数据。能及时将故障屏蔽，实现系统的高可用性。主、从调度器能周期性地进行状态同步，从而实现更高的可用性。</p>
+<h3 id="适用性">适用性</h3>
+<p>后端服务器可运行任何支持TCP/IP的操作系统，包括Linux，各种Unix（如FreeBSD、Sun Solaris、HP Unix等），Mac/OS和Windows NT/2000等。</p>
+<p>负载调度器能够支持绝大多数的TCP和UDP协议：</p>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>内 容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TCP</td>
+<td>HTTP，FTP，PROXY，SMTP，POP3，IMAP4，DNS，LDAP，HTTPS，SSMTP等</td>
+</tr>
+<tr>
+<td>UDP</td>
+<td>DNS，NTP，ICP，视频、音频流播放协议等</td>
+</tr>
+</tbody>
+</table>
+<h1 id="集群模式">集群模式</h1>
+<h2 id="主备">主备</h2>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

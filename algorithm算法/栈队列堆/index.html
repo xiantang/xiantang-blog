@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="232. Implement Queue using Stacks Implement the following operations of a queue using stacks.push(x)
+ Push element x to the back of queue.pop() Removes the element from in front of queue.peek() Get the front element.empty() Return whether the queue is empty.  Example:
+ MyQueue queue = new MyQueue(); queue.push(1); queue.push(2); queue.peek(); // returns 1 queue.pop(); // returns 1 queue.empty(); // returns false 这里我采用的是双栈法 入栈的时间复杂度是O(1)
+出栈的时间复杂度是O(N)
+我们采用一个top 去记录栈底部的数据，然后移动栈的时候当栈1的容量为0 这个元素就是top
+class MyQueue { private Stack&lt;Integer&gt; stack1; private Stack&lt;Integer&gt; stack2; private int top = -1; /** Initialize your data structure here." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/algorithm%E7%AE%97%E6%B3%95/%E6%A0%88%E9%98%9F%E5%88%97%E5%A0%86/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="232. Implement Queue using Stacks Implement the following operations of a queue using stacks.push(x)
+ Push element x to the back of queue.pop() Removes the element from in front of queue.peek() Get the front element.empty() Return whether the queue is empty.  Example:
+ MyQueue queue = new MyQueue(); queue.push(1); queue.push(2); queue.peek(); // returns 1 queue.pop(); // returns 1 queue.empty(); // returns false 这里我采用的是双栈法 入栈的时间复杂度是O(1)
+出栈的时间复杂度是O(N)
+我们采用一个top 去记录栈底部的数据，然后移动栈的时候当栈1的容量为0 这个元素就是top
+class MyQueue { private Stack&lt;Integer&gt; stack1; private Stack&lt;Integer&gt; stack2; private int top = -1; /** Initialize your data structure here.">
+
+<meta itemprop="wordCount" content="602">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="232. Implement Queue using Stacks Implement the following operations of a queue using stacks.push(x)
+ Push element x to the back of queue.pop() Removes the element from in front of queue.peek() Get the front element.empty() Return whether the queue is empty.  Example:
+ MyQueue queue = new MyQueue(); queue.push(1); queue.push(2); queue.peek(); // returns 1 queue.pop(); // returns 1 queue.empty(); // returns false 这里我采用的是双栈法 入栈的时间复杂度是O(1)
+出栈的时间复杂度是O(N)
+我们采用一个top 去记录栈底部的数据，然后移动栈的时候当栈1的容量为0 这个元素就是top
+class MyQueue { private Stack&lt;Integer&gt; stack1; private Stack&lt;Integer&gt; stack2; private int top = -1; /** Initialize your data structure here."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        ALGORITHM(算法)S
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="232-implement-queue-using-stacks">232. Implement Queue using Stacks</h2>
+<p>Implement the following operations of a queue using stacks.push(x)</p>
+<ul>
+<li>Push element x to the back of queue.pop()</li>
+<li>Removes the element from in front of queue.peek()</li>
+<li>Get the front element.empty()</li>
+<li>Return whether the queue is empty.</li>
+</ul>
+<p>Example:</p>
+<pre><code>
+MyQueue queue = new MyQueue();
+
+queue.push(1);
+queue.push(2);  
+queue.peek();  // returns 1
+queue.pop();   // returns 1
+queue.empty(); // returns false
+</code></pre><p>这里我采用的是双栈法
+入栈的时间复杂度是O(1)</p>
+<p><img src="http://ww1.sinaimg.cn/large/006d4JA0ly1g1svhftgrjj30cl0bfaa3.jpg" alt=""></p>
+<p>出栈的时间复杂度是O(N)</p>
+<p><img src="http://ww1.sinaimg.cn/large/006d4JA0ly1g1svpl4pzwj30r30l6my8.jpg" alt=""></p>
+<p>我们采用一个top 去记录栈底部的数据，然后移动栈的时候当栈1的容量为0 这个元素就是top</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyQueue</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> Stack<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> stack1<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> Stack<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> stack2<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> top <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+    <span style="color:#75715e">/** Initialize your data structure here. */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">MyQueue</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        stack1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Stack<span style="color:#f92672">&lt;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        stack2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Stack<span style="color:#f92672">&lt;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#75715e">/** Push element x to the back of queue. */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">push</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> x<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>stack1<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span>0<span style="color:#f92672">)</span> top <span style="color:#f92672">=</span> x<span style="color:#f92672">;</span>
+        stack1<span style="color:#f92672">.</span><span style="color:#a6e22e">push</span><span style="color:#f92672">(</span>x<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#75715e">/** Removes the element from in front of queue and returns that element. */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">pop</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">while</span><span style="color:#f92672">(</span>stack1<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">!</span><span style="color:#f92672">=</span>0<span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+         stack2<span style="color:#f92672">.</span><span style="color:#a6e22e">push</span><span style="color:#f92672">(</span>stack1<span style="color:#f92672">.</span><span style="color:#a6e22e">pop</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">int</span> res <span style="color:#f92672">=</span> stack2<span style="color:#f92672">.</span><span style="color:#a6e22e">pop</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">while</span><span style="color:#f92672">(</span>stack2<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">!</span><span style="color:#f92672">=</span>0<span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+            push<span style="color:#f92672">(</span>stack2<span style="color:#f92672">.</span><span style="color:#a6e22e">pop</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> res<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#75715e">/** Get the front element. */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">peek</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> top<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#75715e">/** Returns whether the queue is empty. */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">empty</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> stack1<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Your MyQueue object will be instantiated and called as such:
+</span><span style="color:#75715e"> * MyQueue obj = new MyQueue();
+</span><span style="color:#75715e"> * obj.push(x);
+</span><span style="color:#75715e"> * int param_2 = obj.pop();
+</span><span style="color:#75715e"> * int param_3 = obj.peek();
+</span><span style="color:#75715e"> * boolean param_4 = obj.empty();
+</span><span style="color:#75715e"> */</span>
+</code></pre></div><h2 id="215-kth-largest-element-in-an-array">215. Kth Largest Element in an Array</h2>
+<p>Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.</p>
+<p>Example 1:</p>
+<pre><code>Input: [3,2,1,5,6,4] and k = 2
+Output: 5
+</code></pre><p>Example 2:</p>
+<pre><code>Input: [3,2,3,1,2,4,5,5,6] and k = 4
+Output: 4
+</code></pre><p>我采用的是分治的方法解决这个问题也可以采用MInheap来完成
+就是选择第一个字符作为基准，将比这个大的数字放在他前面，比他小的放在他后面  然后交换到数组中央。
+这样他所在的坐标对应的值就是他的第 坐标+1 大的数
+如果k 比 当前索引大 就继续寻找左边，比当前索引小 就继续寻找右边。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">findKthLargest</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span> nums<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> k<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>nums<span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">|</span><span style="color:#f92672">|</span> nums<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">=</span><span style="color:#f92672">=</span> 0<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> 0<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">int</span> right <span style="color:#f92672">=</span> nums<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">while</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">int</span> pos <span style="color:#f92672">=</span> partition<span style="color:#f92672">(</span>nums<span style="color:#f92672">,</span>left<span style="color:#f92672">,</span>right<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>pos<span style="color:#f92672">+</span>1 <span style="color:#f92672">=</span><span style="color:#f92672">=</span> k<span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> nums<span style="color:#f92672">[</span>pos<span style="color:#f92672">]</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>pos <span style="color:#f92672">+</span>1<span style="color:#f92672">&gt;</span>k<span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+                right <span style="color:#f92672">=</span> pos<span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span><span style="color:#66d9ef">else</span>
+                left <span style="color:#f92672">=</span> pos<span style="color:#f92672">+</span>1<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">partition</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span> nums<span style="color:#f92672">,</span><span style="color:#66d9ef">int</span> left<span style="color:#f92672">,</span><span style="color:#66d9ef">int</span> right<span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span> pivot <span style="color:#f92672">=</span> nums<span style="color:#f92672">[</span>left<span style="color:#f92672">]</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> left<span style="color:#f92672">+</span>1<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> right<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">while</span><span style="color:#f92672">(</span>l<span style="color:#f92672">&lt;</span><span style="color:#f92672">=</span>r<span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>nums<span style="color:#f92672">[</span>l<span style="color:#f92672">]</span><span style="color:#f92672">&lt;</span>pivot <span style="color:#f92672">&amp;</span><span style="color:#f92672">&amp;</span> nums<span style="color:#f92672">[</span>r<span style="color:#f92672">]</span><span style="color:#f92672">&gt;</span>pivot<span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+                swap<span style="color:#f92672">(</span>nums<span style="color:#f92672">,</span>l<span style="color:#f92672">+</span><span style="color:#f92672">+</span><span style="color:#f92672">,</span>r<span style="color:#f92672">-</span><span style="color:#f92672">-</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>nums<span style="color:#f92672">[</span>l<span style="color:#f92672">]</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span>pivot<span style="color:#f92672">)</span> l<span style="color:#f92672">+</span><span style="color:#f92672">+</span><span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>nums<span style="color:#f92672">[</span>r<span style="color:#f92672">]</span><span style="color:#f92672">&lt;</span><span style="color:#f92672">=</span>pivot<span style="color:#f92672">)</span> r<span style="color:#f92672">-</span><span style="color:#f92672">-</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        swap<span style="color:#f92672">(</span>nums<span style="color:#f92672">,</span>left<span style="color:#f92672">,</span>r<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">return</span> r<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swap</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">[</span><span style="color:#f92672">]</span> nums<span style="color:#f92672">,</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">,</span><span style="color:#66d9ef">int</span> j<span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span> temp <span style="color:#f92672">=</span> nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span><span style="color:#f92672">;</span>
+        nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> nums<span style="color:#f92672">[</span>j<span style="color:#f92672">]</span><span style="color:#f92672">;</span>
+        nums<span style="color:#f92672">[</span>j<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> temp<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="295-find-median-from-data-stream">295. Find Median from Data Stream</h2>
+<p>Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value.</p>
+<p>So the median is the mean of the two middle value.</p>
+<p>For example:</p>
+<pre><code>[2,3,4], the median is 3
+[2,3], the median is (2 + 3) / 2 = 2.5
+</code></pre><p>Design a data structure that supports the following two operations:</p>
+<ul>
+<li>void addNum(int num) - Add a integer number from the data stream to the data structure.</li>
+<li>double findMedian() - Return the median of all elements so far.</li>
+</ul>
+<p>Example:</p>
+<pre><code>addNum(1)
+addNum(2)
+findMedian() -&gt; 1.5
+addNum(3) 
+findMedian() -&gt; 2
+</code></pre><p>这道中位数的题目我是采用最小堆和最大堆做的</p>
+<p>一个最大堆保存一半较小的数据
+另一个最小堆保存一半较大的数据</p>
+<p>然后采取平衡手段保证两个堆的大小差小于2</p>
+<p><img src="http://ww1.sinaimg.cn/large/006d4JA0ly1g1t4z7hwkqj30h70dpjsr.jpg" alt=""></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MedianFinder</span> <span style="color:#f92672">{</span>
+   <span style="color:#66d9ef">private</span> PriorityQueue<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> l<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> PriorityQueue<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> r<span style="color:#f92672">;</span>
+    <span style="color:#75715e">/** initialize your data structure here. */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">MedianFinder</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        r <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PriorityQueue<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        l <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PriorityQueue<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Comparator<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">{</span> <span style="color:#75715e">//大顶堆，容量11
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">@Override</span>
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>Integer i1<span style="color:#f92672">,</span>Integer i2<span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> i2<span style="color:#f92672">-</span>i1<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addNum</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> num<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>l<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">=</span><span style="color:#f92672">=</span> 0 <span style="color:#f92672">|</span><span style="color:#f92672">|</span> num<span style="color:#f92672">&lt;</span><span style="color:#f92672">=</span>l<span style="color:#f92672">.</span><span style="color:#a6e22e">peek</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+            l<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>num<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+            r<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>num<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>l<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">&lt;</span>r<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+            l<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>r<span style="color:#f92672">.</span><span style="color:#a6e22e">poll</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#75715e">//            r.remove();
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>l<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">-</span> r<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">=</span><span style="color:#f92672">=</span>2<span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+            r<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>l<span style="color:#f92672">.</span><span style="color:#a6e22e">poll</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#75715e">//            l.remove();
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">findMedian</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>l<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">&gt;</span>r<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> l<span style="color:#f92672">.</span><span style="color:#a6e22e">peek</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">else</span><span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">double</span> res <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#f92672">(</span><span style="color:#66d9ef">double</span><span style="color:#f92672">)</span>l<span style="color:#f92672">.</span><span style="color:#a6e22e">peek</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">+</span><span style="color:#f92672">(</span><span style="color:#66d9ef">double</span><span style="color:#f92672">)</span>r<span style="color:#f92672">.</span><span style="color:#a6e22e">peek</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">/</span>2<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">return</span> res<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Your MedianFinder object will be instantiated and called as such:
+</span><span style="color:#75715e"> * MedianFinder obj = new MedianFinder();
+</span><span style="color:#75715e"> * obj.addNum(num);
+</span><span style="color:#75715e"> * double param_2 = obj.findMedian();
+</span><span style="color:#75715e"> */</span>
+
+
+</code></pre></div><ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

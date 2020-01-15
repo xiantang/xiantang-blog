@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="Concept OS Elements  Abstractions  process thread file socket memory page   Mechanisms  create schedule open write allocate(分配)   Policies(策略)  least-recently used(LRU) earliest deadline first (EDF)    关于Mechanisms 和 Polices的区别我其实迷惑了很久。
+其实总结出来很简单Mechanisms 机制 指的是 what to do
+Polices 指的是 how to do
+也可以这样理解机制是策略的更高一层抽象，策略是指具体如何实现的方式，机制则是我需要这个功能，但是不关注实现。
+举个例子就是Linux内核的调度器（scheduler），提供了任务调度需要的原语操作和结构，并且实现了多种调度算法。
+Process what is a Process : state of a program when executing loaded in memory. (active entity)
+ instance of an executing program Synonymous with &ldquo;task&rdquo; or &ldquo;job&rdquo;  A process is like an order of toys" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/os%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/udacity-os/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="Concept OS Elements  Abstractions  process thread file socket memory page   Mechanisms  create schedule open write allocate(分配)   Policies(策略)  least-recently used(LRU) earliest deadline first (EDF)    关于Mechanisms 和 Polices的区别我其实迷惑了很久。
+其实总结出来很简单Mechanisms 机制 指的是 what to do
+Polices 指的是 how to do
+也可以这样理解机制是策略的更高一层抽象，策略是指具体如何实现的方式，机制则是我需要这个功能，但是不关注实现。
+举个例子就是Linux内核的调度器（scheduler），提供了任务调度需要的原语操作和结构，并且实现了多种调度算法。
+Process what is a Process : state of a program when executing loaded in memory. (active entity)
+ instance of an executing program Synonymous with &ldquo;task&rdquo; or &ldquo;job&rdquo;  A process is like an order of toys">
+
+<meta itemprop="wordCount" content="1256">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="Concept OS Elements  Abstractions  process thread file socket memory page   Mechanisms  create schedule open write allocate(分配)   Policies(策略)  least-recently used(LRU) earliest deadline first (EDF)    关于Mechanisms 和 Polices的区别我其实迷惑了很久。
+其实总结出来很简单Mechanisms 机制 指的是 what to do
+Polices 指的是 how to do
+也可以这样理解机制是策略的更高一层抽象，策略是指具体如何实现的方式，机制则是我需要这个功能，但是不关注实现。
+举个例子就是Linux内核的调度器（scheduler），提供了任务调度需要的原语操作和结构，并且实现了多种调度算法。
+Process what is a Process : state of a program when executing loaded in memory. (active entity)
+ instance of an executing program Synonymous with &ldquo;task&rdquo; or &ldquo;job&rdquo;  A process is like an order of toys"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        OS(操作系统)S
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="concept">Concept</h1>
+<h2 id="os-elements">OS Elements</h2>
+<ul>
+<li>Abstractions
+<ul>
+<li>process</li>
+<li>thread</li>
+<li>file</li>
+<li>socket</li>
+<li>memory</li>
+<li>page</li>
+</ul>
+</li>
+<li>Mechanisms
+<ul>
+<li>create</li>
+<li>schedule</li>
+<li>open</li>
+<li>write</li>
+<li>allocate(分配)</li>
+</ul>
+</li>
+<li>Policies(策略)
+<ul>
+<li>least-recently used(LRU)</li>
+<li>earliest deadline first (EDF)</li>
+</ul>
+</li>
+</ul>
+<p>关于Mechanisms 和 Polices的区别我其实迷惑了很久。</p>
+<p>其实总结出来很简单Mechanisms 机制 指的是 what to do</p>
+<p>Polices 指的是 how to do</p>
+<p>也可以这样理解机制是策略的更高一层抽象，策略是指具体如何实现的方式，机制则是我需要这个功能，但是不关注实现。</p>
+<p>举个例子就是Linux内核的调度器（scheduler），提供了任务调度需要的原语操作和结构，并且实现了多种调度算法。</p>
+<h2 id="process">Process</h2>
+<p>what is a <strong>Process</strong> : state of a program when executing loaded in memory. (active entity)</p>
+<ul>
+<li>instance of an executing program</li>
+<li>Synonymous with &ldquo;task&rdquo; or &ldquo;job&rdquo;</li>
+</ul>
+<p>A process is like an order of toys</p>
+<ul>
+<li>
+<p>State of execution</p>
+<ul>
+<li>program counter</li>
+<li>stack</li>
+</ul>
+</li>
+<li>
+<p>parts &amp; temporary holding area</p>
+<ul>
+<li>data. register state, occupies state in memory</li>
+</ul>
+</li>
+<li>
+<p>may require special hardware</p>
+<ul>
+<li>I/O devices</li>
+</ul>
+</li>
+</ul>
+<p>what does process look like ？</p>
+<p><img src="../../images/1559835354626.png" alt="1559835354626"></p>
+<h3 id="process-control-block">Process Control Block</h3>
+<p><img src="../../images/1559887343136.png" alt="1559887343136"></p>
+<ul>
+<li>PCB created when process is created.</li>
+<li>certain fields are update when process state changes</li>
+<li>other fields changed too frequently</li>
+</ul>
+<h3 id="context-switch上下文切换">Context Switch(上下文切换)</h3>
+<p>switching the CPU from the context of one process to the context of another</p>
+<ul>
+<li>and they are too expensive!
+<ul>
+<li>direct cost : number of cycles for load 2 store instruction 需要重新载入指令 和存储之前的进程控制表</li>
+<li>COLD cache ! cache misses! 在这里我的理解是当一个进程占用CPU的时间过长，会使 cache 中大多数数据都属于他，但是如果这个时候中断当前进程，去切换到其他较少执行的进程，会导致缓存无法击中，需要去下一级缓存中查找。</li>
+</ul>
+</li>
+</ul>
+<h3 id="process-lifecycle">Process Lifecycle</h3>
+<p><img src="../../images/1559889450257.png" alt="1559889450257"></p>
+<p>mechanisms for process creation(创建的机制)</p>
+<ul>
+<li>fork
+<ul>
+<li>copies the parent PCB into new child PCB</li>
+<li>child continues execution at instruction after fork(继续执行下面的指令)</li>
+</ul>
+</li>
+<li>EXEC
+<ul>
+<li>replace child image</li>
+<li>load new program  and start from first instruction(从头开始执行)</li>
+</ul>
+</li>
+</ul>
+<h3 id="cpu-schedule">CPU Schedule</h3>
+<p><img src="../../images/1559890548807.png" alt="1559890548807"></p>
+<p>CPU scheduler :  A CPU scheduler determines which one of the currently ready processes will be dispatched to the CPU to start running,and how long it should run for.</p>
+<ul>
+<li>preempt: interrupt and save current context</li>
+<li>schedule: run scheduler to choose next process</li>
+<li>dispatch: dispatch process switch into its context</li>
+</ul>
+<p><img src="../../images/1559891328836.png" alt="1559891328836"></p>
+<p>Useful CPU work = Total processing time/Total time =</p>
+<p>(Tp)/(t_sched+Tp)</p>
+<p><strong>timeslice(时间片)</strong> :time <code>Tp</code> allocated to a process on the CPU(一个进程在Tp 中所分配的时间)</p>
+<h3 id="interact交互">Interact(交互)</h3>
+<p>Inter-Process Communication:IPC <strong>mechanisms</strong>:</p>
+<ul>
+<li>transfer data/info between address spaces</li>
+<li>maintain protection and isolation</li>
+<li>provider flexibility  and performance (提供性能和灵活性)</li>
+</ul>
+<h4 id="message-passing-ipc">Message passing IPC:</h4>
+<p><img src="../../images/1559893595269.png" alt="1559893595269"></p>
+<ul>
+<li>
+<p>OS provides communication channel,like shared buffer</p>
+</li>
+<li>
+<p>Process:</p>
+<ul>
+<li>write(send)</li>
+<li>read(recv)</li>
+</ul>
+<p>messages to/from channel</p>
+</li>
+</ul>
+<h4 id="shared-memory-ipc">Shared Memory IPC</h4>
+<ul>
+<li>OS establishes a shared channel and map it in to each process address spaces</li>
+<li>Processes directly read/write from this memory</li>
+<li>OS is out of the way!</li>
+</ul>
+<h2 id="thread">Thread</h2>
+<p>Thread Vs. Process</p>
+<p><img src="../../images/1559923977411.png" alt="1559923977411"></p>
+<ul>
+<li>每个Thread 拥有自己的 program counter 指令和程序栈，但是共享代码资源和文件</li>
+</ul>
+<p>有了进程为什么要有线程？</p>
+<ul>
+<li>speed up 对于单进程来说，会有更快的速度</li>
+<li>hot cache  可以重复利用cache 但是既然如此为什么不使用多进程呢？ 因为多进程并发去做的话每个进程都会有自己的地址空间消耗资源。</li>
+<li>更加少的资源和线程间通话的代价</li>
+</ul>
+<h3 id="benefits-of-multithreading-single-cpu-or-when--of-threads-of-cpus">Benefits of Multithreading: Single CPU or when (# of Threads)&gt;(# of CPUs)</h3>
+<p><img src="../../images/1559926862813.png" alt="1559926862813"></p>
+<ul>
+<li>if (t_idle)&gt;2*(t_ctx_switch)
+<ul>
+<li>then context switch to hide idling time 当IO的时候 线程会出现 idle 的情况 但是这个 idle 的情况还是占用 CPU 时间片的，然后 unix 会有一个机制如果这个idle的时间过长 就直接去做上下文切换了 所以也就不存在 idle 的情况</li>
+</ul>
+</li>
+<li>t_ctx.switch threads &lt; t_ctx_switch processes 每次切换都有虚拟资源申请 进程间的上下问切换回很慢</li>
+</ul>
+<h3 id="condition-variable">Condition Variable</h3>
+<p><img src="../../images/1560013730504.png" alt="1560013730504"></p>
+<p>这个问题很有意思，也在面试中困扰了我很久</p>
+<p>在这里找到了回答</p>
+<ul>
+<li>while 可以保证多线程的情况下 如果是if 当所有消费者都收到信号后，会全部执行到下面的代码</li>
+<li>如果两个线程同时收到唤醒的信号，但是另一个已经获取了锁并改变了list的状态，另外一个线程就会向下执行</li>
+<li>无法再次获取锁一旦被唤醒</li>
+</ul>
+<h3 id="deadlocks">Deadlocks</h3>
+<p>A cycle in the wait graph is necessary and sufficient for a deadlock to occur.</p>
+<p>what can we do about it?</p>
+<ul>
+<li>deadlock prevention (expensive)</li>
+<li>deadlock detection &amp; recovery (rollback)</li>
+<li>do nothing</li>
+</ul>
+<h2 id="thread-design-consideration">Thread Design Consideration</h2>
+<h3 id="kernel-level-structures">Kernel Level Structures</h3>
+<ul>
+<li>
+<p>Process</p>
+<ul>
+<li>list of kernel-level threads</li>
+<li>virtual address space</li>
+<li>signal handlers</li>
+</ul>
+</li>
+<li>
+<p>Light-Weight Process(LWP)</p>
+<ul>
+<li>user level registers</li>
+<li>system call args</li>
+<li>resource usage info</li>
+<li>signal mask</li>
+</ul>
+<p>similar to  ULT,but visible to kernal not needed when process not running</p>
+</li>
+<li>
+<p>Kernel-level Threads</p>
+<ul>
+<li>kernel-level registers</li>
+<li>stack pointer</li>
+<li>scheduling info</li>
+<li>pointers to associated LWP,Process,CPU structures</li>
+</ul>
+</li>
+<li>
+<p>CPU</p>
+<ul>
+<li>current thread</li>
+<li>list of kernel-level thread</li>
+<li>dispatching &amp; interrupt handling information</li>
+</ul>
+</li>
+</ul>
+<h3 id="synchronization-related-issues">Synchronization-Related Issues</h3>
+<p><img src="../../images/1560431969894.png" alt="1560431969894"></p>
+<ul>
+<li>if critical section is too short -&gt; don&rsquo;t  block  just spin.</li>
+<li>if long critical section use default blocking behavior.</li>
+</ul>
+<p>but it in a special case is we should in the multiple CPUs.</p>
+<h3 id="interrupts-vs-signals">Interrupts vs. signals</h3>
+<ul>
+<li>Interrupts
+<ul>
+<li>evens generated externally(外部的) Components other than the current CPU (I/O devices,timers, other CPUs)</li>
+<li>determined based on the physical platform</li>
+<li>appear asynchronously</li>
+</ul>
+</li>
+<li>Signals
+<ul>
+<li>events triggered by the CPU &amp; software running on it.</li>
+<li>determined based on the operating system.</li>
+<li>in a asynchronously or synchronously.</li>
+</ul>
+</li>
+</ul>
+<h2 id="schedule">Schedule</h2>
+<ul>
+<li>Scheduling is simple(FCFS)</li>
+<li>maximize throughput(SJF)</li>
+<li>maximize utilization of CPU devices memory</li>
+</ul>
+<p>CPU scheduler</p>
+<ul>
+<li>chooses one of ready tasks to run on CPU</li>
+</ul>
+<p><img src="../../images/1561184422791.png" alt="1561184422791"></p>
+<p>runs when</p>
+<ul>
+<li>CPU becomes idle</li>
+<li>new task becomes ready</li>
+<li>timeslice expired timeout</li>
+</ul>
+<h3 id="run-to-completion">run to completion</h3>
+<p>initial assumptions</p>
+<ul>
+<li>group of tasks/job</li>
+<li>known execution time</li>
+<li>no preemption</li>
+<li>single CPU</li>
+</ul>
+<h4 id="first-come-first-serve-fcfs">First-Come First-Serve (FCFS)</h4>
+<ul>
+<li>schedules tasks in order of arrival</li>
+</ul>
+<p>if we have three Thread, thread1,thread2, and thread3, we use FCFS Scheduling</p>
+<p>T1 = 1s, T2 = 1s,T3 =10s</p>
+<p>Throughput:</p>
+<p>3/12 = 0.25 tasks/s</p>
+<p>Avg. Completion time:</p>
+<p>(1+11+12)/3 = 8 sec</p>
+<p>Avg. Wait Time:</p>
+<p>(0+1+11)/3 = 4 sec</p>
+<h4 id="shortest-job-firstsjf">Shortest Job First(SJF)</h4>
+<ul>
+<li>schedules tasks in order of their execution time</li>
+</ul>
+<p>T1 = 1s, T2 = 2s,T3 =10s</p>
+<p>run queue == ordered queue</p>
+<p>or</p>
+<p>run queue == tree</p>
+<p>Throughput:</p>
+<p>3/12 = 0.25 tasks/s</p>
+<p>Avg. Completion time:</p>
+<p>(1+2+12)/3 = 5 sec</p>
+<p>Avg. Wait Time:</p>
+<p>(0+1+2)/3 = 1 sec</p>
+<h4 id="sfj--preemption">SFJ + Preemption</h4>
+<p><img src="../../images/1561187280868.png" alt="1561187280868"></p>
+<p>heuristics based on history ?</p>
+<p>-&gt; job running time</p>
+<p>how long did a task run last n times?</p>
+<p>-&gt; windowed</p>
+<h3 id="preemptive">Preemptive</h3>
+<h4 id="preemptive-scheduling">Preemptive Scheduling</h4>
+<p>Priority Scheduling</p>
+<ul>
+<li>
+<p>tasks have different <strong>priority level</strong></p>
+</li>
+<li>
+<p>run highest priority task next(preemption)</p>
+</li>
+</ul>
+<h4 id="priority-inversion">Priority Inversion</h4>
+<p><img src="../../images/1561188672137.png" alt="1561188672137"></p>
+<p>Priority:</p>
+<p>T1,T2,T3 (Wrong)</p>
+<p>order of execution:</p>
+<p>T2,T3,T1</p>
+<p>=&gt; priorties &ldquo;inverted&rdquo;</p>
+<p>Solution:</p>
+<ul>
+<li>
+<p>temp boost priority of mutex owner</p>
+</li>
+<li>
+<p>lower again on release</p>
+</li>
+</ul>
+<h4 id="round-robin-scheduling">Round Robin Scheduling</h4>
+<ul>
+<li>pick up first task from queue(like FCFS)</li>
+<li>task may yield,to wait on I/O(unlike FCFS)</li>
+</ul>
+<h4 id="timeslice">Timeslice</h4>
+<p>maximum amount of  uninterrupted time given to a task</p>
+<p>-&gt; time quantum</p>
+<ul>
+<li>task may run less than timeslice time
+<ul>
+<li>has to wait on I/O,synchronization
+<ul>
+<li>will be placed on a queue</li>
+</ul>
+</li>
+<li>higher priority task becomes runnable</li>
+</ul>
+</li>
+<li>using timeslices tasks are interleaved
+<ul>
+<li>timesharing the CPU</li>
+</ul>
+</li>
+</ul>
+<p>how long should a timeslice be?</p>
+<p><img src="../../images/1561214190446.png" alt="1561214190446"></p>
+<p>CPU bound task : large timeslice</p>
+<p><img src="../../images/1561214260291.png" alt="1561214260291"></p>
+<p>I/O bound tasks:</p>
+<p>I/O bound tasks -&gt; smaller timeslice</p>
+<p>quickly response</p>
+<p><img src="../../images/1561280721416.png" alt="1561280721416"></p>
+<p>So we can easily get the Conclusion：</p>
+<ul>
+<li>
+<p>CPU bound tasks prefer long timeslices</p>
+<p>-&gt; limits context switching  overheads</p>
+<p>-&gt; keeps CPU utilization and throughput hight</p>
+</li>
+<li>
+<p>IO bound tasks prefer shorter  timeslices</p>
+<p>-&gt; I/O bound tasks can issue I/O ops earlier</p>
+<p>-&gt; keeps CPU and device utilization high</p>
+<p>-&gt; better user-perceived performance</p>
+</li>
+</ul>
+<h3 id="run-queue-data-structures">Run queue Data Structures</h3>
+<p>we find I/O bound tasks and CPU bound tasks should have different timeslice values then &hellip;</p>
+<ul>
+<li>
+<p>same run queue,check item&rsquo;s type</p>
+</li>
+<li>
+<p>two different structure</p>
+</li>
+</ul>
+<h4 id="linux-o1-scheduler">Linux O(1) Scheduler</h4>
+<p>O(1) == constant time to select /add task,regardless of task count</p>
+<p><img src="../../images/1561292440233.png" alt="1561292440233"></p>
+<p>Timeslice Value:</p>
+<ul>
+<li>depends on priority</li>
+<li>smallest for low priority</li>
+<li>highest for hight priority</li>
+</ul>
+<p>Feedback:</p>
+<ul>
+<li>
+<p>sleed time:waiting/idling</p>
+</li>
+<li>
+<p>longer sleep =&gt; interactive</p>
+<p>=&gt; priority - 5 (boost)</p>
+</li>
+<li>
+<p>smaller sleep =&gt;</p>
+<p>=&gt; compute-intensive</p>
+<p>priority + 5 (lowered)</p>
+</li>
+</ul>
+<h4 id="linux-completely-fair-schedulercfs">Linux Completely Fair Scheduler(CFS)</h4>
+<p><img src="../../images/1561293307834.png" alt="1561293307834"></p>
+<p>Runqueue == Red-Black Tree</p>
+<ul>
+<li>ordered by &ldquo;vruntime&rdquo;</li>
+<li>vruntime == time spent on CPU</li>
+</ul>
+<p>CFS scheduling</p>
+<ul>
+<li>always pick leftmost node</li>
+<li>periodically adjust vruntime</li>
+<li>vruntime progress rate depends on priority and niceness</li>
+</ul>
+<p>if current running tasks is smaller than left most vruntime,continue running</p>
+<p>if larger,preempt and place appropriately in the tree</p>
+<p>virtual run time process rate depends on priority and niceness</p>
+<ul>
+<li>rate faster for low-priority</li>
+<li>rate slower for hight-priority</li>
+</ul>
+<h3 id="scheduling-on-multiprocessors">Scheduling on Multiprocessors</h3>
+<p><img src="../../images/1561732381044.png" alt="1561732381044"></p>
+<p>Shared memory multiprocessor(SMP)</p>
+<ul>
+<li>keep tasks on the same CPU as much as possible</li>
+<li>hiearchical scheduler architecture</li>
+</ul>
+<p>use load balanced</p>
+<p><img src="../../images/1561733106554.png" alt="1561733106554"></p>
+<p>Per-CPU runqueue and scheduler</p>
+<ul>
+<li>load balance across CPUs
+<ul>
+<li>based on queue length</li>
+<li>or when CPU is idle</li>
+</ul>
+</li>
+</ul>
+<p>cache-affinity important！</p>
+<p><img src="../../images/1561732644394.png" alt="1561732644394"></p>
+<p>multicore</p>
+<h3 id="hyperthreading">Hyperthreading</h3>
+<p><img src="../../images/1561733457273.png" alt="1561733457273"></p>
+<ul>
+<li>multiple hardware - supported execution context</li>
+<li>still 1 CPU</li>
+<li>with very fast context switch</li>
+</ul>
+<p>hyperthreading can hide memory access latency</p>
+<h3 id="scheduling-for-hyperthreading-platforms">Scheduling for Hyperthreading Platforms</h3>
+<p>Assumptions:</p>
+<ul>
+<li>
+<p>thread issues instruction on each cycle</p>
+<p>max instruction-per-cycle  IPC = 1</p>
+</li>
+</ul>
+<p><img src="../../images/1561734420390.png" alt="1561734420390"></p>
+<ul>
+<li>mix of CPU and memory-intensive threads
+<ul>
+<li>aviod/limit contention on processor pipeline</li>
+<li>all component CPU and memory well uttilized</li>
+</ul>
+</li>
+</ul>
+<h2 id="memory-management">Memory Management</h2>
+<ul>
+<li>uses intelligently sized containers
+<ul>
+<li>memory pages or segments</li>
+</ul>
+</li>
+<li>not all memory is needed at once
+<ul>
+<li>tasks operate on subset of memory</li>
+</ul>
+</li>
+<li>optimized for performance
+<ul>
+<li>reduce time to access state</li>
+</ul>
+</li>
+</ul>
+<h3 id="memory-managementgoat">Memory Management:goat:</h3>
+<p><img src="../../images/1561817039671.png" alt="1561817039671"></p>
+<p>Virtual vs Physical memory</p>
+<p>Allocate</p>
+<ul>
+<li>allocation,replacement</li>
+</ul>
+<p>Arbitrate</p>
+<ul>
+<li>address translation and validation</li>
+</ul>
+<p><img src="../../images/1562077236014.png" alt="1562077236014"></p>
+<p>MMU</p>
+<ul>
+<li>translate virtual to physical address</li>
+<li>report faults: illegal access,permission</li>
+</ul>
+<h3 id="page-tables">Page Tables</h3>
+<p><img src="../../images/1562077664444.png" alt="1562077664444"></p>
+<p>like a map</p>
+<p><img src="../../images/1562078271743.png" alt="1562078271743"></p>
+<h3 id="page-table-size">Page Table Size</h3>
+<p>32-bit architecture</p>
+<ul>
+<li>
+<p>Page Table Entry(PTE)</p>
+<ul>
+<li>4 bytes,including PFN+flags</li>
+</ul>
+</li>
+<li>
+<p>Virtual Page Number(VPN)</p>
+<ul>
+<li>2^32/Page Size</li>
+</ul>
+</li>
+<li>
+<p>page size</p>
+<ul>
+<li>4 KB</li>
+</ul>
+</li>
+</ul>
+<p>just to think about a map</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

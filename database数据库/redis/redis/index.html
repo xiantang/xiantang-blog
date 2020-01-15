@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="安装redis 创建redis目录 mkdir redis
+安装wget yum install -y wget
+设置登陆密码 这是修改redis的配置文件 vim /etc/redis/redis.conf
+找到requirepass
+修改密码。
+重启redis
+/etc/init.d/redis-server restart
+scrapy爬虫报错 2018-12-23 14:03:12 [twisted] CRITICAL: Unhandled Error Traceback (most recent call last): File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/scrapy/commands/crawl.py&#34;, line 58, in run self.crawler_process.start() File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/scrapy/crawler.py&#34;, line 291, in start reactor.run(installSignalHandlers=False) # blocking call File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/twisted/internet/base.py&#34;, line 1267, in run self.mainLoop() File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/twisted/internet/base.py&#34;, line 1276, in mainLoop self.runUntilCurrent() --- &lt;exception caught here&gt; --- File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/twisted/internet/base.py&#34;, line 902, in runUntilCurrent call." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/database%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="安装redis 创建redis目录 mkdir redis
+安装wget yum install -y wget
+设置登陆密码 这是修改redis的配置文件 vim /etc/redis/redis.conf
+找到requirepass
+修改密码。
+重启redis
+/etc/init.d/redis-server restart
+scrapy爬虫报错 2018-12-23 14:03:12 [twisted] CRITICAL: Unhandled Error Traceback (most recent call last): File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/scrapy/commands/crawl.py&#34;, line 58, in run self.crawler_process.start() File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/scrapy/crawler.py&#34;, line 291, in start reactor.run(installSignalHandlers=False) # blocking call File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/twisted/internet/base.py&#34;, line 1267, in run self.mainLoop() File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/twisted/internet/base.py&#34;, line 1276, in mainLoop self.runUntilCurrent() --- &lt;exception caught here&gt; --- File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/twisted/internet/base.py&#34;, line 902, in runUntilCurrent call.">
+
+<meta itemprop="wordCount" content="441">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="安装redis 创建redis目录 mkdir redis
+安装wget yum install -y wget
+设置登陆密码 这是修改redis的配置文件 vim /etc/redis/redis.conf
+找到requirepass
+修改密码。
+重启redis
+/etc/init.d/redis-server restart
+scrapy爬虫报错 2018-12-23 14:03:12 [twisted] CRITICAL: Unhandled Error Traceback (most recent call last): File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/scrapy/commands/crawl.py&#34;, line 58, in run self.crawler_process.start() File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/scrapy/crawler.py&#34;, line 291, in start reactor.run(installSignalHandlers=False) # blocking call File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/twisted/internet/base.py&#34;, line 1267, in run self.mainLoop() File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/twisted/internet/base.py&#34;, line 1276, in mainLoop self.runUntilCurrent() --- &lt;exception caught here&gt; --- File &#34;/home/ubuntu/.local/lib/python3.5/site-packages/twisted/internet/base.py&#34;, line 902, in runUntilCurrent call."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        DATABASE(数据库)S
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><img src="blob:file:///9340b11f-01ca-471a-8284-16374d0413f2" alt="8647D9F7-BE84-40EC-B4E1-D3773F741FA7.png"></p>
+<h2 id="安装redis">安装redis</h2>
+<p>创建redis目录
+<code>mkdir redis</code></p>
+<p>安装wget
+<code>yum install -y wget</code></p>
+<h2 id="设置登陆密码">设置登陆密码</h2>
+<p>这是修改redis的配置文件
+<code>vim /etc/redis/redis.conf</code></p>
+<p>找到<code>requirepass</code><br>
+修改密码。</p>
+<p>重启<code>redis</code></p>
+<p><code>/etc/init.d/redis-server restart</code></p>
+<h2 id="scrapy爬虫报错">scrapy爬虫报错</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ae81ff">2018</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span><span style="color:#f92672">-</span><span style="color:#ae81ff">23</span> <span style="color:#ae81ff">14</span>:<span style="color:#ae81ff">03</span>:<span style="color:#ae81ff">12</span> [twisted] CRITICAL: Unhandled Error
+Traceback (most recent call last):
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/scrapy/commands/crawl.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">58</span>, <span style="color:#f92672">in</span> run
+    self<span style="color:#f92672">.</span>crawler_process<span style="color:#f92672">.</span>start()
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/scrapy/crawler.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">291</span>, <span style="color:#f92672">in</span> start
+    reactor<span style="color:#f92672">.</span>run(installSignalHandlers<span style="color:#f92672">=</span>False)  <span style="color:#75715e"># blocking call</span>
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/twisted/internet/base.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">1267</span>, <span style="color:#f92672">in</span> run
+    self<span style="color:#f92672">.</span>mainLoop()
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/twisted/internet/base.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">1276</span>, <span style="color:#f92672">in</span> mainLoop
+    self<span style="color:#f92672">.</span>runUntilCurrent()
+<span style="color:#f92672">-</span><span style="color:#f92672">-</span><span style="color:#f92672">-</span> <span style="color:#f92672">&lt;</span>exception caught here<span style="color:#f92672">&gt;</span> <span style="color:#f92672">-</span><span style="color:#f92672">-</span><span style="color:#f92672">-</span>
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/twisted/internet/base.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">902</span>, <span style="color:#f92672">in</span> runUntilCurrent
+    call<span style="color:#f92672">.</span>func(<span style="color:#f92672">*</span>call<span style="color:#f92672">.</span>args, <span style="color:#f92672">*</span><span style="color:#f92672">*</span>call<span style="color:#f92672">.</span>kw)
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/scrapy/utils/reactor.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">41</span>, <span style="color:#f92672">in</span> __call__
+    <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_func(<span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>_a, <span style="color:#f92672">*</span><span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>_kw)
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/scrapy/core/engine.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">122</span>, <span style="color:#f92672">in</span> _next_request
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> self<span style="color:#f92672">.</span>_next_request_from_scheduler(spider):
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/scrapy/core/engine.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">149</span>, <span style="color:#f92672">in</span> _next_request_from_scheduler
+    request <span style="color:#f92672">=</span> slot<span style="color:#f92672">.</span>scheduler<span style="color:#f92672">.</span>next_request()
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/scrapy_redis/scheduler.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">172</span>, <span style="color:#f92672">in</span> next_request
+    request <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>queue<span style="color:#f92672">.</span>pop(block_pop_timeout)
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/scrapy_redis/queue.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">115</span>, <span style="color:#f92672">in</span> pop
+    results, count <span style="color:#f92672">=</span> pipe<span style="color:#f92672">.</span>execute()
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/redis/client.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">3443</span>, <span style="color:#f92672">in</span> execute
+    <span style="color:#66d9ef">return</span> execute(conn, stack, raise_on_error)
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/redis/client.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">3339</span>, <span style="color:#f92672">in</span> _execute_transaction
+    self<span style="color:#f92672">.</span>immediate_execute_command(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">DISCARD</span><span style="color:#e6db74">&#39;</span>)
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/redis/client.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">3275</span>, <span style="color:#f92672">in</span> immediate_execute_command
+    <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>parse_response(conn, command_name, <span style="color:#f92672">*</span><span style="color:#f92672">*</span>options)
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/redis/client.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">3402</span>, <span style="color:#f92672">in</span> parse_response
+    self, connection, command_name, <span style="color:#f92672">*</span><span style="color:#f92672">*</span>options)
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/redis/client.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">768</span>, <span style="color:#f92672">in</span> parse_response
+    response <span style="color:#f92672">=</span> connection<span style="color:#f92672">.</span>read_response()
+  File <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/home/ubuntu/.local/lib/python3.5/site-packages/redis/connection.py</span><span style="color:#e6db74">&#34;</span>, line <span style="color:#ae81ff">638</span>, <span style="color:#f92672">in</span> read_response
+    <span style="color:#66d9ef">raise</span> response
+redis<span style="color:#f92672">.</span>exceptions<span style="color:#f92672">.</span>ResponseError: DISCARD without MULTI
+
+</code></pre></div><p>查看redis的log</p>
+<p><code>cat /etc/redis/redis.conf</code></p>
+<p>找到日志的位置</p>
+<p><code>tail -100 /var/log/redis/redis-server.log</code></p>
+<pre><code class="language-log" data-lang="log">3655:M 23 Dec 14:22:04.093 * 1 changes in 900 seconds. Saving...
+3655:M 23 Dec 14:22:04.093 # Can't save in background: fork: Cannot allocate memory
+3655:M 23 Dec 14:22:10.005 * 1 changes in 900 seconds. Saving...
+3655:M 23 Dec 14:22:10.005 # Can't save in background: fork: Cannot allocate memory
+3655:M 23 Dec 14:22:16.018 * 1 changes in 900 seconds. Saving...
+3655:M 23 Dec 14:22:16.018 # Can't save in background: fork: Cannot allocate memory
+3655:M 23 Dec 14:22:22.030 * 1 changes in 900 seconds. Saving...
+3655:M 23 Dec 14:22:22.031 # Can't save in background: fork: Cannot allocate memory
+3655:M 23 Dec 14:22:28.041 * 1 changes in 900 seconds. Saving...
+3655:M 23 Dec 14:22:28.041 # Can't save in background: fork: Cannot allocate memory
+3655:M 23 Dec 14:22:34.059 * 1 changes in 900 seconds. Saving...
+3655:M 23 Dec 14:22:34.059 # Can't save in background: fork: Cannot allocate memory
+3655:M 23 Dec 14:22:40.072 * 1 changes in 900 seconds. Saving...
+3655:M 23 Dec 14:22:40.073 # Can't save in background: fork: Cannot allocate memory
+
+</code></pre><p>原因：</p>
+<ul>
+<li>在小内存进程上做fork 不需要太多资源，当进程的内存以G为单位
+fork 就很奢侈了</li>
+<li>所以一直cannot allocate memory</li>
+</ul>
+<p>解决方案:</p>
+<p>直接修改内核参数 <code>vm.overcommit_memory = 1</code>   <br>
+linux 会根据参数来决定是否放行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo echo <span style="color:#e6db74">&#39;vm.overcommit_memory = 1&#39;</span> &gt;&gt; /etc/sysctl.conf sudo sysctl -p
+</code></pre></div><p>内核分配参数</p>
+<p>0 表示检查是否有足够的可用内存供应用进程使用；
+1 表示内核允许分配所有的物理内存，而不管当前的内存状态如何</p>
+<p>Redis 简单动态字符串实现</p>
+<p>不仅仅需要字面量，需要可以修改的字符串的值</p>
+<p>在底层是SDS 实现</p>
+<p>执行 SET msg &ldquo;hello world&rdquo;</p>
+<p>键值都是SDS</p>
+<p>![屏幕快照 2019-11-29 下午2.03.09](/Users/xiantang/Desktop/屏幕快照 2019-11-29 下午2.03.09.png)</p>
+<p>![屏幕快照 2019-11-29 下午2.14.03](/Users/xiantang/Desktop/屏幕快照 2019-11-29 下午2.14.03.png)</p>
+<p> </p>
+<p>简单看了下 set的底层实现 set 其实是value 为空的hashtable</p>
+<p>之前set比 string占用小应该是 string 设置进去的时候我将值设置为了 1 所以测出来set 比 string 小 4M 其实在这种情况下两者的差异并不大  然后还有一点 set 如果全是数字的话 采用的会是 inset ，并且会根据插入的元素进行升级 升级为32 位或者 64位，可以达到解决空间的效果。</p>
+<p>用的拉链法 + 　头插</p>
+<p>load_factor = ht[0].used / ht[0].size</p>
+<p>当负载因子小于0.1的时候程序自动对hash表进行收缩</p>
+<p>渐进式rehash:</p>
+<p>rehash不是一次性的和集中性的，如果键值对有很大的量，一瞬间rehash的话会导致服务器宕机</p>
+<p>采用一种分而治之的方式进行操作，每次增删改查在完成对应工作后，都会对一个dictEntry的所有键值对进行rehash。将集中式的操作转换为了独立的可拆分的操作，并且在rehash的过程中，会从两个dict中进行查询。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

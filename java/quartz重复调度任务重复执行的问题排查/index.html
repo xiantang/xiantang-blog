@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>xiantang </title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="" />
+<meta property="og:description" content="序列化问题 行锁保证线程安全 类加载 为什么事务就能保证安全了？  触发JOB fire
+TRIGGER_STATE 是当前trigger 的状态 PREV_FIRE_TIME 是上次触发的时间
+locks表 Quart 支持分布式，也就是会存在多个线程同时抢占资源的情况处理这种状况。
+protected &lt;T&gt; T executeInNonManagedTXLock( String lockName, TransactionCallback&lt;T&gt; txCallback, final TransactionValidator&lt;T&gt; txValidator) throws JobPersistenceException { boolean transOwner = false; Connection conn = null; try { if (lockName != null) { // If we aren&#39;t using db locks, then delay getting DB connection  // until after acquiring the lock since it isn&#39;t needed.  if (getLockHandler()." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/java/quartz%E9%87%8D%E5%A4%8D%E8%B0%83%E5%BA%A6%E4%BB%BB%E5%8A%A1%E9%87%8D%E5%A4%8D%E6%89%A7%E8%A1%8C%E7%9A%84%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="序列化问题 行锁保证线程安全 类加载 为什么事务就能保证安全了？  触发JOB fire
+TRIGGER_STATE 是当前trigger 的状态 PREV_FIRE_TIME 是上次触发的时间
+locks表 Quart 支持分布式，也就是会存在多个线程同时抢占资源的情况处理这种状况。
+protected &lt;T&gt; T executeInNonManagedTXLock( String lockName, TransactionCallback&lt;T&gt; txCallback, final TransactionValidator&lt;T&gt; txValidator) throws JobPersistenceException { boolean transOwner = false; Connection conn = null; try { if (lockName != null) { // If we aren&#39;t using db locks, then delay getting DB connection  // until after acquiring the lock since it isn&#39;t needed.  if (getLockHandler().">
+
+<meta itemprop="wordCount" content="180">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="序列化问题 行锁保证线程安全 类加载 为什么事务就能保证安全了？  触发JOB fire
+TRIGGER_STATE 是当前trigger 的状态 PREV_FIRE_TIME 是上次触发的时间
+locks表 Quart 支持分布式，也就是会存在多个线程同时抢占资源的情况处理这种状况。
+protected &lt;T&gt; T executeInNonManagedTXLock( String lockName, TransactionCallback&lt;T&gt; txCallback, final TransactionValidator&lt;T&gt; txValidator) throws JobPersistenceException { boolean transOwner = false; Connection conn = null; try { if (lockName != null) { // If we aren&#39;t using db locks, then delay getting DB connection  // until after acquiring the lock since it isn&#39;t needed.  if (getLockHandler()."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://xiantang.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      xiantang
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        JAVAS
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><ul>
+<li>序列化问题</li>
+<li>行锁保证线程安全</li>
+<li>类加载</li>
+<li>为什么事务就能保证安全了？</li>
+</ul>
+<p>触发JOB fire</p>
+<p><strong>TRIGGER_STATE</strong> 是当前trigger 的状态 <strong>PREV_FIRE_TIME</strong> 是上次触发的时间</p>
+<p><img src="../../images/1565882162407.png" alt="1565882162407"></p>
+<p>locks表 Quart 支持分布式，也就是会存在多个线程同时抢占资源的情况处理这种状况。</p>
+<p><img src="../../images/1910205370-5b441c7329be1_articlex.png" alt="å¾çæè¿°"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">protected</span> <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> T <span style="color:#a6e22e">executeInNonManagedTXLock</span><span style="color:#f92672">(</span>
+            String lockName<span style="color:#f92672">,</span> 
+            TransactionCallback<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> txCallback<span style="color:#f92672">,</span> <span style="color:#66d9ef">final</span> TransactionValidator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> txValidator<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> JobPersistenceException <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">boolean</span> transOwner <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+        Connection conn <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>lockName <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#75715e">// If we aren&#39;t using db locks, then delay getting DB connection 
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// until after acquiring the lock since it isn&#39;t needed.
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>getLockHandler<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">requiresConnection</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    conn <span style="color:#f92672">=</span> getNonManagedTXConnection<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                
+                transOwner <span style="color:#f92672">=</span> getLockHandler<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">obtainLock</span><span style="color:#f92672">(</span>conn<span style="color:#f92672">,</span> lockName<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>conn <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                conn <span style="color:#f92672">=</span> getNonManagedTXConnection<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            
+            <span style="color:#66d9ef">final</span> T result <span style="color:#f92672">=</span> txCallback<span style="color:#f92672">.</span><span style="color:#a6e22e">execute</span><span style="color:#f92672">(</span>conn<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+                commitConnection<span style="color:#f92672">(</span>conn<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>JobPersistenceException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                rollbackConnection<span style="color:#f92672">(</span>conn<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>txValidator <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">|</span><span style="color:#f92672">|</span> <span style="color:#f92672">!</span>retryExecuteInNonManagedTXLock<span style="color:#f92672">(</span>lockName<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> TransactionCallback<span style="color:#f92672">&lt;</span>Boolean<span style="color:#f92672">&gt;</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    <span style="color:#a6e22e">@Override</span>
+                    <span style="color:#66d9ef">public</span> Boolean <span style="color:#a6e22e">execute</span><span style="color:#f92672">(</span>Connection conn<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> JobPersistenceException <span style="color:#f92672">{</span>
+                        <span style="color:#66d9ef">return</span> txValidator<span style="color:#f92672">.</span><span style="color:#a6e22e">validate</span><span style="color:#f92672">(</span>conn<span style="color:#f92672">,</span> result<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+                    <span style="color:#f92672">}</span>
+                <span style="color:#f92672">}</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">throw</span> e<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+            <span style="color:#f92672">}</span>
+
+            Long sigTime <span style="color:#f92672">=</span> clearAndGetSignalSchedulingChangeOnTxCompletion<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>sigTime <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;</span><span style="color:#f92672">&amp;</span> sigTime <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                signalSchedulingChangeImmediately<span style="color:#f92672">(</span>sigTime<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            
+            <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>JobPersistenceException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            rollbackConnection<span style="color:#f92672">(</span>conn<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">throw</span> e<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>RuntimeException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            rollbackConnection<span style="color:#f92672">(</span>conn<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> JobPersistenceException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Unexpected runtime exception: &#34;</span>
+                    <span style="color:#f92672">+</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> e<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+                releaseLock<span style="color:#f92672">(</span>lockName<span style="color:#f92672">,</span> transOwner<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+                cleanupConnection<span style="color:#f92672">(</span>conn<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://xiantang.github.io/" >
+    &copy;  xiantang 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
