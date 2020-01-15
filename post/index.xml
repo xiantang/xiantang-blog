@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on xiantang</title>
+    <title>Posts on Even - A super concise theme for Hugo</title>
     <link>https://xiantang.github.io/post/</link>
-    <description>Recent content in Posts on xiantang</description>
+    <description>Recent content in Posts on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 30 Aug 2017 01:37:56 +0800</lastBuildDate>
+    <language>en</language>
+    <lastBuildDate>Wed, 15 Jan 2020 16:33:34 +0800</lastBuildDate>
     
 	<atom:link href="https://xiantang.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to learn scala</title>
+      <link>https://xiantang.github.io/post/scala/how_to_learn_scala/</link>
+      <pubDate>Wed, 15 Jan 2020 16:33:34 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/scala/how_to_learn_scala/</guid>
+      <description>背景: 刚来到以scala为技术栈的公司的时候，配置了半天环境，然后终于将项目起了起来，发现里面的代码很奇怪，没有任何循环，数据的操作是一个函</description>
+    </item>
     
     <item>
       <title>AES 需要限制 SEED 长度</title>
@@ -17,16 +26,7 @@
       <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
       
       <guid>https://xiantang.github.io/post/scala/aes_limit_length/</guid>
-      <description>写了一个工具类用来加密解密数据库的 app字段
-本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。
-这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。
-我这边采用的是引入第三方库：
-&amp;#34;org.bouncycastle&amp;#34; % &amp;#34;bcprov-jdk16&amp;#34; % &amp;#34;1.45&amp;#34; private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() =&amp;gt; Cipher.getInstance(&amp;#34;AES/ECB/PKCS5Padding&amp;#34;, new BouncyCastleProvider())) 这样就解决了 No installed provider supports this key 的问题。
-但是提到了测试环境，又出现了问题:
-显示没有合法的AES key
-首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。
-我们需要明确一下本地环境和线上环境的不同:
- 本地: Jdk 安全目录 含有 unlimit 的jar包，也就是支持 16 24 32 位的key 线上: Jdk 安全目录 只含有 limit 的jar包，只支持 16 位的key  有两种解决方式1.线上安装 unlimit 的jar包 2.</description>
+      <description>写了一个工具类用来加密解密数据库的 app字段 本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。 这个的原因是因为线上环境没有支</description>
     </item>
     
   </channel>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on xiantang</title>
+    <title>Tags on Even - A super concise theme for Hugo</title>
     <link>https://xiantang.github.io/tags/</link>
-    <description>Recent content in Tags on xiantang</description>
+    <description>Recent content in Tags on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 30 Aug 2017 01:37:56 +0800</lastBuildDate>
+    <language>en</language>
+    <lastBuildDate>Wed, 15 Jan 2020 16:33:34 +0800</lastBuildDate>
     
 	<atom:link href="https://xiantang.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>scala</title>
       <link>https://xiantang.github.io/tags/scala/</link>
-      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      <pubDate>Wed, 15 Jan 2020 16:33:34 +0800</pubDate>
       
       <guid>https://xiantang.github.io/tags/scala/</guid>
       <description></description>
