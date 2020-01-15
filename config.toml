@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "http://xiantang.info/"
 languageCode = "en-us"
 title = "xiantang"
-theme = "hyde"
+theme = "ananke"
