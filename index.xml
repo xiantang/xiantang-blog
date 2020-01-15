@@ -6,10 +6,19 @@
     <description>Recent content on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 15 Jan 2020 16:33:34 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 15 Jan 2020 17:26:53 +0800</lastBuildDate>
     
 	<atom:link href="https://xiantang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Akka 源码解析</title>
+      <link>https://xiantang.github.io/post/scala/akka_source_code/</link>
+      <pubDate>Wed, 15 Jan 2020 17:26:53 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/scala/akka_source_code/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&amp;#34;HelloSystem&amp;#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&amp;#34;Parov Stelar&amp;#34;)) // jazzListener</description>
+    </item>
     
     <item>
       <title>How to learn scala</title>
