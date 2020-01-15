@@ -1,4 +1,4 @@
-baseURL = "http://xiantang.info/"
+baseURL = "https://xiantang.github.io/"
 languageCode = "en-us"
 title = "xiantang"
 theme = "ananke"
