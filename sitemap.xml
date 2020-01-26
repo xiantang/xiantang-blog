@@ -23,13 +23,6 @@
   </url>
   
   <url>
-    <loc>https://xiantang.github.io/</loc>
-    <lastmod>2020-01-15T18:47:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://xiantang.github.io/post/</loc>
     <lastmod>2020-01-15T18:47:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -52,6 +45,13 @@
   
   <url>
     <loc>https://xiantang.github.io/tags/</loc>
+    <lastmod>2020-01-15T18:47:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiantang.github.io/</loc>
     <lastmod>2020-01-15T18:47:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
