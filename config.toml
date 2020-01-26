@@ -202,7 +202,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
 #  isPlainText = true
 #  isHTML = false
 #
-[outputs]
+# [outputs]
 #  home = ["HTML", "RSS"]
 #  page = ["HTML", "MarkDown"]
 #  section = ["HTML", "RSS"]
