@@ -167,14 +167,14 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
     options = ""            # default: "{theme: 'simple'}"
 
   [params.busuanzi]         # count web traffic by busuanzi                             # 是否使用不蒜子统计站点访问量
-    enable = false
+    enable = true
     siteUV = true
     sitePV = true
     pagePV = true
 
   [params.reward]                                         # 文章打赏
-    enable = false
-    wechat = "/path/to/your/wechat-qr-code.png"           # 微信二维码
+    enable = true
+    wechat = "https://tva1.sinaimg.cn/large/006tNbRwly1gba8onfcxij30u015641x.jpg"           # 微信二维码
     alipay = "/path/to/your/alipay-qr-code.png"           # 支付宝二维码
 
   [params.social]                                         # 社交链接
@@ -202,7 +202,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
 #  isPlainText = true
 #  isHTML = false
 #
-#[outputs]
+[outputs]
 #  home = ["HTML", "RSS"]
 #  page = ["HTML", "MarkDown"]
 #  section = ["HTML", "RSS"]
