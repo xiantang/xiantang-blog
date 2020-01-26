@@ -1,7 +1,7 @@
 baseURL = "https://xiantang.github.io/"
 languageCode = "en"
 defaultContentLanguage = "en"                             # en / zh-cn / ... (This field determines which i18n file to use)
-title = "Even - A super concise theme for Hugo"
+title = "xiantang - 自律者自由"
 preserveTaxonomyNames = true
 enableRobotsTXT = true
 enableEmoji = true
