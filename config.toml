@@ -174,8 +174,8 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
 
   [params.reward]                                         # 文章打赏
     enable = true
-    wechat = "https://tva1.sinaimg.cn/large/006tNbRwly1gba8onfcxij30u015641x.jpg"           # 微信二维码
-    alipay = "/path/to/your/alipay-qr-code.png"           # 支付宝二维码
+    wechat = "https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg"           # 微信二维码
+    alipay = "https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg"           # 支付宝二维码
 
   [params.social]                                         # 社交链接
     a-email = "zhujingdi1998@gmail.com"
