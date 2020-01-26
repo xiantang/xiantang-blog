@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Akka 源码解析 - xiantang - 自律者自由</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&amp;#34;HelloSystem&amp;#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&amp;#34;Parov Stelar&amp;#34;)) // jazzListener" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.64.0-DEV with theme even" />
+
+
+<link rel="canonical" href="https://xiantang.github.io/post/scala/akka_source_code/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Akka 源码解析" />
+<meta property="og:description" content="1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&#34;HelloSystem&#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&#34;Parov Stelar&#34;)) // jazzListener" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/post/scala/akka_source_code/" />
+<meta property="article:published_time" content="2020-01-15T17:26:53+08:00" />
+<meta property="article:modified_time" content="2020-01-15T17:28:34+08:00" />
+<meta itemprop="name" content="Akka 源码解析">
+<meta itemprop="description" content="1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&#34;HelloSystem&#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&#34;Parov Stelar&#34;)) // jazzListener">
+<meta itemprop="datePublished" content="2020-01-15T17:26:53&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-15T17:28:34&#43;08:00" />
+<meta itemprop="wordCount" content="1613">
+
+
+
+<meta itemprop="keywords" content="scala," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Akka 源码解析"/>
+<meta name="twitter:description" content="1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&#34;HelloSystem&#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&#34;Parov Stelar&#34;)) // jazzListener"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">xiantang</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Akka 源码解析</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-01-15 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
+            <a href="/categories/scala/"> scala </a>
+            <a href="/categories/akka/"> akka </a>
+            </div>
+          <span class="more-meta"> 1613 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#subscribe-逻辑">subscribe 逻辑</a></li>
+    <li><a href="#publish-逻辑">publish 逻辑</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#tell-实现">Tell 实现</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Main1</span> <span class="k">extends</span> <span class="nc">App</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">system</span> <span class="k">=</span> <span class="nc">ActorSystem</span><span class="o">(</span><span class="s">&#34;HelloSystem&#34;</span><span class="o">)</span>
+  <span class="k">val</span> <span class="n">jazzListener</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">[</span><span class="kt">Listener</span><span class="o">]</span><span class="o">)</span>
+  <span class="k">val</span> <span class="n">musicListener</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">[</span><span class="kt">Listener</span><span class="o">]</span><span class="o">)</span>
+  <span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">subscribe</span><span class="o">(</span><span class="n">jazzListener</span><span class="o">,</span> <span class="n">classOf</span><span class="o">[</span><span class="kt">Jazz</span><span class="o">]</span><span class="o">)</span> <span class="c1">// jazzListener 订阅 Jazz 事件
+</span><span class="c1"></span>  <span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">subscribe</span><span class="o">(</span><span class="n">musicListener</span><span class="o">,</span> <span class="n">classOf</span><span class="o">[</span><span class="kt">AllKindsOfMusic</span><span class="o">]</span><span class="o">)</span> <span class="c1">// musicListener 订阅 AllKindsOfMusic 以及它的子类 事件
+</span><span class="c1"></span>
+  <span class="c1">// 只有 musicListener 接收到这个事件
+</span><span class="c1"></span>  <span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">publish</span><span class="o">(</span><span class="nc">Electronic</span><span class="o">(</span><span class="s">&#34;Parov Stelar&#34;</span><span class="o">)</span><span class="o">)</span>
+
+  <span class="c1">// jazzListener 和 musicListener 都会收到这个事件
+</span><span class="c1"></span>  <span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">publish</span><span class="o">(</span><span class="nc">Jazz</span><span class="o">(</span><span class="s">&#34;Sonny Rollins&#34;</span><span class="o">)</span><span class="o">)</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="subscribe-逻辑">subscribe 逻辑</h2>
+<p>同步地将 subcriber 和 to 加入到 subscriptions 中，diff 应该是和之前的一次比较保证不会重复发送?</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">subscribe</span><span class="o">(</span><span class="n">subscriber</span><span class="k">:</span> <span class="kt">Subscriber</span><span class="o">,</span> <span class="n">to</span><span class="k">:</span> <span class="kt">Classifier</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="n">subscriptions</span><span class="o">.</span><span class="n">synchronized</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">diff</span> <span class="k">=</span> <span class="n">subscriptions</span><span class="o">.</span><span class="n">addValue</span><span class="o">(</span><span class="n">to</span><span class="o">,</span> <span class="n">subscriber</span><span class="o">)</span>
+  <span class="n">addToCache</span><span class="o">(</span><span class="n">diff</span><span class="o">)</span>
+  <span class="n">diff</span><span class="o">.</span><span class="n">nonEmpty</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi6sifoj312k06878y.jpg" alt="image-20200109114040999"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi7d0o9j30t40f2tho.jpg" alt="image-20200109131215939"></p>
+<p>addValue 中有个比较重要的方法，就是从 <code>subkeys</code> 也就是 subscribe 中到找对应的类。</p>
+<p>可以将<code>subkeys</code> 想象为一个多叉树中的一个节点，节点的key为订阅源类型，value为所对应的订阅者 Actor</p>
+<p>然后这个节点也有自己的<code>subkeys</code> 这些subkeys 为的key为上层类型的子类，同时订阅者是与是上层订阅者的拓展</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi7rh9jj30ss0g0wit.jpg" alt="image-20200109140449787"></p>
+<p>对于重复的订阅，他会做一次去重，类似于arc diff</p>
+<p>对于 <code> system.eventStream.subscribe(jazzListener, classOf[Jazz])</code></p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi88df2j311m05gadr.jpg" alt="image-20200109120145086"></p>
+<p>会产生一个这样的diff 然后加入到cache 中</p>
+<p>cache 的数据结构是一个 <code>private var cache = Map.empty[Classifier, Set[Subscriber]]</code> Map 分别是订阅源和订阅者</p>
+<p>对于 <code>system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) </code></p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi8ptj5j31j804kjuu.jpg" alt="image-20200109120406852"></p>
+<h2 id="publish-逻辑">publish 逻辑</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">publish</span><span class="o">(</span><span class="n">event</span><span class="k">:</span> <span class="kt">Event</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="n">classify</span><span class="o">(</span><span class="n">event</span><span class="o">)</span>
+    <span class="k">val</span> <span class="n">recv</span> <span class="k">=</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">cache</span> <span class="n">contains</span> <span class="n">c</span><span class="o">)</span> <span class="n">cache</span><span class="o">(</span><span class="n">c</span><span class="o">)</span> <span class="c1">// c will never be removed from cache
+</span><span class="c1"></span>      <span class="k">else</span>
+        <span class="n">subscriptions</span><span class="o">.</span><span class="n">synchronized</span> <span class="o">{</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">cache</span> <span class="n">contains</span> <span class="n">c</span><span class="o">)</span> <span class="n">cache</span><span class="o">(</span><span class="n">c</span><span class="o">)</span>
+          <span class="k">else</span> <span class="o">{</span>
+            <span class="n">addToCache</span><span class="o">(</span><span class="n">subscriptions</span><span class="o">.</span><span class="n">addKey</span><span class="o">(</span><span class="n">c</span><span class="o">)</span><span class="o">)</span>
+            <span class="n">cache</span><span class="o">(</span><span class="n">c</span><span class="o">)</span>
+          <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="n">recv</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">publish</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span><span class="o">)</span>
+  <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>publish 逻辑较为简单，首先会从event中找出对应 className</p>
+<p>然后走缓存逻辑，如果不在缓存中存在，就将对应的 key 更新到subkeys 多叉树中，找到对应的订阅者，并且更新到cache 中。</p>
+<p>最后遍历 recv 调用publish函数 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala">  <span class="k">protected</span> <span class="k">def</span> <span class="n">publish</span><span class="o">(</span><span class="n">event</span><span class="k">:</span> <span class="kt">Any</span><span class="o">,</span> <span class="n">subscriber</span><span class="k">:</span> <span class="kt">ActorRef</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">sys</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">subscriber</span><span class="o">.</span><span class="n">isTerminated</span><span class="o">)</span> <span class="n">unsubscribe</span><span class="o">(</span><span class="n">subscriber</span><span class="o">)</span>
+    <span class="k">else</span> <span class="n">subscriber</span> <span class="o">!</span> <span class="n">event</span>
+  <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="actor-初始化">Actor 初始化</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">pinger</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">[</span><span class="kt">Pinger</span><span class="o">]</span><span class="o">,</span> <span class="s">&#34;pinger&#34;</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">ponger</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">Ponger</span><span class="o">]</span><span class="o">,</span> <span class="n">pinger</span><span class="o">)</span><span class="o">,</span> <span class="s">&#34;ponger&#34;</span><span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>会调用 ActorSystem 中的actorOf方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">actorOf</span><span class="o">(</span><span class="n">props</span><span class="k">:</span> <span class="kt">Props</span><span class="o">)</span><span class="k">:</span> <span class="kt">ActorRef</span> <span class="o">=</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">guardianProps</span><span class="o">.</span><span class="n">isEmpty</span><span class="o">)</span> <span class="n">guardian</span><span class="o">.</span><span class="n">underlying</span><span class="o">.</span><span class="n">attachChild</span><span class="o">(</span><span class="n">props</span><span class="o">,</span> <span class="n">systemService</span> <span class="k">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="k">else</span>
+<span class="k">throw</span> <span class="k">new</span> <span class="nc">UnsupportedOperationException</span><span class="o">(</span>
+  <span class="s">&#34;cannot create top-level actor from the outside on ActorSystem with custom user guardian&#34;</span><span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>会从守卫Actor 下面创建一个新的Child Actor</p>
+<p>会调用下边的makeChild 方法:</p>
+<p>Children.scala</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">actor</span> <span class="k">=</span>
+        <span class="k">try</span> <span class="o">{</span>
+          <span class="k">val</span> <span class="n">childPath</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">ChildActorPath</span><span class="o">(</span><span class="n">cell</span><span class="o">.</span><span class="n">self</span><span class="o">.</span><span class="n">path</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="nc">ActorCell</span><span class="o">.</span><span class="n">newUid</span><span class="o">(</span><span class="o">)</span><span class="o">)</span>
+          <span class="n">cell</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">systemImpl</span><span class="o">,</span>
+            <span class="n">props</span><span class="o">,</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">self</span><span class="o">,</span>
+            <span class="n">childPath</span><span class="o">,</span>
+            <span class="n">systemService</span> <span class="k">=</span> <span class="n">systemService</span><span class="o">,</span>
+            <span class="n">deploy</span> <span class="k">=</span> <span class="nc">None</span><span class="o">,</span>
+            <span class="n">lookupDeploy</span> <span class="k">=</span> <span class="kc">true</span><span class="o">,</span>
+            <span class="n">async</span> <span class="k">=</span> <span class="n">async</span><span class="o">)</span>
+        <span class="o">}</span> 
+
+<span class="n">initChild</span><span class="o">(</span><span class="n">actor</span><span class="o">)</span>
+<span class="n">actor</span><span class="o">.</span><span class="n">start</span><span class="o">(</span><span class="o">)</span> <span class="c1">// 绑定 actor 到 dispatcher 
+</span><span class="c1"></span><span class="n">actor</span>  <span class="c1">// 返回 actor ref
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="tell-实现">Tell 实现</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">final</span> <span class="k">def</span> <span class="n">sendMessage</span><span class="o">(</span><span class="n">message</span><span class="k">:</span> <span class="kt">Any</span><span class="o">,</span> <span class="n">sender</span><span class="k">:</span> <span class="kt">ActorRef</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+  <span class="n">sendMessage</span><span class="o">(</span><span class="nc">Envelope</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">sender</span><span class="o">,</span> <span class="n">system</span><span class="o">)</span><span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>将message 包装为信封，调用Cell 的 sendMessage 方法</p>
+<p>是因为 Cell 实现了</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi95pdbj31kc09utcl.jpg" alt="image-20200109195143660"></p>
+<p>Dispatch 特质</p>
+<p>其实是执行的 Dispatch 特质中的 sendMessage 方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">sendMessage</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">Envelope</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="n">msgToDispatch</span> <span class="k">=</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">system</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="nc">SerializeAllMessages</span><span class="o">)</span> <span class="n">serializeAndDeserialize</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
+        <span class="k">else</span> <span class="n">msg</span>
+
+      <span class="n">dispatcher</span><span class="o">.</span><span class="n">dispatch</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">msgToDispatch</span><span class="o">)</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="n">handleException</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是我仍然有个问题，dispatcher 是我自己规定的dispather ？</p>
+<p>再调用这个Actor 所对应的 dispatcher 的 dispatch 函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">protected</span><span class="o">[</span><span class="kt">akka</span><span class="o">]</span> <span class="k">def</span> <span class="n">dispatch</span><span class="o">(</span><span class="n">receiver</span><span class="k">:</span> <span class="kt">ActorCell</span><span class="o">,</span> <span class="n">invocation</span><span class="k">:</span> <span class="kt">Envelope</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">mbox</span> <span class="k">=</span> <span class="n">receiver</span><span class="o">.</span><span class="n">mailbox</span>
+    <span class="n">mbox</span><span class="o">.</span><span class="n">enqueue</span><span class="o">(</span><span class="n">receiver</span><span class="o">.</span><span class="n">self</span><span class="o">,</span> <span class="n">invocation</span><span class="o">)</span>
+    <span class="n">registerForExecution</span><span class="o">(</span><span class="n">mbox</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">false</span><span class="o">)</span>
+  <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>将信封丢入对应接收者的 mailbox 中，然后将 mbox 作为参数传入 registerForExecution 注册到线程池中。</p>
+<p>而这个线程池就是我预设的线程池， dispacher 只是对这个线程池做一层封装。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">protected</span><span class="o">[</span><span class="kt">akka</span><span class="o">]</span> <span class="k">override</span> <span class="k">def</span> <span class="n">registerForExecution</span><span class="o">(</span>
+      <span class="n">mbox</span><span class="k">:</span> <span class="kt">Mailbox</span><span class="o">,</span>
+      <span class="n">hasMessageHint</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">,</span>
+      <span class="n">hasSystemMessageHint</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">mbox</span><span class="o">.</span><span class="n">canBeScheduledForExecution</span><span class="o">(</span><span class="n">hasMessageHint</span><span class="o">,</span> <span class="n">hasSystemMessageHint</span><span class="o">)</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//This needs to be here to ensure thread safety and no races
+</span><span class="c1"></span>      <span class="k">if</span> <span class="o">(</span><span class="n">mbox</span><span class="o">.</span><span class="n">setAsScheduled</span><span class="o">(</span><span class="o">)</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+          <span class="c1">//!!!!
+</span><span class="c1"></span>          <span class="n">executorService</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="n">mbox</span><span class="o">)</span>
+          <span class="kc">true</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">{</span>
+       		<span class="o">.</span><span class="o">.</span><span class="o">.</span>
+        <span class="o">}</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="kc">false</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="kc">false</span>
+  <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用内部的线程池来执行这个 MailBox 对象</p>
+<p>既然 MailBox 可以被执行 它一定实现了 Runnable 方法 来看看他的实现:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">override</span> <span class="k">final</span> <span class="k">def</span> <span class="n">run</span><span class="o">(</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="o">!</span><span class="n">isClosed</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//Volatile read, needed here
+</span><span class="c1"></span>        <span class="n">processAllSystemMessages</span><span class="o">(</span><span class="o">)</span> <span class="c1">//First, deal with any system messages
+</span><span class="c1"></span>        <span class="n">processMailbox</span><span class="o">(</span><span class="o">)</span> <span class="c1">//Then deal with messages
+</span><span class="c1"></span>      <span class="o">}</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="n">setAsIdle</span><span class="o">(</span><span class="o">)</span> <span class="c1">//Volatile write, needed here
+</span><span class="c1"></span>      <span class="n">dispatcher</span><span class="o">.</span><span class="n">registerForExecution</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>来主要看一下 processMailbox 方法的实现吧</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="nd">@tailrec</span> <span class="k">private</span> <span class="k">final</span> <span class="k">def</span> <span class="n">processMailbox</span><span class="o">(</span>
+      <span class="n">left</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="nc">Math</span><span class="o">.</span><span class="n">max</span><span class="o">(</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">throughput</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span><span class="o">,</span>
+      <span class="n">deadlineNs</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">isThroughputDeadlineTimeDefined</span><span class="o">)</span>
+          <span class="nc">System</span><span class="o">.</span><span class="n">nanoTime</span> <span class="o">+</span> <span class="n">dispatcher</span><span class="o">.</span><span class="n">throughputDeadlineTime</span><span class="o">.</span><span class="n">toNanos</span>
+        <span class="k">else</span> <span class="mi">0L</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">shouldProcessMessage</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="n">next</span> <span class="k">=</span> <span class="n">dequeue</span><span class="o">(</span><span class="o">)</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">next</span> <span class="n">ne</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="nc">Mailbox</span><span class="o">.</span><span class="n">debug</span><span class="o">)</span> <span class="n">println</span><span class="o">(</span><span class="n">actor</span><span class="o">.</span><span class="n">self</span> <span class="o">+</span> <span class="s">&#34; processing message &#34;</span> <span class="o">+</span> <span class="n">next</span><span class="o">)</span>
+        <span class="n">actor</span><span class="o">.</span><span class="n">invoke</span><span class="o">(</span><span class="n">next</span><span class="o">)</span>
+        <span class="k">if</span> <span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="n">interrupted</span><span class="o">(</span><span class="o">)</span><span class="o">)</span>
+          <span class="k">throw</span> <span class="k">new</span> <span class="nc">InterruptedException</span><span class="o">(</span><span class="s">&#34;Interrupted while processing actor messages&#34;</span><span class="o">)</span>
+        <span class="n">processAllSystemMessages</span><span class="o">(</span><span class="o">)</span>
+        <span class="k">if</span> <span class="o">(</span><span class="o">(</span><span class="n">left</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="o">!</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">isThroughputDeadlineTimeDefined</span> <span class="o">||</span> <span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="n">nanoTime</span> <span class="o">-</span> <span class="n">deadlineNs</span><span class="o">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span><span class="o">)</span>
+          <span class="n">processMailbox</span><span class="o">(</span><span class="n">left</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">deadlineNs</span><span class="o">)</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>很简单的实现，使用了尾递归的方式，</p>
+<ol>
+<li>首先计算出 left 也就是分发器的吞吐量</li>
+<li>然后从队列里面出队一个元素</li>
+<li>调用actor 的invoke 方法</li>
+<li>继续向下调用直到 left &lt;1  或者</li>
+</ol>
+<p>有两个关键的参数，</p>
+<p>throughput 也就是单次执行  <code>executorService.execute(mbox)</code> 所消费消息的数量。超出这个数量的消息将会交给下次执行这个 mbox 的时候执行。</p>
+<p><code>deadlineNs</code>  发送throughput数量消息的截止时间，保证throughput的消息要在截止时间内完成。</p>
+<p>调用 actor 的 invoke 方法下面会调用 ActorCell 的 receiveMessage 方法</p>
+<p><code>actor.aroundReceive(behaviorStack.head, msg)</code></p>
+<p>获得栈顶的 Receive 偏函数，调用 aroundReceive 来执行操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">protected</span><span class="o">[</span><span class="kt">akka</span><span class="o">]</span> <span class="k">def</span> <span class="n">aroundReceive</span><span class="o">(</span><span class="n">receive</span><span class="k">:</span> <span class="kt">Actor</span><span class="kt">.</span><span class="kt">Receive</span><span class="o">,</span> <span class="n">msg</span><span class="k">:</span> <span class="kt">Any</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="c1">// optimization: avoid allocation of lambda
+</span><span class="c1"></span>  <span class="k">if</span> <span class="o">(</span><span class="n">receive</span><span class="o">.</span><span class="n">applyOrElse</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="nc">Actor</span><span class="o">.</span><span class="n">notHandledFun</span><span class="o">)</span><span class="o">.</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">AnyRef</span><span class="o">]</span> <span class="n">eq</span> <span class="nc">Actor</span><span class="o">.</span><span class="nc">NotHandled</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">unhandled</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果receive 没有match对应的message，使用了偏函数的 applyOrElse 捕获剩下的值域，判断返回值是否和 NotHandled 相等。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">unhandled</span><span class="o">(</span><span class="n">message</span><span class="k">:</span> <span class="kt">Any</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">message</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Terminated</span><span class="o">(</span><span class="n">dead</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="k">throw</span> <span class="nc">DeathPactException</span><span class="o">(</span><span class="n">dead</span><span class="o">)</span>
+    <span class="k">case</span> <span class="k">_</span>                <span class="k">=&gt;</span> <span class="n">context</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">publish</span><span class="o">(</span><span class="nc">UnhandledMessage</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">sender</span><span class="o">(</span><span class="o">)</span><span class="o">,</span> <span class="n">self</span><span class="o">)</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对message 做一次模式匹配，如果是没有handle的message 就将它作为订阅发出。</p>
+<p>这里我们可以使用一个订阅者 <code>system.eventStream.subscribe(listener, classOf[UnhandledMessage]) </code> 来订阅这些消息，进行日志输出。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-01-15
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/8f577604317f28a2bd4b472f486e369cd9495790" title="add akka source code">(8f57760)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba8onfcxij30u015641x.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/path/to/your/alipay-qr-code.png">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/scala/">scala</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/scala/future_in_actor/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Actor 如何处理阻塞消息</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/scala/how_to_learn_scala/">
+            <span class="next-text nav-default">How to learn scala</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80ODI3OC8yNDc3Mg==">
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+
+        if (typeof LivereTower === 'function') { return; }
+
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+    <noscript>Please enable JavaScript to view the comments powered by <a href="https://livere.com/">LiveRe.</a></noscript>
+    </div>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="zhujingdi1998@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/12515344/%e6%9c%b1%e9%9d%99%e8%bf%aa" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/xiantang98" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://xiantang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xiantang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

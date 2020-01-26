@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>scala on xiantang - 自律者自由</title>
+    <link>https://xiantang.github.io/categories/scala/</link>
+    <description>Recent content in scala on xiantang - 自律者自由</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 15 Jan 2020 17:51:36 +0800</lastBuildDate>
+    
+	<atom:link href="https://xiantang.github.io/categories/scala/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Actor 如何处理阻塞消息</title>
+      <link>https://xiantang.github.io/post/scala/future_in_actor/</link>
+      <pubDate>Wed, 15 Jan 2020 17:51:36 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/scala/future_in_actor/</guid>
+      <description>观察了一下业务的代码中发现在 Actor 中采用了很多 import scala.concurrent.ExecutionContext.Implicits.global 来作为 Actor 内部的执行 Future 的线程池，之前觉得好像也没啥问题。 但是在看完 akka 源码后发现好像有些不妥。 简单</description>
+    </item>
+    
+    <item>
+      <title>Akka 源码解析</title>
+      <link>https://xiantang.github.io/post/scala/akka_source_code/</link>
+      <pubDate>Wed, 15 Jan 2020 17:26:53 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/scala/akka_source_code/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&amp;#34;HelloSystem&amp;#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&amp;#34;Parov Stelar&amp;#34;)) // jazzListener</description>
+    </item>
+    
+    <item>
+      <title>How to learn scala</title>
+      <link>https://xiantang.github.io/post/scala/how_to_learn_scala/</link>
+      <pubDate>Wed, 15 Jan 2020 16:33:34 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/scala/how_to_learn_scala/</guid>
+      <description>背景: 刚来到以scala为技术栈的公司的时候，配置了半天环境，然后终于将项目起了起来，发现里面的代码很奇怪，没有任何循环，数据的操作是一个函</description>
+    </item>
+    
+    <item>
+      <title>AES 需要限制 SEED 长度</title>
+      <link>https://xiantang.github.io/post/scala/aes_limit_length/</link>
+      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/scala/aes_limit_length/</guid>
+      <description>写了一个工具类用来加密解密数据库的 app字段 本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。 这个的原因是因为线上环境没有支</description>
+    </item>
+    
+  </channel>
+</rss>
