@@ -58,6 +58,15 @@
     
     <item>
       <title></title>
+      <link>https://xiantang.github.io/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiantang.github.io/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</guid>
+      <description>No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton getInstance() { if (instance == null) { synchronized (sybObj) { if (instance == null) { instance = new No2TwiceCheckSingleton(); } } }</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>https://xiantang.github.io/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
