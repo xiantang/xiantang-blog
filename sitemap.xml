@@ -106,4 +106,10 @@
     <priority>0.5</priority>
   </url>
   
+  <url>
+    <loc>https://xiantang.github.io/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
 </urlset>
