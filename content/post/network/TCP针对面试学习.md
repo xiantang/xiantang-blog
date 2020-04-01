@@ -13,8 +13,6 @@ author: "xiantang"
 
 
 
-
-
 # 什么是TCP
 
 1. TCP 是一个全双工 面向字节流的基于IP协议的协议。
