@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.64.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.69.0-DEV with theme even" />
 
 
 <link rel="canonical" href="https://xiantang.github.io/post/scala/akka_source_code/" />
@@ -168,16 +168,16 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Main1</span> <span class="k">extends</span> <span class="nc">App</span> <span class="o">{</span>
   <span class="k">val</span> <span class="n">system</span> <span class="k">=</span> <span class="nc">ActorSystem</span><span class="o">(</span><span class="s">&#34;HelloSystem&#34;</span><span class="o">)</span>
-  <span class="k">val</span> <span class="n">jazzListener</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">[</span><span class="kt">Listener</span><span class="o">]</span><span class="o">)</span>
-  <span class="k">val</span> <span class="n">musicListener</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">[</span><span class="kt">Listener</span><span class="o">]</span><span class="o">)</span>
-  <span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">subscribe</span><span class="o">(</span><span class="n">jazzListener</span><span class="o">,</span> <span class="n">classOf</span><span class="o">[</span><span class="kt">Jazz</span><span class="o">]</span><span class="o">)</span> <span class="c1">// jazzListener 订阅 Jazz 事件
-</span><span class="c1"></span>  <span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">subscribe</span><span class="o">(</span><span class="n">musicListener</span><span class="o">,</span> <span class="n">classOf</span><span class="o">[</span><span class="kt">AllKindsOfMusic</span><span class="o">]</span><span class="o">)</span> <span class="c1">// musicListener 订阅 AllKindsOfMusic 以及它的子类 事件
+  <span class="k">val</span> <span class="n">jazzListener</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">[</span><span class="kt">Listener</span><span class="o">])</span>
+  <span class="k">val</span> <span class="n">musicListener</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">[</span><span class="kt">Listener</span><span class="o">])</span>
+  <span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">subscribe</span><span class="o">(</span><span class="n">jazzListener</span><span class="o">,</span> <span class="n">classOf</span><span class="o">[</span><span class="kt">Jazz</span><span class="o">])</span> <span class="c1">// jazzListener 订阅 Jazz 事件
+</span><span class="c1"></span>  <span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">subscribe</span><span class="o">(</span><span class="n">musicListener</span><span class="o">,</span> <span class="n">classOf</span><span class="o">[</span><span class="kt">AllKindsOfMusic</span><span class="o">])</span> <span class="c1">// musicListener 订阅 AllKindsOfMusic 以及它的子类 事件
 </span><span class="c1"></span>
   <span class="c1">// 只有 musicListener 接收到这个事件
-</span><span class="c1"></span>  <span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">publish</span><span class="o">(</span><span class="nc">Electronic</span><span class="o">(</span><span class="s">&#34;Parov Stelar&#34;</span><span class="o">)</span><span class="o">)</span>
+</span><span class="c1"></span>  <span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">publish</span><span class="o">(</span><span class="nc">Electronic</span><span class="o">(</span><span class="s">&#34;Parov Stelar&#34;</span><span class="o">))</span>
 
   <span class="c1">// jazzListener 和 musicListener 都会收到这个事件
-</span><span class="c1"></span>  <span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">publish</span><span class="o">(</span><span class="nc">Jazz</span><span class="o">(</span><span class="s">&#34;Sonny Rollins&#34;</span><span class="o">)</span><span class="o">)</span>
+</span><span class="c1"></span>  <span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">publish</span><span class="o">(</span><span class="nc">Jazz</span><span class="o">(</span><span class="s">&#34;Sonny Rollins&#34;</span><span class="o">))</span>
 <span class="o">}</span>
 
 </code></pre></td></tr></table>
@@ -240,11 +240,11 @@
         <span class="n">subscriptions</span><span class="o">.</span><span class="n">synchronized</span> <span class="o">{</span>
           <span class="k">if</span> <span class="o">(</span><span class="n">cache</span> <span class="n">contains</span> <span class="n">c</span><span class="o">)</span> <span class="n">cache</span><span class="o">(</span><span class="n">c</span><span class="o">)</span>
           <span class="k">else</span> <span class="o">{</span>
-            <span class="n">addToCache</span><span class="o">(</span><span class="n">subscriptions</span><span class="o">.</span><span class="n">addKey</span><span class="o">(</span><span class="n">c</span><span class="o">)</span><span class="o">)</span>
+            <span class="n">addToCache</span><span class="o">(</span><span class="n">subscriptions</span><span class="o">.</span><span class="n">addKey</span><span class="o">(</span><span class="n">c</span><span class="o">))</span>
             <span class="n">cache</span><span class="o">(</span><span class="n">c</span><span class="o">)</span>
           <span class="o">}</span>
         <span class="o">}</span>
-    <span class="n">recv</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">publish</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span><span class="o">)</span>
+    <span class="n">recv</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">publish</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="k">_</span><span class="o">))</span>
   <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -272,8 +272,8 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">pinger</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">[</span><span class="kt">Pinger</span><span class="o">]</span><span class="o">,</span> <span class="s">&#34;pinger&#34;</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">ponger</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">Ponger</span><span class="o">]</span><span class="o">,</span> <span class="n">pinger</span><span class="o">)</span><span class="o">,</span> <span class="s">&#34;ponger&#34;</span><span class="o">)</span>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">pinger</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">[</span><span class="kt">Pinger</span><span class="o">],</span> <span class="s">&#34;pinger&#34;</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">ponger</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">Ponger</span><span class="o">],</span> <span class="n">pinger</span><span class="o">),</span> <span class="s">&#34;ponger&#34;</span><span class="o">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>会调用 ActorSystem 中的actorOf方法</p>
@@ -319,7 +319,7 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">actor</span> <span class="k">=</span>
         <span class="k">try</span> <span class="o">{</span>
-          <span class="k">val</span> <span class="n">childPath</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">ChildActorPath</span><span class="o">(</span><span class="n">cell</span><span class="o">.</span><span class="n">self</span><span class="o">.</span><span class="n">path</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="nc">ActorCell</span><span class="o">.</span><span class="n">newUid</span><span class="o">(</span><span class="o">)</span><span class="o">)</span>
+          <span class="k">val</span> <span class="n">childPath</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">ChildActorPath</span><span class="o">(</span><span class="n">cell</span><span class="o">.</span><span class="n">self</span><span class="o">.</span><span class="n">path</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="nc">ActorCell</span><span class="o">.</span><span class="n">newUid</span><span class="o">())</span>
           <span class="n">cell</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span>
             <span class="n">cell</span><span class="o">.</span><span class="n">systemImpl</span><span class="o">,</span>
             <span class="n">props</span><span class="o">,</span>
@@ -332,7 +332,7 @@
         <span class="o">}</span> 
 
 <span class="n">initChild</span><span class="o">(</span><span class="n">actor</span><span class="o">)</span>
-<span class="n">actor</span><span class="o">.</span><span class="n">start</span><span class="o">(</span><span class="o">)</span> <span class="c1">// 绑定 actor 到 dispatcher 
+<span class="n">actor</span><span class="o">.</span><span class="n">start</span><span class="o">()</span> <span class="c1">// 绑定 actor 到 dispatcher 
 </span><span class="c1"></span><span class="n">actor</span>  <span class="c1">// 返回 actor ref
 </span></code></pre></td></tr></table>
 </div>
@@ -344,7 +344,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">final</span> <span class="k">def</span> <span class="n">sendMessage</span><span class="o">(</span><span class="n">message</span><span class="k">:</span> <span class="kt">Any</span><span class="o">,</span> <span class="n">sender</span><span class="k">:</span> <span class="kt">ActorRef</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
-  <span class="n">sendMessage</span><span class="o">(</span><span class="nc">Envelope</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">sender</span><span class="o">,</span> <span class="n">system</span><span class="o">)</span><span class="o">)</span>
+  <span class="n">sendMessage</span><span class="o">(</span><span class="nc">Envelope</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">sender</span><span class="o">,</span> <span class="n">system</span><span class="o">))</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>将message 包装为信封，调用Cell 的 sendMessage 方法</p>
@@ -418,14 +418,14 @@
       <span class="n">mbox</span><span class="k">:</span> <span class="kt">Mailbox</span><span class="o">,</span>
       <span class="n">hasMessageHint</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">,</span>
       <span class="n">hasSystemMessageHint</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">mbox</span><span class="o">.</span><span class="n">canBeScheduledForExecution</span><span class="o">(</span><span class="n">hasMessageHint</span><span class="o">,</span> <span class="n">hasSystemMessageHint</span><span class="o">)</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//This needs to be here to ensure thread safety and no races
-</span><span class="c1"></span>      <span class="k">if</span> <span class="o">(</span><span class="n">mbox</span><span class="o">.</span><span class="n">setAsScheduled</span><span class="o">(</span><span class="o">)</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">mbox</span><span class="o">.</span><span class="n">canBeScheduledForExecution</span><span class="o">(</span><span class="n">hasMessageHint</span><span class="o">,</span> <span class="n">hasSystemMessageHint</span><span class="o">))</span> <span class="o">{</span> <span class="c1">//This needs to be here to ensure thread safety and no races
+</span><span class="c1"></span>      <span class="k">if</span> <span class="o">(</span><span class="n">mbox</span><span class="o">.</span><span class="n">setAsScheduled</span><span class="o">())</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
           <span class="c1">//!!!!
 </span><span class="c1"></span>          <span class="n">executorService</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="n">mbox</span><span class="o">)</span>
           <span class="kc">true</span>
         <span class="o">}</span> <span class="k">catch</span> <span class="o">{</span>
-       		<span class="o">.</span><span class="o">.</span><span class="o">.</span>
+       		<span class="o">...</span>
         <span class="o">}</span>
       <span class="o">}</span> <span class="k">else</span> <span class="kc">false</span>
     <span class="o">}</span> <span class="k">else</span> <span class="kc">false</span>
@@ -449,14 +449,14 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">override</span> <span class="k">final</span> <span class="k">def</span> <span class="n">run</span><span class="o">(</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">override</span> <span class="k">final</span> <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
     <span class="k">try</span> <span class="o">{</span>
-      <span class="k">if</span> <span class="o">(</span><span class="o">!</span><span class="n">isClosed</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//Volatile read, needed here
-</span><span class="c1"></span>        <span class="n">processAllSystemMessages</span><span class="o">(</span><span class="o">)</span> <span class="c1">//First, deal with any system messages
-</span><span class="c1"></span>        <span class="n">processMailbox</span><span class="o">(</span><span class="o">)</span> <span class="c1">//Then deal with messages
+      <span class="k">if</span> <span class="o">(!</span><span class="n">isClosed</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//Volatile read, needed here
+</span><span class="c1"></span>        <span class="n">processAllSystemMessages</span><span class="o">()</span> <span class="c1">//First, deal with any system messages
+</span><span class="c1"></span>        <span class="n">processMailbox</span><span class="o">()</span> <span class="c1">//Then deal with messages
 </span><span class="c1"></span>      <span class="o">}</span>
     <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-      <span class="n">setAsIdle</span><span class="o">(</span><span class="o">)</span> <span class="c1">//Volatile write, needed here
+      <span class="n">setAsIdle</span><span class="o">()</span> <span class="c1">//Volatile write, needed here
 </span><span class="c1"></span>      <span class="n">dispatcher</span><span class="o">.</span><span class="n">registerForExecution</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">)</span>
     <span class="o">}</span>
   <span class="o">}</span>
@@ -486,20 +486,20 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-scala" data-lang="scala"><span class="nd">@tailrec</span> <span class="k">private</span> <span class="k">final</span> <span class="k">def</span> <span class="n">processMailbox</span><span class="o">(</span>
-      <span class="n">left</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="nc">Math</span><span class="o">.</span><span class="n">max</span><span class="o">(</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">throughput</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span><span class="o">,</span>
+      <span class="n">left</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="nc">Math</span><span class="o">.</span><span class="n">max</span><span class="o">(</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">throughput</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span>
       <span class="n">deadlineNs</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">isThroughputDeadlineTimeDefined</span><span class="o">)</span>
           <span class="nc">System</span><span class="o">.</span><span class="n">nanoTime</span> <span class="o">+</span> <span class="n">dispatcher</span><span class="o">.</span><span class="n">throughputDeadlineTime</span><span class="o">.</span><span class="n">toNanos</span>
         <span class="k">else</span> <span class="mi">0L</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">shouldProcessMessage</span><span class="o">)</span> <span class="o">{</span>
-      <span class="k">val</span> <span class="n">next</span> <span class="k">=</span> <span class="n">dequeue</span><span class="o">(</span><span class="o">)</span>
+      <span class="k">val</span> <span class="n">next</span> <span class="k">=</span> <span class="n">dequeue</span><span class="o">()</span>
       <span class="k">if</span> <span class="o">(</span><span class="n">next</span> <span class="n">ne</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span><span class="nc">Mailbox</span><span class="o">.</span><span class="n">debug</span><span class="o">)</span> <span class="n">println</span><span class="o">(</span><span class="n">actor</span><span class="o">.</span><span class="n">self</span> <span class="o">+</span> <span class="s">&#34; processing message &#34;</span> <span class="o">+</span> <span class="n">next</span><span class="o">)</span>
         <span class="n">actor</span><span class="o">.</span><span class="n">invoke</span><span class="o">(</span><span class="n">next</span><span class="o">)</span>
-        <span class="k">if</span> <span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="n">interrupted</span><span class="o">(</span><span class="o">)</span><span class="o">)</span>
+        <span class="k">if</span> <span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="n">interrupted</span><span class="o">())</span>
           <span class="k">throw</span> <span class="k">new</span> <span class="nc">InterruptedException</span><span class="o">(</span><span class="s">&#34;Interrupted while processing actor messages&#34;</span><span class="o">)</span>
-        <span class="n">processAllSystemMessages</span><span class="o">(</span><span class="o">)</span>
-        <span class="k">if</span> <span class="o">(</span><span class="o">(</span><span class="n">left</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="o">!</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">isThroughputDeadlineTimeDefined</span> <span class="o">||</span> <span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="n">nanoTime</span> <span class="o">-</span> <span class="n">deadlineNs</span><span class="o">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span><span class="o">)</span>
+        <span class="n">processAllSystemMessages</span><span class="o">()</span>
+        <span class="k">if</span> <span class="o">((</span><span class="n">left</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(!</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">isThroughputDeadlineTimeDefined</span> <span class="o">||</span> <span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="n">nanoTime</span> <span class="o">-</span> <span class="n">deadlineNs</span><span class="o">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">))</span>
           <span class="n">processMailbox</span><span class="o">(</span><span class="n">left</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">deadlineNs</span><span class="o">)</span>
       <span class="o">}</span>
     <span class="o">}</span>
@@ -528,9 +528,9 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">protected</span><span class="o">[</span><span class="kt">akka</span><span class="o">]</span> <span class="k">def</span> <span class="n">aroundReceive</span><span class="o">(</span><span class="n">receive</span><span class="k">:</span> <span class="kt">Actor</span><span class="kt">.</span><span class="kt">Receive</span><span class="o">,</span> <span class="n">msg</span><span class="k">:</span> <span class="kt">Any</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">protected</span><span class="o">[</span><span class="kt">akka</span><span class="o">]</span> <span class="k">def</span> <span class="n">aroundReceive</span><span class="o">(</span><span class="n">receive</span><span class="k">:</span> <span class="kt">Actor.Receive</span><span class="o">,</span> <span class="n">msg</span><span class="k">:</span> <span class="kt">Any</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
   <span class="c1">// optimization: avoid allocation of lambda
-</span><span class="c1"></span>  <span class="k">if</span> <span class="o">(</span><span class="n">receive</span><span class="o">.</span><span class="n">applyOrElse</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="nc">Actor</span><span class="o">.</span><span class="n">notHandledFun</span><span class="o">)</span><span class="o">.</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">AnyRef</span><span class="o">]</span> <span class="n">eq</span> <span class="nc">Actor</span><span class="o">.</span><span class="nc">NotHandled</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="c1"></span>  <span class="k">if</span> <span class="o">(</span><span class="n">receive</span><span class="o">.</span><span class="n">applyOrElse</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="nc">Actor</span><span class="o">.</span><span class="n">notHandledFun</span><span class="o">).</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">AnyRef</span><span class="o">]</span> <span class="n">eq</span> <span class="nc">Actor</span><span class="o">.</span><span class="nc">NotHandled</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">unhandled</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
   <span class="o">}</span>
 <span class="o">}</span>
@@ -550,7 +550,7 @@
 <pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">unhandled</span><span class="o">(</span><span class="n">message</span><span class="k">:</span> <span class="kt">Any</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
   <span class="n">message</span> <span class="k">match</span> <span class="o">{</span>
     <span class="k">case</span> <span class="nc">Terminated</span><span class="o">(</span><span class="n">dead</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="k">throw</span> <span class="nc">DeathPactException</span><span class="o">(</span><span class="n">dead</span><span class="o">)</span>
-    <span class="k">case</span> <span class="k">_</span>                <span class="k">=&gt;</span> <span class="n">context</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">publish</span><span class="o">(</span><span class="nc">UnhandledMessage</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">sender</span><span class="o">(</span><span class="o">)</span><span class="o">,</span> <span class="n">self</span><span class="o">)</span><span class="o">)</span>
+    <span class="k">case</span> <span class="k">_</span>                <span class="k">=&gt;</span> <span class="n">context</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">eventStream</span><span class="o">.</span><span class="n">publish</span><span class="o">(</span><span class="nc">UnhandledMessage</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">sender</span><span class="o">(),</span> <span class="n">self</span><span class="o">))</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></td></tr></table>

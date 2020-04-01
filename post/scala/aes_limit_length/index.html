@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.64.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.69.0-DEV with theme even" />
 
 
 <link rel="canonical" href="https://xiantang.github.io/post/scala/aes_limit_length/" />
@@ -156,7 +156,7 @@
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">private</span> <span class="k">val</span> <span class="n">localCipher</span><span class="k">:</span> <span class="kt">ThreadLocal</span><span class="o">[</span><span class="kt">Cipher</span><span class="o">]</span> <span class="k">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="n">withInitial</span><span class="o">(</span><span class="o">(</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Cipher</span><span class="o">.</span><span class="n">getInstance</span><span class="o">(</span><span class="s">&#34;AES/ECB/PKCS5Padding&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="nc">BouncyCastleProvider</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">)</span>
+<pre class="chroma"><code class="language-scala" data-lang="scala"><span class="k">private</span> <span class="k">val</span> <span class="n">localCipher</span><span class="k">:</span> <span class="kt">ThreadLocal</span><span class="o">[</span><span class="kt">Cipher</span><span class="o">]</span> <span class="k">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="n">withInitial</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nc">Cipher</span><span class="o">.</span><span class="n">getInstance</span><span class="o">(</span><span class="s">&#34;AES/ECB/PKCS5Padding&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="nc">BouncyCastleProvider</span><span class="o">()))</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>这样就解决了 No installed provider supports this key 的问题。</p>
@@ -188,8 +188,8 @@
 
 <span class="n">String</span> <span class="n">a</span> <span class="o">=</span> <span class="s2">&#34;----------------&#34;</span>
 <span class="kt">def</span> <span class="n">instance</span> <span class="o">=</span> <span class="n">MessageDigest</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s2">&#34;MD5&#34;</span><span class="o">)</span>
-<span class="n">secret</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="na">digest</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="o">)</span><span class="o">)</span>
-<span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">secret</span><span class="o">)</span><span class="o">.</span><span class="na">length</span><span class="o">(</span><span class="o">)</span>
+<span class="n">secret</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="na">digest</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">getBytes</span><span class="o">())</span>
+<span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">secret</span><span class="o">).</span><span class="na">length</span><span class="o">()</span>
 </code></pre></td></tr></table>
 </div>
 </div>
