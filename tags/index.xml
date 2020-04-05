@@ -6,10 +6,28 @@
     <description>Recent content in Tags on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 01 Apr 2020 01:37:56 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 03 Apr 2020 01:37:56 +0800</lastBuildDate>
     
 	<atom:link href="https://xiantang.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>算法</title>
+      <link>https://xiantang.github.io/tags/%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/tags/%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>设计模式</title>
+      <link>https://xiantang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>network</title>

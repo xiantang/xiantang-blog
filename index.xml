@@ -6,10 +6,28 @@
     <description>Recent content on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 01 Apr 2020 01:37:56 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 03 Apr 2020 01:37:56 +0800</lastBuildDate>
     
 	<atom:link href="https://xiantang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>剑指offer</title>
+      <link>https://xiantang.github.io/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</link>
+      <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</guid>
+      <description>五天刷完剑指 No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton getInstance() { if (instance == null) { synchronized (sybObj) { if (instance == null) { instance</description>
+    </item>
+    
+    <item>
+      <title>单例模式</title>
+      <link>https://xiantang.github.io/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</link>
+      <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</guid>
+      <description>单例模式是什么? 单例模式，也叫单子模式，是一种常用的软件设计模式，属于创建型模式的一种。 在这个设计模式中，单例对象的类必须保证只有一个实例存</description>
+    </item>
     
     <item>
       <title>TCP 针对面试学习</title>
@@ -54,24 +72,6 @@
       
       <guid>https://xiantang.github.io/post/scala/aes_limit_length/</guid>
       <description>写了一个工具类用来加密解密数据库的 app字段 本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。 这个的原因是因为线上环境没有支</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://xiantang.github.io/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://xiantang.github.io/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</guid>
-      <description>No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton getInstance() { if (instance == null) { synchronized (sybObj) { if (instance == null) { instance = new No2TwiceCheckSingleton(); } } }</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://xiantang.github.io/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://xiantang.github.io/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</guid>
-      <description>单例模式是什么? 单例模式，也叫单子模式，是一种常用的软件设计模式，属于创建型模式的一种。 在这个设计模式中，单例对象的类必须保证只有一个实例存</description>
     </item>
     
   </channel>
