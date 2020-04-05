@@ -3,35 +3,56 @@
   
   <url>
     <loc>https://xiantang.github.io/categories/</loc>
-    <lastmod>2020-04-03T01:37:56+08:00</lastmod>
+    <lastmod>2020-04-05T01:37:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiantang.github.io/post/</loc>
-    <lastmod>2020-04-03T01:37:56+08:00</lastmod>
+    <lastmod>2020-04-05T01:37:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiantang.github.io/tags/</loc>
-    <lastmod>2020-04-03T01:37:56+08:00</lastmod>
+    <lastmod>2020-04-05T01:37:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiantang.github.io/</loc>
-    <lastmod>2020-04-03T01:37:56+08:00</lastmod>
+    <lastmod>2020-04-05T01:37:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiantang.github.io/categories/%E4%B8%AD%E6%96%87/</loc>
-    <lastmod>2020-04-03T01:37:56+08:00</lastmod>
+    <lastmod>2020-04-05T01:37:56+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiantang.github.io/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2020-04-05T01:37:56+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiantang.github.io/tags/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2020-04-05T01:37:56+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiantang.github.io/categories/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2020-04-05T01:37:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -45,20 +66,6 @@
   
   <url>
     <loc>https://xiantang.github.io/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</loc>
-    <lastmod>2020-04-03T01:37:56+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiantang.github.io/tags/%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2020-04-03T01:37:56+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiantang.github.io/categories/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2020-04-03T01:37:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

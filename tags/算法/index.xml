@@ -6,10 +6,19 @@
     <description>Recent content in 算法 on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 03 Apr 2020 01:37:56 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 05 Apr 2020 01:37:56 +0800</lastBuildDate>
     
 	<atom:link href="https://xiantang.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>漏桶算法的设计与实现</title>
+      <link>https://xiantang.github.io/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Sun, 05 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</guid>
+      <description>什么是漏斗算法？ 漏斗算法顾名思义采用一个漏斗来对流量进行限制。 因为漏斗下面有孔，所以会定时的漏水下去，然后我们可以将流量想象为从上边落入漏斗</description>
+    </item>
     
     <item>
       <title>剑指offer</title>
