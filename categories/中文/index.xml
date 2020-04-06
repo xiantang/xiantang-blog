@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Full GC 触发流程</title>
+      <link>https://xiantang.github.io/post/jvm/full_gc/</link>
+      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/jvm/full_gc/</guid>
+      <description>什么是 Minor GC/Major GC 首先我们先科普一下JVM 经典的堆布局: 对于经典的 JVM heap 布局，有两个区域比较清晰，首先是Young 区,一般会来存放年轻的对象或者刚被</description>
+    </item>
+    
+    <item>
       <title>GC root 在哪里？</title>
       <link>https://xiantang.github.io/post/jvm/gc_root/</link>
       <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
