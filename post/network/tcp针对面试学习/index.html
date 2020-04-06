@@ -48,7 +48,7 @@
 <meta itemprop="description" content="什么是TCP TCP 是一个全双工 面向字节流的基于IP协议的协议。 TCP 端到端的准确传输。 对于每一个字节进行确认 对于恶劣的网络情况的处理 超时重传 拥塞控制">
 <meta itemprop="datePublished" content="2020-04-01T01:37:56&#43;08:00" />
 <meta itemprop="dateModified" content="2020-04-01T01:37:56&#43;08:00" />
-<meta itemprop="wordCount" content="979">
+<meta itemprop="wordCount" content="1303">
 
 
 
@@ -125,8 +125,8 @@
             <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
             <a href="/categories/network/"> network </a>
             </div>
-          <span class="more-meta"> 979 words </span>
-          <span class="more-meta"> 2 mins read </span>
+          <span class="more-meta"> 1303 words </span>
+          <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -144,6 +144,9 @@
         <li><a href="#四次挥手是如何发生的">四次挥手是如何发生的</a></li>
         <li><a href="#详细操作-1">详细操作</a></li>
         <li><a href="#为啥要四次挥手">为啥要四次挥手</a></li>
+        <li><a href="#tcp-keepalive-vs-http-keepalive">TCP keepalive vs Http keepalive</a></li>
+        <li><a href="#http">HTTP</a></li>
+        <li><a href="#tcp">TCP</a></li>
       </ul>
     </li>
   </ul>
@@ -218,6 +221,17 @@
 <p>需要保证双方的数据都处理完毕，并且彼此都知道。</p>
 <p>第三次挥手是因为A机器告诉B机器不能传输数据 并且B机器ACK 之后，B 机器需要等待应用程序做一个处理才能发送一个FIN 告诉A机器自己不能传输数据了。</p>
 <p>第四次挥手是告诉B机器自己已经接受到B机器无法发送请求的事实。</p>
+<h3 id="tcp-keepalive-vs-http-keepalive">TCP keepalive vs Http keepalive</h3>
+<h3 id="http">HTTP</h3>
+<p>Http  如果在header 添加 keepalive = true 就会使多个http 请求在一条 TCP 连接上，不会像之前一样一个请求握手挥手一次。</p>
+<p>优点:</p>
+<p>降低服务端负载，在高并发的服务器下，服务端负载会减小</p>
+<p>降低每个http请求的时间，因为如果是http请求都会有SSL 或者TSL的行为和三次握手四次挥手，所以会很慢，但是reduce到一个连接就不会这样了。</p>
+<h3 id="tcp">TCP</h3>
+<p>是OS来维护的，因为每个TCP连接都有各种各样的定时器，TCP 也有keepalive的定时器，当TCP的keepalive定时器到达0的时候，就会向对方发送一个 ACK 为 开启的探测包，因为TCP是面向流的协议。另一方面，您将收到来自远程主机的答复。并且这两个数据包的数据为空。</p>
+<p>优点：</p>
+<p>判断对方是否是 dead peer</p>
+<p>防止由于网络不活动而断开连接</p>
 
     </div>
 

@@ -6,10 +6,19 @@
     <description>Recent content on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 05 Apr 2020 01:37:56 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 06 Apr 2020 01:37:56 +0800</lastBuildDate>
     
 	<atom:link href="https://xiantang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GC root 在哪里？</title>
+      <link>https://xiantang.github.io/post/jvm/gc_root/</link>
+      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/jvm/gc_root/</guid>
+      <description>什么是GC Root 首先我们知道标记算法，JVM 的标记算法我们可以了解为一个可达性算法，所以所有的可达性算法都会有起点，那么这个起点就是GC Root</description>
+    </item>
     
     <item>
       <title>漏桶算法的设计与实现</title>

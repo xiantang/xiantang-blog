@@ -44,7 +44,7 @@
 <meta property="og:description" content="xiantang&#39;s blog" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://xiantang.github.io/" />
-<meta property="og:updated_time" content="2020-04-05T01:37:56+08:00" />
+<meta property="og:updated_time" content="2020-04-06T01:37:56+08:00" />
 <meta itemprop="name" content="xiantang - 自律者自由">
 <meta itemprop="description" content="xiantang&#39;s blog"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="xiantang - 自律者自由"/>
@@ -109,6 +109,31 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/scala/future_in_actor/">Actor 如何处理阻塞消息</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-01-15 </span>
+      <div class="post-category">
+          <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
+          <a href="/categories/scala/"> scala </a>
+          <a href="/categories/akka/"> akka </a>
+          </div>
+        <span class="more-meta"> 597 words </span>
+        <span class="more-meta"> 2 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      观察了一下业务的代码中发现在 Actor 中采用了很多 import scala.concurrent.ExecutionContext.Implicits.global 来作为 Actor 内部的执行 Future 的线程池，之前觉得好像也没啥问题。 但是在看完 akka 源码后发现好像有些不妥。 简单
+    </div>
+    <div class="read-more">
+      <a href="/post/scala/future_in_actor/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/scala/akka_source_code/">Akka 源码解析</a></h1>

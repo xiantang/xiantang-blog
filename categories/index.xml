@@ -6,15 +6,24 @@
     <description>Recent content in Categories on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 05 Apr 2020 01:37:56 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 06 Apr 2020 01:37:56 +0800</lastBuildDate>
     
 	<atom:link href="https://xiantang.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>JVM</title>
+      <link>https://xiantang.github.io/categories/jvm/</link>
+      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/categories/jvm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>中文</title>
       <link>https://xiantang.github.io/categories/%E4%B8%AD%E6%96%87/</link>
-      <pubDate>Sun, 05 Apr 2020 01:37:56 +0800</pubDate>
+      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
       
       <guid>https://xiantang.github.io/categories/%E4%B8%AD%E6%96%87/</guid>
       <description></description>
