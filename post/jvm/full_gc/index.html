@@ -43,12 +43,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xiantang.github.io/post/jvm/full_gc/" />
 <meta property="article:published_time" content="2020-04-06T01:37:56+08:00" />
-<meta property="article:modified_time" content="2020-04-06T16:27:38+08:00" />
+<meta property="article:modified_time" content="2020-04-06T18:05:42+08:00" />
 <meta itemprop="name" content="Full GC 触发流程">
 <meta itemprop="description" content="什么是 Minor GC/Major GC 首先我们先科普一下JVM 经典的堆布局: 对于经典的 JVM heap 布局，有两个区域比较清晰，首先是Young 区,一般会来存放年轻的对象或者刚被">
 <meta itemprop="datePublished" content="2020-04-06T01:37:56&#43;08:00" />
-<meta itemprop="dateModified" content="2020-04-06T16:27:38&#43;08:00" />
-<meta itemprop="wordCount" content="563">
+<meta itemprop="dateModified" content="2020-04-06T18:05:42&#43;08:00" />
+<meta itemprop="wordCount" content="600">
 
 
 
@@ -125,7 +125,7 @@
             <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
             <a href="/categories/jvm/"> JVM </a>
             </div>
-          <span class="more-meta"> 563 words </span>
+          <span class="more-meta"> 600 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -143,6 +143,7 @@
       </ul>
     </li>
     <li><a href="#什么时候发生major-gc">什么时候发生Major GC</a></li>
+    <li><a href="#避免频繁的full-gc">避免频繁的Full GC</a></li>
   </ul>
 </nav>
   </div>
@@ -177,6 +178,11 @@
 </ol>
 <p>详见下图:</p>
 <p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdk486fnmtj310b0u04ig.jpg" alt="image-20200406161521283"></p>
+<h2 id="避免频繁的full-gc">避免频繁的Full GC</h2>
+<ul>
+<li>避免定义过大的对象(数组)</li>
+<li>避免将过大对象定义为静态变量</li>
+</ul>
 
     </div>
 
@@ -189,7 +195,7 @@
     <span class="item-title">LastMod</span>
     <span class="item-content">
         2020-04-06
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/5bcaecb5e906199ecedd15725bd7084d25387188" title="full gc">(5bcaecb)</a>
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/d86d3b937c5840b607b950deb03feeed64d9cc20" title="implement a atomic integer">(d86d3b9)</a>
     </span>
   </p>
   
@@ -214,7 +220,11 @@
           <a href="/tags/jvm/">JVM</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">实现一个AtomicInteger</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/jvm/gc_root/">
             <span class="next-text nav-default">GC root 在哪里？</span>
             <span class="next-text nav-mobile">Next</span>

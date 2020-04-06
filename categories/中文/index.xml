@@ -6,10 +6,19 @@
     <description>Recent content in 中文 on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 06 Apr 2020 01:37:56 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 06 Apr 2020 16:33:34 +0800</lastBuildDate>
     
 	<atom:link href="https://xiantang.github.io/categories/%E4%B8%AD%E6%96%87/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>实现一个AtomicInteger</title>
+      <link>https://xiantang.github.io/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</link>
+      <pubDate>Mon, 06 Apr 2020 16:33:34 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</guid>
+      <description>什么是AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的Integer的区别是 AtomicInteger 采用一个CAS 的方式使Int</description>
+    </item>
     
     <item>
       <title>Full GC 触发流程</title>
