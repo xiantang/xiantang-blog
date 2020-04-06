@@ -60,3 +60,7 @@ A:
 
 ![image-20200406161521283](https://tva1.sinaimg.cn/large/00831rSTly1gdk486fnmtj310b0u04ig.jpg)
 
+## 避免频繁的Full GC
+
+* 避免定义过大的对象(数组)
+* 避免将过大对象定义为静态变量
