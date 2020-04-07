@@ -1,5 +1,5 @@
 ---
-title: "Full GC 触发流程"
+title: "什么是 Minor GC/Major GC"
 date: 2020-04-06T01:37:56+08:00
 lastmod: 2020-04-06T01:37:56+08:00
 draft: false
