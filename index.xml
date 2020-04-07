@@ -21,21 +21,21 @@
     </item>
     
     <item>
-      <title>Full GC 触发流程</title>
-      <link>https://xiantang.github.io/post/jvm/full_gc/</link>
-      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
-      
-      <guid>https://xiantang.github.io/post/jvm/full_gc/</guid>
-      <description>什么是 Minor GC/Major GC 首先我们先科普一下JVM 经典的堆布局: 对于经典的 JVM heap 布局，有两个区域比较清晰，首先是Young 区,一般会来存放年轻的对象或者刚被</description>
-    </item>
-    
-    <item>
       <title>GC root 在哪里？</title>
       <link>https://xiantang.github.io/post/jvm/gc_root/</link>
       <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
       
       <guid>https://xiantang.github.io/post/jvm/gc_root/</guid>
       <description>什么是GC Root 首先我们知道标记算法，JVM 的标记算法我们可以了解为一个可达性算法，所以所有的可达性算法都会有起点，那么这个起点就是GC Root</description>
+    </item>
+    
+    <item>
+      <title>什么是 Minor GC/Major GC</title>
+      <link>https://xiantang.github.io/post/jvm/full_gc/</link>
+      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/jvm/full_gc/</guid>
+      <description>什么是 Minor GC/Major GC 首先我们先科普一下JVM 经典的堆布局: 对于经典的 JVM heap 布局，有两个区域比较清晰，首先是Young 区,一般会来存放年轻的对象或者刚被</description>
     </item>
     
     <item>
@@ -104,10 +104,19 @@
     <item>
       <title>AES 需要限制 SEED 长度</title>
       <link>https://xiantang.github.io/post/scala/aes_limit_length/</link>
-      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      <pubDate>Sun, 20 Oct 2019 01:37:56 +0800</pubDate>
       
       <guid>https://xiantang.github.io/post/scala/aes_limit_length/</guid>
       <description>写了一个工具类用来加密解密数据库的 app字段 本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。 这个的原因是因为线上环境没有支</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://xiantang.github.io/post/collection/collection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiantang.github.io/post/collection/collection/</guid>
+      <description>集合扩容 ArrayList 对于 ArrayList 他默认的容量为10，所以如果需要对ArrayList 进行大数据量的处理的时候的话，就需要使用显式制定容量的方式进行处理。这样</description>
     </item>
     
   </channel>

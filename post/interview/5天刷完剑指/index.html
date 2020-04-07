@@ -48,7 +48,7 @@
 <meta itemprop="description" content="五天刷完剑指 No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton getInstance() { if (instance == null) { synchronized (sybObj) { if (instance == null) { instance">
 <meta itemprop="datePublished" content="2020-04-03T01:37:56&#43;08:00" />
 <meta itemprop="dateModified" content="2020-04-03T01:37:56&#43;08:00" />
-<meta itemprop="wordCount" content="3130">
+<meta itemprop="wordCount" content="3256">
 
 
 
@@ -125,7 +125,7 @@
             <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
             <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             </div>
-          <span class="more-meta"> 3130 words </span>
+          <span class="more-meta"> 3256 words </span>
           <span class="more-meta"> 7 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -151,6 +151,7 @@
     <li><a href="#no12-矩阵中的路径">No12 矩阵中的路径</a></li>
     <li><a href="#no13-机器人移动范围">No13 机器人移动范围</a></li>
     <li><a href="#no13-多线程打印abc">No13 多线程打印ABC</a></li>
+    <li><a href="#no-打印所有合法括号">No 打印所有合法括号</a></li>
   </ul>
 </nav>
   </div>
@@ -1176,6 +1177,53 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>我采用的是 ReentrantLock 的方式使用一个模运算进行计算当前的字母，并且线程不是在等待就是在输出，提高了效率。打印成功就唤醒等待中的线程，并且对应的线程会进行处理。如果当前线程不是需要打印的线程，就会处于等待状态，直到下一次 signalAll();</p>
+<h2 id="no-打印所有合法括号">No 打印所有合法括号</h2>
+<p>给你一个数字 打印他的所有合法括号 1 -&gt; {}</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintAllBrackets</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="kt">int</span> <span class="n">count</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">backtrack</span><span class="o">(</span><span class="n">count</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">backtrack</span><span class="o">(</span><span class="kt">int</span> <span class="n">count</span><span class="o">,</span> <span class="kt">int</span> <span class="n">left</span><span class="o">,</span> <span class="kt">int</span> <span class="n">right</span><span class="o">,</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">==</span> <span class="n">count</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">==</span> <span class="n">count</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">count</span> <span class="o">)</span> <span class="o">{</span>
+            <span class="n">backtrack</span><span class="o">(</span><span class="n">count</span><span class="o">,</span><span class="n">left</span><span class="o">+</span><span class="n">1</span><span class="o">,</span><span class="n">right</span><span class="o">,</span><span class="n">str</span><span class="o">+</span><span class="s">&#34;(&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">left</span><span class="o">){</span>
+            <span class="n">backtrack</span><span class="o">(</span><span class="n">count</span><span class="o">,</span> <span class="n">left</span><span class="o">,</span> <span class="n">right</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">str</span> <span class="o">+</span> <span class="s">&#34;)&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>左括号小于count 并且右括号小于左括号</p>
 
     </div>
 
