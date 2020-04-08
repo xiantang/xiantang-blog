@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="xiantang" /><meta name="description" content="五天刷完剑指 No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton getInstance() { if (instance == null) { synchronized (sybObj) { if (instance == null) { instance" />
+<meta name="author" content="xiantang" /><meta name="description" content="五天刷完剑指 No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够" />
 
 
 
@@ -39,22 +39,22 @@
 
 
 <meta property="og:title" content="剑指offer" />
-<meta property="og:description" content="五天刷完剑指 No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton getInstance() { if (instance == null) { synchronized (sybObj) { if (instance == null) { instance" />
+<meta property="og:description" content="五天刷完剑指 No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xiantang.github.io/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/" />
 <meta property="article:published_time" content="2020-04-03T01:37:56+08:00" />
 <meta property="article:modified_time" content="2020-04-03T01:37:56+08:00" />
 <meta itemprop="name" content="剑指offer">
-<meta itemprop="description" content="五天刷完剑指 No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton getInstance() { if (instance == null) { synchronized (sybObj) { if (instance == null) { instance">
+<meta itemprop="description" content="五天刷完剑指 No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够">
 <meta itemprop="datePublished" content="2020-04-03T01:37:56&#43;08:00" />
 <meta itemprop="dateModified" content="2020-04-03T01:37:56&#43;08:00" />
-<meta itemprop="wordCount" content="3256">
+<meta itemprop="wordCount" content="4367">
 
 
 
 <meta itemprop="keywords" content="算法," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="剑指offer"/>
-<meta name="twitter:description" content="五天刷完剑指 No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton getInstance() { if (instance == null) { synchronized (sybObj) { if (instance == null) { instance"/>
+<meta name="twitter:description" content="五天刷完剑指 No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -125,8 +125,8 @@
             <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
             <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             </div>
-          <span class="more-meta"> 3256 words </span>
-          <span class="more-meta"> 7 mins read </span>
+          <span class="more-meta"> 4367 words </span>
+          <span class="more-meta"> 9 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -152,13 +152,16 @@
     <li><a href="#no13-机器人移动范围">No13 机器人移动范围</a></li>
     <li><a href="#no13-多线程打印abc">No13 多线程打印ABC</a></li>
     <li><a href="#no-打印所有合法括号">No 打印所有合法括号</a></li>
+    <li><a href="#no-将一个数组的负数移到右边-正数移到左边">No 将一个数组的负数移到右边 正数移到左边</a></li>
+    <li><a href="#no--寻找全排列的下一个数">No  寻找全排列的下一个数</a></li>
+    <li><a href="#no--二分查找">No  二分查找</a></li>
+    <li><a href="#no18-删除链表中的节点">No18 删除链表中的节点</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h1 id="heading"></h1>
-<h1 id="五天刷完剑指">五天刷完剑指</h1>
+      <h1 id="五天刷完剑指">五天刷完剑指</h1>
 <h2 id="no2-单例模式">No2 单例模式</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -181,13 +184,15 @@
 </span><span class="lnt">17
 </span><span class="lnt">18
 </span><span class="lnt">19
+</span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">No2TwiceCheckSingleton</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="kd">volatile</span> <span class="kd">static</span> <span class="n">No2TwiceCheckSingleton</span> <span class="n">instance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">sybObj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
 
-    <span class="kd">private</span> <span class="nf">No2TwiceCheckSingleton</span><span class="o">()</span> <span class="o">{</span>
+  <span class="c1">// 一定记住要私有化构造器，不然人家还是能够创建
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="nf">No2TwiceCheckSingleton</span><span class="o">()</span> <span class="o">{</span>
     <span class="o">}</span>
 
     <span class="kd">static</span> <span class="n">No2TwiceCheckSingleton</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
@@ -1224,7 +1229,283 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>左括号小于count 并且右括号小于左括号</p>
+<h2 id="no-将一个数组的负数移到右边-正数移到左边">No 将一个数组的负数移到右边 正数移到左边</h2>
+<p><code> {-1, 2, 3, -1, 2, 13, 123, -555, -888, 66}</code> -&gt; <code>{66,2,3,123,2,13,-1,-555,-888,-1}</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoTempMoveLeftOrRight</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">move</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">left</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">left</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">right</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">right</span> <span class="o">-=</span> <span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">&gt;=</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">left</span><span class="o">];</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">left</span><span class="o">]</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">right</span><span class="o">];</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">right</span><span class="o">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
 
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>最需要注意的一点是，两个循环后， left &gt;= right 回导致最后的元素进行交换，所以需要用一个if来断开这个循环。</p>
+<h2 id="no--寻找全排列的下一个数">No  寻找全排列的下一个数</h2>
+<p>给出一个正整数，找出这个正整数所有数字全排列的下一个数。</p>
+<p>首先我们有一个数是</p>
+<p>1 2 3 5 4</p>
+<p>并且我们要明确一点就是如果是一个数每一位从高到低都是从大打小的话。</p>
+<p>也就是 5 4 3 2 1 的话。</p>
+<p>那么就不会有比他大的全排列。</p>
+<p>所以我们只需要找到全排列的前一位就行了</p>
+<p>1 2 <code>3</code> 5 4</p>
+<p>然后我们交换 1 2 <code>4</code> 5 <code>3</code>  又因为 5 3 这个区域是逆序的我们只要交换 5 3 的位置即可。</p>
+<p>就是 1 2 4 3 5</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-JAVA" data-lang="JAVA"><span class="kn">package</span> <span class="nn">info.xiantang.algorithm.interview</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoTempFindNextPermute</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">find</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">end</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
+        <span class="n">array</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">];</span>
+        <span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+        <span class="n">index</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">i1</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">];</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">]</span> <span class="o">=</span> <span class="n">i1</span><span class="o">;</span>
+            <span class="n">end</span><span class="o">--;</span>
+            <span class="n">index</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">array</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="no--二分查找">No  二分查找</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoTempBinarySearch</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">find</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="o">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="o">)</span> <span class="o">/</span> <span class="n">2</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">mid</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span><span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>我的做法很简单，分别获取left 和 right 的值 分别是 0 和 array.length -1</p>
+<p>然后 while 的条件是 left &lt;= right 需要注意的是在 left == right = ture 的情况下很有可能求出的mid 就是我们所需要的值，所以这个边界情况需要考虑。</p>
+<p>然后求出 mid  查看是比array[mid] 大还是比array[mid]小</p>
+<ul>
+<li>大于 target =  3  mid = 4  [1, 2,3,<code>4</code>,5,6,7]  我们就需要将 right  设置为 mid -1</li>
+<li>小于 target = 6 mid = 4  [1, 2,3,<code>4</code>,5,6,7] 我们就需要将left 设置为 mid +1</li>
+</ul>
+<h2 id="no18-删除链表中的节点">No18 删除链表中的节点</h2>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdmgry7df0j314i09849i.jpg" alt="image-20200408170055155"></p>
+<p>如果想到删除一个链表的节点，第一时间反应过来其实是使用一个 while 循环不断遍历下去，发现下一个节点是目标节点的话就将当前节点的next 设置为下一个节点 next。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdmh4mhf0xj30yg052tal.jpg" alt="image-20200408171308210"></p>
+<p>也就是这种方式，但是其实还是有更快的方式来实现。</p>
+<p>就是可以根据需要删除的那个节点的下一个节点替换需要删除的节点。</p>
+<p>也就是将下一个节点的next 和 data 都替换为需要删除的节点的content。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdmh7v14fsj30ym04e408.jpg" alt="image-20200408171615578"></p>
+<p>然后需要注意的是边界条件和删除尾节点的情况。</p>
+<p>尾节点无法这样删除所以需要通过遍历实现。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">info.xiantang.algorithm.interview</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">info.xiantang.algorithm.offer.offer1.Node</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">No18DeleteNodeFromLinkedListO1</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Node</span> <span class="nf">delete</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">,</span> <span class="n">Node</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="c1">// 如果这个节点是头节点
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">target</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">root</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// 如果这个节点在中间
+</span><span class="c1"></span>        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">target</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Node</span> <span class="n">next</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">target</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">target</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">next</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// 如果这个节点在末尾
+</span><span class="c1"></span>        <span class="k">else</span> <span class="o">{</span>
+            <span class="n">Node</span> <span class="n">a</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">Node</span> <span class="n">next</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">next</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">target</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="n">root</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     <div class="post-copyright">
