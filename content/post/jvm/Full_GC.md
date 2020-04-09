@@ -7,10 +7,6 @@ tags: ["JVM"]
 categories: ["中文","JVM"]
 author: "xiantang"
 
-
-
-
-
 ---
 
 ## 什么是 Minor GC/Major GC
