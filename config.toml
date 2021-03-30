@@ -96,7 +96,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   changyanAppid = ""        # Changyan app id             # 畅言
   changyanAppkey = ""       # Changyan app key
 
-  livereUID = "MTAyMC80ODI3OC8yNDc3Mg=="            # LiveRe UID                  # 来必力
+  livereUID = ""            # LiveRe UID                  # 来必力
 
   baiduPush = false        # baidu push                  # 百度
   baiduAnalytics = ""      # Baidu Analytics
