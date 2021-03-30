@@ -7,6 +7,10 @@ language: go
 go:
     - master
 
+env:
+  - GO111MODULE=on
+
+
 # before_install
 # install - install any dependencies required
 install:
@@ -14,6 +18,7 @@ install:
 
 before_script:
     - rm -rf public 2> /dev/null
+
 
 # script - run the build script
 script:
