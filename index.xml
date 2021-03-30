@@ -6,11 +6,7 @@
     <description>Recent content on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 09 Apr 2020 01:37:56 +0800</lastBuildDate>
-    
-	<atom:link href="https://xiantang.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 09 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://xiantang.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>分布式的令牌桶算法的实现</title>
       <link>https://xiantang.github.io/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
