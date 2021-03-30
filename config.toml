@@ -95,6 +95,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
 
   changyanAppid = ""        # Changyan app id             # 畅言
   changyanAppkey = ""       # Changyan app key
+  disqusShortname = "xiantang"
 
   livereUID = ""            # LiveRe UID                  # 来必力
 
