@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>算法 on xiantang - 自律者自由</title>
-    <link>https://xiantang.github.io/categories/%E7%AE%97%E6%B3%95/</link>
+    <link>https://vim0.com/categories/%E7%AE%97%E6%B3%95/</link>
     <description>Recent content in 算法 on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 09 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://xiantang.github.io/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>分布式的令牌桶算法的实现</title>
-      <link>https://xiantang.github.io/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <link>https://vim0.com/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Thu, 09 Apr 2020 01:37:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>https://vim0.com/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
       <description>什么是令牌桶算法? 令牌桶算法是一种限流算法，他与漏桶算法的实现是一种相反的实现。 漏桶算法是按照一定频率的速率进行漏水，然后对于我们的请求就可</description>
     </item>
     
     <item>
       <title>漏桶算法的设计与实现</title>
-      <link>https://xiantang.github.io/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</link>
+      <link>https://vim0.com/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Sun, 05 Apr 2020 01:37:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>https://vim0.com/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</guid>
       <description>什么是漏斗算法？ 漏斗算法顾名思义采用一个漏斗来对流量进行限制。 因为漏斗下面有孔，所以会定时的漏水下去，然后我们可以将流量想象为从上边落入漏斗</description>
     </item>
     
     <item>
       <title>剑指offer</title>
-      <link>https://xiantang.github.io/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</link>
+      <link>https://vim0.com/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</link>
       <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</guid>
+      <guid>https://vim0.com/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</guid>
       <description>五天刷完剑指 No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够</description>
     </item>
     

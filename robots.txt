@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://xiantang.github.io/sitemap.xml
+Sitemap: https://vim0.com/sitemap.xml

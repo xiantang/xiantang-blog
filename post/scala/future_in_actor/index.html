@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.82.0 with theme even" />
 
 
-<link rel="canonical" href="https://xiantang.github.io/post/scala/future_in_actor/" />
+<link rel="canonical" href="https://vim0.com/post/scala/future_in_actor/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -42,7 +42,7 @@
 <meta property="og:title" content="Actor 如何处理阻塞消息" />
 <meta property="og:description" content="观察了一下业务的代码中发现在 Actor 中采用了很多 import scala.concurrent.ExecutionContext.Implicits.global 来作为 Actor 内部的执行 Future 的线程池，之前觉得好像也没啥问题。 但是在看完 akka 源码后发现好像有些不妥。 简单" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiantang.github.io/post/scala/future_in_actor/" /><meta property="article:section" content="post" />
+<meta property="og:url" content="https://vim0.com/post/scala/future_in_actor/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-01-15T17:51:36&#43;08:00" />
 <meta property="article:modified_time" content="2020-01-15T18:47:22&#43;08:00" />
 
@@ -297,7 +297,7 @@ blocking 函数其实在实现了 <code>ForkJoinPool.ManagedBlocker</code>  会�
       <a href="https://twitter.com/xiantang98" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
       <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="https://xiantang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://vim0.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
