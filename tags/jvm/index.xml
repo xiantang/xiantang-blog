@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JVM on xiantang - 自律者自由</title>
-    <link>https://vim0.com/tags/jvm/</link>
+    <link>https://xiantang.github.io/tags/jvm/</link>
     <description>Recent content in JVM on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 06 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://xiantang.github.io/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GC root 在哪里？</title>
-      <link>https://vim0.com/post/jvm/gc_root/</link>
+      <link>https://xiantang.github.io/post/jvm/gc_root/</link>
       <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
       
-      <guid>https://vim0.com/post/jvm/gc_root/</guid>
+      <guid>https://xiantang.github.io/post/jvm/gc_root/</guid>
       <description>什么是GC Root 首先我们知道标记算法，JVM 的标记算法我们可以了解为一个可达性算法，所以所有的可达性算法都会有起点，那么这个起点就是GC Root</description>
     </item>
     
     <item>
       <title>什么是 Minor GC/Major GC</title>
-      <link>https://vim0.com/post/jvm/full_gc/</link>
+      <link>https://xiantang.github.io/post/jvm/full_gc/</link>
       <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
       
-      <guid>https://vim0.com/post/jvm/full_gc/</guid>
+      <guid>https://xiantang.github.io/post/jvm/full_gc/</guid>
       <description>什么是 Minor GC/Major GC 首先我们先科普一下JVM 经典的堆布局: 对于经典的 JVM heap 布局，有两个区域比较清晰，首先是Young 区,一般会来存放年轻的对象或者刚被</description>
     </item>
     
