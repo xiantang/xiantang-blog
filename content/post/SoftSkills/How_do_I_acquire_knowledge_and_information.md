@@ -40,7 +40,9 @@ TL;DR: **简单说 RSS 就是一个通用的信息聚合平台，能够帮助你
 
 ​     想必你每天起来都会有看一眼新闻的习惯吧，我这边是将比较关注的新闻源加入了 RSS ，这样每天起床就能看到当天的简报。不用进入可以一直刷不停的xx头条等平台浪费时间。
 
-<img src="https://i.loli.net/2021/04/02/gPcIdpkOm8WiUDC.png" alt="image-20210402152258812" style="zoom: 25%;" />
+<img src="https://gitee.com/xiantang98/image/raw/master/uPic/image-20210402164824140.png" alt="image-20210402164824140" style="zoom: 25%;" />
+
+
 
 
 
@@ -60,7 +62,7 @@ TL;DR: **简单说 RSS 就是一个通用的信息聚合平台，能够帮助你
 
 下图 laixintao 评论的文章，其实质量都是挺上乘的。
 
-<img src="https://i.loli.net/2021/04/02/jkMc2g1PRy7zWXD.png" alt="image-20210402153936304" style="zoom: 25%;" />
+<img src="https://gitee.com/xiantang98/image/raw/master/uPic/image-20210402164848973.png" alt="image-20210402164848973" style="zoom:25%;" />
 
 ## Github
 
