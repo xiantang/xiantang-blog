@@ -1,6 +1,6 @@
 ---
 title: "软技能:我是如何获取知识与信息的？"
-date: 2020-04-02T14:40:53+08:00
+date: 2021-04-02T14:40:53+08:00
 tags: ["soft skills"]
 categories: ["中文","软技能"]
 draft: false
