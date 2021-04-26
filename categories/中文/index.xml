@@ -133,5 +133,14 @@
       <description>写了一个工具类用来加密解密数据库的 app字段 本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。 这个的原因是因为线上环境没有支</description>
     </item>
     
+    <item>
+      <title>2018年年度总结</title>
+      <link>https://xiantang.github.io/post/summary/2018_summary/</link>
+      <pubDate>Sun, 30 Dec 2018 14:40:53 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/summary/2018_summary/</guid>
+      <description>到年底啦，稍微写一点总结总结一下这个2018年。 这一年有失去也有获得吧。失去是一段没有结果的感情的失败，获得则是整个人质的提升。 失去的就让他</description>
+    </item>
+    
   </channel>
 </rss>
