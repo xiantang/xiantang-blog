@@ -134,6 +134,15 @@
     </item>
     
     <item>
+      <title>Java 如何区分==与.equals()方法</title>
+      <link>https://xiantang.github.io/post/translate/java_equals/</link>
+      <pubDate>Sun, 24 Feb 2019 14:40:53 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/translate/java_equals/</guid>
+      <description>一般来说equals()和&amp;quot;==&amp;quot;运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同： 最主要的不同是.equ</description>
+    </item>
+    
+    <item>
       <title>2018年年度总结</title>
       <link>https://xiantang.github.io/post/summary/2018_summary/</link>
       <pubDate>Sun, 30 Dec 2018 14:40:53 +0800</pubDate>
