@@ -133,5 +133,14 @@
       <description>集合扩容 ArrayList 对于 ArrayList 他默认的容量为10，所以如果需要对ArrayList 进行大数据量的处理的时候的话，就需要使用显式制定容量的方式进行处理。这样</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://xiantang.github.io/post/softskills/how_to_live_in_big_company/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiantang.github.io/post/softskills/how_to_live_in_big_company/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
