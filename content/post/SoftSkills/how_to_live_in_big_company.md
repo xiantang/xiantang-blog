@@ -96,3 +96,7 @@ draft: false
 ## 最后
 
    最后还是要总结一下这篇文章，其实如果想要在一家大公司更好的存活下去，需要有 ”owner“ 意识，负起对于项目的责任，想方设法让事情朝好的方向发展，遇到问题就解决问题，这样你和你负责的事情才会有更大的成长。
+
+
+
+本文地址：https://vim0.com/post/softskills/how_to_live_in_big_company/
