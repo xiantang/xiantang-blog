@@ -5,14 +5,7 @@ tags: ["aboutme"]
 categories: ["中文"]
 draft: false
 
-
-
-
 ---
-
-
-
-
 
 
 
@@ -34,7 +27,13 @@ Java https://github.com/xiantang/JerryMouse 写过一个简单的 web 容器。
 
 目前在新加坡工作，同时比较喜欢[开源](https://github.com/xiantang)和投资。
 
+
+
+个人比较喜欢长期主义，不断地写博客做开源与投资做输出就是长期主义。我会不断地用这种方式隐性地为未来铺路。
+
 ## 联系我
+
+同时我也是一个特别高兴能看到反馈的人，如果有问题请果断评论或者用下边的邮箱联系我。
 
 ```sh
 echo emh1amluZ2RpMTk5OEBnbWFpbC5jb20= | base64 -d
