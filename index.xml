@@ -6,7 +6,16 @@
     <description>Recent content on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 26 Apr 2021 14:40:53 +0800</lastBuildDate><atom:link href="https://xiantang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 May 2021 14:40:53 +0800</lastBuildDate><atom:link href="https://xiantang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About me</title>
+      <link>https://xiantang.github.io/post/about/about_me/</link>
+      <pubDate>Sat, 15 May 2021 14:40:53 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/about/about_me/</guid>
+      <description>About me 欢迎！我是咸糖。这是我的个人网站，我在其中博客我在日常生活中学到的东西或思想。希望你能喜欢它。 我希望的编程同时会很多种语言，类似 Golang https://github.com/cosmtrek/air 目前</description>
+    </item>
+    
     <item>
       <title>软技能:大厂底层员工打工指南</title>
       <link>https://xiantang.github.io/post/softskills/how_to_live_in_big_company/</link>
