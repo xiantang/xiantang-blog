@@ -194,6 +194,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
 [privacy]
   [privacy.googleAnalytics]
     anonymizeIP = true      # 12.214.31.144 -> 12.214.31.0
+    disable = false
   [privacy.youtube]
     privacyEnhanced = true
 
