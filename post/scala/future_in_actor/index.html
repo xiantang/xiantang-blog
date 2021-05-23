@@ -44,11 +44,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xiantang.github.io/post/scala/future_in_actor/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-01-15T17:51:36&#43;08:00" />
-<meta property="article:modified_time" content="2020-01-26T20:34:11&#43;08:00" />
+<meta property="article:modified_time" content="2020-01-26T20:44:09&#43;08:00" />
 
 <meta itemprop="name" content="Actor 如何处理阻塞消息">
 <meta itemprop="description" content="观察了一下业务的代码中发现在 Actor 中采用了很多 import scala.concurrent.ExecutionContext.Implicits.global 来作为 Actor 内部的执行 Future 的线程池，之前觉得好像也没啥问题。 但是在看完 akka 源码后发现好像有些不妥。 简单"><meta itemprop="datePublished" content="2020-01-15T17:51:36&#43;08:00" />
-<meta itemprop="dateModified" content="2020-01-26T20:34:11&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-26T20:44:09&#43;08:00" />
 <meta itemprop="wordCount" content="597">
 <meta itemprop="keywords" content="scala," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Actor 如何处理阻塞消息"/>
@@ -233,7 +233,7 @@ blocking 函数其实在实现了 <code>ForkJoinPool.ManagedBlocker</code>  会�
     <span class="item-title">LastMod</span>
     <span class="item-content">
         2020-01-26
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/461259fdaf58843c2f8fda8c4710c6581869784c" title="enhance website">(461259f)</a>
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/cb3278ac10d77953ca500ae4abf95c9407d735be" title="rm outputs">(cb3278a)</a>
     </span>
   </p>
   
