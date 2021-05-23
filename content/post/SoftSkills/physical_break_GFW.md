@@ -107,7 +107,7 @@ SP (S Pass)是给外国中级技术水准雇员提供的工作准证。
 
  Work Pass Application 的表单是需要你在 PDF 上做修改，然后将文件发送给 HR，HR 就会帮你提交给 MOM (新加坡人力部门) 进行审核。
 
-我这里给出一个MOM官网的签证测试工具：https://www.mom.gov.sg/eservices/services/employment-s-pass-self-assessment-tool 
+我这里给出一个MOM官网的签证测试工具：[签证测试工具](https://www.mom.gov.sg/eservices/services/employment-s-pass-self-assessment-tool)
 
 可以供大家测试是否满足签证申请的要求。
 
@@ -155,7 +155,7 @@ SP (S Pass)是给外国中级技术水准雇员提供的工作准证。
 
 ##### 申请 sgarrival card
 
-在你起飞前 3 天，你需要在新加坡政府网站上申请一下 sgarrival card，并且在上面填写一下你到达新加坡的一些信息与健康声明。网站在这里 https://eservices.ica.gov.sg/sgarrivalcard/。
+在你起飞前 3 天，你需要在新加坡政府网站上申请一下 sgarrival card，并且在上面填写一下你到达新加坡的一些信息与健康声明。网站在这里 [填写sg arrival card 的地址](https://eservices.ica.gov.sg/sgarrivalcard/)。
 
 ##### 国内核酸检测
 
