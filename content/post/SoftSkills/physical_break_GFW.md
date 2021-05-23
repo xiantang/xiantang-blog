@@ -280,4 +280,4 @@ SP (S Pass)是给外国中级技术水准雇员提供的工作准证。
 
 更多详情可以加我的 wechat b986494553，或者扫描下边的二维码:
 
-![image-20210523200357647](/Users/tang/Library/Application Support/typora-user-images/image-20210523200357647.png)
+![image](https://user-images.githubusercontent.com/34479567/119260051-9e330680-bc03-11eb-8579-2732ab229652.png)
