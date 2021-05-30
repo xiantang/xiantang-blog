@@ -4,6 +4,7 @@ date: 2021-05-19T14:40:53+08:00
 tags: ["soft skills"]
 categories: ["中文","软技能"]
 draft: false
+description: "程序员 新加坡 出国工作 邀请函 准备"
 
 
 ---
