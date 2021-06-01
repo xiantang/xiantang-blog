@@ -3,6 +3,7 @@ title: "软技能:大厂底层员工打工指南"
 date: 2021-04-26T14:40:53+08:00
 tags: ["soft skills"]
 categories: ["中文","软技能"]
+description: "大公司打工人必备的一些关键能力的一些软技能，owner意识，精进"
 draft: false
 
 ---
