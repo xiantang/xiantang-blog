@@ -126,6 +126,31 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/scala/akka_source_code/">Akka 源码解析</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-01-15 </span>
+      <div class="post-category">
+          <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
+          <a href="/categories/scala/"> scala </a>
+          <a href="/categories/akka/"> akka </a>
+          </div>
+        <span class="more-meta"> 1613 words </span>
+        <span class="more-meta"> 4 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&#34;HelloSystem&#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&#34;Parov Stelar&#34;)) // jazzListener
+    </div>
+    <div class="read-more">
+      <a href="/post/scala/akka_source_code/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/scala/how_to_learn_scala/">How to learn scala</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-01-15 </span>
@@ -219,27 +244,6 @@
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/collection/collection/"></a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 0001-01-01 </span>
-      
-        <span class="more-meta"> 650 words </span>
-        <span class="more-meta"> 2 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      集合扩容 ArrayList 对于 ArrayList 他默认的容量为10，所以如果需要对ArrayList 进行大数据量的处理的时候的话，就需要使用显式制定容量的方式进行处理。这样
-    </div>
-    <div class="read-more">
-      <a href="/post/collection/collection/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -247,7 +251,10 @@
         <i class="iconfont icon-left"></i>
         <span class="prev-text">Prev</span>
       </a>
-    
+    <a class="next" href="/page/5/">
+        <span class="next-text">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
   </nav>
         </div>
         
