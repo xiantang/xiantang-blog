@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>concurrency on </title>
-    <link>/tags/concurrency/</link>
-    <description>Recent content in concurrency on </description>
+    <title>concurrency on xiantang - 自律者自由</title>
+    <link>https://xiantang.github.io/tags/concurrency/</link>
+    <description>Recent content in concurrency on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 06 Apr 2020 16:33:34 +0800</lastBuildDate><atom:link href="/tags/concurrency/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Mon, 06 Apr 2020 16:33:34 +0800</lastBuildDate><atom:link href="https://xiantang.github.io/tags/concurrency/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>实现一个AtomicInteger</title>
-      <link>/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</link>
+      <link>https://xiantang.github.io/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</link>
       <pubDate>Mon, 06 Apr 2020 16:33:34 +0800</pubDate>
       
-      <guid>/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</guid>
-      <description>什么是AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的Integer的区别是 AtomicInteger 采用一个CAS 的方式使Integer 的自增等操作变成原子化操作。
-实现的之前需要了解的知识 首先我们先观察 AotmicInteger 的自增操作：
-public final int incrementAndGet() { for (;;) { int current = get(); int next = current + 1; if (compareAndSet(current, next)) return next; } } 他采用了死循环，并且每次循环都获取最新的value，通过这个值计算出自增后的值，使用compareAndSet 来交换值，并且判断结果，如果是true 就返回自增后的值，如果是false就进行重试，其实这就是一个典型的CAS 操作。
-并且这个 compareAndSet 操作，其实很简单，就是调用 unsafe 对象的 compareAndSwapInt
-public final boolean compareAndSet(int expect, int update) { return unsafe.compareAndSwapInt(this, valueOffset, expect, update); } compareAndSwapInt 就是根据当前对象的所需要 CAS 操作的成员的所在对象的 offset 来进行 CAS 的修改操作。</description>
+      <guid>https://xiantang.github.io/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</guid>
+      <description>什么是AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的Integer的区别是 AtomicInteger 采用一个CAS 的方式使Int</description>
     </item>
     
   </channel>

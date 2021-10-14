@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://xiantang.github.io/sitemap.xml
