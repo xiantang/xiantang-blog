@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>设计模式 on xiantang - 自律者自由</title>
+    <link>https://xiantang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+    <description>Recent content in 设计模式 on xiantang - 自律者自由</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 03 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://xiantang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>单例模式</title>
+      <link>https://xiantang.github.io/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</link>
+      <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</guid>
+      <description>单例模式是什么? 单例模式，也叫单子模式，是一种常用的软件设计模式，属于创建型模式的一种。 在这个设计模式中，单例对象的类必须保证只有一个实例存</description>
+    </item>
+    
+  </channel>
+</rss>

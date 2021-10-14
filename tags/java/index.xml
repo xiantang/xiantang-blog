@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java on xiantang - 自律者自由</title>
+    <link>https://xiantang.github.io/tags/java/</link>
+    <description>Recent content in java on xiantang - 自律者自由</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 24 Feb 2019 14:40:53 +0800</lastBuildDate><atom:link href="https://xiantang.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java 如何区分==与.equals()方法</title>
+      <link>https://xiantang.github.io/post/translate/java_equals/</link>
+      <pubDate>Sun, 24 Feb 2019 14:40:53 +0800</pubDate>
+      
+      <guid>https://xiantang.github.io/post/translate/java_equals/</guid>
+      <description>一般来说equals()和&amp;quot;==&amp;quot;运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同： 最主要的不同是.equ</description>
+    </item>
+    
+  </channel>
+</rss>

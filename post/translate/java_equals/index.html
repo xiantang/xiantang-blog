@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Java 如何区分==与.equals()方法 - xiantang - 自律者自由</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="一般来说equals()和&amp;quot;==&amp;quot;运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同： 最主要的不同是.equ" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="https://xiantang.github.io/post/translate/java_equals/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Java 如何区分==与.equals()方法" />
+<meta property="og:description" content="一般来说equals()和&quot;==&quot;运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同： 最主要的不同是.equ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiantang.github.io/post/translate/java_equals/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-02-24T14:40:53+08:00" />
+<meta property="article:modified_time" content="2021-04-26T23:37:19+08:00" />
+
+<meta itemprop="name" content="Java 如何区分==与.equals()方法">
+<meta itemprop="description" content="一般来说equals()和&quot;==&quot;运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同： 最主要的不同是.equ"><meta itemprop="datePublished" content="2019-02-24T14:40:53+08:00" />
+<meta itemprop="dateModified" content="2021-04-26T23:37:19+08:00" />
+<meta itemprop="wordCount" content="1069">
+<meta itemprop="keywords" content="java," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java 如何区分==与.equals()方法"/>
+<meta name="twitter:description" content="一般来说equals()和&quot;==&quot;运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同： 最主要的不同是.equ"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/about_me/">AboutMe</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Java 如何区分==与.equals()方法</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-02-24 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
+            </div>
+          <span class="more-meta"> 1069 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>一般来说<code>equals()</code>和<code>&quot;==&quot;</code>运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同：</p>
+<ol>
+<li>最主要的不同是<code>.equals()</code>是方法，<code>==</code>是运算符。</li>
+<li>使用<code>==</code>来进行引用的比较,指的是是否指向同一内存地址。使用<code>.equals()</code>来进行对象内容的比较，比较值。</li>
+<li>如果没有重写<code>.equals</code>就会默认调用最近的父类来重写这个方法。</li>
+<li>示例代码:</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">// Java program to understand  
+// the concept of == operator 
+public class Test { 
+    public static void main(String[] args) 
+    { 
+        String s1 = new String(&#34;HELLO&#34;); 
+        String s2 = new String(&#34;HELLO&#34;); 
+        System.out.println(s1 == s2); 
+        System.out.println(s1.equals(s2)); 
+    } 
+} 
+</code></pre></td></tr></table>
+</div>
+</div><p>输出:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">false
+true
+</code></pre></td></tr></table>
+</div>
+</div><p>解释: 这里我们创建了两个对象分别命名为<code>s1</code>和<code>s2</code>。</p>
+<ul>
+<li><code>s1</code>和<code>s2</code>是指向不同对象的引用。</li>
+<li>当我们使用<code>==</code>来比较<code>s1</code>和<code>s2</code>时，返回的是<code>false</code>,因为他们所占用的内存空间不一样。</li>
+<li>使用<code>.equals()</code>时，因为只比较值，所以结果时<code>true</code>。</li>
+</ul>
+<p>我们来分别理解一下这两者的具体区别:</p>
+<h4 id="等于运算符">等于运算符(==)</h4>
+<p>我们可以通过<code>==</code>运算符来比较每个原始类型(包括布尔类型),也可以用来比较<a href="https://docs.oracle.com/cd/B14117_01/appdev.101/b10807/13_elems031.htm">自定义类型(object types)</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">// Java program to illustrate  
+// == operator for compatible data 
+// types 
+class Test { 
+    public static void main(String[] args) 
+    { 
+        // integer-type 
+        System.out.println(10 == 20); 
+  
+        // char-type 
+        System.out.println(&#39;a&#39; == &#39;b&#39;); 
+  
+        // char and double type 
+        System.out.println(&#39;a&#39; == 97.0); 
+  
+        // boolean type 
+        System.out.println(true == true); 
+    } 
+} 
+</code></pre></td></tr></table>
+</div>
+</div><p>输出:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">false
+false
+true
+true
+</code></pre></td></tr></table>
+</div>
+</div><p>如果我们使用<code>==</code>来比较自定义类型，需要保证参数类型兼容(compatibility)(要么是子类和父类的关系，要么是相同类型)。否则我们会产生编译错误。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">// Java program to illustrate  
+// == operator for incompatible data types 
+class Test { 
+    public static void main(String[] args) 
+    { 
+        Thread t = new Thread(); 
+        Object o = new Object(); 
+        String s = new String(&#34;GEEKS&#34;); 
+  
+        System.out.println(t == o); 
+        System.out.println(o == s); 
+  
+       // Uncomment to see error  
+       System.out.println(t==s); 
+    } 
+} 
+</code></pre></td></tr></table>
+</div>
+</div><p>输出:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">false
+false
+// error: incomparable types: Thread and String
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="equals">.equals()</h4>
+<p>在Java中，使用<code>equals()</code>对于<code>String</code>的比较是基于<code>String</code>的数据/内容，也就是值。如果所有的他们的内容相同，并且都是<code>String</code>类型，就会返回<code>true</code>。如果所有的字符不匹配就会返回<code>false</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">public class Test { 
+    public static void main(String[] args) 
+    { 
+        Thread t1 = new Thread(); 
+        Thread t2 = new Thread(); 
+        Thread t3 = t1; 
+  
+        String s1 = new String(&#34;GEEKS&#34;); 
+        String s2 = new String(&#34;GEEKS&#34;); 
+  
+        System.out.println(t1 == t3); 
+        System.out.println(t1 == t2); 
+  
+        System.out.println(t1.equals(t2)); 
+        System.out.println(s1.equals(s2)); 
+    } 
+} 
+</code></pre></td></tr></table>
+</div>
+</div><p>输出:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">true
+false
+false
+true
+</code></pre></td></tr></table>
+</div>
+</div><p>解释:这里我们使用<code>.equals</code>方法去检查是否两个对象是否包含相同的值。</p>
+<ul>
+<li>在上面的例子中，我们创建来3个线程对象和两个字符串对象。</li>
+<li>在第一次比较中，我们比较是否<code>t1==t3</code>,众所周知,返回true的原因是因为t1和t3是指向相同对象的引用。</li>
+<li>当我们使用<code>.equals()</code>比较两个<code>String</code>对象时，我们需要确定两个对象是否具有相同的值。</li>
+<li><code>String</code> <code>&quot;GEEKS&quot;</code> 对象包含相同的<code>“GEEK”</code>，所以返回<code>true</code>。</li>
+</ul>
+<p>本文作者:Bishal Kumar Dubey
+译者:<a href="https://github.com/xiantang">xiantang</a>
+原文地址:<a href="https://www.geeksforgeeks.org/difference-equals-method-java/">Difference between == and .equals() method in Java</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-04-26
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/dfb3b93ad7a1abe94794a1d4c6317556a48f0498" title="java equals">(dfb3b93)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">java</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/scala/aes_limit_length/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">AES 需要限制 SEED 长度</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/summary/2018_summary/">
+            <span class="next-text nav-default">2018年年度总结</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="zhujingdi1998@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/12515344/%e6%9c%b1%e9%9d%99%e8%bf%aa" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/xiantang98" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://xiantang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
