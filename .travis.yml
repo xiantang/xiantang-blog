@@ -18,7 +18,8 @@ install:
 
 before_script:
     - rm -rf public 2> /dev/null
-    
+
+
 
 
 # script - run the build script
