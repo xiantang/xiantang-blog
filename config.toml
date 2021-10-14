@@ -53,11 +53,6 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   weight = 50
   identifier = "aboutme"
   url = "/post/about/about_me/"
-[[menu.main]]
-  edit = "Edit"
-  weight = 60
-  identifier = "edit"
-  url = "/post/about/about_me/"
 
 
 [params]
