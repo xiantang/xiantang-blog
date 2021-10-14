@@ -3,55 +3,34 @@
   
   <url>
     <loc>https://xiantang.github.io/categories/</loc>
-    <lastmod>2021-10-15T00:04:01+08:00</lastmod>
+    <lastmod>2021-06-09T23:10:38+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiantang.github.io/post/</loc>
-    <lastmod>2021-10-15T00:04:01+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiantang.github.io/tags/</loc>
-    <lastmod>2021-10-15T00:04:01+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiantang.github.io/</loc>
-    <lastmod>2021-10-15T00:04:01+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiantang.github.io/tags/%E8%8B%B1%E8%AF%AD/</loc>
-    <lastmod>2021-10-15T00:04:01+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiantang.github.io/categories/%E8%8B%B1%E8%AF%AD/</loc>
-    <lastmod>2021-10-15T00:04:01+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiantang.github.io/post/english/english_grammar/</loc>
-    <lastmod>2021-10-15T00:04:01+08:00</lastmod>
+    <lastmod>2021-06-09T23:10:38+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiantang.github.io/tags/soft-skills/</loc>
+    <lastmod>2021-06-09T23:10:38+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiantang.github.io/tags/</loc>
+    <lastmod>2021-06-09T23:10:38+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiantang.github.io/</loc>
     <lastmod>2021-06-09T23:10:38+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
