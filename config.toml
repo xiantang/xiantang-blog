@@ -58,7 +58,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   name = "Edit"
   weight = 60
   identifier = "edit"
-  url = "/post/about/about_me/"
+  url = "https://github.dev/xiantang/xiantang-blog"
 
 
 
