@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>java on xiantang - 自律者自由</title>
-    <link>https://xiantang.github.io/tags/java/</link>
-    <description>Recent content in java on xiantang - 自律者自由</description>
+    <title>java on </title>
+    <link>/tags/java/</link>
+    <description>Recent content in java on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Sun, 24 Feb 2019 14:40:53 +0800</lastBuildDate><atom:link href="https://xiantang.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Feb 2019 14:40:53 +0800</lastBuildDate><atom:link href="/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java 如何区分==与.equals()方法</title>
-      <link>https://xiantang.github.io/post/translate/java_equals/</link>
+      <link>/post/translate/java_equals/</link>
       <pubDate>Sun, 24 Feb 2019 14:40:53 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/translate/java_equals/</guid>
-      <description>一般来说equals()和&amp;quot;==&amp;quot;运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同： 最主要的不同是.equ</description>
+      <guid>/post/translate/java_equals/</guid>
+      <description>一般来说equals()和&amp;quot;==&amp;quot;运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同：
+ 最主要的不同是.equals()是方法，==是运算符。 使用==来进行引用的比较,指的是是否指向同一内存地址。使用.equals()来进行对象内容的比较，比较值。 如果没有重写.equals就会默认调用最近的父类来重写这个方法。 示例代码:  // Java program to understand // the concept of == operator public class Test { public static void main(String[] args) { String s1 = new String(&amp;quot;HELLO&amp;quot;); String s2 = new String(&amp;quot;HELLO&amp;quot;); System.out.println(s1 == s2); System.out.println(s1.equals(s2)); } } 输出:
+false true 解释: 这里我们创建了两个对象分别命名为s1和s2。
+ s1和s2是指向不同对象的引用。 当我们使用==来比较s1和s2时，返回的是false,因为他们所占用的内存空间不一样。 使用.equals()时，因为只比较值，所以结果时true。  我们来分别理解一下这两者的具体区别:
+等于运算符(==) 我们可以通过==运算符来比较每个原始类型(包括布尔类型),也可以用来比较自定义类型(object types)
+// Java program to illustrate // == operator for compatible data // types class Test { public static void main(String[] args) { // integer-type System.</description>
     </item>
     
   </channel>

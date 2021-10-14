@@ -1,190 +1,359 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>xiantang - 自律者自由</title>
-    <link>https://xiantang.github.io/</link>
-    <description>Recent content on xiantang - 自律者自由</description>
+    <title></title>
+    <link>/</link>
+    <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Tue, 01 Jun 2021 20:55:56 +0800</lastBuildDate><atom:link href="https://xiantang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Jun 2021 20:55:56 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>上班族近期小半年入门投资基金组合的学习与实践经历</title>
-      <link>https://xiantang.github.io/post/investment/learned_about_investment/</link>
+      <link>/post/investment/learned_about_investment/</link>
       <pubDate>Tue, 01 Jun 2021 20:55:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/investment/learned_about_investment/</guid>
-      <description>”每个人都应该投资，越早越好。哪怕你一直输钱，十年后至少你学会了如何少输。而不是等到十年后被迫必须投资时，一次输掉大部分本金“ &amp;ndash;@FreiheitYu 前言 笔者因为</description>
+      <guid>/post/investment/learned_about_investment/</guid>
+      <description>”每个人都应该投资，越早越好。哪怕你一直输钱，十年后至少你学会了如何少输。而不是等到十年后被迫必须投资时，一次输掉大部分本金“ &amp;ndash;@FreiheitYu
+ 前言 笔者因为从学校踏入工作，手上其实比在念书的时候稍微富裕了一些，同时又比较节俭所以每个月发工资都会有挺多余钱留下来。笔者又觉得光存到银行实在是有些暴殄天物了，所以趁着工作的间隙学习了挺多关于理财的知识，并且在基金市场上做了一些实践，想作为经验分享给大家。
+声明 入市有风险 投资需谨慎 本文言论不构成投资意见
+构建财富思维 在今年二月份的时候，看了很多视频，发现大家都在推荐一本书《穷爸爸与富爸爸》于是我就将它下载到我的微信读书上，每天下班就看一部分。慢慢地看完这本书之后，我发现我的思维被慢慢改变，这本书也给我带了很多基础的财务知识，我会在下面做一些总结。
+需要理解 “负债” 和 “资产” 的区别 这本书最重要的概念其实就是这个，作为想汲取这本书知识的人，也一定要知道这个。
+所谓“负债”就是那些能把钱从口袋里面拿走的东西。
+所谓“资产”就是能把钱自己装到你口袋里面的东西。
+虽然这些东西看上去挺简单的，但是你需要理解。我这边举一些例子吧，很多人在没看到这本书的时候会把类似车这样的东西当成资产，毫无疑问，在法院清算的时候，车的确是资产，但是你的车能为你带来持续不断的钱嘛？显然大部分人不行，车需要各种维护，各种保养。所以在这本书中车其实并不是“资产”而是负债，同样像信用卡这些每个月都会从你手里拿走钱的也算是负债。那么什么算是资产呢？我再举个例子，如果你买了一套地段很不错的房子，并且将它高价出租出去，每个月都能拿到源源不断的房租，也就是这个房子能自动的把钱放到你的口袋里面，那它就可以算作你的资产，同样如果你把你的车子租出去，拿来当做婚礼的婚车，那么这车子也算是你的资产。
+这可能会让你想明白一个问题，就是为什么富人越来越富，穷人越来越穷。可以参照下图很清楚的看到，富人的资产带来的被动收入是可以大于负债的，也就是说他可以通过被动收入的结余继续投资成为新的资产，然后随着资产越来越多，也就越来越有钱了。穷人却反其道而行，通过各种房贷与信用卡账单压迫自己，慢慢地入不敷出，何谈资产而言。
+改变你的消费观念 这本书有一个很让我深感赞同的观念：“穷人总是预支消费，富人总是后置消费”。
+意思就是穷人总是会尝试去贷款或者一拿到工资就去尝试消费，但是富人会先将收入转换成资产，让资产自己去给他赚钱。当资产赚到了需要消费的商品的钱的时候，富人才会去选择消费。
+这个观念也影响到我了，就比如最近还是很想去买一个 switch 玩一下的，但是我觉得这种东西其实一买入就会贬值，并且其实对我来说不算很紧急，于是对于这个商品我就会考虑在我理财投资赚到这笔钱之后在做消费。
+国内基金实践的教训 2月共同基金入场  什么是共同基金？
+基金经理和财务计划提出的&amp;quot;分散风险”的说法，集合股票。债券，证券等多种形式的投资方式，由专业的投资公司管理。私人投资者通过购买份额获取收益的投资方式。拥有共同基金的份额不代表拥有直接的相应公司的价值。
+ 2 月初，以消费品茅台为首的基金疯狂增长，同时吸引了一群韭菜入场。同样我也是在那个时候入场的。因为那个时候我对基金的知识其实并不了解，所以投了一些闲钱到基金上。
+没想到 2-3 月真是惨烈，一天跌得比一天惨，和我的想象中的完全不同。但是我还是做了一些正确的事情，就是在快要接近谷底的时候加仓了一些。
+现在是 6 月份，回头看总结了一下我就发现我当时就犯了一个错误，就是选择在高点入场，好在是闲钱，一直没有割肉。这也是大多数人在股市中的赔钱的原因。
+就是大多数投资者想要在短期内在股市赚到钱，同是又被击中了人性的弱点：在涨的时候买入基金（想要大捞一笔），在大跌的时候害怕更多的损失含泪离场。
+共同基金的劣势 投资了一段时间，我发现共同基金还是虽然可能可以给你带来一些收益，但是其实还是存在一些问题的。
+ 因为共同基金是由基金经理管理的，基金经理其实也是人，他也会恐惧，也会有自己的股市操作风格，所以其实选择共同基金不是基金，而是选择的是基金经理。 如果您不注意共同基金的费用比率和销售费用，它们可能会失控。 同时也包含了基金的共同缺点:贸易执行不力:如果您在共同资产净值的截止时间之前的任何时间进行共同基金交易，则您在共同基金上买卖的股票将获得相同的收盘价资产净值。  一些投资收获  共同基金在买入赎回的时候需要在交易日下午2-3点时候交易，因为如上文提到你在交易日10-3点间交易的时候会获得收盘价的净值，如果遇到基金大跌需要补仓的时候一定要选择2-3点购买，晚上购买会是下一天的净值（可能下一天就大涨了）。PS:如果操作不好讲道理容易亏个好几的点&amp;hellip;.  例子:个人某只基金账户中有资金5万元元，当日净值收益为2.1。如果在交易日11:00提交赎回申请，当日那么基金[[赎回]]当日的收益就需要按照2.1的净值计算。超过15:00 的交易会按照下一个交易日计算。   不要频繁做交易，因为共同基金的费率其实算蛮高的。 不要频繁看盘，如果你亏了很多钱，其实慢慢加仓+不频繁看盘，你就可以慢慢解套。 不把重要的钱放进去，只放闲钱。  四月，尝试指数基金 在经过股票基金的各种曲折的折磨后，我开始阅读关于指数基金的书籍，我发现其实指数基金也同样适合投资，并且比较容易进行估值。
+以为股票其实都是有它的内在价值，股票的价格其实都是围绕其内在价值上下波动。所以我们需要对这些指数基金进行估值，在低估的时候买入，在高估的时候卖出。
+对于一支公司的股票，如果它的公司市值除以公司每年盈利(市盈率)比较小的情况，就意味着公司每年都会赚小一部分个自己，说明这个公司可能会被低估了。
+我们往往会使用 PE(市盈率) 进行估值，在 PE 处于历史低位的时候定投指数基金，在PE 历史高位的时候卖出。</description>
     </item>
     
     <item>
       <title>疫情期间的肉身翻墙新加坡指南</title>
-      <link>https://xiantang.github.io/post/softskills/physical_break_gfw/</link>
+      <link>/post/softskills/physical_break_gfw/</link>
       <pubDate>Wed, 19 May 2021 14:40:53 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/softskills/physical_break_gfw/</guid>
-      <description>”国外生活的难度比想象的小，但出国需要的决心比想象的大“ &amp;ndash;@FreiheitYu 作者写下这篇文章的时候是 2021 年上旬，随着出入境政策的放松与收紧可能会有出入，仅供参考</description>
+      <guid>/post/softskills/physical_break_gfw/</guid>
+      <description>”国外生活的难度比想象的小，但出国需要的决心比想象的大“ &amp;ndash;@FreiheitYu
+ 作者写下这篇文章的时候是 2021 年上旬，随着出入境政策的放松与收紧可能会有出入，仅供参考。
+前言 这是一段十分挣扎和坎坷的经历，在这疫情大流行的情况下，我还是选择了从国内出来，开启我的肉身翻墙的程序员经历，因为这段经历实在太坎坷，所以我想要把这个经历写下来供后面的人参考。
+前因是因为在上家公司的工作强度较大，并且工作内容也不是我所特别在意的，并且最重要的是在那样的环境中，我无法搞我喜欢的事情，比如搞开源社区，无法去思考一些问题，去学习一些不一样的新的知识，这让我苦恼。所以对于 996 ，我更希望有一个完整的周末，有时间去沉淀去思考去布局自己的未来，所以我选择了肉身翻墙，因为我知道可以用更多的个人时间去做一些对我未来以及人生更有意义的事情。
+如何拿到机会 其实很多人会问我这个问题，我是如何拿到这个出国工作的机会的？之前春招找工作在 v2ex 上刷到，现在这家公司在招聘 cloud native 的工程师，没想到就拿到了这个 offer。然后因为国内当时的疫情过于严重，所以就选择入职了某跳动。
+在某跳动虽然干的蛮开心的，但是慢慢感觉到身体和精神上出现了些问题，于是就尝试回头聊了这个机会，居然没想到能 retake，于是就有了这篇文章。
+面试相关 我回忆了一下之前面试的经历，首先会由 HR 来负责联系你，开始一个由 HR 面试的预面试，也就是做一个小筛选，看一下你对这个岗位的意愿如何。然后就会开始3轮技术面，其实面试难度比较简单，不会像国内那种，给你锤底层锤到你刻骨铭心。
+主要是一些 easy 的算法题目和系统设计的题目，如果 CS 基础比较好，其实很容易就能答上来。
+整体上来说，外企的面试的确是比国内舒服的，可能国内的大互联网公司其实工程师是非常忙的，所以面试的时候态度不是很好，在外企可能氛围相对轻松，也就能和你聊更多东西，而不是上来甩一道算法题目然后自己干自己的活。
+准备工作 当你拿到 offer 之后其实不代表你能够从国内出来了，因为疫情所以需要看当时的出入境政策。
+国内要做的事情 对于这一节我给出一个check list:
+ 办理护照 办理签证 申请 IPA 申请 Safe Travel pass holder 申请 sg arrival card (出境前3天) 预定用来等待核酸结果的酒店 (可选) 国内租房 (可选) 国内核酸检测  在国内你需要先办理好护照与签证。
+先说护照吧，因为之前没有出国过，所以是第一次办护照，就是第一次出国就去工作，等于是把出国的所有坑都踩了一遍 hhhh。
+护照办理 目前是没有理由是无法办理护照的，旅游是不让办的。
+需要提供学校的 offer 公司的 offer 最好是翻译件。</description>
     </item>
     
     <item>
       <title>About me</title>
-      <link>https://xiantang.github.io/post/about/about_me/</link>
+      <link>/post/about/about_me/</link>
       <pubDate>Sat, 15 May 2021 14:40:53 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/about/about_me/</guid>
-      <description>About me 欢迎！我是咸糖。这是我的个人网站，我在其中博客是我在日常生活中学到的东西或思考，希望你能喜欢它。 我喜欢的编程同时会很多种语言，类似 Golang https://github.com/cosmtrek/air 目</description>
+      <guid>/post/about/about_me/</guid>
+      <description>About me 欢迎！我是咸糖。这是我的个人网站，我在其中博客是我在日常生活中学到的东西或思考，希望你能喜欢它。
+我喜欢的编程同时会很多种语言，类似
+Golang https://github.com/cosmtrek/air 目前主要的使用语言,
+Scala https://github.com/xiantang/redislimiter 写过一些服务,
+Python https://github.com/xiantang/Spider 写过一些爬虫，
+Java https://github.com/xiantang/JerryMouse 写过一个简单的 web 容器。
+同时我也比较喜欢使用 vim,不过我是在 Jetbrain 平台上使用 vim 的插件。
+目前在新加坡工作，同时比较喜欢开源和投资。
+个人比较喜欢长期主义，不断地写博客做开源与投资做输出就是长期主义。我会不断地用这种方式隐性地为未来铺路。
+联系我 同时我也是一个特别高兴能看到反馈的人，如果有问题请果断评论或者用下边的邮箱联系我。
+echo emh1amluZ2RpMTk5OEBnbWFpbC5jb20= | base64 -d </description>
     </item>
     
     <item>
       <title>软技能:大厂底层员工打工指南</title>
-      <link>https://xiantang.github.io/post/softskills/how_to_live_in_big_company/</link>
+      <link>/post/softskills/how_to_live_in_big_company/</link>
       <pubDate>Mon, 26 Apr 2021 14:40:53 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/softskills/how_to_live_in_big_company/</guid>
-      <description>”我发现很多文章面经都是在讲如何进入大厂的，但是其实在大厂生存也是一个学问“ 前言 笔者最近换了工作，选择了心脏跳动，没有在之前的某跳动继续工作</description>
+      <guid>/post/softskills/how_to_live_in_big_company/</guid>
+      <description>”我发现很多文章面经都是在讲如何进入大厂的，但是其实在大厂生存也是一个学问“
+ 前言 笔者最近换了工作，选择了心脏跳动，没有在之前的某跳动继续工作，趁着刚离职不久赶紧静下来把自己之前的经验沉淀输出出来。虽然只在前公司只待了快一年的时间（本文指的前公司就是某跳动），但是还是学到了一些大公司的工作方式与流程。并且自认为当时在某跳动还是真正融入进去了，并且拿到了比较不错的回报，希望这篇文章能给大伙一些帮助吧。
+理解公司价值观 ​ 其实你会发现每个公司的价值观都会有点区别，像阿里有&amp;quot;阿里味&amp;quot;，字节有&amp;quot;字节范&amp;quot;，其实直接说就是资本家为了让员工更好的工作想出来的一套方法论（洗x)。不过他们的底层逻辑其实就是想要好好工作。慢慢工作之后发现，其实这些价值观最关键的一点就是 “Owner 意识”。
+什么是“Owner 意识” “Owner 意识” 简单说其实就是把公司当自己家，把项目当成自己的孩子。将自己慢慢的代入自己是项目的所有者。这样的话，你就会不由自主的主动的去做一些对于项目正向的事情（不由自主的内卷）。在我的理解中，“Owner 意识”其实就是各种价值观的内核，有了他你才会去”坦诚清晰“，才会去”追求极致“，“才会让个人成为组织的肢体”。
+其实我之前在其他公司也实习过，虽然是某一家小公司，但是在我离职的时候，我 leader 就和我说我有这种意识，但是没说明白，其实来了前公司之后我才知道，原来他有个名字叫做 “Owner 意识”。
+如果想要在一家互联网公司比较好的生存下去，“Owner 意识”其实是不可或缺的，因为他是你努力工作，努力修Bug 的一个动力。但是也不能拥有太过分的 “Owner 意识”，这样很有可能慢慢的你就被公司洗x 成为一个精神资本家了。我这边的原则就是，如果在工作时间，我可以拉满的的 “Owner 意识”，在自己的生活时间，就保证自己能安排自己的事情就行。
+如何做沟通？ ​ 在大公司沟通也同样重要，沟通也是有成本的。
+沟通前提供上下文 ​ 当你同时需要向很多需求方沟通合作的时候，最好在沟通之前先写好对应的需求文档等。这样的好处就是可以降低很多上下文同步的过程，需求方或者沟通的对方只需要看一下你的文档或者整理好的问题就能够基本了解到上下文。我一般会将需要沟通的信息和问题都整理为一个文档，发送给对方。
+其实这个东西在生活中各种地方都能用到。
+最近在找房子，通过这种方式能够很方便的和各个房东中介交流，我只需要整理一份求租的信息将要求发给各个房东，房东就知道他的房子是否符合，减少了很多沟通的成本。
+尽量直接沟通 ​ 在大公司很多时候合作的同学是在不同的工区的，所以沟通成本会比较高，下边我将沟通方式由低到高排序。
+ 工位找人 &amp;lt; 语音聊细节 &amp;lt; 敲字
+ ​ 很多时候我们就算工位就在隔壁，但是还是会用公司的 IM 反复确认一个简单的东西半天。其实这个方式是不好的，个人感觉最好的方式，就是如果条件允许直接去工位找人聊细节或者直接拉电话通过几分钟时间将问题聊清楚比较好。跨部门沟通更是这样，因为大家的 OKR 其实是不一样的，所以需要比较长的时间沟通，直接工位找人或者电话语音，会比用内部 IM 交流的效率高很多很多。
+沟通后留档 沟通之后需要进行相关信息的沉淀，例如比较好的想法，将要做的TODO，以及需要的人，如果是长期的目标就需要开启一个定时的例会，防止事情跟丢。
+如何做事 你的产出其实就和你做了多少事情和你解决了多少问题有关。所以高效就是能在有限的时间内做更多的事情。
+主动性 其实能够达到高产出很关键就是和你的主动性有关，如果你是一个比较有自驱动力的人，其实不需要他人来不断地催促你，你会像一个&amp;quot;Owner&amp;quot;来主导来推动这个项目。同样这一点也是所有 leader 希望看到的执行者的行为。
+那么如何提高你的主动性那？还是需要回到 “Owner 意识” 上，当你把一个项目当做自己的孩子，举个例子：因为某种原因你们项目的线上 bug 率比较高，假设你把自己想象成项目的 onwer 你就会主动地去做 code review，主动地去为代码编写单测。当初融入团队的时候，我也是主动地去 review 同事的代码，从主动积极地去做一些小事，到最后能够负责一个较大的任务。其实不用去害怕被喷或者其他情况，因为你心底是想要项目好起来的，会给团队和自己带来不错的影响。</description>
     </item>
     
     <item>
       <title>软技能:我是如何获取知识与信息的？</title>
-      <link>https://xiantang.github.io/post/softskills/how_do_i_acquire_knowledge_and_information/</link>
+      <link>/post/softskills/how_do_i_acquire_knowledge_and_information/</link>
       <pubDate>Fri, 02 Apr 2021 14:40:53 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/softskills/how_do_i_acquire_knowledge_and_information/</guid>
-      <description>​ ”我们每个人都是信息时代的荒野猎人，在信息构成的一望无际的荒野中求存。“ -《为什么要成为信息捕食者》 ​ 在信息爆炸的移动互联网时代，每个互联</description>
+      <guid>/post/softskills/how_do_i_acquire_knowledge_and_information/</guid>
+      <description>​ ”我们每个人都是信息时代的荒野猎人，在信息构成的一望无际的荒野中求存。“ -《为什么要成为信息捕食者》
+​ 在信息爆炸的移动互联网时代，每个互联网大厂的尝试建立自己的&amp;quot;信息茧房&amp;quot;，尝试给你推荐一些你感兴趣的东西，慢慢地你的生活就会被桎梏于像蚕茧的牢笼之中。作为一个向往自由的[黑客]，自然是不能被这样的牢笼所限制住，本文将介绍一下获取优质信息的一些途径或者方式。
+请卸载你的小视频软件 ​ 最重要的肯定是需要放在最前面。
+​ 想必你肯定是有过刷小视频到深夜的情况吧，小视频软件会潜移默化的偷走你的时间，他会通过一些中低质量信息让你习惯或者喜欢上一些短暂的感官刺激，会让一些有意义的时间变得更加无趣和令人厌倦。
+​	一旦你的手机上出现了带有无尽下滑的APP，卸载它，你就会发现你会多出很多空闲的时间。
+​ 下面，开启正题，该如何获取信息，这边将信息的获取分为两大种，一种是你去浏览他人发布的信息，类似Feed，这边叫做&amp;quot;被动获取信息&amp;quot;。另外一种就是主动的去检索信息，例如Google 搜索，查阅书籍等。
+被动获取信息 ​ 主要介绍 3 个不同的渠道来被动地获取信息。
+RSS RSS 是什么？ TL;DR: 简单说 RSS 就是一个通用的信息聚合平台，能够帮助你聚合和追踪不同平台的信息，一旦信息更新他能让你在一个平台上快速知道。
+​ RSS 是站点用来和其他站点之间共享内容的一种简易方式（也叫聚合内容），通常被用于新闻和其他按时间先后顺序排列的网站，例如 BLOG。一个 RSS 包含很多新闻条目，一个新闻条目可能包含新闻的全部介绍，或者仅仅是额外的内容和简短的介绍。这些条目的链接通常都能链接到全部的内容。网络用户可以在自己的客户端，借助于支持 RSS 的新闻聚合工具软件，在不打开网站内容页面的情况下阅读这些支持 RSS 输出的网站内容。
+新闻 ​ 想必你每天起来都会有看一眼新闻的习惯吧，我这边是将比较关注的新闻源加入了 RSS ，这样每天起床就能看到当天的简报。不用进入可以一直刷不停的xx头条等平台浪费时间。
+技术 ​ 对于技术上，我也会将很多文章写的不错的技术博主放到我的 RSS 订阅中，绝大多数的情况就是我在检索问题的时间。
+遇到问题 作为一个程序猿，会有很多时间是在与 Bug 斗争的，下面就是我发现优秀博文的一个简单的小例子。
+一般我想要在Google 搜索中文的资源，我会将站点的结尾以 github.io 作为结尾，这样就会找到很多中文的博客，倘若这个中文博客能够解决我的问题，我就会看看他的其他文章是否符合我的胃口，如果符合胃口我就会将他加入我的订阅列表中。
+Disqus 另外一种途径就是在 Disqus 找到优秀的博客，Disqus 是一个优秀的博客评论系统，很多博客都会接入他，本站也接入了这个系统。当你看到 Disqus 有人回复的时候，你可以去看看这个人还在其他地方评论了什么。因为对于一个博文来说，如果这片独立博客的博文别他人评论，其实质量就不会太差。你就可以将你找到的不错博文进行订阅。
+下图随意找了个老哥评论的文章，其实质量都是挺上乘的。
+Github Trend ​ Github Trend 是一个不错的地方，发现不错的开源项目，前提是不能选择语言为中文。每周有空的时候我都会去看看有没有什么好玩的开源项目，如果是工具的话会装在自己的电脑上把玩把玩。
+关注 ​ 每天我会去看一眼 Github， 关注下大佬们在做什么，点赞了什么项目。如果大佬和你的方向是相同的，你只需要每天去扫一下 Github 的 Feed 就能大概知道，最近对应方向比较火的开源项目。</description>
     </item>
     
     <item>
       <title>分布式的令牌桶算法的实现</title>
-      <link>https://xiantang.github.io/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <link>/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Thu, 09 Apr 2020 01:37:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
-      <description>什么是令牌桶算法? 令牌桶算法是一种限流算法，他与漏桶算法的实现是一种相反的实现。 漏桶算法是按照一定频率的速率进行漏水，然后对于我们的请求就可</description>
+      <guid>/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>什么是令牌桶算法? 令牌桶算法是一种限流算法，他与漏桶算法的实现是一种相反的实现。
+漏桶算法是按照一定频率的速率进行漏水，然后对于我们的请求就可以想象成上边的水龙头。
+令牌桶算法则是定时的往桶中放入令牌，然后每次请求都会从令牌桶中获取一个令牌，如果桶中没有令牌，则拒绝请求或者阻塞直到令牌可以获得。
+分布式的令牌桶算法 因为看到的令牌桶算法都是单机的，举个例子: RateLimiter 他就是一个线程级别的令牌桶算法。
+因为需要实现一个分布式的令牌桶算法，所以我这边使用的是一个 Redis 作为令牌桶的容器。
+然后我们来看看主要的令牌桶算法的思路:
+其实他并没有创建一个线程不断的往令牌桶里边放数据，他采用的懒计算的方式进行处理，这样的好处是性能消耗比较小，可以避免一些无用的轮训操作。
+其实我们可以吧令牌桶想象为一个对象:
+case class RedisPermits( name:String, maxPermits: Long, storePermits: Long, intervalMillis: Long, nextFreeTicketMillis: Long ) {} 我来介绍一下这个令牌桶的成员变量:
+Name: 表示这个令牌桶的名称，也就是存在redis中的key。
+maxPermits: 表示令牌桶中令牌的数目。
+storePermits: 表示令牌桶中当前令牌的数目。
+intervalMillis: 每次放入令牌之间的间隔时间。根据请求的 QPS 求出。
+nextFreeTicketMillis: 下一次能获取这些令牌的时间。
+对于一个获取令牌的操作，我们可以判断为是否能够获取到令牌，也就是 nextFreeTicketMillis 是在当前时间之前还是之后。
+nextFreeTicketMillis 在当前时间之前 通过图中的公式可以计算出当前存储的令牌数目。和你需要的令牌数目相互比较:
+ 如果够用就减去需要使用的令牌数目，将 nextFreeTicketMillis 设置为 now。立马返回函数就行啦。 如果不够用就得到当前的令牌数目，将当前令牌数目设置为0，然后求出需要生成的数目，将 nextFreeTicketMillis 向后推，生成的时间。当前线程等待对应 nextFreeTicketMillis - now 的时间就能求出需要等待的时间。进行睡眠，睡眠结束就可以做相应的请求了。  nextFreeTicketMillis 在当前时间之后 nextFreeTicketMillis 因为在当前时间之后所以当前令牌桶肯定是没有数据的，所以我们需要将睡眠的时间往后拖就好了，就是 nextFreeTicketMillis =+ intervalMillis*need 然后当前线程睡眠 nextFreeTicketMillis - now 的时间就行啦。</description>
     </item>
     
     <item>
       <title>实现一个AtomicInteger</title>
-      <link>https://xiantang.github.io/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</link>
+      <link>/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</link>
       <pubDate>Mon, 06 Apr 2020 16:33:34 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</guid>
-      <description>什么是AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的Integer的区别是 AtomicInteger 采用一个CAS 的方式使Int</description>
+      <guid>/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</guid>
+      <description>什么是AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的Integer的区别是 AtomicInteger 采用一个CAS 的方式使Integer 的自增等操作变成原子化操作。
+实现的之前需要了解的知识 首先我们先观察 AotmicInteger 的自增操作：
+public final int incrementAndGet() { for (;;) { int current = get(); int next = current + 1; if (compareAndSet(current, next)) return next; } } 他采用了死循环，并且每次循环都获取最新的value，通过这个值计算出自增后的值，使用compareAndSet 来交换值，并且判断结果，如果是true 就返回自增后的值，如果是false就进行重试，其实这就是一个典型的CAS 操作。
+并且这个 compareAndSet 操作，其实很简单，就是调用 unsafe 对象的 compareAndSwapInt
+public final boolean compareAndSet(int expect, int update) { return unsafe.compareAndSwapInt(this, valueOffset, expect, update); } compareAndSwapInt 就是根据当前对象的所需要 CAS 操作的成员的所在对象的 offset 来进行 CAS 的修改操作。</description>
     </item>
     
     <item>
       <title>GC root 在哪里？</title>
-      <link>https://xiantang.github.io/post/jvm/gc_root/</link>
+      <link>/post/jvm/gc_root/</link>
       <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/jvm/gc_root/</guid>
-      <description>什么是GC Root 首先我们知道标记算法，JVM 的标记算法我们可以了解为一个可达性算法，所以所有的可达性算法都会有起点，那么这个起点就是GC Root</description>
+      <guid>/post/jvm/gc_root/</guid>
+      <description>什么是GC Root 首先我们知道标记算法，JVM 的标记算法我们可以了解为一个可达性算法，所以所有的可达性算法都会有起点，那么这个起点就是GC Root。
+也就是需要通过GC Root 找出所有活的对象，那么剩下所有的没有标记的对象就是需要回收的对象。
+GC Root 的特点  当前时刻存活的对象！  GC Root 在哪里  所有Java线程当前活跃的栈帧里指向GC堆里的对象的引用；换句话说，当前所有正在被调用的方法的引用类型的参数/局部变量/临时值。 VM的一些静态数据结构里指向GC堆里的对象的引用，例如说HotSpot VM里的Universe里有很多这样的引用。  这里有个问题? 为什么需要将GC root 设置为 所有Java线程当前活跃的栈帧里指向GC堆里的对象的引用?
+原因很简单，GC Root 需要确保引用所指的对象都是活着的,而当前线程 frame 中的对象，在这一时刻是存活的。</description>
     </item>
     
     <item>
       <title>什么是 Minor GC/Major GC</title>
-      <link>https://xiantang.github.io/post/jvm/full_gc/</link>
+      <link>/post/jvm/full_gc/</link>
       <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/jvm/full_gc/</guid>
-      <description>什么是 Minor GC/Major GC 首先我们先科普一下JVM 经典的堆布局: 对于经典的 JVM heap 布局，有两个区域比较清晰，首先是Young 区,一般会来存放年轻的对象或者刚被</description>
+      <guid>/post/jvm/full_gc/</guid>
+      <description>什么是 Minor GC/Major GC 首先我们先科普一下JVM 经典的堆布局:
+对于经典的 JVM heap 布局，有两个区域比较清晰，首先是Young 区,一般会来存放年轻的对象或者刚被创建没多久的对象。其次是 Old 区，也就是老年代，一般会来存放比较长寿的对象，或者从 young 区晋升的对象。
+对于young 区 我们又有三个区域，一个是 Eden 区，还有两个大小相等的 Survivor 区。
+新生的对象会在 Eden 区创建。
+Minor GC 此时如果新生的对象无法在 Eden 区创建（Eden 区无法容纳) 就会触发一次Young GC 此时会将 S0 区与Eden 区的对象一起进行可达性分析，找出活跃的对象，将它复制到 S1 区并且将S0区域和 Eden 区的对象给清空，这样那些不可达的对象进行清除，并且将S0 区 和 S1区交换。
+但是这里会产生一个问题，Q:为啥会有两个 Survivor 区？
+A: 因为假设设想一下只有一个 Survibor 区 那么就无法实现对于 S0 区的垃圾收集，以及分代年龄的提升。
+Major GC 发生在老年代的GC ，基本上发生了一次Major GC 就会发生一次 Minor GC。并且Major GC 的速度往往会比 Minor GC 慢 10 倍。
+什么时候发生Major GC 既然我们已经知道了 Minor GC 是在 Eden 区快满的情况下才会触发</description>
     </item>
     
     <item>
       <title>漏桶算法的设计与实现</title>
-      <link>https://xiantang.github.io/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</link>
+      <link>/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Sun, 05 Apr 2020 01:37:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</guid>
-      <description>什么是漏斗算法？ 漏斗算法顾名思义采用一个漏斗来对流量进行限制。 因为漏斗下面有孔，所以会定时的漏水下去，然后我们可以将流量想象为从上边落入漏斗</description>
+      <guid>/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</guid>
+      <description>什么是漏斗算法？ 漏斗算法顾名思义采用一个漏斗来对流量进行限制。
+因为漏斗下面有孔，所以会定时的漏水下去，然后我们可以将流量想象为从上边落入漏斗的水。
+这样就会有两种情况，如果流量的注入漏斗的速度比漏斗的漏水的速度慢，漏斗就会处于一个空漏斗的状态，也就是没有超出负荷的状态。
+第二种情况就是，如果流量注入漏斗的速度比漏斗快，那么漏斗就会渐渐的超出最大的容量，对于溢出的流量，漏斗会采用拒绝的方式，防止流量继续进入。
+使用 Java 实现 package info.xiantang.limiter; class FunnelRateLimiter { // 容量  private final int capacity; // 每毫秒漏水的速度  private final double leakingRate; // 漏斗没有被占满的体积  private int emptyCapacity; // 上次漏水的时间  private long lastLeakingTime = System.currentTimeMillis(); FunnelRateLimiter(int capacity, double leakingRate) { this.capacity = capacity; this.leakingRate = leakingRate; // 初始化为一个空的漏斗  this.emptyCapacity = capacity; } private void makeSpace() { long currentTimeMillis = System.currentTimeMillis(); // 计算离上次漏斗的时间  long gap = currentTimeMillis - lastLeakingTime; // 计算离上次漏斗的时间到现在漏掉的水  double deltaQuota = (int) gap * leakingRate; // 更新上次漏的水  lastLeakingTime = currentTimeMillis; // 间隔时间太长，整数数字过大溢出  if (deltaQuota &amp;lt; 0) { emptyCapacity = capacity; } // 更新腾出的空间  emptyCapacity += deltaQuota; // 超出最大限制 复原  if (emptyCapacity &amp;gt; capacity) { emptyCapacity = capacity; } } boolean isActionAllowed(int quota) { makeSpace(); // 如果腾出的空间大于需要的空间  if (emptyCapacity &amp;gt;= quota) { // 给腾出空间注入流量  emptyCapacity -= quota; return true; } return false; } } 我们这边定义了一个 empty capacity 的容量 表示腾出的空间。也可以通过以剩余的水来计算水占用的空间，这是两个角度来计算。但是我们使用的是empty capacity。</description>
     </item>
     
     <item>
       <title>剑指offer</title>
-      <link>https://xiantang.github.io/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</link>
+      <link>/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</link>
       <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</guid>
-      <description>五天刷完剑指 No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够</description>
+      <guid>/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</guid>
+      <description>五天刷完剑指 No2 单例模式 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够创建  private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton getInstance() { if (instance == null) { synchronized (sybObj) { if (instance == null) { instance = new No2TwiceCheckSingleton(); } } } return instance; } } No3 找到重复的数字 public class No3FindDupNum { public static boolean find(int[] nums) { for (int i = 0; i &amp;lt; nums.</description>
     </item>
     
     <item>
       <title>单例模式</title>
-      <link>https://xiantang.github.io/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</link>
+      <link>/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</link>
       <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</guid>
-      <description>单例模式是什么? 单例模式，也叫单子模式，是一种常用的软件设计模式，属于创建型模式的一种。 在这个设计模式中，单例对象的类必须保证只有一个实例存</description>
+      <guid>/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</guid>
+      <description>单例模式是什么? 单例模式，也叫单子模式，是一种常用的软件设计模式，属于创建型模式的一种。
+在这个设计模式中，单例对象的类必须保证只有一个实例存在。
+优缺点 优点: 内存中只有一个实例，减少内存开销。
+缺点: 违背单一职责原则，并且没有接口，不能继承。
+单例模式怎么写 单线程 首先我们从单线程的单例模式开始实现:
+先厘清一波思路
+单例的构造器应该为 private ,采用 getInstance 来获取对应的实例。
+单例对象存在于类属性中，保证只有一个。
+class Singleton { private static Singleton instance = null; private Singleton() { } static Singleton getInstance() { if (instance == null) { instance = new Singleton(); } return instance; } } 单线程的单例比较容易实现，但是如果存在多线程竞争，这个单例模式就可能会造成重复创建。
+多线程 我们采用的是双重检验的方式来确保多线程下的访问:
+class TwiceCheckSingleton { private static TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); private TwiceCheckSingleton() { } static TwiceCheckSingleton getInstance() { if (instance == null) { // check 1  synchronized (sybObj) { if (instance == null) { // check 2  instance = new TwiceCheckSingleton(); } } } return instance; } } 但是为什么要使用 TwiceCheckSingleton 并且为啥有两次检验呢?</description>
     </item>
     
     <item>
       <title>TCP 针对面试学习</title>
-      <link>https://xiantang.github.io/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</link>
+      <link>/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</link>
       <pubDate>Wed, 01 Apr 2020 01:37:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</guid>
-      <description>什么是TCP TCP 是一个全双工 面向字节流的基于IP协议的协议。 TCP 端到端的准确传输。 对于每一个字节进行确认 对于恶劣的网络情况的处理 超时重传 拥塞控制</description>
+      <guid>/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</guid>
+      <description>什么是TCP  TCP 是一个全双工 面向字节流的基于IP协议的协议。 TCP 端到端的准确传输。  对于每一个字节进行确认 对于恶劣的网络情况的处理  超时重传 拥塞控制   效率提升  采用滑动窗口协议     TCP 是一个面向连接的协议。  既然面向连接那这个连接是怎么建立的？
+也就是下面的问题如果建立一个虚拟的链路采用三次握手。
+三次挥手是怎么发生的 详细操作 从码出高效扒了一张图下来，我们来讲一下三次握手的流程：
+ A 机器首先会计算出一个 seq 索引 x 表示当前发送的数据包的位置 并且包的标示为 SYN。 B 机器接受到了这个包，并且将包中的数据存到自己的缓冲区中，因为这个包的大小为 1 字节，所以缓存区的索引是 x +1 同步到对方的发送 seq 位置，返回一个 SYN 和 ACK 标示的包，并且将自己的发送 seq 索引 y 以及告诉对方自己收到了这个数据包 所以 ack +1。 C 机器收到这个带有ACK 和 SYN 的包 需要返回一个ACK 表示自己能够收到对方的包，所以发送一个 ACK 和自己当前的发送 seq 以及自己的接受seq。  为啥要握三次 至于为啥要握三次</description>
     </item>
     
     <item>
       <title>Actor 如何处理阻塞消息</title>
-      <link>https://xiantang.github.io/post/scala/future_in_actor/</link>
+      <link>/post/scala/future_in_actor/</link>
       <pubDate>Wed, 15 Jan 2020 17:51:36 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/scala/future_in_actor/</guid>
-      <description>观察了一下业务的代码中发现在 Actor 中采用了很多 import scala.concurrent.ExecutionContext.Implicits.global 来作为 Actor 内部的执行 Future 的线程池，之前觉得好像也没啥问题。 但是在看完 akka 源码后发现好像有些不妥。 简单</description>
+      <guid>/post/scala/future_in_actor/</guid>
+      <description>观察了一下业务的代码中发现在 Actor 中采用了很多
+import scala.concurrent.ExecutionContext.Implicits.global
+来作为 Actor 内部的执行 Future 的线程池，之前觉得好像也没啥问题。 但是在看完 akka 源码后发现好像有些不妥。
+简单的讲一下 Actor 的架构吧
+当一个Actor 向另外一个 Actor 中发送信息会将这条信息发送到接受的Actor的 mailbox 中
+mailbox 是一个实现 Runnable 的类，所以可以用线程池执行，所以每当你向一个Actor 发送一条消息的时候 其实是用 接受者的 Dispatcher 来执行这条消息的。
+但是问题是如果你的应用是 IO 密集型的应用
+那么无论你使用 Actor 的默认的 defaultDispather 或者 Future 的global 隐式转换方式，都会因为线程池的核心线程被阻塞任务限制，导致线程饥饿
+并且因为ForkJoinPool 的实现，是一个适合计算的线程池。
+所以这里给出两个方案
+  对于 IO 密集型的任务可以采用自定义线程池的方式进行解决
+但是如果突发的请求很多，仍然会导致线程池中线程都在阻塞，无法立马响应请求的情况。
+  implicit val blockingDispatcher: MessageDispatcher = context.system.dispatchers.lookup(&amp;#34;blocking-io-dispatcher&amp;#34;) blocking-io-dispatcher { type = Dispatcher executor = &amp;#34;thread-pool-executor&amp;#34; thread-pool-executor { fixed-pool-size = 32 } throughput = 1 } 使用 scala.</description>
     </item>
     
     <item>
       <title>Akka 源码解析</title>
-      <link>https://xiantang.github.io/post/scala/akka_source_code/</link>
+      <link>/post/scala/akka_source_code/</link>
       <pubDate>Wed, 15 Jan 2020 17:26:53 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/scala/akka_source_code/</guid>
-      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&amp;#34;HelloSystem&amp;#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&amp;#34;Parov Stelar&amp;#34;)) // jazzListener</description>
+      <guid>/post/scala/akka_source_code/</guid>
+      <description>object Main1 extends App { val system = ActorSystem(&amp;#34;HelloSystem&amp;#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件  system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件  // 只有 musicListener 接收到这个事件  system.eventStream.publish(Electronic(&amp;#34;Parov Stelar&amp;#34;)) // jazzListener 和 musicListener 都会收到这个事件  system.eventStream.publish(Jazz(&amp;#34;Sonny Rollins&amp;#34;)) } subscribe 逻辑 同步地将 subcriber 和 to 加入到 subscriptions 中，diff 应该是和之前的一次比较保证不会重复发送?
+def subscribe(subscriber: Subscriber, to: Classifier): Boolean = subscriptions.synchronized { val diff = subscriptions.</description>
     </item>
     
     <item>
       <title>How to learn scala</title>
-      <link>https://xiantang.github.io/post/scala/how_to_learn_scala/</link>
+      <link>/post/scala/how_to_learn_scala/</link>
       <pubDate>Wed, 15 Jan 2020 16:33:34 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/scala/how_to_learn_scala/</guid>
-      <description>背景: 刚来到以scala为技术栈的公司的时候，配置了半天环境，然后终于将项目起了起来，发现里面的代码很奇怪，没有任何循环，数据的操作是一个函</description>
+      <guid>/post/scala/how_to_learn_scala/</guid>
+      <description>背景: 刚来到以scala为技术栈的公司的时候，配置了半天环境，然后终于将项目起了起来，发现里面的代码很奇怪，没有任何循环，数据的操作是一个函数套着一个函数，十分令人疑惑，于是借着业务需求和这股好奇劲开始学习关于scala的内容。
+目标:  熟练运用项目中的异步操作 Future 变换 (同步思维转异步) 熟悉 Play 框架能够熟练的翻文档解决问题 熟练运用高阶函数 map flatMap 等操作  阶段 1:能写 Scala 这个阶段比较容易达到，就是首先需要阅读 《Scala编程》前几章 或者 推特scala课堂 ，来了解scala的基本语法。但是在这个阶段仍然会有很多的坑，基本是在 IDEA 的提示 与 爆红下才能勉强的写代码。
+阶段2: 知道函数式编程是什么东西 当你差不多写了半个月 Scala 之后，仍然好奇函数式编程是什么东西，这个时候你就可以去学习一些关于函数式编程的知识了，我的线路是先学习了 programming-languages 这门入门课程，主要讲了一些关于函数式编程的基础知识,包括但不限于 闭包 高阶函数 尾递归 代数类型。 虽然语言不是Scala 但是这门课为我之后的函数式编程打下了一定的基础。 如果你在这门课上认真的完成了作业，后面的路会通畅很多。
+阶段3:再深入的了解 到这个时候，你一定会听到一本十分有名的书《Scala 函数式编程》 这本书，很有可能在你没经历前几个阶段的时候，你就看了，但是发觉里面的内容十分抽象，便放弃了。现在你就可以大胆的去看它了，可以无痛的看到第六章。
+再在下面，就会被更抽象的 Monad Factor 等概念所迷惑。
+阶段4:持续学习基础 上面的阻塞其实还是因为对基础知识不够扎实，所以还是需要进一步的学习，这里推荐 Scala 语言作者的课程 Functional Programming Principles in Scala . 因为不是免费的，所以需要付费或者采用奖学金（咸鱼）来免费学习。这门课程虽然不及上面的 programming-languages 课程，但是比较困难的习题还是能提升FP的水平的。
+阶段5:参与社区 这个时候你就可以继续去看 《Scala 函数式编程》 这本书了，因为你看完了上面的两门全英文课程所以英文也不会再惧怕就可以参与社区了，这里推荐几个比较好的社区，曾经给我过帮助的社区 https://gitter.im/scala/scala. https://gitter.im/akka/akka , 如果对开源有兴趣，就可以给 akka 或者 Play 修复BUG了。</description>
     </item>
     
     <item>
       <title>AES 需要限制 SEED 长度</title>
-      <link>https://xiantang.github.io/post/scala/aes_limit_length/</link>
+      <link>/post/scala/aes_limit_length/</link>
       <pubDate>Sun, 20 Oct 2019 01:37:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/scala/aes_limit_length/</guid>
-      <description>写了一个工具类用来加密解密数据库的 app字段 本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。 这个的原因是因为线上环境没有支</description>
+      <guid>/post/scala/aes_limit_length/</guid>
+      <description>写了一个工具类用来加密解密数据库的 app字段
+本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。
+这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。
+我这边采用的是引入第三方库：
+&amp;#34;org.bouncycastle&amp;#34; % &amp;#34;bcprov-jdk16&amp;#34; % &amp;#34;1.45&amp;#34; private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() =&amp;gt; Cipher.getInstance(&amp;#34;AES/ECB/PKCS5Padding&amp;#34;, new BouncyCastleProvider())) 这样就解决了 No installed provider supports this key 的问题。
+但是提到了测试环境，又出现了问题:
+显示没有合法的AES key
+首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。
+我们需要明确一下本地环境和线上环境的不同:
+ 本地: Jdk 安全目录 含有 unlimit 的jar包，也就是支持 16 24 32 位的key 线上: Jdk 安全目录 只含有 limit 的jar包，只支持 16 位的key  有两种解决方式1.线上安装 unlimit 的jar包 2.</description>
     </item>
     
     <item>
       <title>Java 如何区分==与.equals()方法</title>
-      <link>https://xiantang.github.io/post/translate/java_equals/</link>
+      <link>/post/translate/java_equals/</link>
       <pubDate>Sun, 24 Feb 2019 14:40:53 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/translate/java_equals/</guid>
-      <description>一般来说equals()和&amp;quot;==&amp;quot;运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同： 最主要的不同是.equ</description>
+      <guid>/post/translate/java_equals/</guid>
+      <description>一般来说equals()和&amp;quot;==&amp;quot;运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同：
+ 最主要的不同是.equals()是方法，==是运算符。 使用==来进行引用的比较,指的是是否指向同一内存地址。使用.equals()来进行对象内容的比较，比较值。 如果没有重写.equals就会默认调用最近的父类来重写这个方法。 示例代码:  // Java program to understand // the concept of == operator public class Test { public static void main(String[] args) { String s1 = new String(&amp;quot;HELLO&amp;quot;); String s2 = new String(&amp;quot;HELLO&amp;quot;); System.out.println(s1 == s2); System.out.println(s1.equals(s2)); } } 输出:
+false true 解释: 这里我们创建了两个对象分别命名为s1和s2。
+ s1和s2是指向不同对象的引用。 当我们使用==来比较s1和s2时，返回的是false,因为他们所占用的内存空间不一样。 使用.equals()时，因为只比较值，所以结果时true。  我们来分别理解一下这两者的具体区别:
+等于运算符(==) 我们可以通过==运算符来比较每个原始类型(包括布尔类型),也可以用来比较自定义类型(object types)
+// Java program to illustrate // == operator for compatible data // types class Test { public static void main(String[] args) { // integer-type System.</description>
     </item>
     
     <item>
       <title>2018年年度总结</title>
-      <link>https://xiantang.github.io/post/summary/2018_summary/</link>
+      <link>/post/summary/2018_summary/</link>
       <pubDate>Sun, 30 Dec 2018 14:40:53 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/summary/2018_summary/</guid>
-      <description>到年底啦，稍微写一点总结总结一下这个2018年。 这一年有失去也有获得吧。失去是一段没有结果的感情的失败，获得则是整个人质的提升。 失去的就让他</description>
+      <guid>/post/summary/2018_summary/</guid>
+      <description>到年底啦，稍微写一点总结总结一下这个2018年。
+这一年有失去也有获得吧。失去是一段没有结果的感情的失败，获得则是整个人质的提升。
+失去的就让他过去了，我也不想再多提什么。
+我们来谈谈收获吧。
+收获主要分为三个方面，身体，技术和金钱。
+先谈身体吧，今年年初的时候，也就是大二下刚开始的时候，坚持每天去操场去跑个几圈，有时就算是下着 ️我们也会去跑一下,但是跑着跑着就只剩下我一个人来，遂就作废。之后没怎么锻炼，每天在实验室呆到10点，感觉身体也有点愚钝了。之后就是实习，实习的时候尝试去过一天健身房，但是离住的地方实在太远了，所以也就作废。其实是因为太懒 但是在内心还是想去健身房持久不断的锻炼的。遂在这个学期的10月份办了张健身卡，一开始是自己一个人锻炼的，而且有时候还有技术不够格的私教忽悠我办卡，我每次都是用贫穷来拒绝❌。不过自己的确没有很认真在练，之后就是10月中旬，涛哥开始带我了（实验室队友），我才感觉到这才是健身，每次看到涛哥表情狰狞的样子，我就想我也得努力一点，一直坚持到年底，感觉肩膀结实了一点，胳膊也粗了一些，也不会有坐太久虚了的情况。尽管现在有了一点点成果，但是我知道，健身这种东西是以年为单位的，肌肉是需要慢慢雕刻的。
+再谈技术，今年最大的变化是主力开发语言的改变，从Python转到了Java,其实是一直想转变的，明显感受到做爬虫和Python后端的前途不明朗，我主要想发展的方向是爬虫，但是渐渐觉得爬虫，作为第二技能会比较好一点。中间真的经历了很多纠结，但是还是作出了决定。对于Java这门语言其实我也不算厌恶,因为这是一门很优秀并且稳定的语言，有着非常好的生态，可能也因为我不能十分好的驾驭Python吧。对于Java的学习，其实我对于这门庞大的语言还是十分的不熟悉的，希望自己能够从基础开始，然后慢慢去了解后端的体系结构吧。我想对未来的我说，后端不只是Java，一个优秀的后端工程师是不会被语言给限制住的。
+关于金钱，今年的理解是，只要够用就行。年初因为变故，辞了理货员的兼职，所以收入会比之前少了一	些，但是在开学之后，就开始接爬虫外包，没有做的很拼命，正好和自己做理货员的工资相抵消，但是那段时间对于我的技术的成长是很大的，让我更加熟悉了Python这门语言。今年的爬虫实习，干了暑假两个月，拿了6K，伤心的是这个6K被我在杭州的开销相抵消了大部分，实在是有点真实。不过回到学校，我换了一台手机，应该能撑过剩下两年8⃣️。最近前公司的项目老大找我做爬虫，我要了很高的价格 因为自己其实不是很想做，尝试了做了一下，发现其实工作量比想象中的大很多，遂放弃。也和这段开头说的相同,够用就行，能够学习自己喜欢的技术，并且做自己想要做的项目，其实也是一件很快乐的的事情。一直做自己喜欢的事情， 会随之而来的。
+我的2018就是这样，2019的目标先不写出来了，只希望能变成更好的自己。
+​</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://xiantang.github.io/post/collection/collection/</link>
+      <link>/post/collection/collection/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://xiantang.github.io/post/collection/collection/</guid>
-      <description>集合扩容 ArrayList 对于 ArrayList 他默认的容量为10，所以如果需要对ArrayList 进行大数据量的处理的时候的话，就需要使用显式制定容量的方式进行处理。这样</description>
+      <guid>/post/collection/collection/</guid>
+      <description>集合扩容 ArrayList 对于 ArrayList 他默认的容量为10，所以如果需要对ArrayList 进行大数据量的处理的时候的话，就需要使用显式制定容量的方式进行处理。这样可以减少不必要的扩容操作。
+主要是因为ArrayList 的扩容操作需要额外开辟空间，他采用的是 Arrays.copyOf 的方式进行拷贝：
+private void grow(int minCapacity) { // overflow-conscious code  int oldCapacity = elementData.length; int newCapacity = oldCapacity + (oldCapacity &amp;gt;&amp;gt; 1); if (newCapacity - minCapacity &amp;lt; 0) newCapacity = minCapacity; if (newCapacity - MAX_ARRAY_SIZE &amp;gt; 0) newCapacity = hugeCapacity(minCapacity); // minCapacity is usually close to size, so this is a win:  elementData = Arrays.copyOf(elementData, newCapacity); } Arrays.copyOf 的方式 是采用开辟空间再复制的方式，很有可能会造成OOM。</description>
     </item>
     
   </channel>

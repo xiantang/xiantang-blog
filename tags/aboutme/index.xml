@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>aboutme on xiantang - 自律者自由</title>
-    <link>https://xiantang.github.io/tags/aboutme/</link>
-    <description>Recent content in aboutme on xiantang - 自律者自由</description>
+    <title>aboutme on </title>
+    <link>/tags/aboutme/</link>
+    <description>Recent content in aboutme on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Sat, 15 May 2021 14:40:53 +0800</lastBuildDate><atom:link href="https://xiantang.github.io/tags/aboutme/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 May 2021 14:40:53 +0800</lastBuildDate><atom:link href="/tags/aboutme/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About me</title>
-      <link>https://xiantang.github.io/post/about/about_me/</link>
+      <link>/post/about/about_me/</link>
       <pubDate>Sat, 15 May 2021 14:40:53 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/about/about_me/</guid>
-      <description>About me 欢迎！我是咸糖。这是我的个人网站，我在其中博客是我在日常生活中学到的东西或思考，希望你能喜欢它。 我喜欢的编程同时会很多种语言，类似 Golang https://github.com/cosmtrek/air 目</description>
+      <guid>/post/about/about_me/</guid>
+      <description>About me 欢迎！我是咸糖。这是我的个人网站，我在其中博客是我在日常生活中学到的东西或思考，希望你能喜欢它。
+我喜欢的编程同时会很多种语言，类似
+Golang https://github.com/cosmtrek/air 目前主要的使用语言,
+Scala https://github.com/xiantang/redislimiter 写过一些服务,
+Python https://github.com/xiantang/Spider 写过一些爬虫，
+Java https://github.com/xiantang/JerryMouse 写过一个简单的 web 容器。
+同时我也比较喜欢使用 vim,不过我是在 Jetbrain 平台上使用 vim 的插件。
+目前在新加坡工作，同时比较喜欢开源和投资。
+个人比较喜欢长期主义，不断地写博客做开源与投资做输出就是长期主义。我会不断地用这种方式隐性地为未来铺路。
+联系我 同时我也是一个特别高兴能看到反馈的人，如果有问题请果断评论或者用下边的邮箱联系我。
+echo emh1amluZ2RpMTk5OEBnbWFpbC5jb20= | base64 -d </description>
     </item>
     
   </channel>

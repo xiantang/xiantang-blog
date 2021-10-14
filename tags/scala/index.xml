@@ -1,46 +1,73 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>scala on xiantang - 自律者自由</title>
-    <link>https://xiantang.github.io/tags/scala/</link>
-    <description>Recent content in scala on xiantang - 自律者自由</description>
+    <title>scala on </title>
+    <link>/tags/scala/</link>
+    <description>Recent content in scala on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Wed, 15 Jan 2020 17:51:36 +0800</lastBuildDate><atom:link href="https://xiantang.github.io/tags/scala/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Jan 2020 17:51:36 +0800</lastBuildDate><atom:link href="/tags/scala/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Actor 如何处理阻塞消息</title>
-      <link>https://xiantang.github.io/post/scala/future_in_actor/</link>
+      <link>/post/scala/future_in_actor/</link>
       <pubDate>Wed, 15 Jan 2020 17:51:36 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/scala/future_in_actor/</guid>
-      <description>观察了一下业务的代码中发现在 Actor 中采用了很多 import scala.concurrent.ExecutionContext.Implicits.global 来作为 Actor 内部的执行 Future 的线程池，之前觉得好像也没啥问题。 但是在看完 akka 源码后发现好像有些不妥。 简单</description>
+      <guid>/post/scala/future_in_actor/</guid>
+      <description>观察了一下业务的代码中发现在 Actor 中采用了很多
+import scala.concurrent.ExecutionContext.Implicits.global
+来作为 Actor 内部的执行 Future 的线程池，之前觉得好像也没啥问题。 但是在看完 akka 源码后发现好像有些不妥。
+简单的讲一下 Actor 的架构吧
+当一个Actor 向另外一个 Actor 中发送信息会将这条信息发送到接受的Actor的 mailbox 中
+mailbox 是一个实现 Runnable 的类，所以可以用线程池执行，所以每当你向一个Actor 发送一条消息的时候 其实是用 接受者的 Dispatcher 来执行这条消息的。
+但是问题是如果你的应用是 IO 密集型的应用
+那么无论你使用 Actor 的默认的 defaultDispather 或者 Future 的global 隐式转换方式，都会因为线程池的核心线程被阻塞任务限制，导致线程饥饿
+并且因为ForkJoinPool 的实现，是一个适合计算的线程池。
+所以这里给出两个方案
+  对于 IO 密集型的任务可以采用自定义线程池的方式进行解决
+但是如果突发的请求很多，仍然会导致线程池中线程都在阻塞，无法立马响应请求的情况。
+  implicit val blockingDispatcher: MessageDispatcher = context.system.dispatchers.lookup(&amp;#34;blocking-io-dispatcher&amp;#34;) blocking-io-dispatcher { type = Dispatcher executor = &amp;#34;thread-pool-executor&amp;#34; thread-pool-executor { fixed-pool-size = 32 } throughput = 1 } 使用 scala.</description>
     </item>
     
     <item>
       <title>Akka 源码解析</title>
-      <link>https://xiantang.github.io/post/scala/akka_source_code/</link>
+      <link>/post/scala/akka_source_code/</link>
       <pubDate>Wed, 15 Jan 2020 17:26:53 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/scala/akka_source_code/</guid>
-      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&amp;#34;HelloSystem&amp;#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&amp;#34;Parov Stelar&amp;#34;)) // jazzListener</description>
+      <guid>/post/scala/akka_source_code/</guid>
+      <description>object Main1 extends App { val system = ActorSystem(&amp;#34;HelloSystem&amp;#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件  system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件  // 只有 musicListener 接收到这个事件  system.eventStream.publish(Electronic(&amp;#34;Parov Stelar&amp;#34;)) // jazzListener 和 musicListener 都会收到这个事件  system.eventStream.publish(Jazz(&amp;#34;Sonny Rollins&amp;#34;)) } subscribe 逻辑 同步地将 subcriber 和 to 加入到 subscriptions 中，diff 应该是和之前的一次比较保证不会重复发送?
+def subscribe(subscriber: Subscriber, to: Classifier): Boolean = subscriptions.synchronized { val diff = subscriptions.</description>
     </item>
     
     <item>
       <title>How to learn scala</title>
-      <link>https://xiantang.github.io/post/scala/how_to_learn_scala/</link>
+      <link>/post/scala/how_to_learn_scala/</link>
       <pubDate>Wed, 15 Jan 2020 16:33:34 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/scala/how_to_learn_scala/</guid>
-      <description>背景: 刚来到以scala为技术栈的公司的时候，配置了半天环境，然后终于将项目起了起来，发现里面的代码很奇怪，没有任何循环，数据的操作是一个函</description>
+      <guid>/post/scala/how_to_learn_scala/</guid>
+      <description>背景: 刚来到以scala为技术栈的公司的时候，配置了半天环境，然后终于将项目起了起来，发现里面的代码很奇怪，没有任何循环，数据的操作是一个函数套着一个函数，十分令人疑惑，于是借着业务需求和这股好奇劲开始学习关于scala的内容。
+目标:  熟练运用项目中的异步操作 Future 变换 (同步思维转异步) 熟悉 Play 框架能够熟练的翻文档解决问题 熟练运用高阶函数 map flatMap 等操作  阶段 1:能写 Scala 这个阶段比较容易达到，就是首先需要阅读 《Scala编程》前几章 或者 推特scala课堂 ，来了解scala的基本语法。但是在这个阶段仍然会有很多的坑，基本是在 IDEA 的提示 与 爆红下才能勉强的写代码。
+阶段2: 知道函数式编程是什么东西 当你差不多写了半个月 Scala 之后，仍然好奇函数式编程是什么东西，这个时候你就可以去学习一些关于函数式编程的知识了，我的线路是先学习了 programming-languages 这门入门课程，主要讲了一些关于函数式编程的基础知识,包括但不限于 闭包 高阶函数 尾递归 代数类型。 虽然语言不是Scala 但是这门课为我之后的函数式编程打下了一定的基础。 如果你在这门课上认真的完成了作业，后面的路会通畅很多。
+阶段3:再深入的了解 到这个时候，你一定会听到一本十分有名的书《Scala 函数式编程》 这本书，很有可能在你没经历前几个阶段的时候，你就看了，但是发觉里面的内容十分抽象，便放弃了。现在你就可以大胆的去看它了，可以无痛的看到第六章。
+再在下面，就会被更抽象的 Monad Factor 等概念所迷惑。
+阶段4:持续学习基础 上面的阻塞其实还是因为对基础知识不够扎实，所以还是需要进一步的学习，这里推荐 Scala 语言作者的课程 Functional Programming Principles in Scala . 因为不是免费的，所以需要付费或者采用奖学金（咸鱼）来免费学习。这门课程虽然不及上面的 programming-languages 课程，但是比较困难的习题还是能提升FP的水平的。
+阶段5:参与社区 这个时候你就可以继续去看 《Scala 函数式编程》 这本书了，因为你看完了上面的两门全英文课程所以英文也不会再惧怕就可以参与社区了，这里推荐几个比较好的社区，曾经给我过帮助的社区 https://gitter.im/scala/scala. https://gitter.im/akka/akka , 如果对开源有兴趣，就可以给 akka 或者 Play 修复BUG了。</description>
     </item>
     
     <item>
       <title>AES 需要限制 SEED 长度</title>
-      <link>https://xiantang.github.io/post/scala/aes_limit_length/</link>
+      <link>/post/scala/aes_limit_length/</link>
       <pubDate>Sun, 20 Oct 2019 01:37:56 +0800</pubDate>
       
-      <guid>https://xiantang.github.io/post/scala/aes_limit_length/</guid>
-      <description>写了一个工具类用来加密解密数据库的 app字段 本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。 这个的原因是因为线上环境没有支</description>
+      <guid>/post/scala/aes_limit_length/</guid>
+      <description>写了一个工具类用来加密解密数据库的 app字段
+本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。
+这个的原因是因为线上环境没有支持 AES 算法的 Provider 需要通过改 ext 包下添加支持的第三方包或者引入第三方库解决。
+我这边采用的是引入第三方库：
+&amp;#34;org.bouncycastle&amp;#34; % &amp;#34;bcprov-jdk16&amp;#34; % &amp;#34;1.45&amp;#34; private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() =&amp;gt; Cipher.getInstance(&amp;#34;AES/ECB/PKCS5Padding&amp;#34;, new BouncyCastleProvider())) 这样就解决了 No installed provider supports this key 的问题。
+但是提到了测试环境，又出现了问题:
+显示没有合法的AES key
+首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。
+我们需要明确一下本地环境和线上环境的不同:
+ 本地: Jdk 安全目录 含有 unlimit 的jar包，也就是支持 16 24 32 位的key 线上: Jdk 安全目录 只含有 limit 的jar包，只支持 16 位的key  有两种解决方式1.线上安装 unlimit 的jar包 2.</description>
     </item>
     
   </channel>
