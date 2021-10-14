@@ -54,6 +54,13 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   identifier = "aboutme"
   url = "/post/about/about_me/"
 
+[[menu.main]]
+  name = "Edit"
+  weight = 60
+  identifier = "edit"
+  url = "/post/about/about_me/"
+
+
 
 [params]
   version = "4.x"           # Used to give a friendly message when you have an incompatible update
