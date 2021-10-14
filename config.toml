@@ -53,6 +53,12 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   weight = 50
   identifier = "aboutme"
   url = "/post/about/about_me/"
+[[menu.main]]
+  edit = "Edit"
+  weight = 60
+  identifier = "edit"
+  url = "https://github.dev/xiantang/xiantang-blog"
+
 
 [params]
   version = "4.x"           # Used to give a friendly message when you have an incompatible update
