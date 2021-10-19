@@ -20,7 +20,25 @@ author: "xiantang"
 
 ### 陈述句
 
+对于一个陈述句会有五种基本的句型
+
+1. 主语+不及物动词 eg: the telephone rang.
+2. 主语+及物动词 eg: I love you.
+3. 主句+及物动词+双宾语 eg: He lent me a book.
+4. 主语+及物动词+宾语+宾语补足语 eg: He is finding this trip very exciting.
+5. 主语+系动词+表语 eg: She looked a little tired.
+
+大家会发现其实动词，也就是谓语在句子中还是很重要的，一个动词的类型将会决定整个句子所表达出来的意思。 所以很重要的一点就是大家在查字典的时候看到一个动词不能只看他的意思，还要确定他什么动词。
+
+及物动词：vt.
+不及物动词: vi.
+系动词: linking verb
+
 ### 疑问句
+
+疑问句一般分成 一般疑问句 和 特殊疑问句。
+
+### 一般疑问句
 
 ### 特殊疑问句
 
