@@ -2,7 +2,7 @@
 title: "重新学习英语语法"
 date: 2021-10-14T01:37:56+08:00
 lastmod: 2021-10-14T01:37:56+08:00
-draft: true
+draft: false
 tags: ["英语"]
 categories: ["英语"]
 author: "xiantang"
@@ -103,14 +103,9 @@ I wait for you.
 
 She looked a little tired.
 
-后面的形容词做表语
+后面的形容词做表语。
 
-#### 情态动词
-
-### 冠词
-
-## 英语的时态语态
-
-## 英语的从句
 
 ## 总结
+
+对于英语语法的总结先写到这里，之后会有更多总结，关于从句等。
