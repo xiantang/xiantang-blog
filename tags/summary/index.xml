@@ -6,7 +6,16 @@
     <description>Recent content in summary on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 30 Dec 2018 14:40:53 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/summary/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://vim0.com/tags/summary/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>总结一些计算机常用的原则</title>
+      <link>https://vim0.com/post/summary/rules/</link>
+      <pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://vim0.com/post/summary/rules/</guid>
+      <description>计算机常用的原则 在写代码的时候我们经常会有一些体会和经验所得，这些经验所得其实老早被之前的大神归纳成为原则。最近这一年我就一直在收集各种原则</description>
+    </item>
+    
     <item>
       <title>2018年年度总结</title>
       <link>https://vim0.com/post/summary/2018_summary/</link>
