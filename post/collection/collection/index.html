@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.88.1 with theme even" />
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
 
 
 <link rel="canonical" href="https://vim0.com/post/collection/collection/" />
@@ -44,12 +44,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vim0.com/post/collection/collection/" /><meta property="article:section" content="post" />
 
-<meta property="article:modified_time" content="2020-04-07T23:49:20+08:00" />
+<meta property="article:modified_time" content="2021-11-10T13:46:19+08:00" />
 
 <meta itemprop="name" content="">
 <meta itemprop="description" content="集合扩容 ArrayList 对于 ArrayList 他默认的容量为10，所以如果需要对ArrayList 进行大数据量的处理的时候的话，就需要使用显式制定容量的方式进行处理。这样">
-<meta itemprop="dateModified" content="2020-04-07T23:49:20+08:00" />
-<meta itemprop="wordCount" content="650">
+<meta itemprop="dateModified" content="2021-11-10T13:46:19+08:00" />
+<meta itemprop="wordCount" content="647">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content=""/>
 <meta name="twitter:description" content="集合扩容 ArrayList 对于 ArrayList 他默认的容量为10，所以如果需要对ArrayList 进行大数据量的处理的时候的话，就需要使用显式制定容量的方式进行处理。这样"/>
@@ -138,7 +138,7 @@
       <div class="post-meta">
         <span class="post-time"> 0001-01-01 </span>
         
-          <span class="more-meta"> 650 words </span>
+          <span class="more-meta"> 647 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -226,7 +226,7 @@
     <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>至于为什么是2的幂，是因为SUN的大师们发现，让容量为 2^n 时候， <code>(length - 1) &amp; hash</code> 快于模运算。</p>
+</div><p>至于为什么是 2 的幂，是因为 SUN 的大师们发现，让容量为 2^n 时候， <code>(length - 1) &amp; hash</code> 快于模运算。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -271,7 +271,7 @@
 </div>
 </div><p>使用%时间: 16
 使用&amp;时间: 9</p>
-<p>我们以 length 为16 为例</p>
+<p>我们以 length 为 16 为例</p>
 <p>当我们的 hash 为 17 时</p>
 <p>原因是因为 16 -1 的二进制为  01111 并且 17 的二进制为 1 0001  我们只需要计算低位，高位全部舍弃，低位进行 &amp; 运算，得出结果是 1 与 17 % 16 的结果完全相同。</p>
 
@@ -285,8 +285,8 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2020-04-07
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/ec9a72fd4216bc7ecb85f16b8cd11ef8be31b3d7" title="add files">(ec9a72f)</a>
+        2021-11-10
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/818c4914785d972cf840e3ef17b3854d4d860a2d" title="">(818c491)</a>
     </span>
   </p>
   
