@@ -33,6 +33,13 @@ Java <https://github.com/xiantang/JerryMouse> 写过一个简单的 web 容器�
 
 同时我也是一个特别高兴能看到反馈的人，如果有问题请果断评论或者用下边的邮箱联系我。我也特别喜欢交朋友交流。
 
+
 ```sh
 echo emh1amluZ2RpMTk5OEBnbWFpbC5jb20= | base64 -d
 ```
+
+
+## 关注我
+
+我自己是一个十分喜欢用 rss 来获取信息的人，如果你想关注我，订阅我的更新可以使用 rss 来订阅这个博客 <https://vim0.com/index.xml>
+
