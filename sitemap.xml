@@ -10,7 +10,7 @@
   
   <url>
     <loc>https://vim0.com/post/</loc>
-    <lastmod>2021-12-21T10:24:20+08:00</lastmod>
+    <lastmod>2021-12-21T10:26:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31,7 +31,7 @@
   
   <url>
     <loc>https://vim0.com/</loc>
-    <lastmod>2021-12-21T10:24:20+08:00</lastmod>
+    <lastmod>2021-12-21T10:26:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -347,6 +347,13 @@
   <url>
     <loc>https://vim0.com/post/golang/about_slice/</loc>
     <lastmod>2021-12-21T10:24:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/post/summary/2021_summary/</loc>
+    <lastmod>2021-12-21T10:26:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
