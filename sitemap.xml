@@ -3,14 +3,49 @@
   
   <url>
     <loc>https://vim0.com/categories/</loc>
-    <lastmod>2021-11-14T22:15:52+08:00</lastmod>
+    <lastmod>2021-12-21T23:10:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/tags/golang/</loc>
+    <lastmod>2021-12-21T23:10:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/categories/golang/</loc>
+    <lastmod>2021-12-21T23:10:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://vim0.com/post/</loc>
-    <lastmod>2021-12-21T10:26:28+08:00</lastmod>
+    <lastmod>2021-12-21T23:10:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/tags/</loc>
+    <lastmod>2021-12-21T23:10:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/</loc>
+    <lastmod>2021-12-21T23:10:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/post/golang/about_slice/</loc>
+    <lastmod>2021-12-21T23:10:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -18,20 +53,6 @@
   <url>
     <loc>https://vim0.com/tags/summary/</loc>
     <lastmod>2021-11-11T00:51:43+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://vim0.com/tags/</loc>
-    <lastmod>2021-11-14T22:15:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://vim0.com/</loc>
-    <lastmod>2021-12-21T10:26:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
