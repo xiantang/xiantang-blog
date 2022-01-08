@@ -16,5 +16,14 @@
       <description>关于 Golang Slice 的一些细节 在 Golang 中，有两种数据类型： 一种是限定长度的数组，叫做 Array，另外一种是不限定长度的数组，叫做 Slice。 区分 Array 和 Slice Array 和 Slice</description>
     </item>
     
+    <item>
+      <title>使用 Mock 和 Interface 进行 Golang 单测</title>
+      <link>https://vim0.com/post/golang/use_mock_to_test/</link>
+      <pubDate>Mon, 08 Feb 2021 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/post/golang/use_mock_to_test/</guid>
+      <description>在工作中我经常会发现很多工程师的 Golang 单测是写的有问题的，只是单纯的调用代码做输出，并且会包含各种 IO 操作，导致单测无法到处运行。 使用 Mock 和 Interface 进行 Golang</description>
+    </item>
+    
   </channel>
 </rss>
