@@ -17,7 +17,6 @@ description: "golang unit test mock. golang mock function. golang 测试覆盖�
 
 <!-- ## 一句话引出文章 -->
 
-> 
 
 > 在工作中我经常会发现很多工程师的 Golang 单测是写的有问题的，只是单纯的调用代码做输出，并且会包含各种 IO 操作，导致单测无法到处运行。
 
