@@ -248,5 +248,5 @@ func TestAdd(t *testing.T) {
 * [不为人知的测试技巧](https://splice.com/blog/lesser-known-features-go-test/) 
 * [如何不努力也能财富自由](https://geekplux.com/newsletters/2) 赚钱永远是主题
 * [gopher-reading-list](https://github.com/enocom/gopher-reading-list) 一路遍历下来收获很大的
-* [What “accept interfaces, return structs” means in Go](https://medium.com/@cep21/what-accept-interfaces-return-structs-means-in-go-2fe879e25ee8）总是在你实际需要的时候[抽象]东西，而不是在你只是预见你需要它们的时候。
+* [What “accept interfaces, return structs” means in Go](https://medium.com/@cep21/what-accept-interfaces-return-structs-means-in-go-2fe879e25ee8)总是在你实际需要的时候[抽象]东西，而不是在你只是预见你需要它们的时候。
 * [天涯讨论房价神贴](https://github.com/xiantang/kkndme_tianya)
