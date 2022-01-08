@@ -1,3 +1,17 @@
+
+---
+title: "Java 集合扩容"
+date: 2018-12-07T01:37:56+08:00
+lastmod: 2018-12-07T01:37:56+08:00
+draft: false
+tags: ["Java"]
+categories: ["Java"]
+author: "xiantang"
+
+
+
+---
+
 ## 集合扩容
 
 ### ArrayList
