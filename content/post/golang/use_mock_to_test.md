@@ -1,7 +1,7 @@
 ---
 title: "使用 Mock 和 Interface 进行 Golang 单测"
 date: 2022-01-07T01:37:56+08:00
-lastmod: 2022-01-07T01:37:56+08:00
+lastmod: i2022-01-07T01:37:56+08:00
 draft: false
 tags: ["Golang"]
 categories: ["Golang"]
