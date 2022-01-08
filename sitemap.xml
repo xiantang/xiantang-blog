@@ -3,42 +3,42 @@
   
   <url>
     <loc>https://vim0.com/categories/</loc>
-    <lastmod>2022-01-08T18:29:36+08:00</lastmod>
+    <lastmod>2021-12-23T00:24:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://vim0.com/tags/golang/</loc>
-    <lastmod>2022-01-08T18:29:36+08:00</lastmod>
+    <lastmod>2021-12-21T23:10:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://vim0.com/categories/golang/</loc>
-    <lastmod>2022-01-08T18:29:36+08:00</lastmod>
+    <lastmod>2021-12-21T23:10:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://vim0.com/post/</loc>
-    <lastmod>2022-01-08T18:29:36+08:00</lastmod>
+    <lastmod>2021-12-23T00:24:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://vim0.com/tags/</loc>
-    <lastmod>2022-01-08T18:29:36+08:00</lastmod>
+    <lastmod>2021-12-23T00:24:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://vim0.com/</loc>
-    <lastmod>2022-01-08T18:29:36+08:00</lastmod>
+    <lastmod>2021-12-23T00:24:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -151,13 +151,6 @@
   <url>
     <loc>https://vim0.com/post/softskills/how_do_i_acquire_knowledge_and_information/</loc>
     <lastmod>2021-04-02T17:36:36+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://vim0.com/post/golang/use_mock_to_test/</loc>
-    <lastmod>2022-01-08T18:29:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
