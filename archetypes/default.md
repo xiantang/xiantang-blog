@@ -1,6 +1,7 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
+author: "xiantang"
 # lastmod: 
 # tags: []
 # categories: []
