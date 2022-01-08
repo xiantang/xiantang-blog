@@ -44,11 +44,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vim0.com/post/golang/use_mock_to_test/" /><meta property="og:image" content="https://vim0.com/post/golang/cover.png" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-01-07T01:37:56+08:00" />
-<meta property="article:modified_time" content="2022-01-09T00:36:04+08:00" />
+<meta property="article:modified_time" content="2022-01-09T00:47:48+08:00" />
 
 <meta itemprop="name" content="使用 Mock 和 Interface 进行 Golang 单测">
 <meta itemprop="description" content="golang单元测试最佳实践 Go 语言 自动化 测试 golang 单元测试 数据库 golang 单元测试 mock golang 单元测试规范"><meta itemprop="datePublished" content="2022-01-07T01:37:56+08:00" />
-<meta itemprop="dateModified" content="2022-01-09T00:36:04+08:00" />
+<meta itemprop="dateModified" content="2022-01-09T00:47:48+08:00" />
 <meta itemprop="wordCount" content="2840"><meta itemprop="image" content="https://vim0.com/post/golang/cover.png">
 <meta itemprop="keywords" content="Golang," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/golang/cover.png"/>
@@ -176,14 +176,14 @@
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <blockquote>
-<p>在工作中我经常会发现很多工程师的 Golang 单测是写的有问题的，只是单纯的调用代码做输出，并且会包含各种 IO 操作，导致单测无法到处运行。</p>
+<p>在工作中我经常会发现很多工程师的 <code>Golang</code> 单测是写的有问题的，只是单纯的调用代码做输出，并且会包含各种 <code>IO</code> 操作，导致单测无法到处运行。</p>
 </blockquote>
 <h2 id="使用-mock-和-interface-进行-golang-单测">使用 Mock 和 Interface 进行 Golang 单测</h2>
-<p>本文将介绍 Golang 中如何正确的做单测。</p>
+<p>本文将介绍 <code>Golang</code> 中如何正确的做单测。</p>
 <h3 id="什么是单元测试单元测试的特点">什么是单元测试？单元测试的特点</h3>
 <p>单元测试是质量保证十分重要的一环，好的单元测试不仅能及时地发现问题，更能够方便地调试，提高生产效率，所以很多人认为写单元测试是需要额外的时间，会降低生产效率，是对单元测试最大的偏见和误解。</p>
 <p>单测会将对应测试的模块隔离出来进行测试，所以我们要尽可能把所有相关的外部依赖都移除，只对相关的模块进行单测。</p>
-<p>所以大家看到的在业务代码仓库中的一些在 client 模块中调用 HTTP 的单测其实是不规范的，因为 HTTP 是外部依赖，你的目标服务器如果有故障，那么你的单测就会失败。</p>
+<p>所以大家看到的在业务代码仓库中的一些在 <code>client</code> 模块中调用 <code>HTTP</code> 的单测其实是不规范的，因为 <code>HTTP</code> 是外部依赖，你的目标服务器如果有故障，那么你的单测就会失败。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -211,13 +211,13 @@
 </ul>
 <p>此外我还想提及的一点就是对于单测的编写难度其实是有排序的：</p>
 <p>UI &gt; Service &gt; Utils</p>
-<p>所以对于单测的编写，我们会优先考虑对 Utils 的单测, 因为 Utils 不会有太多的依赖。其次是对于 Service 的单测，因为 Service 的单测主要是对上游服务和数据库的依赖，只需要分离出依赖就可以进行逻辑的测试。</p>
+<p>所以对于单测的编写，我们会优先考虑对 <code>Utils</code> 的单测, 因为 <code>Utils</code> 不会有太多的依赖。其次是对于 <code>Service</code> 的单测，因为 <code>Service</code> 的单测主要是对上游服务和数据库的依赖，只需要分离出依赖就可以进行逻辑的测试。</p>
 <p>那该如何分离出依赖呢？我们走到下一节，我们将会介绍如何分离出依赖。</p>
 <h3 id="什么是-mock">什么是 Mock？</h3>
-<p>对于 IO 的依赖，我们可以使用 Mock 来模拟数据，这样我们就可以不用担心数据源不稳定的问题了。</p>
-<p>那么什么是 Mock 呢？我们又该如何 Mock 呢？ 可以想想一个场景，就是你和你的同事正在进行合作的项目开发，你这边的进展比较快，已经快完成你的开发了，但是你的同事进展稍慢，并且你还依赖他的服务。你要怎么不 block 你的进展继续开发呢？</p>
-<p>这里就可以使用到 Mock 了，就是你可以和你的同事先制定好需要交互的数据格式，在你的测试代码中，你可以编写一个可以产生对应数据格式的客户端，并且这些数据都是虚假的，然后你就可以继续编写你的代码，等到你的同事完成了他那部分的代码，你就只需要将 Mock Clients替换为真实的 Clients 就可以了。这就是 Mock 的作用。</p>
-<p>同样的，我们也可以使用 Mock 来对需要测试模块所依赖的数据进行模拟。下面就是一个例子：</p>
+<p>对于 <code>IO</code> 的依赖，我们可以使用 <code>Mock</code> 来模拟数据，这样我们就可以不用担心数据源不稳定的问题了。</p>
+<p>那么什么是 <code>Mock</code> 呢？我们又该如何 <code>Mock</code> 呢？ 可以想想一个场景，就是你和你的同事正在进行合作的项目开发，你这边的进展比较快，已经快完成你的开发了，但是你的同事进展稍慢，并且你还依赖他的服务。你要怎么不 <code>block</code> 你的进展继续开发呢？</p>
+<p>这里就可以使用到 <code>Mock</code> 了，就是你可以和你的同事先制定好需要交互的数据格式，在你的测试代码中，你可以编写一个可以产生对应数据格式的客户端，并且这些数据都是虚假的，然后你就可以继续编写你的代码，等到你的同事完成了他那部分的代码，你就只需要将 <code>Mock Clients</code>替换为真实的 <code>Clients</code> 就可以了。这就是 <code>Mock</code> 的作用。</p>
+<p>同样的，我们也可以使用 <code>Mock</code> 来对需要测试模块所依赖的数据进行模拟。下面就是一个例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -270,16 +270,16 @@
 </div>
 </div><p>我们会有一个 <code>MyApplication</code> 同时他又依赖了一个发送上报的 <code>YoClient</code>。上面的代码中我们会将依赖的 <code>YoClient</code> 替换为 <code>TestYoClient</code>，这样代码在调用 <code>MyApplication.Yo</code> 时，其实执行的是 <code>TestYoClient.Send</code>，这样我们就可以自定义外部依赖的输入和输出了。</p>
 <p>同样可以发现一个很有趣的地方，就是我们将 <code>TestYoClient</code> 的 <code>SendFunc</code> 替换为 <code>func(string) error</code>，这样我们就可以更加灵活的控制输入和输出了。对于不同的测试，我们只需要更改 <code>SendFunc</code> 的值就可以了。这样每个测试我们都可以随意的控制输入和输出。</p>
-<p>此时你会发现另外一个问题，就是如果想要将 <code>TestYoClient</code> 成功注入到 <code>MyApplication</code> 中，对应的成员变量就需要是 <code>TestYoClient</code> 这个具体类型或者是满足 <code>Send()</code> 方法的接口类型。但是如果我们使用具体类型的话，井没办法做到真实的 Client 与 Mock Client 的替换了。</p>
+<p>此时你会发现另外一个问题，就是如果想要将 <code>TestYoClient</code> 成功注入到 <code>MyApplication</code> 中，对应的成员变量就需要是 <code>TestYoClient</code> 这个具体类型或者是满足 <code>Send()</code> 方法的接口类型。但是如果我们使用具体类型的话，井没办法做到真实的 <code>Client</code> 与 <code>Mock Client</code> 的替换了。</p>
 <p>所以我们可以使用接口类型来替换。</p>
 <h3 id="什么是-interface">什么是 Interface？</h3>
-<p>在 Golang 中接口可能和你接触的其他语言的接口不同，在 Golang 中接口是一个函数的集合。并且 Golang 的接口是隐式的，不需要显式的定义。</p>
+<p>在 <code>Golang</code> 中接口可能和你接触的其他语言的接口不同，在 <code>Golang</code> 中接口是一个函数的集合。并且 <code>Golang</code> 的接口是隐式的，不需要显式的定义。</p>
 <p>我个人也非常同意这种设计，因为经过多次的实践，我发现事先定义好的抽象往往都是无法很准确的描述具体实现的行为的。所以需要事后做抽象, 与其写类型来满足 <code>interface</code>，不如写接口来满足使用要求。</p>
 <blockquote>
-<p>Always [abstract] things when you actually need them, never when you just foresee that you need them.</p>
+<p>Always <em>abstract</em> things when you actually need them, never when you just foresee that you need them.</p>
 </blockquote>
 <p>我个人的推荐是对于几个相似的流程，我们可以先通过写几个结构体来组织代码，然后发现这些结构体有相似的行为之后，就可以抽象出一个接口来描述这些行为，这样才是最准确的。</p>
-<p>同时对于 Golang 中的接口所包含的方法数目也需要加以限制，不能太多，1-3 个方法就可以了。其中的原因是这样的，如果你的接口中包含太多方法，你新增一个实现类型的代码就会很麻烦，而且这样的代码也不好维护。同样如果你的接口有很多种实现，并且方法有很多，那么你再多添加一个函数加入接口也会很困难，你需要在每个结构体中都实现这些方法。</p>
+<p>同时对于 <code>Golang</code> 中的接口所包含的方法数目也需要加以限制，不能太多，1-3 个方法就可以了。其中的原因是这样的，如果你的接口中包含太多方法，你新增一个实现类型的代码就会很麻烦，而且这样的代码也不好维护。同样如果你的接口有很多种实现，并且方法有很多，那么你再多添加一个函数加入接口也会很困难，你需要在每个结构体中都实现这些方法。</p>
 <p>回到主题，对于 <code>YoClient</code> 来说，最初如果我们不是采用 <code>TDD</code> 的方式，那么 <code>MyApplication</code> 的所依赖的一定是一个正式的具体类型，此时我们可以在测试代码中写一个 <code>TestYoClient</code> 类型的实例，提取出共有的函数抽出接口，然后再去将 <code>MyApplication</code> 中的 <code>YoClient</code> 替换为接口类型。</p>
 <p>这样就可以达成我们的目的了。</p>
 <div class="highlight"><div class="chroma">
@@ -308,7 +308,7 @@
 </div>
 </div><h3 id="其他的一些例子">其他的一些例子</h3>
 <p>此外我还提供了一个例子供参考，主要是从正式生产的代码中找到的，屏蔽了敏感信息的例子。</p>
-<p>这个例子是对 etcd 这个外部依赖的 mock。</p>
+<p>这个例子是对 <code>etcd</code> 这个外部依赖的 <code>mock</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -411,7 +411,7 @@
 </div><h3 id="other-tips">other tips</h3>
 <p>关于测试我这边还有一些你可能不知道的小技巧</p>
 <h4 id="golang-的-interal-与-external-测试">golang 的 interal 与 external 测试</h4>
-<p>对于一个包的导出方法以及变量你可以在同一个包下建立 test 文件来测试，只需要将包名后缀改为 <code>_test</code> 即可。这样就可以做到 black box testing。好处是你可以以调用者的视角来描述你的测试，而不是以内部的视角来写你的测试。 也可以作为一个示例给使用者看一下如何使用。</p>
+<p>对于一个包的导出方法以及变量你可以在同一个包下建立 <code>test</code> 文件来测试，只需要将包名后缀改为 <code>_test</code> 即可。这样就可以做到 <code>black box testing</code>。好处是你可以以调用者的视角来描述你的测试，而不是以内部的视角来写你的测试。 也可以作为一个示例给使用者看一下如何使用。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -471,7 +471,7 @@
 </div><p>另外你也可以对未导出的方法和变量进行测试，可以创建一个尾缀为 <code>_internal_test</code> 的文件来标识你是想要测试未导出的方法和变量的。</p>
 <h2 id="总结">总结</h2>
 <ol>
-<li>Golang 单测的特点：</li>
+<li><code>Golang</code> 单测的特点：</li>
 </ol>
 <ul>
 <li>没有外部依赖，尽量无副作用，能够到处运行</li>
@@ -479,7 +479,7 @@
 <li>可以作为一个示例给使用者看一下如何使用</li>
 </ul>
 <ol start="2">
-<li>Golang 可以使用接口来替换依赖</li>
+<li><code>Golang</code> 可以使用接口来替换依赖</li>
 </ol>
 <h3 id="有趣的链接推荐">有趣的链接推荐</h3>
 <p>最后最后和大家分享一下参考的链接，以及一些最近在看的好文,因为看的比较零散，一并写给大家，希望大家能够收获。</p>
@@ -504,7 +504,7 @@
     <span class="item-title">LastMod</span>
     <span class="item-content">
         2022-01-09
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/f7d30e53647d3f1e0cfdea39597f84d755243063" title="M  content/post/golang/use_mock_to_test.md A  content/post/golang/zero_value.md">(f7d30e5)</a>
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/62350ce6de73f2de8816388401a8e0ebae5ae7fe" title="M  content/post/golang/use_mock_to_test.md">(62350ce)</a>
     </span>
   </p>
   
