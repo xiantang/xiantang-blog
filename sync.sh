@@ -1,3 +1,4 @@
+git config pull.rebase false
 git add .
 result=`git status -s`
 git commit -m "$result"
