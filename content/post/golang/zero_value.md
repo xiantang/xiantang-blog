@@ -20,8 +20,7 @@ description: ""
 <!-- ## 一句话引出文章 -->
 
 > Make zero value useful.
-
-   ---Go Proverbs
+---Go Proverbs
 
 
 ## 什么是 zero value
