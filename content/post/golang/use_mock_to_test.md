@@ -8,7 +8,7 @@ categories: ["Golang"]
 author: "xiantang"
 images:
    - ./post/golang/cover.png
-description: "golang unit test mock. golang mock function. golang 测试覆盖率 "
+description: "golang单元测试最佳实践 Go 语言 自动化 测试 golang 单元测试 数据库 golang 单元测试 mock golang 单元测试规范"
 
 
 ---
