@@ -6,7 +6,8 @@ draft: false
 tags: ["Golang"]
 categories: ["Golang"]
 author: "xiantang"
-og_image: https://divan.dev/images/slice2.png
+images:
+   - https://divan.dev/images/slice2.png
 description: "golang unit test mock. golang mock function. golang 测试覆盖率 "
 
 
