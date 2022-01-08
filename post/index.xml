@@ -6,7 +6,16 @@
     <description>Recent content in Posts on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 21 Dec 2021 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 Jan 2022 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Mock 和 Interface 进行 Golang 单测</title>
+      <link>https://vim0.com/post/golang/use_mock_to_test/</link>
+      <pubDate>Fri, 07 Jan 2022 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/post/golang/use_mock_to_test/</guid>
+      <description>在工作中我经常会发现很多工程师的 Golang 单测是写的有问题的，只是单纯的调用代码做输出，并且会包含各种 IO 操作，导致单测无法到处运行。 使用 Mock 和 Interface 进行 Golang</description>
+    </item>
+    
     <item>
       <title>关于 Golang Slice 的一些细节</title>
       <link>https://vim0.com/post/golang/about_slice/</link>
