@@ -19,7 +19,6 @@ description: ""
 
 <!-- ## 一句话引出文章 -->
 
-# Golang zero value
 
 ## 什么是 zero value
 
