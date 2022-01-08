@@ -10,7 +10,6 @@ images:
    - ./post/golang/cover.png
 description: "golang单元测试最佳实践 Go 语言 自动化 测试 golang 单元测试 数据库 golang 单元测试 mock golang 单元测试规范"
 
-
 ---
 
 <!-- * 总是会先写一句话，同步背景和上下文
