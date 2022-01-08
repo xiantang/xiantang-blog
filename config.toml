@@ -74,7 +74,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   logoTitle = "xiantang"        # default: the title value    # 默认值: 上面设置的title值
   # keywords = ["Hugo", "theme","even"]
   description = "xiantang's blog"
-  images = ["./post/cover.png"]
+  images = ["./post/main_cover.png"]
 
   # paginate of archives, tags and categories             # 归档、标签、分类每页显示的文章数目，建议修改为一个较大的值
   archivePaginate = 5
