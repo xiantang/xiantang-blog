@@ -8,7 +8,7 @@ author: "xiantang"
 # images:
 #   - ./post/golang/cover.png
 description:
-draft: true
+draft: false
 ---
 
 
@@ -216,6 +216,10 @@ gore> a["000"]
 ""
 ```
 
+## 总结
+
+以上就是关于 `零值` 的一些经验总结。希望大家在设计代码的时候能够将 `零值` 更好的用起来，利用 `零值` 提供的特性来初始化一些变量。
+
 ## 相关链接
 
 * [Golang zero value](https://dave.cheney.net/2013/01/19/what-is-the-zero-value-and-why-is-it-useful)
@@ -226,5 +230,8 @@ gore> a["000"]
 
 最后最后和大家分享一些最近在看的好文，想过用周刊的方式发送但是因为看的比较零散，就放在每篇博文的最后，希望大家能够收获。
 
-* [为什么我们不生小孩](https://shuxiao.wang/posts/why-no-new-baby/)
+* [为什么我们不生小孩](https://shuxiao.wang/posts/why-no-new-baby/) 一些关于生小孩的思考
 * [《The Tail At Scale》论文详细解读](https://blog.csdn.net/LuciferMS/article/details/122522964)
+* [编写可维护的Go代码](https://jogendra.dev/writing-maintainable-go-code) 很多观点让我在实践之后感受到共鸣，代码写出来一遍，但是会被读上百遍，所以编写可维护的代码很重要。
+* [Golang 并发编程进阶 talk](https://go.dev/blog/io2013-talk-concurrency) 分享者提供了实际并发问题的，然后给出了自己的一些解决方案。非常受益。
+* [pprof 图解](https://github.com/google/pprof/blob/master/doc/README.md#interpreting-the-callgraph) 终于会看 pprof 了。
