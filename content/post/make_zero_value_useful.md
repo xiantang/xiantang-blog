@@ -173,7 +173,7 @@ gore> string(data)
 
 ### channel close
 
-在 [《Channel Axioms》](https://dave.cheney.net/2014/03/19/channel-axioms)中，也有一条与 零值 相关的规则，当 channel 关闭时，它的接收器会收到一个 `零值` 的结束标记。
+在 [《Channel Axioms》](https://dave.cheney.net/2014/03/19/channel-axioms)中，也有一条与 零值 相关的规则，当 channel 关闭时，对被关闭的 channel 做 <- 操作，总是立即返回 `零值`。
 
 ```golang
 package main
