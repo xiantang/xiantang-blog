@@ -219,5 +219,12 @@ gore> a["000"]
 ## 相关链接
 
 * [Golang zero value](https://dave.cheney.net/2013/01/19/what-is-the-zero-value-and-why-is-it-useful)
+* [《Channel Axioms》](https://dave.cheney.net/2014/03/19/channel-axioms)
+* [Go REPL](https://github.com/x-motemen/gore)
 
 ## 文章推荐
+
+最后最后和大家分享一些最近在看的好文，想过用周刊的方式发送但是因为看的比较零散，就放在每篇博文的最后，希望大家能够收获。
+
+* [为什么我们不生小孩](https://shuxiao.wang/posts/why-no-new-baby/)
+* [《The Tail At Scale》论文详细解读](https://blog.csdn.net/LuciferMS/article/details/122522964)
