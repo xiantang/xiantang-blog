@@ -171,8 +171,35 @@ gore> string(data)
 "{\"name\":\"taoge\",\"age\":30}"
 ```
 
-
 ### channel close
+
+在 [《Channel Axioms》](https://dave.cheney.net/2014/03/19/channel-axioms)中，也有一条与 零值 相关的规则，当 channel 关闭时，它的接收器会收到一个 `零值` 的结束标记。
+
+```golang
+package main
+
+import "fmt"
+
+func main() {
+         c := make(chan int, 3)
+         c <- 1
+         c <- 2
+         c <- 3
+         close(c)
+         for i := 0; i < 4; i++ {
+                  fmt.Printf("%d ", <-c) // prints 1 2 3 0
+         }
+}
+```
+
+解决上述问题的正确的方式是使用 for loop:
+
+```golang
+for v := range c {
+         // do something with v
+}
+
+```
 
 ### map 中未找到对应 key 的 value
 
@@ -188,7 +215,6 @@ gore> a["123"] = "456"
 gore> a["000"]
 ""
 ```
-
 
 ## 相关链接
 
