@@ -10,7 +10,7 @@ description: "Golang Slice 实现 Array append contains"
 
 ---
 
-# 关于 Golang Slice 的一些细节
+## 关于 Golang Slice 的一些细节
 
 在 Golang 中，有两种数据类型：
 
@@ -36,7 +36,7 @@ Slice 是不限定长度的，可以使用 `make` 函数来创建。
 
 我们先给出一个简单数据结构，用来演示 Slice 的实现：
 
-```go 
+```go
 type slice struct {
         array unsafe.Pointer
         len   int
@@ -65,7 +65,7 @@ sliceHeader{
 }
 ```
 
-### slice header 
+### slice header
 
 上文的数据结构中可以看到， Slice 并不是一个真正的数组，而是一个数据结构，它的实现是个结构体，所以当我们在函数间传输 Slice 的时候，其实只是传输了一个 Slice 的 header。所以对于老练的 Gopher 来说，他们在函数间传输和 Channel 间传输的时候经常会提及 slice header。
 
@@ -75,23 +75,23 @@ sliceHeader{
 package main
 
 import (
-	"fmt"
+ "fmt"
 )
 
 func main() {
-	slice := []string{"a", "a"}
+ slice := []string{"a", "a"}
 
-	func(slice []string) {
-		slice = append(slice, "a")
-		fmt.Print(slice)
-	}(slice)
-	fmt.Print(slice)
+ func(slice []string) {
+  slice = append(slice, "a")
+  fmt.Print(slice)
+ }(slice)
+ fmt.Print(slice)
 }
 ```
 
 可以发现他运行的输出是:
 
-```
+```golang
 [a a a][a a]
 Program exited.
 ```
@@ -99,25 +99,24 @@ Program exited.
 可以发现 Slice 作为参数被传递的时候，实际上和传递一个结构体一样，当你使用 append 之后赋给 slice 变量的时候只是把函数拷贝的值改了一下。
 从这个例子可以看出，Golang 其实是 copy by value，而不是 copy by reference。当你传入一个结构体的时候，Golang 其实是把这个结构体拷贝了一份。
 
-
 举一个另外一个例子，来体现 append 的效果以及：
 
-```go 
+```go
 func main() {
-	x := make([]string, 0, 6)
+ x := make([]string, 0, 6)
 
-	func() {
-		y := append(x, "hello", "world")
-		fmt.Print(y)
-	}()
-	func() {
-		z := append(x, "goodbye", "bob")
-		fmt.Print(z)
-	}()
+ func() {
+  y := append(x, "hello", "world")
+  fmt.Print(y)
+ }()
+ func() {
+  z := append(x, "goodbye", "bob")
+  fmt.Print(z)
+ }()
 }
 ```
 
-```
+```golang
 [hello world][goodbye bob]
 Program exited.
 ```
@@ -171,7 +170,7 @@ func main() {
 
 输出:
 
-```
+```golang
 6
 e4 b8 ad e6 96 87 
 
@@ -180,11 +179,9 @@ Program exited.
 
 可以发现 string 的长度并不是 2，而是 6，因为 string 包含的是对应的 UTF-8 编码（因为 Golang 代码是 UTF-8 编码的）, 同时 string 是一串 byte slice。因为中文每个字符在 unicode 中都对应一个码位，一个码位占用 3 个 byte， 所以 string 的长度是 6。
 
-
 ## 总结
 
 以上就是一些常见的 slice 的使用。
-
 
 ## 相关阅读
 
