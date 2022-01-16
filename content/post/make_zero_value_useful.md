@@ -23,7 +23,7 @@ draft: true
                         --Go Proverbs
 
 让我们从 Golang blog 开始吧: [The zero value](https://go.dev/ref/spec#The_zero_value)
-> 当内存被分配来存储一个值时，无论是通过声明还是调用 make 或 new ，并且没有提供明确的初始化，内存被赋予一个默认的初始化。这种值的每个元素都被设置为其类型的零值(zero value)：布尔值为false，整数为0，浮点数为0.0，字符串为""，指针、函数、接口、片断、通道和地图为nil。这种初始化是递归进行的，因此，举例来说，如果没有指定值，结构数组的每个元素都将被归零。
+> 当内存被分配来存储一个值时，无论是通过声明还是调用 make 或 new ，并且没有提供明确的初始化，内存被赋予一个默认的初始化。这种值的每个元素都被设置为其类型的零值(zero value)：布尔值为 false，整数为 0，浮点数为0.0，字符串为 "" ，指针、函数、接口、slice、channel 和 map 为 nil。这种初始化是递归进行的，因此，举例来说，如果没有指定值，结构数组的每个元素都将被归零。
 
 这样将一个值设置为零值对程序的安全性和正确性做了很大的保证，同样也能很好的保证程序的可读性与简单性。这也就是 Golang 程序员口中的 "让零值更有用 (Make the zero value useful)"。
 
@@ -41,8 +41,57 @@ draft: true
 | map | nil |
 | channel | nil |
 
-## 如何让零值更有用？
+同时零值的初始化是递归的，因此，如果没有指定值，结构数组的每个元素都将被归零。
+
+```golang
+➜ gore --autoimport  
+gore version 0.5.3  :help for help
+gore> var a [10]int
+gore> a
+[10]int{
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+}
+```
+
+对于结构体也是如此，我们初始化一个引用 A 的 B 结构体，并且没有指定值，那么 B 的每个字段都将被归零。
+
+```golang
+➜ gore --autoimport
+gore version 0.5.3  :help for help
+gore> type A struct { i int; f float64 }
+gore> type B struct { i int; f float64; next A }
+gore> new(B)
+&main.B{
+  i:    0,
+  f:    0.000000,
+  next: main.A{
+    i: 0,
+    f: 0.000000,
+  },
+}
+```
+
+note:
+
+* new: new(T) 返回一个指向新分配的T类型的 `零值` 的指针。
+* 使用的工具为 gore 见相关链接
+
+
+## 零值的用法
+
 
 ## 相关链接
+* [Golang repl tool](https://github.com/x-motemen/gore)
+* [Golang zero value](https://dave.cheney.net/2013/01/19/what-is-the-zero-value-and-why-is-it-useful)
+
 
 ## 文章推荐
