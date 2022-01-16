@@ -144,8 +144,6 @@ func main() {
 }
 ```
 
-### 简写代码
-
 ### json omitempty
 
 ### channel close
@@ -155,6 +153,5 @@ func main() {
 ## 相关链接
 
 * [Golang zero value](https://dave.cheney.net/2013/01/19/what-is-the-zero-value-and-why-is-it-useful)
-
 
 ## 文章推荐
