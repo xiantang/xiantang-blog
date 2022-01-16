@@ -121,12 +121,28 @@ func main() {
 //
 // A Mutex must not be copied after first use.
 type Mutex struct {
-	state int32
-	sema  uint32
+ state int32
+ sema  uint32
 }
 ```
 
 ### bytes.Buffer
+
+另外一个例子是 bytes.Buffer，它的零值是一个空的 Buffer。
+
+```golang
+package main
+
+import "bytes"
+import "io"
+import "os"
+
+func main() {
+        var b bytes.Buffer
+        b.Write([]byte("Hello world"))
+        io.Copy(os.Stdout, &b)
+}
+```
 
 ### 简写代码
 
@@ -137,6 +153,7 @@ type Mutex struct {
 ### not find in map
 
 ## 相关链接
+
 * [Golang zero value](https://dave.cheney.net/2013/01/19/what-is-the-zero-value-and-why-is-it-useful)
 
 
