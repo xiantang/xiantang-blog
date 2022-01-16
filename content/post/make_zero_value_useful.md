@@ -85,9 +85,56 @@ note:
 * new: new(T) 返回一个指向新分配的T类型的 `零值` 的指针。
 * 使用的工具为 [gore](https://github.com/x-motemen/gore)
 
-
 ## 零值的用法
 
+上文已经介绍了什么是零值，这里我们来看看如何使用它们。
+
+### sync.Mutex
+
+这里有一个关于 sync.Mutex 的例子， sync.Mutex 被设计成不用显式地去初始化他就可以直接通过零值来使用。
+
+```golang
+package main
+
+import "sync"
+
+type MyInt struct {
+        mu sync.Mutex
+        val int
+}
+
+func main() {
+        var i MyInt
+
+        // i.mu is usable without explicit initialisation.
+        i.mu.Lock()      
+        i.val++
+        i.mu.Unlock()
+}
+```
+
+得益于零值的特性，Mutex 内部两个未导出的变量都会被初始化为零值。所以 sync.Mutex 的零值是一个未锁定的 Mutex。
+
+```golang
+// A Mutex is a mutual exclusion lock.
+// The zero value for a Mutex is an unlocked mutex.
+//
+// A Mutex must not be copied after first use.
+type Mutex struct {
+	state int32
+	sema  uint32
+}
+```
+
+### bytes.Buffer
+
+### 简写代码
+
+### json omitempty
+
+### channel close
+
+### not find in map
 
 ## 相关链接
 * [Golang zero value](https://dave.cheney.net/2013/01/19/what-is-the-zero-value-and-why-is-it-useful)
