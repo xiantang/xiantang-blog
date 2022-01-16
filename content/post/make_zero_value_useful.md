@@ -174,7 +174,21 @@ gore> string(data)
 
 ### channel close
 
-### not find in map
+### map 中未找到对应 key 的 value
+
+对于一个 map，如果没有找到对应的 key，那么这个 map 会返回对应类型一个零值。
+
+```golang
+➜ gore --autoimport
+gore version 0.5.3  :help for help
+gore> a := make(map[string]string)
+map[string]string{}
+gore> a["123"] = "456"
+"456"
+gore> a["000"]
+""
+```
+
 
 ## 相关链接
 
