@@ -139,7 +139,7 @@ import "os"
 
 func main() {
         var b bytes.Buffer
-        b.Write([]byte("Hello world"))
+        b.Write([]byte("go go go"))
         io.Copy(os.Stdout, &b)
 }
 ```
