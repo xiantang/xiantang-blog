@@ -44,11 +44,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vim0.com/post/golang/about_slice/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-12-21T01:37:56+08:00" />
-<meta property="article:modified_time" content="2021-12-21T23:10:32+08:00" />
+<meta property="article:modified_time" content="2022-01-16T21:45:23+08:00" />
 
 <meta itemprop="name" content="关于 Golang Slice 的一些细节">
 <meta itemprop="description" content="Golang Slice 实现 Array append contains"><meta itemprop="datePublished" content="2021-12-21T01:37:56+08:00" />
-<meta itemprop="dateModified" content="2021-12-21T23:10:32+08:00" />
+<meta itemprop="dateModified" content="2022-01-16T21:45:23+08:00" />
 <meta itemprop="wordCount" content="1526"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
 <meta itemprop="keywords" content="Golang," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
@@ -153,6 +153,7 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
+    <li><a href="#关于-golang-slice-的一些细节">关于 Golang Slice 的一些细节</a></li>
     <li><a href="#区分-array-和-slice">区分 Array 和 Slice</a></li>
     <li><a href="#slice-的实现与特性">Slice 的实现与特性</a>
       <ul>
@@ -172,7 +173,7 @@
   </div>
 </div>
     <div class="post-content">
-      <h1 id="关于-golang-slice-的一些细节">关于 Golang Slice 的一些细节</h1>
+      <h2 id="关于-golang-slice-的一些细节">关于 Golang Slice 的一些细节</h2>
 <p>在 Golang 中，有两种数据类型：</p>
 <p>一种是限定长度的数组，叫做 Array，另外一种是不限定长度的数组，叫做 Slice。</p>
 <h2 id="区分-array-和-slice">区分 Array 和 Slice</h2>
@@ -251,17 +252,17 @@
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&#34;fmt&#34;</span>
+ <span class="s">&#34;fmt&#34;</span>
 <span class="p">)</span>
 
 <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">slice</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;a&#34;</span><span class="p">}</span>
+ <span class="nx">slice</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;a&#34;</span><span class="p">}</span>
 
-	<span class="kd">func</span><span class="p">(</span><span class="nx">slice</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">slice</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">slice</span><span class="p">,</span> <span class="s">&#34;a&#34;</span><span class="p">)</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
-	<span class="p">}(</span><span class="nx">slice</span><span class="p">)</span>
-	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
+ <span class="kd">func</span><span class="p">(</span><span class="nx">slice</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">slice</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">slice</span><span class="p">,</span> <span class="s">&#34;a&#34;</span><span class="p">)</span>
+  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
+ <span class="p">}(</span><span class="nx">slice</span><span class="p">)</span>
+ <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -272,8 +273,8 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[a a a][a a]
-Program exited.
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="p">[</span><span class="nx">a</span> <span class="nx">a</span> <span class="nx">a</span><span class="p">][</span><span class="nx">a</span> <span class="nx">a</span><span class="p">]</span>
+<span class="nx">Program</span> <span class="nx">exited</span><span class="p">.</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>可以发现 Slice 作为参数被传递的时候，实际上和传递一个结构体一样，当你使用 append 之后赋给 slice 变量的时候只是把函数拷贝的值改了一下。
@@ -296,16 +297,16 @@ Program exited.
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">x</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+ <span class="nx">x</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 
-	<span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-		<span class="nx">y</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">,</span> <span class="s">&#34;world&#34;</span><span class="p">)</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span>
-	<span class="p">}()</span>
-	<span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-		<span class="nx">z</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s">&#34;goodbye&#34;</span><span class="p">,</span> <span class="s">&#34;bob&#34;</span><span class="p">)</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">z</span><span class="p">)</span>
-	<span class="p">}()</span>
+ <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">y</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">,</span> <span class="s">&#34;world&#34;</span><span class="p">)</span>
+  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span>
+ <span class="p">}()</span>
+ <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">z</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s">&#34;goodbye&#34;</span><span class="p">,</span> <span class="s">&#34;bob&#34;</span><span class="p">)</span>
+  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">z</span><span class="p">)</span>
+ <span class="p">}()</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -315,8 +316,8 @@ Program exited.
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[hello world][goodbye bob]
-Program exited.
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="p">[</span><span class="nx">hello</span> <span class="nx">world</span><span class="p">][</span><span class="nx">goodbye</span> <span class="nx">bob</span><span class="p">]</span>
+<span class="nx">Program</span> <span class="nx">exited</span><span class="p">.</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>可以看出当你在 append 的时候，其实是会修改底层数组。但是我们发现其实如果对数组进行 append 了之后，其实不会对 x 进行修改，因为 x 其实并没有被修改。记住他只是 slice header，他的内容只取决于他的 len, cap 和 array 指针。</p>
@@ -396,10 +397,10 @@ Program exited.
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">6
-e4 b8 ad e6 96 87 
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="mi">6</span>
+<span class="nx">e4</span> <span class="nx">b8</span> <span class="nx">ad</span> <span class="nx">e6</span> <span class="mi">96</span> <span class="mi">87</span> 
 
-Program exited.
+<span class="nx">Program</span> <span class="nx">exited</span><span class="p">.</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>可以发现 string 的长度并不是 2，而是 6，因为 string 包含的是对应的 UTF-8 编码（因为 Golang 代码是 UTF-8 编码的）, 同时 string 是一串 byte slice。因为中文每个字符在 unicode 中都对应一个码位，一个码位占用 3 个 byte， 所以 string 的长度是 6。</p>
@@ -422,8 +423,8 @@ Program exited.
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2021-12-21
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/ba4e6c621f2d638b45b9b1c1cbcb016b89b08430" title="add slice">(ba4e6c6)</a>
+        2022-01-16
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/1734fb8bff1117d5bc3c936bcd5a040d67634356" title="M  content/post/golang/about_slice.md">(1734fb8)</a>
     </span>
   </p>
   
