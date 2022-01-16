@@ -3,10 +3,10 @@ title: "Golang: 让你的零值更有用"
 date: 2022-01-16T15:04:40+08:00
 author: "xiantang"
 # lastmod: 
-# tags: []
-# categories: []
-# images:
-#   - ./post/golang/cover.png
+tags: ["中文", "Golang"]
+categories: ["Golang"]
+images:
+  - ./post/make_zero_value_useful.png
 description:
 draft: false
 ---
