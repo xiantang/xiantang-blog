@@ -7,9 +7,6 @@ draft: false
 
 ---
 
-## 
-
-
 
 ## 什么是AtomicInteger
 
@@ -32,7 +29,7 @@ public final int incrementAndGet() {
 
 他采用了死循环，并且每次循环都获取最新的value，通过这个值计算出自增后的值，使用compareAndSet 来交换值，并且判断结果，如果是true 就返回自增后的值，如果是false就进行重试，其实这就是一个典型的CAS 操作。
 
-并且这个 compareAndSet 操作，其实很简单，就是调用 unsafe 对象的 compareAndSwapInt 
+并且这个 compareAndSet 操作，其实很简单，就是调用 unsafe 对象的 compareAndSwapInt
 
 ```java
 public final boolean compareAndSet(int expect, int update) {
@@ -109,4 +106,3 @@ public class AtomicInteger {
 }
 
 ```
-
