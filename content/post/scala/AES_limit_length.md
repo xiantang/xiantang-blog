@@ -38,7 +38,7 @@ private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() => Cip
 
 显示没有合法的AES key
 
-首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。 
+首先我先将 SEED 的长度设置到16个字符，本地没有问题但是测试环境仍然报错，我突然发现我的 SEED 会进行一次 SHA-256 算法的散列，随后他的字符数目会增加到 32 个。
 
 我们需要明确一下本地环境和线上环境的不同:
 
@@ -49,7 +49,7 @@ private val localCipher: ThreadLocal[Cipher] = ThreadLocal.withInitial(() => Cip
 
 因为线上是容器环境，比较难更改 jdk jar 包，所以采用第二种。
 
-只需要将对 SEED 加密的散列算法改为 MD5 加密就行，因为MD5 会将SEED 转换为一个长度为 16 个字符的字符串。	
+只需要将对 SEED 加密的散列算法改为 MD5 加密就行，因为MD5 会将SEED 转换为一个长度为 16 个字符的字符串。
 
 ```groovy
 import java.nio.charset.StandardCharsets
@@ -60,4 +60,3 @@ def instance = MessageDigest.getInstance("MD5")
 secret = instance.digest(a.getBytes())
 new String(secret).length()
 ```
-
