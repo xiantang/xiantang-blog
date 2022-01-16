@@ -7,7 +7,7 @@ tags: ["中文", "Golang"]
 categories: ["Golang"]
 images:
   - ./post/make_zero_value_useful.png
-description:
+description: Golang 使用零值来让你的代码更简洁，其中介绍了 Golang json 零值，Golang map 零值等。
 draft: false
 ---
 
