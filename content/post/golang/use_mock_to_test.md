@@ -19,9 +19,7 @@ description: "golang单元测试最佳实践 Go 语言 自动化 测试 golang �
 
 <!-- ## 一句话引出文章 -->
 
-
 > 在工作中我经常会发现很多工程师的 `Golang` 单测是写的有问题的，只是单纯的调用代码做输出，并且会包含各种 `IO` 操作，导致单测无法到处运行。
-
 
 ## 使用 Mock 和 Interface 进行 Golang 单测
 
@@ -33,15 +31,14 @@ description: "golang单元测试最佳实践 Go 语言 自动化 测试 golang �
 
 单测会将对应测试的模块隔离出来进行测试，所以我们要尽可能把所有相关的外部依赖都移除，只对相关的模块进行单测。
 
-
 所以大家看到的在业务代码仓库中的一些在 `client` 模块中调用 `HTTP` 的单测其实是不规范的，因为 `HTTP` 是外部依赖，你的目标服务器如果有故障，那么你的单测就会失败。
 
 ```go
 func Test_xxx(t *testing.T) {
-	DemoClient := &demo.DemoClient{url: "http://localhost:8080"}
-	DemoClient.Init()
-	resp := DemoCliten.DoHTTPReq()
-	fmt.Println(resp)
+ DemoClient := &demo.DemoClient{url: "http://localhost:8080"}
+ DemoClient.Init()
+ resp := DemoCliten.DoHTTPReq()
+ fmt.Println(resp)
 }
 ```
 
@@ -72,7 +69,7 @@ UI > Service > Utils
 
 同样的，我们也可以使用 `Mock` 来对需要测试模块所依赖的数据进行模拟。下面就是一个例子：
 
-```go 
+```go
 package myapp_test
 // TestYoClient provides mockable implementation of yo.Client.
 type TestYoClient struct {
@@ -107,12 +104,11 @@ func TestMyApplication_SendYo(t *testing.T) {
 
 ### 什么是 Interface？
 
-
 在 `Golang` 中接口可能和你接触的其他语言的接口不同，在 `Golang` 中接口是一个函数的集合。并且 `Golang` 的接口是隐式的，不需要显式的定义。
 
 我个人也非常同意这种设计，因为经过多次的实践，我发现事先定义好的抽象往往都是无法很准确的描述具体实现的行为的。所以需要事后做抽象, 与其写类型来满足 `interface`，不如写接口来满足使用要求。
 
-> Always *abstract* things when you actually need them, never when you just foresee that you need them. 
+> Always *abstract* things when you actually need them, never when you just foresee that you need them.
 
 我个人的推荐是对于几个相似的流程，我们可以先通过写几个结构体来组织代码，然后发现这些结构体有相似的行为之后，就可以抽象出一个接口来描述这些行为，这样才是最准确的。
 
@@ -139,23 +135,24 @@ func (a *MyApplication) Yo(recipient string) error {
 此外我还提供了一个例子供参考，主要是从正式生产的代码中找到的，屏蔽了敏感信息的例子。
 
 这个例子是对 `etcd` 这个外部依赖的 `mock`。
+
 ```golang
 type ETCD interface {
-	GetWithTimeout(key string, opts ...clientv3.OpOption) (*clientv3.GetResponse, error)
-	Watch(ctx context.Context, key string, opts ...clientv3.OpOption) clientv3.WatchChan
+ GetWithTimeout(key string, opts ...clientv3.OpOption) (*clientv3.GetResponse, error)
+ Watch(ctx context.Context, key string, opts ...clientv3.OpOption) clientv3.WatchChan
 }
 
 type MockEtcdClient struct {
-	GetWithTimeoutFunc func(key string, opts ...clientv3.OpOption) (*clientv3.GetResponse, error)
-	WatchFunc          func(ctx context.Context, key string, opts ...clientv3.OpOption) clientv3.WatchChan
+ GetWithTimeoutFunc func(key string, opts ...clientv3.OpOption) (*clientv3.GetResponse, error)
+ WatchFunc          func(ctx context.Context, key string, opts ...clientv3.OpOption) clientv3.WatchChan
 }
 
 func (m MockEtcdClient) GetWithTimeout(key string, opts ...clientv3.OpOption) (*clientv3.GetResponse, error) {
-	return m.GetWithTimeoutFunc(key, opts...)
+ return m.GetWithTimeoutFunc(key, opts...)
 }
 
 func (m MockEtcdClient) Watch(ctx context.Context, key string, opts ...clientv3.OpOption) clientv3.WatchChan {
-	return m.WatchFunc(ctx, key, opts...)
+ return m.WatchFunc(ctx, key, opts...)
 }
 
 ```
@@ -164,34 +161,34 @@ func (m MockEtcdClient) Watch(ctx context.Context, key string, opts ...clientv3.
 
 ```go
 func Test_saveTestConf(t *testing.T) {
-	etcd := store.MockEtcdClient{
-		GetWithTimeoutFunc: func(key string, opts ...clientv3.OpOption) (*clientv3.GetResponse, error) {
-			return &clientv3.GetResponse{
-				Kvs: []*mvccpb.KeyValue{
-					{
-						Key:   []byte("/xxxx/xxx/config"),
-						Value: []byte("{\"xxx\":\"xxx\"}"),
-					},
-				},
-			}, nil
-		},
-		WatchFunc: func(ctx context.Context, key string, opts ...clientv3.OpOption) clientv3.WatchChan {
-			return nil
-		},
-	}
+ etcd := store.MockEtcdClient{
+  GetWithTimeoutFunc: func(key string, opts ...clientv3.OpOption) (*clientv3.GetResponse, error) {
+   return &clientv3.GetResponse{
+    Kvs: []*mvccpb.KeyValue{
+     {
+      Key:   []byte("/xxxx/xxx/config"),
+      Value: []byte("{\"xxx\":\"xxx\"}"),
+     },
+    },
+   }, nil
+  },
+  WatchFunc: func(ctx context.Context, key string, opts ...clientv3.OpOption) clientv3.WatchChan {
+   return nil
+  },
+ }
 
-	configKey, err := saveTestConf(etcd ,"xxxx", "/xxxx/xxx/config")
-	if err != nil {
-		t.Error(err)
-	}
-	assert.Equal(t, "/xxxx/xxx/config", configKey)
+ configKey, err := saveTestConf(etcd ,"xxxx", "/xxxx/xxx/config")
+ if err != nil {
+  t.Error(err)
+ }
+ assert.Equal(t, "/xxxx/xxx/config", configKey)
 }
 
 
 ```
 
-
 ### other tips
+
 关于测试我这边还有一些你可能不知道的小技巧
 
 #### golang 的 interal 与 external 测试
@@ -213,9 +210,9 @@ func Add(n int) int {
 package example_test
 
 import (
-	"testing"
+ "testing"
 
-	. "bitbucket.org/splice/blog/example"
+ . "bitbucket.org/splice/blog/example"
 )
 
 func TestAdd(t *testing.T) {
@@ -226,28 +223,24 @@ func TestAdd(t *testing.T) {
 }
 ```
 
-
 另外你也可以对未导出的方法和变量进行测试，可以创建一个尾缀为 `_internal_test` 的文件来标识你是想要测试未导出的方法和变量的。
 
 ## 总结
 
-1. `Golang` 单测的特点：
+* `Golang` 单测的特点：
+  * 没有外部依赖，尽量无副作用，能够到处运行
+  * 需要对输出进行检查
+  * 可以作为一个示例给使用者看一下如何使用
 
-* 没有外部依赖，尽量无副作用，能够到处运行
-* 需要对输出进行检查
-* 可以作为一个示例给使用者看一下如何使用
-
-
-2. `Golang` 可以使用接口来替换依赖
-
-
+* `Golang` 可以使用接口来替换依赖
 
 ### 有趣的链接推荐
+
 最后最后和大家分享一下参考的链接，以及一些最近在看的好文,因为看的比较零散，一并写给大家，希望大家能够收获。
 
 * [如何 mock file system](https://talks.golang.org/2012/10things.slide#8)
 * [mock struct 要如何写](https://medium.com/@benbjohnson/structuring-tests-in-go-46ddee7a25c) 通过函数变量来实现复用真的很方便
-* [不为人知的测试技巧](https://splice.com/blog/lesser-known-features-go-test/) 
+* [不为人知的测试技巧](https://splice.com/blog/lesser-known-features-go-test/)
 * [如何不努力也能财富自由](https://geekplux.com/newsletters/2) 赚钱永远是主题
 * [gopher-reading-list](https://github.com/enocom/gopher-reading-list) 一路遍历下来收获很大的
 * [What “accept interfaces, return structs” means in Go](https://medium.com/@cep21/what-accept-interfaces-return-structs-means-in-go-2fe879e25ee8)总是在你实际需要的时候[抽象]东西，而不是在你只是预见你需要它们的时候。
