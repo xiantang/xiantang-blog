@@ -44,11 +44,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vim0.com/post/translate/java_equals/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-02-24T14:40:53+08:00" />
-<meta property="article:modified_time" content="2021-04-26T23:37:19+08:00" />
+<meta property="article:modified_time" content="2022-01-16T21:42:32+08:00" />
 
 <meta itemprop="name" content="Java 如何区分==与.equals()方法">
 <meta itemprop="description" content="一般来说equals()和&quot;==&quot;运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同： 最主要的不同是.equ"><meta itemprop="datePublished" content="2019-02-24T14:40:53+08:00" />
-<meta itemprop="dateModified" content="2021-04-26T23:37:19+08:00" />
+<meta itemprop="dateModified" content="2022-01-16T21:42:32+08:00" />
 <meta itemprop="wordCount" content="1069"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
 <meta itemprop="keywords" content="java," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
@@ -185,17 +185,17 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">// Java program to understand  
-// the concept of == operator 
-public class Test { 
-    public static void main(String[] args) 
-    { 
-        String s1 = new String(&#34;HELLO&#34;); 
-        String s2 = new String(&#34;HELLO&#34;); 
-        System.out.println(s1 == s2); 
-        System.out.println(s1.equals(s2)); 
-    } 
-} 
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Java program to understand  
+</span><span class="c1">// the concept of == operator 
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span> 
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span> 
+        <span class="n">String</span> <span class="n">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">&#34;HELLO&#34;</span><span class="o">);</span> 
+        <span class="n">String</span> <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">&#34;HELLO&#34;</span><span class="o">);</span> 
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span><span class="o">);</span> 
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">s2</span><span class="o">));</span> 
+    <span class="o">}</span> 
+<span class="o">}</span> 
 </code></pre></td></tr></table>
 </div>
 </div><p>输出:</p>
@@ -205,8 +205,8 @@ public class Test {
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">false
-true
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kc">false</span>
+<span class="kc">true</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>解释: 这里我们创建了两个对象分别命名为<code>s1</code>和<code>s2</code>。</p>
@@ -241,25 +241,25 @@ true
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">// Java program to illustrate  
-// == operator for compatible data 
-// types 
-class Test { 
-    public static void main(String[] args) 
-    { 
-        // integer-type 
-        System.out.println(10 == 20); 
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Java program to illustrate  
+</span><span class="c1">// == operator for compatible data 
+</span><span class="c1">// types 
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span> 
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span> 
+        <span class="c1">// integer-type 
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">10</span> <span class="o">==</span> <span class="n">20</span><span class="o">);</span> 
   
-        // char-type 
-        System.out.println(&#39;a&#39; == &#39;b&#39;); 
+        <span class="c1">// char-type 
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="sc">&#39;a&#39;</span> <span class="o">==</span> <span class="sc">&#39;b&#39;</span><span class="o">);</span> 
   
-        // char and double type 
-        System.out.println(&#39;a&#39; == 97.0); 
+        <span class="c1">// char and double type 
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="sc">&#39;a&#39;</span> <span class="o">==</span> <span class="n">97</span><span class="o">.</span><span class="na">0</span><span class="o">);</span> 
   
-        // boolean type 
-        System.out.println(true == true); 
-    } 
-} 
+        <span class="c1">// boolean type 
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="kc">true</span> <span class="o">==</span> <span class="kc">true</span><span class="o">);</span> 
+    <span class="o">}</span> 
+<span class="o">}</span> 
 </code></pre></td></tr></table>
 </div>
 </div><p>输出:</p>
@@ -271,10 +271,10 @@ class Test {
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">false
-false
-true
-true
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kc">false</span>
+<span class="kc">false</span>
+<span class="kc">true</span>
+<span class="kc">true</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>如果我们使用<code>==</code>来比较自定义类型，需要保证参数类型兼容(compatibility)(要么是子类和父类的关系，要么是相同类型)。否则我们会产生编译错误。</p>
@@ -298,22 +298,22 @@ true
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">// Java program to illustrate  
-// == operator for incompatible data types 
-class Test { 
-    public static void main(String[] args) 
-    { 
-        Thread t = new Thread(); 
-        Object o = new Object(); 
-        String s = new String(&#34;GEEKS&#34;); 
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Java program to illustrate  
+</span><span class="c1">// == operator for incompatible data types 
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span> 
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span> 
+        <span class="n">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">();</span> 
+        <span class="n">Object</span> <span class="n">o</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span> 
+        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">&#34;GEEKS&#34;</span><span class="o">);</span> 
   
-        System.out.println(t == o); 
-        System.out.println(o == s); 
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">t</span> <span class="o">==</span> <span class="n">o</span><span class="o">);</span> 
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span> <span class="o">==</span> <span class="n">s</span><span class="o">);</span> 
   
-       // Uncomment to see error  
-       System.out.println(t==s); 
-    } 
-} 
+       <span class="c1">// Uncomment to see error  
+</span><span class="c1"></span>       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">t</span><span class="o">==</span><span class="n">s</span><span class="o">);</span> 
+    <span class="o">}</span> 
+<span class="o">}</span> 
 </code></pre></td></tr></table>
 </div>
 </div><p>输出:</p>
@@ -324,10 +324,10 @@ class Test {
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">false
-false
-// error: incomparable types: Thread and String
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kc">false</span>
+<span class="kc">false</span>
+<span class="c1">// error: incomparable types: Thread and String
+</span></code></pre></td></tr></table>
 </div>
 </div><h4 id="equals">.equals()</h4>
 <p>在Java中，使用<code>equals()</code>对于<code>String</code>的比较是基于<code>String</code>的数据/内容，也就是值。如果所有的他们的内容相同，并且都是<code>String</code>类型，就会返回<code>true</code>。如果所有的字符不匹配就会返回<code>false</code>。</p>
@@ -352,23 +352,23 @@ false
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">public class Test { 
-    public static void main(String[] args) 
-    { 
-        Thread t1 = new Thread(); 
-        Thread t2 = new Thread(); 
-        Thread t3 = t1; 
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span> 
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span> 
+        <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">();</span> 
+        <span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">();</span> 
+        <span class="n">Thread</span> <span class="n">t3</span> <span class="o">=</span> <span class="n">t1</span><span class="o">;</span> 
   
-        String s1 = new String(&#34;GEEKS&#34;); 
-        String s2 = new String(&#34;GEEKS&#34;); 
+        <span class="n">String</span> <span class="n">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">&#34;GEEKS&#34;</span><span class="o">);</span> 
+        <span class="n">String</span> <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">&#34;GEEKS&#34;</span><span class="o">);</span> 
   
-        System.out.println(t1 == t3); 
-        System.out.println(t1 == t2); 
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">t1</span> <span class="o">==</span> <span class="n">t3</span><span class="o">);</span> 
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">t1</span> <span class="o">==</span> <span class="n">t2</span><span class="o">);</span> 
   
-        System.out.println(t1.equals(t2)); 
-        System.out.println(s1.equals(s2)); 
-    } 
-} 
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">t1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">t2</span><span class="o">));</span> 
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">s2</span><span class="o">));</span> 
+    <span class="o">}</span> 
+<span class="o">}</span> 
 </code></pre></td></tr></table>
 </div>
 </div><p>输出:</p>
@@ -380,10 +380,10 @@ false
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">true
-false
-false
-true
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kc">true</span>
+<span class="kc">false</span>
+<span class="kc">false</span>
+<span class="kc">true</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>解释:这里我们使用<code>.equals</code>方法去检查是否两个对象是否包含相同的值。</p>
@@ -407,8 +407,8 @@ true
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2021-04-26
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/dfb3b93ad7a1abe94794a1d4c6317556a48f0498" title="java equals">(dfb3b93)</a>
+        2022-01-16
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/e9139e9bc2c699af58c9869c652db040119ee9b7" title="M  content/post/translate/java_equals.md">(e9139e9)</a>
     </span>
   </p>
   
