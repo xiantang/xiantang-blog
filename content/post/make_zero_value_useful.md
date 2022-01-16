@@ -83,14 +83,13 @@ gore> new(B)
 note:
 
 * new: new(T) 返回一个指向新分配的T类型的 `零值` 的指针。
-* 使用的工具为 gore 见相关链接
+* 使用的工具为 [gore](https://github.com/x-motemen/gore)
 
 
 ## 零值的用法
 
 
 ## 相关链接
-* [Golang repl tool](https://github.com/x-motemen/gore)
 * [Golang zero value](https://dave.cheney.net/2013/01/19/what-is-the-zero-value-and-why-is-it-useful)
 
 
