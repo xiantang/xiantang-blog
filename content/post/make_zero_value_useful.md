@@ -216,6 +216,20 @@ gore> a["000"]
 ""
 ```
 
+解决这个问题的方法是返回多个值:
+
+```golang
+gore --autoimport
+gore version 0.5.3  :help for help
+gore> a := make(map[string]string)
+map[string]string{}
+gore> c,ok := a["000"]
+""
+false
+```
+
+对于不存在的 key，ok 的 value 将会变成 false。
+
 ## 总结
 
 以上就是关于 `零值` 的一些经验总结。希望大家在设计代码的时候能够将 `零值` 更好的用起来，利用 `零值` 提供的特性来初始化一些变量。
