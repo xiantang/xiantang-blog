@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://vim0.com/post/make_zero_value_useful/</loc>
+    <lastmod>2022-01-16T16:19:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/post/</loc>
+    <lastmod>2022-01-16T16:19:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/</loc>
+    <lastmod>2022-01-16T16:19:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://vim0.com/categories/</loc>
     <lastmod>2022-01-09T01:00:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -23,21 +44,7 @@
   </url>
   
   <url>
-    <loc>https://vim0.com/post/</loc>
-    <lastmod>2022-01-09T01:00:41+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://vim0.com/tags/</loc>
-    <lastmod>2022-01-09T01:00:41+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://vim0.com/</loc>
     <lastmod>2022-01-09T01:00:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

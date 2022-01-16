@@ -6,7 +6,16 @@
     <description>Recent content on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 07 Jan 2022 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 Jan 2022 15:04:40 +0800</lastBuildDate><atom:link href="https://vim0.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang: 让你的零值更有用</title>
+      <link>https://vim0.com/post/make_zero_value_useful/</link>
+      <pubDate>Sun, 16 Jan 2022 15:04:40 +0800</pubDate>
+      
+      <guid>https://vim0.com/post/make_zero_value_useful/</guid>
+      <description>Make the zero value useful. &amp;ndash;Go Proverbs 让我们从 Golang blog 开始吧: The zero value 当内存被分配来存储一个值时，无论是通过声明还是调用 make 或 new ，并且没有提供明确的初始化，内存被赋予一个默</description>
+    </item>
+    
     <item>
       <title>使用 Mock 和 Interface 进行 Golang 单测</title>
       <link>https://vim0.com/post/golang/use_mock_to_test/</link>
