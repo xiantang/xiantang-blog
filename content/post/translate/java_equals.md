@@ -20,7 +20,7 @@ draft: false
 3. 如果没有重写`.equals`就会默认调用最近的父类来重写这个方法。
 4. 示例代码:
 
-```
+```java
 // Java program to understand  
 // the concept of == operator 
 public class Test { 
@@ -36,7 +36,7 @@ public class Test {
 
 输出:
 
-```
+```java
 false
 true
 ```
@@ -53,7 +53,7 @@ true
 
 我们可以通过`==`运算符来比较每个原始类型(包括布尔类型),也可以用来比较[自定义类型(object types)](https://docs.oracle.com/cd/B14117_01/appdev.101/b10807/13_elems031.htm)
 
-```
+```java
 // Java program to illustrate  
 // == operator for compatible data 
 // types 
@@ -77,7 +77,7 @@ class Test {
 
 输出:
 
-```
+```java
 false
 false
 true
@@ -86,7 +86,7 @@ true
 
 如果我们使用`==`来比较自定义类型，需要保证参数类型兼容(compatibility)(要么是子类和父类的关系，要么是相同类型)。否则我们会产生编译错误。
 
-```
+```java
 // Java program to illustrate  
 // == operator for incompatible data types 
 class Test { 
@@ -107,7 +107,7 @@ class Test {
 
 输出:
 
-```
+```java
 false
 false
 // error: incomparable types: Thread and String
@@ -117,7 +117,7 @@ false
 
 在Java中，使用`equals()`对于`String`的比较是基于`String`的数据/内容，也就是值。如果所有的他们的内容相同，并且都是`String`类型，就会返回`true`。如果所有的字符不匹配就会返回`false`。
 
-```
+```java
 public class Test { 
     public static void main(String[] args) 
     { 
@@ -139,7 +139,7 @@ public class Test {
 
 输出:
 
-```
+```java
 true
 false
 false
