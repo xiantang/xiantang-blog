@@ -144,7 +144,33 @@ func main() {
 }
 ```
 
-### json omitempty
+### JSON omitempty
+
+JSON 接收器也接受 `omitempty` 这个 flag，当输入的字段是 `零值` 时，接收器会忽略这个字段。
+
+```golang
+➜  gore --autoimport          
+gore version 0.5.3  :help for help
+gore> type Person struct {
+.....         Name string `json:"name"`
+.....         Age  int    `json:"age"`
+.....         Addr string `json:"addr,omitempty"`
+..... }
+gore> p1 := Person{
+.....             Name: "taoge",
+.....             Age:  30,
+.....     }
+main.Person{
+  Name: "taoge",
+  Age:  30,
+  Addr: "",
+}
+gore> data, err := json.Marshal(p1)
+...
+gore> string(data)
+"{\"name\":\"taoge\",\"age\":30}"
+```
+
 
 ### channel close
 
