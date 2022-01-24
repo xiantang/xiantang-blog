@@ -1,14 +1,14 @@
 ---
-title: "如何杀死一个进程和它的子孙进程"
+title: "如何杀死一个进程和它的子孙进程?"
 date: 2022-01-24T21:49:48+08:00
 author: "xiantang"
 # lastmod: 
 tags: ["中文", "Golang"]
 categories: ["Golang"]
-# images:
+images:
   - ./post/kill_process_and_its_childs.png
 description:
-draft: true
+draft: false
 ---
 
 
