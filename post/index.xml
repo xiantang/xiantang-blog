@@ -6,7 +6,16 @@
     <description>Recent content in Posts on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 16 Jan 2022 15:04:40 +0800</lastBuildDate><atom:link href="https://vim0.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Jan 2022 21:49:48 +0800</lastBuildDate><atom:link href="https://vim0.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何杀死一个进程和它的子孙进程?</title>
+      <link>https://vim0.com/post/kill_process_and_its_childs/</link>
+      <pubDate>Mon, 24 Jan 2022 21:49:48 +0800</pubDate>
+      
+      <guid>https://vim0.com/post/kill_process_and_its_childs/</guid>
+      <description>最近周末在维护一个开源项目，叫做 air。它是一个 Golang 的热加载代码的工具，会监听本地的文件变化，然后自动重新加载。 遇到的问题 最近遇到一个特别有意</description>
+    </item>
+    
     <item>
       <title>Golang: 让你的零值更有用</title>
       <link>https://vim0.com/post/make_zero_value_useful/</link>
