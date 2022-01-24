@@ -116,3 +116,5 @@ cmd.Wait()
 * Golang 检查两个模块依赖好用命令
   * go mod graph
   * go mod why -m  "module"
+  
+* [Nginx 创始人离开 F5](https://www.nginx.com/blog/do-svidaniya-igor-thank-you-for-nginx/)
