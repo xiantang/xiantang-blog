@@ -1,5 +1,5 @@
 ---
-title: "如何杀死一个进程和它的子孙进程?"
+title: "Unix 如何杀死一个进程和它的子孙进程?"
 date: 2022-01-24T21:49:48+08:00
 author: "xiantang"
 # lastmod: 
