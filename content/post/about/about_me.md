@@ -23,7 +23,7 @@ Python <https://github.com/xiantang/Spider> 写过一些爬虫。
 
 Java <https://github.com/xiantang/JerryMouse> 写过一个简单的 web 容器。
 
-同时我也比较喜欢使用 vim,不过我是在 Jetbrain 平台上使用 [vim 的插件](https://github.com/xiantang/dotfile/blob/main/.ideavimrc)。
+同时我也比较喜欢使用 vim，不过我是在 Jetbrain 平台上使用 [vim 的插件](https://github.com/xiantang/dotfile/blob/main/.ideavimrc)。
 
 目前在新加坡工作，同时比较喜欢[开源](https://github.com/xiantang)和投资。
 
