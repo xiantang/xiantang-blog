@@ -238,7 +238,7 @@
       <pubDate>Fri, 07 Dec 2018 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/post/collection/collection/</guid>
-      <description>集合扩容 ArrayList 对于 ArrayList 他默认的容量为10，所以如果需要对ArrayList 进行大数据量的处理的时候的话，就需要使用显式制定容量的方式进行处理。这样</description>
+      <description>集合扩容 ArrayList 对于 ArrayList 他默认的容量为 10，所以如果需要对 ArrayList 进行大数据量的处理的时候的话，就需要使用显式制定容量的方式进行处理。这样可以减少不必要的</description>
     </item>
     
     <item>
