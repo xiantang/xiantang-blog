@@ -44,11 +44,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vim0.com/post/kill_process_and_its_childs/" /><meta property="og:image" content="https://vim0.com/post/kill_process_and_its_childs.png" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-01-24T21:49:48+08:00" />
-<meta property="article:modified_time" content="2022-01-24T23:57:21+08:00" />
+<meta property="article:modified_time" content="2022-02-03T11:24:09+08:00" />
 
 <meta itemprop="name" content="Unix 如何杀死一个进程和它的子孙进程?">
 <meta itemprop="description" content="最近周末在维护一个开源项目，叫做 air。它是一个 Golang 的热加载代码的工具，会监听本地的文件变化，然后自动重新加载。 遇到的问题 最近遇到一个特别有意"><meta itemprop="datePublished" content="2022-01-24T21:49:48+08:00" />
-<meta itemprop="dateModified" content="2022-01-24T23:57:21+08:00" />
+<meta itemprop="dateModified" content="2022-02-03T11:24:09+08:00" />
 <meta itemprop="wordCount" content="1318"><meta itemprop="image" content="https://vim0.com/post/kill_process_and_its_childs.png">
 <meta itemprop="keywords" content="中文,Golang," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/kill_process_and_its_childs.png"/>
@@ -177,7 +177,7 @@
 <p>最近遇到一个特别有意思的问题，就是使用 <code>kill -9 pid</code> 命令杀死进程的时候虽然会杀死它的子进程，但是它的孙子进程还是会继续存活。</p>
 <h2 id="背景">背景</h2>
 <p>简而言之，就是我们的热加载组件会运行命令，然后会监听文件变化，一旦文件变化就会 kill 掉之前进程，然后重新编译代码，再执行运行的命令。</p>
-<p>但是遇到一个用户提了这样一个问题: <a href="https://github.com/cosmtrek/air/issues/216#issuecomment-982348931">https://github.com/cosmtrek/air/issues/216#issuecomment-982348931</a>  在执行命令的时候使用 <code>dlv exec --accept-multiclient --log --headless --continue --listen :2345 --api-version 2 ./tmp/main</code> 来运行代码与开启调试，我们的组件不会彻底的将进程杀死，而是会继续存活。导致下次一次起来的时候对应的端口会被占用。</p>
+<p>但是遇到一个用户提了这样一个问题： <a href="https://github.com/cosmtrek/air/issues/216#issuecomment-982348931">https://github.com/cosmtrek/air/issues/216#issuecomment-982348931</a>  在执行命令的时候使用 <code>dlv exec --accept-multiclient --log --headless --continue --listen :2345 --api-version 2 ./tmp/main</code> 来运行代码与开启调试，我们的组件不会彻底的将进程杀死，而是会继续存活。导致下次一次起来的时候对应的端口会被占用。</p>
 <h2 id="排查问题">排查问题</h2>
 <p>通过 <code>ps -efj | grep &quot;tmp/main&quot;</code> 能很清楚的看到实际上运行这条命令会起来三个进程</p>
 <div class="highlight"><div class="chroma">
@@ -272,7 +272,7 @@
 <p>最后最后和大家分享一些最近在看的好文，想过用周刊的方式发送但是因为看的比较零散，就放在每篇博文的最后，希望大家能够收获!</p>
 <ul>
 <li>
-<p><a href="https://book.douban.com/subject/35119866/">間歇高效率的番茄工作法</a> 看了一个news letter的文章，发现了一个至关重要的<a href="https://happyxiao.com/pomodoro/">技巧</a>: 如果你为一个任务设置了一个番茄钟，但是提早完成了，比方说你为一本书的某个章节记笔记，但你提早完成了 - 你不应该立即进入到下一个任务，或者提早结束这个番茄钟。</p>
+<p><a href="https://book.douban.com/subject/35119866/">間歇高效率的番茄工作法</a> 看了一个news letter的文章，发现了一个至关重要的<a href="https://happyxiao.com/pomodoro/">技巧</a>： 如果你为一个任务设置了一个番茄钟，但是提早完成了，比方说你为一本书的某个章节记笔记，但你提早完成了 - 你不应该立即进入到下一个任务，或者提早结束这个番茄钟。</p>
 </li>
 <li>
 <p><a href="https://blog.kalan.dev/2022-01-23-infinite-alert-loop/">在日本写无限 alert 会被抓</a></p>
@@ -281,7 +281,7 @@
 <p>Golang 检查两个模块依赖好用命令</p>
 <ul>
 <li>go mod graph</li>
-<li>go mod why -m  &ldquo;module&rdquo;</li>
+<li><code>go mod why -m  &quot;module&quot;</code></li>
 </ul>
 </li>
 <li>
@@ -299,8 +299,8 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2022-01-24
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/441a4dc359ab0ffbf9f00d1d53d3def989197fd4" title="M  content/post/kill_process_and_its_childs.md">(441a4dc)</a>
+        2022-02-03
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/271c6187523f139d8b4b6fdeac328378f0bf48f5" title="A  .eslintrc.json M  .gitignore M  content/post/kill_process_and_its_childs.md A  package-lock.json A  package.json">(271c618)</a>
     </span>
   </p>
   
