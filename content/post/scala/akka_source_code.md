@@ -27,7 +27,7 @@ object Main1 extends App {
 
 ## subscribe 逻辑
 
-同步地将 subcriber 和 to 加入到 subscriptions 中，diff 应该是和之前的一次比较保证不会重复发送?
+同步地将 subcriber 和 to 加入到 subscriptions 中，diff 应该是和之前的一次比较保证不会重复发送？
 
 ```scala
 def subscribe(subscriber: Subscriber, to: Classifier): Boolean = subscriptions.synchronized {
@@ -43,29 +43,25 @@ def subscribe(subscriber: Subscriber, to: Classifier): Boolean = subscriptions.s
 
 addValue 中有个比较重要的方法，就是从 `subkeys` 也就是 subscribe 中到找对应的类。
 
-可以将`subkeys` 想象为一个多叉树中的一个节点，节点的key为订阅源类型，value为所对应的订阅者 Actor
+可以将 `subkeys` 想象为一个多叉树中的一个节点，节点的 key 为订阅源类型，value 为所对应的订阅者 Actor
 
-然后这个节点也有自己的`subkeys` 这些subkeys 为的key为上层类型的子类，同时订阅者是与是上层订阅者的拓展
+然后这个节点也有自己的 `subkeys` 这些 subkeys 为的 key 为上层类型的子类，同时订阅者是与是上层订阅者的拓展
 
 ![image-20200109140449787](https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi7rh9jj30ss0g0wit.jpg)
 
-对于重复的订阅，他会做一次去重，类似于arc diff
+对于重复的订阅，他会做一次去重，类似于 arc diff
 
 对于 ` system.eventStream.subscribe(jazzListener, classOf[Jazz])`
 
 ![image-20200109120145086](https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi88df2j311m05gadr.jpg)
 
-会产生一个这样的diff 然后加入到cache 中
+会产生一个这样的 diff 然后加入到 cache 中
 
 cache 的数据结构是一个 `private var cache = Map.empty[Classifier, Set[Subscriber]]` Map 分别是订阅源和订阅者
 
 对于 `system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) ` 
 
 ![image-20200109120406852](https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi8ptj5j31j804kjuu.jpg)
-
-
-
-
 
 ## publish 逻辑
 
@@ -86,11 +82,11 @@ def publish(event: Event): Unit = {
   }
 ```
 
-publish 逻辑较为简单，首先会从event中找出对应 className 
+publish 逻辑较为简单，首先会从 event 中找出对应 className 
 
-然后走缓存逻辑，如果不在缓存中存在，就将对应的 key 更新到subkeys 多叉树中，找到对应的订阅者，并且更新到cache 中。 
+然后走缓存逻辑，如果不在缓存中存在，就将对应的 key 更新到 subkeys 多叉树中，找到对应的订阅者，并且更新到 cache 中。 
 
-最后遍历 recv 调用publish函数 。
+最后遍历 recv 调用 publish 函数。
 
 ```scala
   protected def publish(event: Any, subscriber: ActorRef) = {
@@ -99,10 +95,6 @@ publish 逻辑较为简单，首先会从event中找出对应 className
   }
 ```
 
-
-
-
-
 # Actor 初始化
 
 ```scala
@@ -110,7 +102,7 @@ val pinger = system.actorOf(Props[Pinger], "pinger")
 val ponger = system.actorOf(Props(classOf[Ponger], pinger), "ponger")
 ```
 
- 会调用 ActorSystem 中的actorOf方法
+会调用 ActorSystem 中的 actorOf 方法
 
 ```scala
 def actorOf(props: Props): ActorRef =
@@ -120,9 +112,9 @@ throw new UnsupportedOperationException(
   "cannot create top-level actor from the outside on ActorSystem with custom user guardian")
 ```
 
-会从守卫Actor 下面创建一个新的Child Actor
+会从守卫 Actor 下面创建一个新的 Child Actor
 
-会调用下边的makeChild 方法:
+会调用下边的 makeChild 方法：
 
 Children.scala
 
@@ -155,7 +147,7 @@ final def sendMessage(message: Any, sender: ActorRef): Unit =
   sendMessage(Envelope(message, sender, system))
 ```
 
-将message 包装为信封，调用Cell 的 sendMessage 方法
+将 message 包装为信封，调用 Cell 的 sendMessage 方法
 
 是因为 Cell 实现了
 
@@ -176,9 +168,9 @@ def sendMessage(msg: Envelope): Unit =
     } catch handleException
 ```
 
-但是我仍然有个问题，dispatcher 是我自己规定的dispather ？
+但是我仍然有个问题，dispatcher 是我自己规定的 dispather？
 
-再调用这个Actor 所对应的 dispatcher 的 dispatch 函数
+再调用这个 Actor 所对应的 dispatcher 的 dispatch 函数
 
 ```scala
 protected[akka] def dispatch(receiver: ActorCell, invocation: Envelope): Unit = {
@@ -190,7 +182,7 @@ protected[akka] def dispatch(receiver: ActorCell, invocation: Envelope): Unit = 
 
 将信封丢入对应接收者的 mailbox 中，然后将 mbox 作为参数传入 registerForExecution 注册到线程池中。
 
-而这个线程池就是我预设的线程池， dispacher 只是对这个线程池做一层封装。
+而这个线程池就是我预设的线程池，dispacher 只是对这个线程池做一层封装。
 
 ```scala
 protected[akka] override def registerForExecution(
@@ -213,7 +205,7 @@ protected[akka] override def registerForExecution(
 
 使用内部的线程池来执行这个 MailBox 对象
 
-既然 MailBox 可以被执行 它一定实现了 Runnable 方法 来看看他的实现:
+既然 MailBox 可以被执行它一定实现了 Runnable 方法来看看他的实现：
 
 ```scala 
 override final def run(): Unit = {
@@ -258,14 +250,14 @@ override final def run(): Unit = {
 
 1. 首先计算出 left 也就是分发器的吞吐量
 2. 然后从队列里面出队一个元素
-3. 调用actor 的invoke 方法
-4. 继续向下调用直到 left <1  或者
+3. 调用 actor 的 invoke 方法
+4. 继续向下调用直到 left < 1 或者
 
 有两个关键的参数，
 
-throughput 也就是单次执行  `executorService.execute(mbox)` 所消费消息的数量。超出这个数量的消息将会交给下次执行这个 mbox 的时候执行。
+throughput 也就是单次执行 `executorService.execute(mbox)` 所消费消息的数量。超出这个数量的消息将会交给下次执行这个 mbox 的时候执行。
 
-`deadlineNs`  发送throughput数量消息的截止时间，保证throughput的消息要在截止时间内完成。
+`deadlineNs` 发送 throughput 数量消息的截止时间，保证 throughput 的消息要在截止时间内完成。
 
 调用 actor 的 invoke 方法下面会调用 ActorCell 的 receiveMessage 方法
 
@@ -282,7 +274,7 @@ protected[akka] def aroundReceive(receive: Actor.Receive, msg: Any): Unit = {
 }
 ```
 
-如果receive 没有match对应的message，使用了偏函数的 applyOrElse 捕获剩下的值域，判断返回值是否和 NotHandled 相等。
+如果 receive 没有 match 对应的 message，使用了偏函数的 applyOrElse 捕获剩下的值域，判断返回值是否和 NotHandled 相等。
 
 ```scala
 def unhandled(message: Any): Unit = {
@@ -293,6 +285,6 @@ def unhandled(message: Any): Unit = {
 }
 ```
 
-对message 做一次模式匹配，如果是没有handle的message 就将它作为订阅发出。
+对 message 做一次模式匹配，如果是没有 handle 的 message 就将它作为订阅发出。
 
 这里我们可以使用一个订阅者 `system.eventStream.subscribe(listener, classOf[UnhandledMessage]) ` 来订阅这些消息，进行日志输出。
