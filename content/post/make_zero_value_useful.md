@@ -19,13 +19,13 @@ draft: false
 * 在文章末尾推荐一些有趣的链接
 * 先写提纲，再写内容 -->
 
-> Make the zero value useful.
+> Make the zero value useful。
                         --Go Proverbs
 
-让我们从 Golang blog 开始吧: [The zero value](https://go.dev/ref/spec#The_zero_value)
-> 当内存被分配来存储一个值时，无论是通过声明还是调用 make 或 new ，并且没有提供明确的初始化，内存被赋予一个默认的初始化。这种值的每个元素都被设置为其类型的零值(zero value)：布尔值为 false，整数为 0，浮点数为0.0，字符串为 "" ，指针、函数、接口、slice、channel 和 map 为 nil。这种初始化是递归进行的，因此，举例来说，如果没有指定值，结构数组的每个元素都将被归零。
+让我们从 Golang blog 开始吧：[The zero value](https://go.dev/ref/spec#The_zero_value)
+> 当内存被分配来存储一个值时，无论是通过声明还是调用 make 或 new，并且没有提供明确的初始化，内存被赋予一个默认的初始化。这种值的每个元素都被设置为其类型的零值 (zero value)：布尔值为 false，整数为 0，浮点数为 0.0，字符串为 `""`，指针、函数、接口、slice、channel 和 map 为 nil。这种初始化是递归进行的，因此，举例来说，如果没有指定值，结构数组的每个元素都将被归零。
 
-这样将一个值设置为零值对程序的安全性和正确性做了很大的保证，同样也能很好的保证程序的可读性与简单性。这也就是 Golang 程序员口中的 "让零值更有用 (Make the zero value useful)"。
+这样将一个值设置为零值对程序的安全性和正确性做了很大的保证，同样也能很好的保证程序的可读性与简单性。这也就是 Golang 程序员口中的“让零值更有用 (Make the zero value useful)”。
 
 ## 零值 cheat sheet
 
@@ -80,9 +80,9 @@ gore> new(B)
 }
 ```
 
-note:
+note：
 
-* new: new(T) 返回一个指向新分配的T类型的 `零值` 的指针。
+* new：new(T) 返回一个指向新分配的 T 类型的 `零值` 的指针。
 * 使用的工具为 [gore](https://github.com/x-motemen/gore)
 
 ## 零值的用法
@@ -91,7 +91,7 @@ note:
 
 ### sync.Mutex
 
-这里有一个关于 sync.Mutex 的例子， sync.Mutex 被设计成不用显式地去初始化他就可以直接通过零值来使用。
+这里有一个关于 sync.Mutex 的例子，sync.Mutex 被设计成不用显式地去初始化他就可以直接通过零值来使用。
 
 ```golang
 package main
@@ -173,7 +173,7 @@ gore> string(data)
 
 ### channel close
 
-在 [《Channel Axioms》](https://dave.cheney.net/2014/03/19/channel-axioms)中，也有一条与 零值 相关的规则，当 channel 关闭时，对被关闭的 channel 做 <- 操作，总是立即返回 `零值`。
+在[《Channel Axioms》](https://dave.cheney.net/2014/03/19/channel-axioms)中，也有一条与零值相关的规则，当 channel 关闭时，对被关闭的 channel 做<- 操作，总是立即返回 `零值`。
 
 ```golang
 package main
@@ -192,7 +192,7 @@ func main() {
 }
 ```
 
-解决上述问题的正确的方式是使用 for loop:
+解决上述问题的正确的方式是使用 for loop：
 
 ```golang
 for v := range c {
@@ -216,7 +216,7 @@ gore> a["000"]
 ""
 ```
 
-解决这个问题的方法是返回多个值:
+解决这个问题的方法是返回多个值：
 
 ```golang
 gore --autoimport
@@ -244,8 +244,8 @@ false
 
 最后最后和大家分享一些最近在看的好文，想过用周刊的方式发送但是因为看的比较零散，就放在每篇博文的最后，希望大家能够收获。
 
-* [为什么我们不生小孩](https://shuxiao.wang/posts/why-no-new-baby/) 一些关于生小孩的思考
+* [为什么我们不生小孩](https://shuxiao.wang/posts/why-no-new-baby/)一些关于生小孩的思考
 * [《The Tail At Scale》论文详细解读](https://blog.csdn.net/LuciferMS/article/details/122522964)
-* [编写可维护的Go代码](https://jogendra.dev/writing-maintainable-go-code) 很多观点让我在实践之后感受到共鸣，代码写出来一遍，但是会被读上百遍，所以编写可维护的代码很重要。
+* [编写可维护的 Go 代码](https://jogendra.dev/writing-maintainable-go-code)很多观点让我在实践之后感受到共鸣，代码写出来一遍，但是会被读上百遍，所以编写可维护的代码很重要。
 * [Golang 并发编程进阶 talk](https://go.dev/blog/io2013-talk-concurrency) 分享者提供了实际并发问题的，然后给出了自己的一些解决方案。非常受益。
-* [pprof 图解](https://github.com/google/pprof/blob/master/doc/README.md#interpreting-the-callgraph) 终于会看 pprof 了。
+* [pprof 图解](https://github.com/google/pprof/blob/master/doc/README.md#interpreting-the-callgraph)终于会看 pprof 了。
