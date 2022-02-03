@@ -121,7 +121,7 @@
       <pubDate>Mon, 06 Apr 2020 16:33:34 +0800</pubDate>
       
       <guid>https://vim0.com/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</guid>
-      <description>什么是AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的Integer的区别是 AtomicInteger 采用一个CAS 的方式使Int</description>
+      <description>什么是 AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的 Integer 的区别是 AtomicInteger 采用一个 CAS 的方式使 Integer 的自增等操作变成原子化操作。 实现的之前需要了</description>
     </item>
     
     <item>

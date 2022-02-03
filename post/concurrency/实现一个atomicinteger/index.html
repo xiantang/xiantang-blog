@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="xiantang" /><meta name="description" content="什么是AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的Integer的区别是 AtomicInteger 采用一个CAS 的方式使Int" />
+<meta name="author" content="xiantang" /><meta name="description" content="什么是 AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的 Integer 的区别是 AtomicInteger 采用一个 CAS 的方式使 Integer 的自增等操作变成原子化操作。 实现的之前需要了" />
 
 
 
@@ -40,21 +40,21 @@
 
 
 <meta property="og:title" content="实现一个AtomicInteger" />
-<meta property="og:description" content="什么是AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的Integer的区别是 AtomicInteger 采用一个CAS 的方式使Int" />
+<meta property="og:description" content="什么是 AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的 Integer 的区别是 AtomicInteger 采用一个 CAS 的方式使 Integer 的自增等操作变成原子化操作。 实现的之前需要了" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vim0.com/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-04-06T16:33:34+08:00" />
 <meta property="article:modified_time" content="2020-04-06T16:33:34+08:00" />
 
 <meta itemprop="name" content="实现一个AtomicInteger">
-<meta itemprop="description" content="什么是AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的Integer的区别是 AtomicInteger 采用一个CAS 的方式使Int"><meta itemprop="datePublished" content="2020-04-06T16:33:34+08:00" />
+<meta itemprop="description" content="什么是 AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的 Integer 的区别是 AtomicInteger 采用一个 CAS 的方式使 Integer 的自增等操作变成原子化操作。 实现的之前需要了"><meta itemprop="datePublished" content="2020-04-06T16:33:34+08:00" />
 <meta itemprop="dateModified" content="2020-04-06T16:33:34+08:00" />
-<meta itemprop="wordCount" content="630"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="wordCount" content="575"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
 <meta itemprop="keywords" content="concurrency," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
 
 <meta name="twitter:title" content="实现一个AtomicInteger"/>
-<meta name="twitter:description" content="什么是AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的Integer的区别是 AtomicInteger 采用一个CAS 的方式使Int"/>
+<meta name="twitter:description" content="什么是 AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的 Integer 的区别是 AtomicInteger 采用一个 CAS 的方式使 Integer 的自增等操作变成原子化操作。 实现的之前需要了"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -143,7 +143,7 @@
             <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
             <a href="/categories/java/"> java </a>
             </div>
-          <span class="more-meta"> 630 words </span>
+          <span class="more-meta"> 575 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -154,7 +154,7 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#什么是atomicinteger">什么是AtomicInteger</a></li>
+    <li><a href="#什么是-atomicinteger">什么是 AtomicInteger</a></li>
     <li><a href="#实现的之前需要了解的知识">实现的之前需要了解的知识</a></li>
     <li><a href="#我的实现">我的实现</a></li>
   </ul>
@@ -162,8 +162,8 @@
   </div>
 </div>
     <div class="post-content">
-      <h2 id="什么是atomicinteger">什么是AtomicInteger</h2>
-<p>AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的Integer的区别是 AtomicInteger 采用一个CAS 的方式使Integer 的自增等操作变成原子化操作。</p>
+      <h2 id="什么是-atomicinteger">什么是 AtomicInteger</h2>
+<p>AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的 Integer 的区别是 AtomicInteger 采用一个 CAS 的方式使 Integer 的自增等操作变成原子化操作。</p>
 <h2 id="实现的之前需要了解的知识">实现的之前需要了解的知识</h2>
 <p>首先我们先观察 AotmicInteger 的自增操作：</p>
 <div class="highlight"><div class="chroma">
@@ -188,7 +188,7 @@
  <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>他采用了死循环，并且每次循环都获取最新的value，通过这个值计算出自增后的值，使用compareAndSet 来交换值，并且判断结果，如果是true 就返回自增后的值，如果是false就进行重试，其实这就是一个典型的CAS 操作。</p>
+</div><p>他采用了死循环，并且每次循环都获取最新的 value，通过这个值计算出自增后的值，使用 compareAndSet 来交换值，并且判断结果，如果是 true 就返回自增后的值，如果是 false 就进行重试，其实这就是一个典型的 CAS 操作。</p>
 <p>并且这个 compareAndSet 操作，其实很简单，就是调用 unsafe 对象的 compareAndSwapInt</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -203,7 +203,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>compareAndSwapInt 就是根据当前对象的所需要 CAS 操作的成员的所在对象的 offset 来进行 CAS 的修改操作。</p>
-<p>然后我们来看一下 get() 方法:</p>
+<p>然后我们来看一下 get () 方法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -222,7 +222,7 @@
 </div>
 </div><p>就是返回 volatile 修饰的值，因为获取这个值是原子化行为，并且 volatile 能保证这个值是最新的。</p>
 <h2 id="我的实现">我的实现</h2>
-<p>需要注意的是 <code>Unsafe.getUnsafe</code> 是无法直接调用的，因为他会判断是否是BootStap的类加载器或者是Ext类加载器，如果不是就抛出异常。</p>
+<p>需要注意的是 <code>Unsafe.getUnsafe</code> 是无法直接调用的，因为他会判断是否是 BootStap 的类加载器或者是 Ext 类加载器，如果不是就抛出异常。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
