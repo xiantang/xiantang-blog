@@ -13,7 +13,7 @@
       <pubDate>Wed, 01 Apr 2020 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</guid>
-      <description>什么是TCP TCP 是一个全双工 面向字节流的基于IP协议的协议。 TCP 端到端的准确传输。 对于每一个字节进行确认 对于恶劣的网络情况的处理 超时重传 拥塞控制</description>
+      <description>什么是 TCP TCP 是一个全双工面向字节流的基于 IP 协议的协议。 TCP 端到端的准确传输。 对于每一个字节进行确认 对于恶劣的网络情况的处理 超时重传 拥塞控制 效率提</description>
     </item>
     
   </channel>
