@@ -22,7 +22,7 @@
       <pubDate>Sun, 16 Jan 2022 15:04:40 +0800</pubDate>
       
       <guid>https://vim0.com/post/make_zero_value_useful/</guid>
-      <description>Make the zero value useful. &amp;ndash;Go Proverbs 让我们从 Golang blog 开始吧: The zero value 当内存被分配来存储一个值时，无论是通过声明还是调用 make 或 new ，并且没有提供明确的初始化，内存被赋予一个默</description>
+      <description>Make the zero value useful。 &amp;ndash;Go Proverbs 让我们从 Golang blog 开始吧：The zero value 当内存被分配来存储一个值时，无论是通过声明还是调用 make 或 new，并且没有提供明确的初始</description>
     </item>
     
     <item>
