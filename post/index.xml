@@ -211,7 +211,7 @@
       <pubDate>Sun, 20 Oct 2019 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/post/scala/aes_limit_length/</guid>
-      <description>写了一个工具类用来加密解密数据库的 app字段 本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。 这个的原因是因为线上环境没有支</description>
+      <description>写了一个工具类用来加密解密数据库的 app 字段 本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。 这个的原因是因为线上环境没有支持 AES</description>
     </item>
     
     <item>

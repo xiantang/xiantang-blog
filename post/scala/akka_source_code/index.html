@@ -44,12 +44,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vim0.com/post/scala/akka_source_code/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-01-15T17:26:53+08:00" />
-<meta property="article:modified_time" content="2020-01-15T17:28:34+08:00" />
+<meta property="article:modified_time" content="2022-02-03T11:55:16+08:00" />
 
 <meta itemprop="name" content="Akka 源码解析">
 <meta itemprop="description" content="1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&#34;HelloSystem&#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&#34;Parov Stelar&#34;)) // jazzListener"><meta itemprop="datePublished" content="2020-01-15T17:26:53+08:00" />
-<meta itemprop="dateModified" content="2020-01-15T17:28:34+08:00" />
-<meta itemprop="wordCount" content="1613"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="dateModified" content="2022-02-03T11:55:16+08:00" />
+<meta itemprop="wordCount" content="1482"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
 <meta itemprop="keywords" content="scala," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
 
@@ -144,8 +144,8 @@
             <a href="/categories/scala/"> scala </a>
             <a href="/categories/akka/"> akka </a>
             </div>
-          <span class="more-meta"> 1613 words </span>
-          <span class="more-meta"> 4 mins read </span>
+          <span class="more-meta"> 1482 words </span>
+          <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -201,7 +201,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="subscribe-逻辑">subscribe 逻辑</h2>
-<p>同步地将 subcriber 和 to 加入到 subscriptions 中，diff 应该是和之前的一次比较保证不会重复发送?</p>
+<p>同步地将 subcriber 和 to 加入到 subscriptions 中，diff 应该是和之前的一次比较保证不会重复发送？</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -221,13 +221,13 @@
 </div><p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi6sifoj312k06878y.jpg" alt="image-20200109114040999"></p>
 <p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi7d0o9j30t40f2tho.jpg" alt="image-20200109131215939"></p>
 <p>addValue 中有个比较重要的方法，就是从 <code>subkeys</code> 也就是 subscribe 中到找对应的类。</p>
-<p>可以将<code>subkeys</code> 想象为一个多叉树中的一个节点，节点的key为订阅源类型，value为所对应的订阅者 Actor</p>
-<p>然后这个节点也有自己的<code>subkeys</code> 这些subkeys 为的key为上层类型的子类，同时订阅者是与是上层订阅者的拓展</p>
+<p>可以将 <code>subkeys</code> 想象为一个多叉树中的一个节点，节点的 key 为订阅源类型，value 为所对应的订阅者 Actor</p>
+<p>然后这个节点也有自己的 <code>subkeys</code> 这些 subkeys 为的 key 为上层类型的子类，同时订阅者是与是上层订阅者的拓展</p>
 <p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi7rh9jj30ss0g0wit.jpg" alt="image-20200109140449787"></p>
-<p>对于重复的订阅，他会做一次去重，类似于arc diff</p>
+<p>对于重复的订阅，他会做一次去重，类似于 arc diff</p>
 <p>对于 <code> system.eventStream.subscribe(jazzListener, classOf[Jazz])</code></p>
 <p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi88df2j311m05gadr.jpg" alt="image-20200109120145086"></p>
-<p>会产生一个这样的diff 然后加入到cache 中</p>
+<p>会产生一个这样的 diff 然后加入到 cache 中</p>
 <p>cache 的数据结构是一个 <code>private var cache = Map.empty[Classifier, Set[Subscriber]]</code> Map 分别是订阅源和订阅者</p>
 <p>对于 <code>system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) </code></p>
 <p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi8ptj5j31j804kjuu.jpg" alt="image-20200109120406852"></p>
@@ -266,9 +266,9 @@
   <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>publish 逻辑较为简单，首先会从event中找出对应 className</p>
-<p>然后走缓存逻辑，如果不在缓存中存在，就将对应的 key 更新到subkeys 多叉树中，找到对应的订阅者，并且更新到cache 中。</p>
-<p>最后遍历 recv 调用publish函数 。</p>
+</div><p>publish 逻辑较为简单，首先会从 event 中找出对应 className</p>
+<p>然后走缓存逻辑，如果不在缓存中存在，就将对应的 key 更新到 subkeys 多叉树中，找到对应的订阅者，并且更新到 cache 中。</p>
+<p>最后遍历 recv 调用 publish 函数。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -294,7 +294,7 @@
 <span class="k">val</span> <span class="n">ponger</span> <span class="k">=</span> <span class="n">system</span><span class="o">.</span><span class="n">actorOf</span><span class="o">(</span><span class="nc">Props</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">Ponger</span><span class="o">],</span> <span class="n">pinger</span><span class="o">),</span> <span class="s">&#34;ponger&#34;</span><span class="o">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>会调用 ActorSystem 中的actorOf方法</p>
+</div><p>会调用 ActorSystem 中的 actorOf 方法</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -311,8 +311,8 @@
   <span class="s">&#34;cannot create top-level actor from the outside on ActorSystem with custom user guardian&#34;</span><span class="o">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>会从守卫Actor 下面创建一个新的Child Actor</p>
-<p>会调用下边的makeChild 方法:</p>
+</div><p>会从守卫 Actor 下面创建一个新的 Child Actor</p>
+<p>会调用下边的 makeChild 方法：</p>
 <p>Children.scala</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -365,7 +365,7 @@
   <span class="n">sendMessage</span><span class="o">(</span><span class="nc">Envelope</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">sender</span><span class="o">,</span> <span class="n">system</span><span class="o">))</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>将message 包装为信封，调用Cell 的 sendMessage 方法</p>
+</div><p>将 message 包装为信封，调用 Cell 的 sendMessage 方法</p>
 <p>是因为 Cell 实现了</p>
 <p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi95pdbj31kc09utcl.jpg" alt="image-20200109195143660"></p>
 <p>Dispatch 特质</p>
@@ -392,8 +392,8 @@
     <span class="o">}</span> <span class="k">catch</span> <span class="n">handleException</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>但是我仍然有个问题，dispatcher 是我自己规定的dispather ？</p>
-<p>再调用这个Actor 所对应的 dispatcher 的 dispatch 函数</p>
+</div><p>但是我仍然有个问题，dispatcher 是我自己规定的 dispather？</p>
+<p>再调用这个 Actor 所对应的 dispatcher 的 dispatch 函数</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -411,7 +411,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>将信封丢入对应接收者的 mailbox 中，然后将 mbox 作为参数传入 registerForExecution 注册到线程池中。</p>
-<p>而这个线程池就是我预设的线程池， dispacher 只是对这个线程池做一层封装。</p>
+<p>而这个线程池就是我预设的线程池，dispacher 只是对这个线程池做一层封装。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -451,7 +451,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>使用内部的线程池来执行这个 MailBox 对象</p>
-<p>既然 MailBox 可以被执行 它一定实现了 Runnable 方法 来看看他的实现:</p>
+<p>既然 MailBox 可以被执行它一定实现了 Runnable 方法来看看他的实现：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -527,12 +527,12 @@
 <ol>
 <li>首先计算出 left 也就是分发器的吞吐量</li>
 <li>然后从队列里面出队一个元素</li>
-<li>调用actor 的invoke 方法</li>
-<li>继续向下调用直到 left &lt;1  或者</li>
+<li>调用 actor 的 invoke 方法</li>
+<li>继续向下调用直到 left &lt; 1 或者</li>
 </ol>
 <p>有两个关键的参数，</p>
-<p>throughput 也就是单次执行  <code>executorService.execute(mbox)</code> 所消费消息的数量。超出这个数量的消息将会交给下次执行这个 mbox 的时候执行。</p>
-<p><code>deadlineNs</code>  发送throughput数量消息的截止时间，保证throughput的消息要在截止时间内完成。</p>
+<p>throughput 也就是单次执行 <code>executorService.execute(mbox)</code> 所消费消息的数量。超出这个数量的消息将会交给下次执行这个 mbox 的时候执行。</p>
+<p><code>deadlineNs</code> 发送 throughput 数量消息的截止时间，保证 throughput 的消息要在截止时间内完成。</p>
 <p>调用 actor 的 invoke 方法下面会调用 ActorCell 的 receiveMessage 方法</p>
 <p><code>actor.aroundReceive(behaviorStack.head, msg)</code></p>
 <p>获得栈顶的 Receive 偏函数，调用 aroundReceive 来执行操作</p>
@@ -554,7 +554,7 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>如果receive 没有match对应的message，使用了偏函数的 applyOrElse 捕获剩下的值域，判断返回值是否和 NotHandled 相等。</p>
+</div><p>如果 receive 没有 match 对应的 message，使用了偏函数的 applyOrElse 捕获剩下的值域，判断返回值是否和 NotHandled 相等。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -573,7 +573,7 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>对message 做一次模式匹配，如果是没有handle的message 就将它作为订阅发出。</p>
+</div><p>对 message 做一次模式匹配，如果是没有 handle 的 message 就将它作为订阅发出。</p>
 <p>这里我们可以使用一个订阅者 <code>system.eventStream.subscribe(listener, classOf[UnhandledMessage]) </code> 来订阅这些消息，进行日志输出。</p>
 
     </div>
@@ -586,8 +586,8 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2020-01-15
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/8f577604317f28a2bd4b472f486e369cd9495790" title="add akka source code">(8f57760)</a>
+        2022-02-03
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/0b505038d7ec284735b26a842a713613822b656e" title="M  content/post/scala/AES_limit_length.md M  content/post/scala/akka_source_code.md">(0b50503)</a>
     </span>
   </p>
   
