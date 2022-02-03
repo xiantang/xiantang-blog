@@ -1,0 +1,15 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "plugins": [
+        "zhlint"
+    ],
+    "rules": {
+        "zhlint/zhlint":["warn"]
+    }
+}

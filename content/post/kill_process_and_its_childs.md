@@ -29,7 +29,7 @@ draft: false
 
 简而言之，就是我们的热加载组件会运行命令，然后会监听文件变化，一旦文件变化就会 kill 掉之前进程，然后重新编译代码，再执行运行的命令。
 
-但是遇到一个用户提了这样一个问题: <https://github.com/cosmtrek/air/issues/216#issuecomment-982348931>  在执行命令的时候使用 `dlv exec --accept-multiclient --log --headless --continue --listen :2345 --api-version 2 ./tmp/main` 来运行代码与开启调试，我们的组件不会彻底的将进程杀死，而是会继续存活。导致下次一次起来的时候对应的端口会被占用。
+但是遇到一个用户提了这样一个问题： <https://github.com/cosmtrek/air/issues/216#issuecomment-982348931>  在执行命令的时候使用 `dlv exec --accept-multiclient --log --headless --continue --listen :2345 --api-version 2 ./tmp/main` 来运行代码与开启调试，我们的组件不会彻底的将进程杀死，而是会继续存活。导致下次一次起来的时候对应的端口会被占用。
 
 ## 排查问题
 
@@ -109,12 +109,12 @@ cmd.Wait()
 
 最后最后和大家分享一些最近在看的好文，想过用周刊的方式发送但是因为看的比较零散，就放在每篇博文的最后，希望大家能够收获!
 
-* [間歇高效率的番茄工作法](https://book.douban.com/subject/35119866/) 看了一个news letter的文章，发现了一个至关重要的[技巧](https://happyxiao.com/pomodoro/): 如果你为一个任务设置了一个番茄钟，但是提早完成了，比方说你为一本书的某个章节记笔记，但你提早完成了 - 你不应该立即进入到下一个任务，或者提早结束这个番茄钟。
+* [間歇高效率的番茄工作法](https://book.douban.com/subject/35119866/) 看了一个news letter的文章，发现了一个至关重要的[技巧](https://happyxiao.com/pomodoro/)： 如果你为一个任务设置了一个番茄钟，但是提早完成了，比方说你为一本书的某个章节记笔记，但你提早完成了 - 你不应该立即进入到下一个任务，或者提早结束这个番茄钟。
 
 * [在日本写无限 alert 会被抓](https://blog.kalan.dev/2022-01-23-infinite-alert-loop/)
 
 * Golang 检查两个模块依赖好用命令
   * go mod graph
-  * go mod why -m  "module"
+  * `go mod why -m  "module"`
   
 * [Nginx 创始人离开 F5](https://www.nginx.com/blog/do-svidaniya-igor-thank-you-for-nginx/)
