@@ -6,7 +6,16 @@
     <description>Recent content on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 24 Jan 2022 21:49:48 +0800</lastBuildDate><atom:link href="https://vim0.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Feb 2022 00:48:05 +0800</lastBuildDate><atom:link href="https://vim0.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用番茄工作法来更好的利用你的时间</title>
+      <link>https://vim0.com/post/pomodoro_todo/</link>
+      <pubDate>Thu, 03 Feb 2022 00:48:05 +0800</pubDate>
+      
+      <guid>https://vim0.com/post/pomodoro_todo/</guid>
+      <description>对于我还来说，很容易陷入一种工作一整天，一整天都很忙但是不知道在忙什么的状态，导致第二天还是很焦虑，早会还是不知道要讲什么，只能做一下让自己</description>
+    </item>
+    
     <item>
       <title>Unix 如何杀死一个进程和它的子孙进程?</title>
       <link>https://vim0.com/post/kill_process_and_its_childs/</link>
