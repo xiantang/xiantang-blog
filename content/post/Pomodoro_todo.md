@@ -8,7 +8,7 @@ categories: ["中文","番茄工作法"]
 images:
   - ./post/Pomodoro_todo.md
 description: 番茄工作法是由弗朗西斯科·西里在 1992 年创立的时间管理法则。使用一个定时器分割出 25 分钟时间作为工作时间，和 5 分钟的休息时间，这些时间段会被称为 pomodoros。
-draft: true
+draft: false
 ---
 
 
