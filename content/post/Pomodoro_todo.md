@@ -75,4 +75,4 @@ draft: true
 
 * [《个人效率指南》](https://pmarchive.com/guide_to_personal_productivity.html)
 
-3x2 原则
+* [《软技能代码之外的生存指南》](https://book.douban.com/subject/26835090/)
