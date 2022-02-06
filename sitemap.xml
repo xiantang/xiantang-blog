@@ -414,11 +414,4 @@
     <priority>0.5</priority>
   </url>
   
-  <url>
-    <loc>https://vim0.com/post/summary/2021_summary/</loc>
-    <lastmod>2021-12-21T10:26:28+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
 </urlset>
