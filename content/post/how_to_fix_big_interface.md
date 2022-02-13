@@ -223,14 +223,8 @@ func mainLoop(handler EventHandler) {
 * 使用接口组合的方式组合出大接口。
 
 * 在主流程中使用接口转换的方式，将小接口转换成大接口。
+* [Go：如何应对不断膨胀的接口](https://jishuin.proginn.com/p/763bfbd7078f)
+* [Using Interface Composition in Go As Guardrails](https://rauljordan.com/2021/06/10/using-interface-composition-in-go-as-guardrails.html)
+* [Go Interfaces with more than one method - Acceptable or unacceptable？](https://stackoverflow.com/questions/45395982/go-interfaces-with-more-than-one-method-acceptable-or-unacceptable)
 
-* 
 
-
-ER 结尾
-
-https://twitter.com/GIA917229015/status/1490336029844602880 
-
-## 引用
-* https://jishuin.proginn.com/p/763bfbd7078f
-* (Using Interface Composition in Go As Guardrails)[https://rauljordan.com/2021/06/10/using-interface-composition-in-go-as-guardrails.html]
