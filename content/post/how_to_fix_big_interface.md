@@ -92,7 +92,11 @@ func (f *FileConfigManager) SetConfig(c *Config) {
 * 如果已经有了 10 个实现类实现了 `ConfigManager`，如果要添加一个新的函数到 `ConfigManager` 接口，那就需要这 10 个实现类都要更新，会有很多工作量。
 * 对外部暴露太多内部的信息，如果涉及权限问题会导致资损等问题。
 
+其实在公司的 codebase 里面已经出现了 10+ 个函数的 interface，横向拓展简直是一个噩梦。
+
 ## 我是如何解决的
+
+因为受够了接口膨胀的问题
 
 
 ## 结论
@@ -101,4 +105,4 @@ https://twitter.com/GIA917229015/status/1490336029844602880
 
 ## 引用
 * https://jishuin.proginn.com/p/763bfbd7078f
-* https://rauljordan.com/2021/06/10/using-interface-composition-in-go-as-guardrails.html
+* (Using Interface Composition in Go As Guardrails)[https://rauljordan.com/2021/06/10/using-interface-composition-in-go-as-guardrails.html]
