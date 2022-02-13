@@ -90,7 +90,7 @@ func (f *FileConfigManager) SetConfig(c *Config) {
 
 * 如果有一个新的配置需要管理，那么他将需要满足 4 个函数，来实现这个接口。
 * 如果已经有了 10 个实现类实现了 `ConfigManager`，如果要添加一个新的函数到 `ConfigManager` 接口，那就需要这 10 个实现类都要更新，会有很多工作量。
-* 新的实现类不一定需要暴露 config。
+* 对外部暴露太多内部的信息，如果涉及权限问题会导致资损等问题。
 
 ## 我是如何解决的
 
@@ -101,3 +101,4 @@ https://twitter.com/GIA917229015/status/1490336029844602880
 
 ## 引用
 * https://jishuin.proginn.com/p/763bfbd7078f
+* https://rauljordan.com/2021/06/10/using-interface-composition-in-go-as-guardrails.html
