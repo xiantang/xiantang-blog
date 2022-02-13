@@ -141,7 +141,76 @@ type ReadWriteSeeker interface {
 
 ### 转换接口
 
-同时在传参的时候，只传递较小的接口，然后根据需要去转换到对应的大接口。
+同时在传参的时候，只传递较小的接口，然后根据需要去转换到其他接口。
+
+```Golang
+func WriteString(w Writer, s string) (n int, err error) {
+ if sw, ok := w.(StringWriter); ok {
+  return sw.WriteString(s)
+ }
+ return w.Write([]byte(s))
+}
+```
+
+### 好处
+
+这样好处是
+
+* *尽量暴露少的信息给用户*：对于所有的实现类我们只需要实现必须实现的函数，不需要去满足上面接口的所有函数。
+* *抽象能力更强*：因为你的接口只有 1 - 2 个函数所以横向拓展更加的简单，这也是为什么 io.Writer 接口能轻轻松松写出 20+ 个实现类的原因。
+
+## 重构上面的代码
+
+对于上面的代码，我们可以重构一下：
+
+我们可以把拥有 4 个接口的 `ConfigManager` 重构成两个小接口，然后进行组合：
+
+```golang
+/*
+type ConfigManager interface {
+  HandleResync()
+  HandleWatch()
+  GetConfig() *Config
+  SetConfig(*Config)
+}
+*/
+
+type EventHandler interface {
+   HandleResync()
+   HandleWatch()
+}
+
+type DataHolder interface {
+    GetConfig() *Config
+    SetConfig(*Config)
+}
+
+type DataEventHandler struct {
+     DataHolder
+     EventHandler
+}
+```
+
+这样 `FileConfigManager` 就可以只实现 `EventHandler` 接口了，减少了暴露的信息，并且可以不实现那些不想暴露的函数。
+
+对于主逻辑其实也会比较简单：
+
+```golang
+func mainLoop(handler EventHandler) {
+    // just example
+
+    // resync
+    handler.HandleResync()
+
+    // watch
+    handler.HandleWatch()
+
+    // ...
+    // report data
+    if h,ok := handler.(DataEventHandler); ok {
+     report(h.GetConfig())
+    }
+}
 
 
 ## 结论
