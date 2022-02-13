@@ -6,7 +6,7 @@ author: "xiantang"
 tags: ["Golang","Refacotr"]
 categories: ["Golang"]
 images:
-  - ./post/golang/how_to_fix_big_interface.png
+  - ./post/how_to_fix_big_interface.png
 description:
 draft: false
 ---
