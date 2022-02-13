@@ -3,12 +3,12 @@ title: "Golang: 如何处理日渐膨胀的 interface"
 date: 2022-02-13T20:23:51+08:00
 author: "xiantang"
 # lastmod: 
-tags: []
+tags: ["Golang","Refacotr"]
 categories: ["Golang"]
-# images:
-#   - ./post/golang/cover.png
+images:
+  - ./post/golang/how_to_fix_big_interface.png
 description:
-draft: true
+draft: false
 ---
 
 
