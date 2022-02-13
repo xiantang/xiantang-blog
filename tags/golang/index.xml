@@ -13,7 +13,7 @@
       <pubDate>Sun, 13 Feb 2022 20:23:51 +0800</pubDate>
       
       <guid>https://vim0.com/post/how_to_fix_big_interface/</guid>
-      <description>The bigger the interface，the weaker the abstraction。Go Proverbs TL;DR：如果你的 Golang interface 有太多函数导致你很难横向拓展，那就把它按照职责拆分</description>
+      <description>The bigger the interface，the weaker the abstraction。Go Proverbs 先说结论吧，如果你的 Golang interface 有太多函数导致你很难横向拓展，那就把它按照职责拆分</description>
     </item>
     
     <item>
