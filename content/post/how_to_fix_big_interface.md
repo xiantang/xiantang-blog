@@ -227,4 +227,14 @@ func mainLoop(handler EventHandler) {
 * [Using Interface Composition in Go As Guardrails](https://rauljordan.com/2021/06/10/using-interface-composition-in-go-as-guardrails.html)
 * [Go Interfaces with more than one method - Acceptable or unacceptable？](https://stackoverflow.com/questions/45395982/go-interfaces-with-more-than-one-method-acceptable-or-unacceptable)
 
+## 推荐环节
 
+最后最后和大家分享一些最近在看的好文，想过用周刊的方式发送但是因为看的比较零散，就放在每篇博文的最后，希望大家能够收获！
+
+* [How to Write a Git Commit Message](https://cbea.ms/git-commit/) 推荐语：这个 git commit 提交消息的写法，对我这种每天只会写 fix xxxx issue 的人来说是很有用的。
+
+* [Career Advice Nobody Gave Me：Never Ignore a Recruiter](https://index.medium.com/career-advice-nobody-gave-me-never-ignore-a-recruiter-4474eac9556) 程序员都不喜欢猎头，但是这篇文章告诉我们其实猎头是很重要的。
+
+* [面对恐慌和无聊给程序员的一份自救指南](https://vikingz.me/save-yourself/) WFH 真的会让人徒增很多焦虑，这篇文章给了我一些灵感，之后可能会写一篇克服焦虑的文章。
+
+* [《爱的沟通》](https://book.douban.com/subject/30248303/)教会了我如何去沟通，防止防御性倾听。
