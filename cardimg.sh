@@ -1,1 +1,2 @@
-tcardgen -f font   -t template.png content/post/golang/use_mock_to_test.md
+##!/bin/bash
+tcardgen -f font   -t template.png content/post/$1.md -o content/post/$1.png
