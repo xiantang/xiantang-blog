@@ -96,10 +96,58 @@ func (f *FileConfigManager) SetConfig(c *Config) {
 
 ## 我是如何解决的
 
-因为受够了接口膨胀的问题
+因为受够了接口膨胀的问题，我可真算是绞尽脑汁，虽然 Golang 作者总是说要把接口控制小，但是其实并没告诉我们如何去防止接口膨胀。终于我在 Golang 的 io 包中找到了一个解决方案。
+
+在 [io.go#83](https://github.com/golang/go/blob/master/src/io/io.go#L83) 到 [io.go#172](https://github.com/golang/go/blob/master/src/io/io.go#L172) 定义的接口中。
+
+### 拆分接口
+
+我们发现他按照职能拆分出了一堆只有 1 - 2 个函数小接口。
+like：
+
+```Go
+type Reader interface {
+ Read(p []byte) (n int, err error)
+}
+type Writer interface {
+ Write(p []byte) (n int, err error)
+}
+type Closer interface {
+ Close() error
+}
+type Seeker interface {
+ Seek(offset int64, whence int) (int64, error)
+}
+```
+
+### 拼接接口
+
+采用增量拼接的方式将这些接口拼接起来：
+
+```go
+type Writer interface {
+ Write(p []byte) (n int, err error)
+}
+type WriteSeeker interface {
+ Writer
+ Seeker
+}
+type ReadWriteSeeker interface {
+ Reader
+ Writer
+ Seeker
+}
+```
+
+### 转换接口
+
+同时在传参的时候，只传递较小的接口，然后根据需要去转换到对应的大接口。
 
 
 ## 结论
+
+* 接口小 effective golang 
+ER 结尾
 
 https://twitter.com/GIA917229015/status/1490336029844602880 
 
