@@ -21,7 +21,7 @@ draft: false
 
 > The bigger the interface，the weaker the abstraction。[Go Proverbs](https://www.youtube.com/watch?v=PAAkCSZUG1c&t=317s)
 
-TL;DR：如果你的 Golang interface 有太多函数导致你很难横向拓展，那就把它按照职责拆分成多个 interface，然后使用 embed **组合**起来。
+先说结论吧，如果你的 Golang interface 有太多函数导致你很难横向拓展，那就把它按照职责拆分成多个 interface，然后使用 embed **组合**起来。
 
 倘若你有一些事件
 
