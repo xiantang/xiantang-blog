@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Refacotr on xiantang - 自律者自由</title>
+    <link>https://vim0.com/tags/refacotr/</link>
+    <description>Recent content in Refacotr on xiantang - 自律者自由</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 13 Feb 2022 20:23:51 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/refacotr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang: 如何处理日渐膨胀的 interface</title>
+      <link>https://vim0.com/post/how_to_fix_big_interface/</link>
+      <pubDate>Sun, 13 Feb 2022 20:23:51 +0800</pubDate>
+      
+      <guid>https://vim0.com/post/how_to_fix_big_interface/</guid>
+      <description>The bigger the interface，the weaker the abstraction。Go Proverbs TL;DR：如果你的 Golang interface 有太多函数导致你很难横向拓展，那就把它按照职责拆分</description>
+    </item>
+    
+  </channel>
+</rss>

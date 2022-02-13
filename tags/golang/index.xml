@@ -6,7 +6,16 @@
     <description>Recent content in Golang on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 24 Jan 2022 21:49:48 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Feb 2022 20:23:51 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang: 如何处理日渐膨胀的 interface</title>
+      <link>https://vim0.com/post/how_to_fix_big_interface/</link>
+      <pubDate>Sun, 13 Feb 2022 20:23:51 +0800</pubDate>
+      
+      <guid>https://vim0.com/post/how_to_fix_big_interface/</guid>
+      <description>The bigger the interface，the weaker the abstraction。Go Proverbs TL;DR：如果你的 Golang interface 有太多函数导致你很难横向拓展，那就把它按照职责拆分</description>
+    </item>
+    
     <item>
       <title>Unix 如何杀死一个进程和它的子孙进程?</title>
       <link>https://vim0.com/post/kill_process_and_its_childs/</link>
