@@ -6,22 +6,31 @@
     <description>Recent content in Categories on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 13 Feb 2022 20:23:51 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 Feb 2022 21:17:20 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>中文</title>
+      <link>https://vim0.com/categories/%E4%B8%AD%E6%96%87/</link>
+      <pubDate>Sun, 20 Feb 2022 21:17:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/categories/%E4%B8%AD%E6%96%87/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>拖延症</title>
+      <link>https://vim0.com/categories/%E6%8B%96%E5%BB%B6%E7%97%87/</link>
+      <pubDate>Sun, 20 Feb 2022 21:17:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/categories/%E6%8B%96%E5%BB%B6%E7%97%87/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Golang</title>
       <link>https://vim0.com/categories/golang/</link>
       <pubDate>Sun, 13 Feb 2022 20:23:51 +0800</pubDate>
       
       <guid>https://vim0.com/categories/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>中文</title>
-      <link>https://vim0.com/categories/%E4%B8%AD%E6%96%87/</link>
-      <pubDate>Thu, 03 Feb 2022 00:48:05 +0800</pubDate>
-      
-      <guid>https://vim0.com/categories/%E4%B8%AD%E6%96%87/</guid>
       <description></description>
     </item>
     

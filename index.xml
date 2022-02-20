@@ -6,7 +6,16 @@
     <description>Recent content on xiantang - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 13 Feb 2022 20:23:51 +0800</lastBuildDate><atom:link href="https://vim0.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 Feb 2022 21:17:20 +0800</lastBuildDate><atom:link href="https://vim0.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于焦虑和拖延症</title>
+      <link>https://vim0.com/post/anxiety/</link>
+      <pubDate>Sun, 20 Feb 2022 21:17:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/post/anxiety/</guid>
+      <description>拖延总能让我们苟且偷安，但难题并没有消失。&amp;ndash;《番茄工作法图解》 目前存在的问题 压力产生焦虑，在互联网公司始终会有很多的压力，有些是</description>
+    </item>
+    
     <item>
       <title>Golang: 如何处理日渐膨胀的 interface</title>
       <link>https://vim0.com/post/how_to_fix_big_interface/</link>
