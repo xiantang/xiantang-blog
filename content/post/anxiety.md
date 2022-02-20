@@ -8,7 +8,7 @@ categories: ["中文","拖延症"]
 images:
   - ./post/anxiety.png
 description:
-draft: true
+draft: false
 ---
 
 
