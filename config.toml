@@ -71,7 +71,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   gitRepo = "https://github.com/xiantang/xiantang.github.io"
 
   # site info (optional)                                  # 站点信息（可选，不需要的可以直接注释掉）
-  logoTitle = "咸糖"        # default: the title value    # 默认值: 上面设置的title值
+  logoTitle = "xiantang"        # default: the title value    # 默认值: 上面设置的title值
   # keywords = ["Hugo", "theme","even"]
   description = "xiantang's blog"
   images = ["./post/main_cover.png"]
