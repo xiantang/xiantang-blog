@@ -75,3 +75,8 @@ draft: false
 ![](2022-02-28-00-22-14.png)
 
 这样的好处显而易见，在我们输出做提纲的时候，这里反向链接的笔记将很好的提供帮助。
+
+## 引用
+
+* [Channel Axioms](https://dave.cheney.net/2014/03/19/channel-axioms)
+* [双向链接与知识星图使用说明-Windows/Mac 端](https://staging.yinxiang.com/hc/articles/knowledge/)
