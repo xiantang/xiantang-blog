@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>code on 咸糖 - 自律者自由</title>
+    <link>https://vim0.com/tags/code/</link>
+    <description>Recent content in code on 咸糖 - 自律者自由</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 10 Apr 2022 23:08:16 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/code/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于编写可维护的代码的一些实践与想法</title>
+      <link>https://vim0.com/post/write_-maintainable_code/</link>
+      <pubDate>Sun, 10 Apr 2022 23:08:16 +0800</pubDate>
+      
+      <guid>https://vim0.com/post/write_-maintainable_code/</guid>
+      <description>关于编写可维护的代码的一些实践与想法 最近在改一个代码风格迥异并且经历过很多手的历史代码，发现中间中了很多代码设计上的一些反模式的错误。导致我</description>
+    </item>
+    
+  </channel>
+</rss>

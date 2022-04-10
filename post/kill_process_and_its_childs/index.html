@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.92.2 with theme even" />
+<meta name="generator" content="Hugo 0.96.0 with theme even" />
 
 
 <link rel="canonical" href="https://vim0.com/post/kill_process_and_its_childs/" />
@@ -187,10 +187,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-s" data-lang="s"><span class="m">1594910868</span> <span class="m">75277</span> <span class="m">74711</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">09</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.14</span> <span class="n">dlv</span> <span class="n">exec</span> <span class="o">--</span><span class="n">accep</span> <span class="n">xt</span>       <span class="m">75277</span>      <span class="m">0</span>    <span class="m">1</span> <span class="n">S</span>    <span class="n">s005</span>
-<span class="m">1594910868</span> <span class="m">75280</span> <span class="m">75277</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">09</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.02</span> <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">Develop</span> <span class="n">xt</span>       <span class="m">75280</span>      <span class="m">0</span>    <span class="m">1</span> <span class="n">S</span><span class="o">+</span>   <span class="n">s005</span>
-<span class="m">1594910868</span> <span class="m">75281</span> <span class="m">75280</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">09</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.01</span> <span class="n">./tmp</span><span class="o">/</span><span class="n">main</span>       <span class="n">xt</span>       <span class="m">75280</span>      <span class="m">0</span>    <span class="m">1</span> <span class="n">SX</span><span class="o">+</span>  <span class="n">s005</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-s" data-lang="s"><span class="line"><span class="cl"><span class="m">1594910868</span> <span class="m">75277</span> <span class="m">74711</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">09</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.14</span> <span class="n">dlv</span> <span class="n">exec</span> <span class="o">--</span><span class="n">accep</span> <span class="n">xt</span>       <span class="m">75277</span>      <span class="m">0</span>    <span class="m">1</span> <span class="n">S</span>    <span class="n">s005</span>
+</span></span><span class="line"><span class="cl"><span class="m">1594910868</span> <span class="m">75280</span> <span class="m">75277</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">09</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.02</span> <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">Develop</span> <span class="n">xt</span>       <span class="m">75280</span>      <span class="m">0</span>    <span class="m">1</span> <span class="n">S</span><span class="o">+</span>   <span class="n">s005</span>
+</span></span><span class="line"><span class="cl"><span class="m">1594910868</span> <span class="m">75281</span> <span class="m">75280</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">09</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.01</span> <span class="n">./tmp</span><span class="o">/</span><span class="n">main</span>       <span class="n">xt</span>       <span class="m">75280</span>      <span class="m">0</span>    <span class="m">1</span> <span class="n">SX</span><span class="o">+</span>  <span class="n">s005</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>而且是很清晰的能看出来，进程的祖孙关系：</p>
 <p>75277 是父进程</p>
@@ -204,10 +204,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-s" data-lang="s"><span class="o">&gt;</span> <span class="n">kill</span> <span class="m">-9</span> <span class="m">75277</span>
-<span class="o">&gt;</span> <span class="n">ps</span> <span class="o">-</span><span class="n">ef</span> <span class="o">|</span> <span class="n">grep</span> <span class="s">&#34;tmp/main&#34;</span>
-<span class="m">1594910868</span> <span class="m">75281</span>     <span class="m">1</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">09</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.01</span> <span class="n">./tmp</span><span class="o">/</span><span class="n">main</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-s" data-lang="s"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">kill</span> <span class="m">-9</span> <span class="m">75277</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">ps</span> <span class="o">-</span><span class="n">ef</span> <span class="o">|</span> <span class="n">grep</span> <span class="s">&#34;tmp/main&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="m">1594910868</span> <span class="m">75281</span>     <span class="m">1</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">09</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.01</span> <span class="n">./tmp</span><span class="o">/</span><span class="n">main</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以发现只剩下 75281 这个进程了，而且这个进程的父进程现在变成了 1，孤儿进程了。属实是孤儿了。</p>
 <p>如果这个进程还继续占用着端口，会造成下次执行命令的时候无法正常热加载。</p>
@@ -221,11 +221,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-s" data-lang="s">  <span class="n">PID</span>  <span class="n">PPID</span>  <span class="n">PGID</span>   <span class="n">UID</span>   <span class="n">C</span> <span class="n">STIME</span>   <span class="n">TTY</span>             <span class="n">TIME</span> <span class="n">CMD</span>              
-<span class="m">75837</span> <span class="m">74711</span> <span class="m">75837</span> <span class="m">1594910868</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">22</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.23</span> <span class="n">dlv</span> <span class="n">exec</span> <span class="o">--</span><span class="n">accep</span> 
-<span class="m">75840</span> <span class="m">75837</span> <span class="m">75840</span> <span class="m">1594910868</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">22</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.02</span> <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">Develop</span> 
-<span class="m">75841</span> <span class="m">75840</span> <span class="m">75840</span> <span class="m">1594910868</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">22</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.01</span> <span class="n">./tmp</span><span class="o">/</span><span class="n">main</span>       
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-s" data-lang="s"><span class="line"><span class="cl">  <span class="n">PID</span>  <span class="n">PPID</span>  <span class="n">PGID</span>   <span class="n">UID</span>   <span class="n">C</span> <span class="n">STIME</span>   <span class="n">TTY</span>             <span class="n">TIME</span> <span class="n">CMD</span>              
+</span></span><span class="line"><span class="cl"><span class="m">75837</span> <span class="m">74711</span> <span class="m">75837</span> <span class="m">1594910868</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">22</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.23</span> <span class="n">dlv</span> <span class="n">exec</span> <span class="o">--</span><span class="n">accep</span> 
+</span></span><span class="line"><span class="cl"><span class="m">75840</span> <span class="m">75837</span> <span class="m">75840</span> <span class="m">1594910868</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">22</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.02</span> <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">Develop</span> 
+</span></span><span class="line"><span class="cl"><span class="m">75841</span> <span class="m">75840</span> <span class="m">75840</span> <span class="m">1594910868</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">22</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.01</span> <span class="n">./tmp</span><span class="o">/</span><span class="n">main</span>       
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到第三列就是对应的 pgid，虽然我们使用命令启动的 pgid 不同，但是我们可以使用 Golang 来设置进程组号，这样就可以共享进程组号了。</p>
 <p>同时在 kill 进程的时候，也要使用这个 pgid 参数，这样就可以杀死对应的进程组了。可以参考 <code>man kill</code></p>
@@ -248,17 +248,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span> <span class="nx">some_command</span> <span class="p">)</span>
-<span class="nx">cmd</span><span class="p">.</span><span class="nx">SysProcAttr</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">syscall</span><span class="p">.</span><span class="nx">SysProcAttr</span><span class="p">{</span><span class="nx">Setpgid</span><span class="p">:</span> <span class="kc">true</span><span class="p">}</span>
-<span class="nx">cmd</span><span class="p">.</span><span class="nf">Start</span><span class="p">()</span>
-
-<span class="nx">pgid</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">syscall</span><span class="p">.</span><span class="nf">Getpgid</span><span class="p">(</span><span class="nx">cmd</span><span class="p">.</span><span class="nx">Process</span><span class="p">.</span><span class="nx">Pid</span><span class="p">)</span>
-<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-<span class="nx">syscall</span><span class="p">.</span><span class="nf">Kill</span><span class="p">(</span><span class="o">-</span><span class="nx">pgid</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>  <span class="c1">// note the minus sign
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="nx">cmd</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span> <span class="nx">some_command</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">cmd</span><span class="p">.</span><span class="nx">SysProcAttr</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">syscall</span><span class="p">.</span><span class="nx">SysProcAttr</span><span class="p">{</span><span class="nx">Setpgid</span><span class="p">:</span> <span class="kc">true</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">cmd</span><span class="p">.</span><span class="nf">Start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">pgid</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">syscall</span><span class="p">.</span><span class="nf">Getpgid</span><span class="p">(</span><span class="nx">cmd</span><span class="p">.</span><span class="nx">Process</span><span class="p">.</span><span class="nx">Pid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nx">syscall</span><span class="p">.</span><span class="nf">Kill</span><span class="p">(</span><span class="o">-</span><span class="nx">pgid</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>  <span class="c1">// note the minus sign
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">cmd</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="总结">总结</h2>
 <p>在单测中添加相关的单测，保证 <code>kill</code> 所有子进程这个行为不会因为迭代而丢失。<a href="https://github.com/cosmtrek/air/commit/1c27effe33a180f3fbbcee8f2d9ea7122d89a50b#diff-6266cec6be43e607de84d431f656ea78fac62405058d84312d9c12f3f52c7462R146">https://github.com/cosmtrek/air/commit/1c27effe33a180f3fbbcee8f2d9ea7122d89a50b#diff-6266cec6be43e607de84d431f656ea78fac62405058d84312d9c12f3f52c7462R146</a></p>
@@ -406,7 +406,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>

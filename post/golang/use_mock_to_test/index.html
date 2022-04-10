@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.92.2 with theme even" />
+<meta name="generator" content="Hugo 0.96.0 with theme even" />
 
 
 <link rel="canonical" href="https://vim0.com/post/golang/use_mock_to_test/" />
@@ -49,7 +49,7 @@
 <meta itemprop="name" content="使用 Mock 和 Interface 进行 Golang 单测">
 <meta itemprop="description" content="golang单元测试最佳实践 Go 语言 自动化 测试 golang 单元测试 数据库 golang 单元测试 mock golang 单元测试规范"><meta itemprop="datePublished" content="2022-01-07T01:37:56+08:00" />
 <meta itemprop="dateModified" content="2022-01-16T21:47:10+08:00" />
-<meta itemprop="wordCount" content="2840"><meta itemprop="image" content="https://vim0.com/post/golang/cover.png">
+<meta itemprop="wordCount" content="2837"><meta itemprop="image" content="https://vim0.com/post/golang/cover.png">
 <meta itemprop="keywords" content="Golang," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/golang/cover.png"/>
 
@@ -142,7 +142,7 @@
         <div class="post-category">
             <a href="/categories/golang/"> Golang </a>
             </div>
-          <span class="more-meta"> 2840 words </span>
+          <span class="more-meta"> 2837 words </span>
           <span class="more-meta"> 6 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -194,13 +194,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Test_xxx</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
- <span class="nx">DemoClient</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">demo</span><span class="p">.</span><span class="nx">DemoClient</span><span class="p">{</span><span class="nx">url</span><span class="p">:</span> <span class="s">&#34;http://localhost:8080&#34;</span><span class="p">}</span>
- <span class="nx">DemoClient</span><span class="p">.</span><span class="nf">Init</span><span class="p">()</span>
- <span class="nx">resp</span> <span class="o">:=</span> <span class="nx">DemoCliten</span><span class="p">.</span><span class="nf">DoHTTPReq</span><span class="p">()</span>
- <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">resp</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Test_xxx</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">DemoClient</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">demo</span><span class="p">.</span><span class="nx">DemoClient</span><span class="p">{</span><span class="nx">url</span><span class="p">:</span> <span class="s">&#34;http://localhost:8080&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">DemoClient</span><span class="p">.</span><span class="nf">Init</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">resp</span> <span class="o">:=</span> <span class="nx">DemoCliten</span><span class="p">.</span><span class="nf">DoHTTPReq</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">resp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面这个例子中 <code>DemoClient</code> 在做 <code>DoHTTPReq</code> 方法的时候，会调用 <code>http.Get</code> 方法，这个方法是中包含了外部依赖也就是说他会去请求本地的服务器，如果有一个新的同事刚拿到你的代码，并且本地是没有这个服务器的话，那么你的单测就会失败。</p>
 <p>并且上面这个例子中，对于 <code>DoHTTPReq</code> 这个函数只是简单的做了一个输出，没有对返回值做任何检查，如果内部逻辑修改并且返回值修改了，虽然你的测试还是能够 <code>pass</code> 但是其实你的单测是不起作用的。</p>
@@ -244,29 +244,29 @@
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">myapp_test</span>
-<span class="c1">// TestYoClient provides mockable implementation of yo.Client.
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TestYoClient</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">SendFunc</span> <span class="kd">func</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">TestYoClient</span><span class="p">)</span> <span class="nf">Send</span><span class="p">(</span><span class="nx">recipient</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nf">SendFunc</span><span class="p">(</span><span class="nx">recipient</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="nf">TestMyApplication_SendYo</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">c</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">TestYoClient</span><span class="p">{}</span>
-    <span class="nx">a</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">MyApplication</span><span class="p">{</span><span class="nx">YoClient</span><span class="p">:</span> <span class="nx">c</span><span class="p">}</span>
-    <span class="c1">// Mock our send function to capture the argument.
-</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">recipient</span> <span class="kt">string</span>
-    <span class="nx">c</span><span class="p">.</span><span class="nx">SendFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-        <span class="nx">recipient</span> <span class="p">=</span> <span class="nx">s</span>
-        <span class="k">return</span> <span class="kc">nil</span>
-    <span class="p">}</span>
-    <span class="c1">// Send the yo and verify the recipient.
-</span><span class="c1"></span>    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nf">Yo</span><span class="p">(</span><span class="s">&#34;susy&#34;</span><span class="p">)</span>
-    <span class="nf">ok</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-    <span class="nf">equals</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="s">&#34;susy&#34;</span><span class="p">,</span> <span class="nx">recipient</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">myapp_test</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// TestYoClient provides mockable implementation of yo.Client.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">TestYoClient</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">SendFunc</span> <span class="kd">func</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">TestYoClient</span><span class="p">)</span> <span class="nf">Send</span><span class="p">(</span><span class="nx">recipient</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nf">SendFunc</span><span class="p">(</span><span class="nx">recipient</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">TestMyApplication_SendYo</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">TestYoClient</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">MyApplication</span><span class="p">{</span><span class="nx">YoClient</span><span class="p">:</span> <span class="nx">c</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Mock our send function to capture the argument.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">recipient</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span><span class="p">.</span><span class="nx">SendFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">recipient</span> <span class="p">=</span> <span class="nx">s</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Send the yo and verify the recipient.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nf">Yo</span><span class="p">(</span><span class="s">&#34;susy&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">ok</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">equals</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="s">&#34;susy&#34;</span><span class="p">,</span> <span class="nx">recipient</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>我们会有一个 <code>MyApplication</code> 同时他又依赖了一个发送上报的 <code>YoClient</code>。上面的代码中我们会将依赖的 <code>YoClient</code> 替换为 <code>TestYoClient</code>，这样代码在调用 <code>MyApplication.Yo</code> 时，其实执行的是 <code>TestYoClient.Send</code>，这样我们就可以自定义外部依赖的输入和输出了。</p>
 <p>同样可以发现一个很有趣的地方，就是我们将 <code>TestYoClient</code> 的 <code>SendFunc</code> 替换为 <code>func(string) error</code>，这样我们就可以更加灵活的控制输入和输出了。对于不同的测试，我们只需要更改 <code>SendFunc</code> 的值就可以了。这样每个测试我们都可以随意的控制输入和输出。</p>
@@ -295,16 +295,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">myapp</span>
-<span class="kd">type</span> <span class="nx">MyApplication</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">YoClient</span> <span class="kd">interface</span> <span class="p">{</span>
-        <span class="nf">Send</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">MyApplication</span><span class="p">)</span> <span class="nf">Yo</span><span class="p">(</span><span class="nx">recipient</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">YoClient</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="nx">recipient</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">myapp</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">MyApplication</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">YoClient</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">Send</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">MyApplication</span><span class="p">)</span> <span class="nf">Yo</span><span class="p">(</span><span class="nx">recipient</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">YoClient</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="nx">recipient</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="其他的一些例子">其他的一些例子</h3>
 <p>此外我还提供了一个例子供参考，主要是从正式生产的代码中找到的，屏蔽了敏感信息的例子。</p>
@@ -328,28 +328,26 @@
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
-</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">type</span> <span class="nx">ETCD</span> <span class="kd">interface</span> <span class="p">{</span>
- <span class="nf">GetWithTimeout</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
- <span class="nf">Watch</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nx">WatchChan</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">MockEtcdClient</span> <span class="kd">struct</span> <span class="p">{</span>
- <span class="nx">GetWithTimeoutFunc</span> <span class="kd">func</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
- <span class="nx">WatchFunc</span>          <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nx">WatchChan</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="nx">MockEtcdClient</span><span class="p">)</span> <span class="nf">GetWithTimeout</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
- <span class="k">return</span> <span class="nx">m</span><span class="p">.</span><span class="nf">GetWithTimeoutFunc</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">opts</span><span class="o">...</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="nx">MockEtcdClient</span><span class="p">)</span> <span class="nf">Watch</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nx">WatchChan</span> <span class="p">{</span>
- <span class="k">return</span> <span class="nx">m</span><span class="p">.</span><span class="nf">WatchFunc</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">opts</span><span class="o">...</span><span class="p">)</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">ETCD</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">GetWithTimeout</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">Watch</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nx">WatchChan</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">MockEtcdClient</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">GetWithTimeoutFunc</span> <span class="kd">func</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">WatchFunc</span>          <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nx">WatchChan</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="nx">MockEtcdClient</span><span class="p">)</span> <span class="nf">GetWithTimeout</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="nx">m</span><span class="p">.</span><span class="nf">GetWithTimeoutFunc</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">opts</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="nx">MockEtcdClient</span><span class="p">)</span> <span class="nf">Watch</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nx">WatchChan</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="nx">m</span><span class="p">.</span><span class="nf">WatchFunc</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">opts</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>一个单测的例子:</p>
 <div class="highlight"><div class="chroma">
@@ -377,36 +375,32 @@
 </span><span class="lnt">21
 </span><span class="lnt">22
 </span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Test_saveTestConf</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
- <span class="nx">etcd</span> <span class="o">:=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">MockEtcdClient</span><span class="p">{</span>
-  <span class="nx">GetWithTimeoutFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-   <span class="k">return</span> <span class="o">&amp;</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">{</span>
-    <span class="nx">Kvs</span><span class="p">:</span> <span class="p">[]</span><span class="o">*</span><span class="nx">mvccpb</span><span class="p">.</span><span class="nx">KeyValue</span><span class="p">{</span>
-     <span class="p">{</span>
-      <span class="nx">Key</span><span class="p">:</span>   <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;/xxxx/xxx/config&#34;</span><span class="p">),</span>
-      <span class="nx">Value</span><span class="p">:</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;{\&#34;xxx\&#34;:\&#34;xxx\&#34;}&#34;</span><span class="p">),</span>
-     <span class="p">},</span>
-    <span class="p">},</span>
-   <span class="p">},</span> <span class="kc">nil</span>
-  <span class="p">},</span>
-  <span class="nx">WatchFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nx">WatchChan</span> <span class="p">{</span>
-   <span class="k">return</span> <span class="kc">nil</span>
-  <span class="p">},</span>
- <span class="p">}</span>
-
- <span class="nx">configKey</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">saveTestConf</span><span class="p">(</span><span class="nx">etcd</span> <span class="p">,</span><span class="s">&#34;xxxx&#34;</span><span class="p">,</span> <span class="s">&#34;/xxxx/xxx/config&#34;</span><span class="p">)</span>
- <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-  <span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
- <span class="p">}</span>
- <span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="s">&#34;/xxxx/xxx/config&#34;</span><span class="p">,</span> <span class="nx">configKey</span><span class="p">)</span>
-<span class="p">}</span>
-
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Test_saveTestConf</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">etcd</span> <span class="o">:=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">MockEtcdClient</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">GetWithTimeoutFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="o">&amp;</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Kvs</span><span class="p">:</span> <span class="p">[]</span><span class="o">*</span><span class="nx">mvccpb</span><span class="p">.</span><span class="nx">KeyValue</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">Key</span><span class="p">:</span>   <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;/xxxx/xxx/config&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">Value</span><span class="p">:</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;{\&#34;xxx\&#34;:\&#34;xxx\&#34;}&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">     <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">   <span class="p">},</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">WatchFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nx">WatchChan</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nx">configKey</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">saveTestConf</span><span class="p">(</span><span class="nx">etcd</span> <span class="p">,</span><span class="s">&#34;xxxx&#34;</span><span class="p">,</span> <span class="s">&#34;/xxxx/xxx/config&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="s">&#34;/xxxx/xxx/config&#34;</span><span class="p">,</span> <span class="nx">configKey</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="other-tips">other tips</h3>
 <p>关于测试我这边还有一些你可能不知道的小技巧</p>
@@ -441,32 +435,32 @@
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// in example.go
-</span><span class="c1"></span><span class="kn">package</span> <span class="nx">example</span>
-
-<span class="kd">var</span> <span class="nx">start</span> <span class="kt">int</span>
-
-<span class="kd">func</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-  <span class="nx">start</span> <span class="o">+=</span> <span class="nx">n</span>
-  <span class="k">return</span> <span class="nx">start</span>
-<span class="p">}</span>
-
-<span class="c1">// in example_test.go
-</span><span class="c1"></span><span class="kn">package</span> <span class="nx">example_test</span>
-
-<span class="kn">import</span> <span class="p">(</span>
- <span class="s">&#34;testing&#34;</span>
-
- <span class="p">.</span> <span class="s">&#34;bitbucket.org/splice/blog/example&#34;</span>
-<span class="p">)</span>
-
-<span class="kd">func</span> <span class="nf">TestAdd</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">got</span> <span class="o">:=</span> <span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-  <span class="k">if</span> <span class="nx">got</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">{</span>
-    <span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;got %d, want 1&#34;</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// in example.go
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kn">package</span> <span class="nx">example</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">start</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">start</span> <span class="o">+=</span> <span class="nx">n</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">start</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// in example_test.go
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kn">package</span> <span class="nx">example_test</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl"> <span class="s">&#34;testing&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="p">.</span> <span class="s">&#34;bitbucket.org/splice/blog/example&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">TestAdd</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">got</span> <span class="o">:=</span> <span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nx">got</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;got %d, want 1&#34;</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>另外你也可以对未导出的方法和变量进行测试，可以创建一个尾缀为 <code>_internal_test</code> 的文件来标识你是想要测试未导出的方法和变量的。</p>
 <h2 id="总结">总结</h2>
@@ -611,7 +605,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>

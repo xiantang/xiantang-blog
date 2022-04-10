@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.92.2 with theme even" />
+<meta name="generator" content="Hugo 0.96.0 with theme even" />
 
 
 <link rel="canonical" href="https://vim0.com/post/how_to_fix_big_interface/" />
@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Golang: 如何处理日渐膨胀的 interface">
 <meta itemprop="description" content="The bigger the interface，the weaker the abstraction。Go Proverbs 先说结论吧，如果你的 Golang interface 有太多函数导致你很难横向拓展，那就把它按照职责拆分"><meta itemprop="datePublished" content="2022-02-13T20:23:51+08:00" />
 <meta itemprop="dateModified" content="2022-02-13T22:32:11+08:00" />
-<meta itemprop="wordCount" content="1980"><meta itemprop="image" content="https://vim0.com/post/how_to_fix_big_interface.png">
+<meta itemprop="wordCount" content="1978"><meta itemprop="image" content="https://vim0.com/post/how_to_fix_big_interface.png">
 <meta itemprop="keywords" content="Golang,Refacotr," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/how_to_fix_big_interface.png"/>
 
@@ -142,7 +142,7 @@
         <div class="post-category">
             <a href="/categories/golang/"> Golang </a>
             </div>
-          <span class="more-meta"> 1980 words </span>
+          <span class="more-meta"> 1978 words </span>
           <span class="more-meta"> 4 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -190,11 +190,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="kd">type</span> <span class="nx">ConfigManager</span> <span class="kd">interface</span> <span class="p">{</span>
- <span class="nf">HandleResync</span><span class="p">()</span>
- <span class="nf">HandleWatch</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">ConfigManager</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">HandleResync</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">HandleWatch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>HandleResync</code> 和 <code>HandleWatch</code> 都是对于 etcd 数据的拉取，拉取到数据之后，我们会将数据落盘，并且在内存里面也存储一份最新的副本。</p>
 <p>同时这个接口是有两个实现类，一个是 <code>EtcdConfigManager</code>，一个是 <code>FileConfigManager</code>。这里名字比较随意，主要是要表达一个接口的多个实现。</p>
@@ -207,18 +207,16 @@
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="kd">type</span> <span class="nx">EtcdConfigManager</span> <span class="kd">struct</span> <span class="p">{</span>
- <span class="nx">config</span> <span class="o">*</span><span class="nx">Config</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">FileConfigManager</span> <span class="kd">struct</span> <span class="p">{</span>
- <span class="nx">config</span> <span class="o">*</span><span class="nx">Config</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">EtcdConfigManager</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">config</span> <span class="o">*</span><span class="nx">Config</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">FileConfigManager</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">config</span> <span class="o">*</span><span class="nx">Config</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>但是应为业务不断增长，我们对于 <code>EtcdConfigManager</code> 需要多暴露出来两个接口用来做对内存中副本上报等行为。分别是 <code>GetConfig</code> 和 <code>SetConfig</code>。</p>
 <p>但是对于 <code>FileConfigManager</code>，这个实现类其实是不需要暴露出内部的 config 的。</p>
@@ -248,28 +246,28 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="kd">type</span> <span class="nx">ConfigManager</span> <span class="kd">interface</span> <span class="p">{</span>
-  <span class="nf">HandleResync</span><span class="p">()</span>
-  <span class="nf">HandleWatch</span><span class="p">()</span>
-  <span class="nf">GetConfig</span><span class="p">()</span> <span class="o">*</span><span class="nx">Config</span>
-  <span class="nf">SetConfig</span><span class="p">(</span><span class="o">*</span><span class="nx">Config</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="c1">// impl for `ConfigManager`
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">FileConfigManager</span> <span class="kd">struct</span> <span class="p">{</span>
-   <span class="nx">config</span> <span class="o">*</span><span class="nx">Config</span>
-<span class="p">}</span>
-<span class="o">...</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">FileConfigManager</span><span class="p">)</span> <span class="nf">GetConfig</span><span class="p">()</span> <span class="o">*</span><span class="nx">Config</span> <span class="p">{</span>
- <span class="c1">// painc here
-</span><span class="c1"></span> <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;implement me&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">FileConfigManager</span><span class="p">)</span> <span class="nf">SetConfig</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Config</span><span class="p">)</span> <span class="p">{</span>
- <span class="c1">// painc here
-</span><span class="c1"></span> <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;implement me&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">ConfigManager</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">HandleResync</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">HandleWatch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">GetConfig</span><span class="p">()</span> <span class="o">*</span><span class="nx">Config</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">SetConfig</span><span class="p">(</span><span class="o">*</span><span class="nx">Config</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// impl for `ConfigManager`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">FileConfigManager</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">config</span> <span class="o">*</span><span class="nx">Config</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">FileConfigManager</span><span class="p">)</span> <span class="nf">GetConfig</span><span class="p">()</span> <span class="o">*</span><span class="nx">Config</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="c1">// painc here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;implement me&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">FileConfigManager</span><span class="p">)</span> <span class="nf">SetConfig</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Config</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="c1">// painc here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;implement me&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>虽然成功了解决了问题，但是会导致一些问题：</p>
 <ul>
@@ -300,19 +298,19 @@ like：</p>
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="kd">type</span> <span class="nx">Reader</span> <span class="kd">interface</span> <span class="p">{</span>
- <span class="nf">Read</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="kd">type</span> <span class="nx">Writer</span> <span class="kd">interface</span> <span class="p">{</span>
- <span class="nf">Write</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="kd">type</span> <span class="nx">Closer</span> <span class="kd">interface</span> <span class="p">{</span>
- <span class="nf">Close</span><span class="p">()</span> <span class="kt">error</span>
-<span class="p">}</span>
-<span class="kd">type</span> <span class="nx">Seeker</span> <span class="kd">interface</span> <span class="p">{</span>
- <span class="nf">Seek</span><span class="p">(</span><span class="nx">offset</span> <span class="kt">int64</span><span class="p">,</span> <span class="nx">whence</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="kt">int64</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Reader</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">Read</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Writer</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">Write</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Closer</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">Close</span><span class="p">()</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Seeker</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">Seek</span><span class="p">(</span><span class="nx">offset</span> <span class="kt">int64</span><span class="p">,</span> <span class="nx">whence</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="kt">int64</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="拼接接口">拼接接口</h3>
 <p>采用增量拼接的方式将这些接口拼接起来：</p>
@@ -332,19 +330,19 @@ like：</p>
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Writer</span> <span class="kd">interface</span> <span class="p">{</span>
- <span class="nf">Write</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="kd">type</span> <span class="nx">WriteSeeker</span> <span class="kd">interface</span> <span class="p">{</span>
- <span class="nx">Writer</span>
- <span class="nx">Seeker</span>
-<span class="p">}</span>
-<span class="kd">type</span> <span class="nx">ReadWriteSeeker</span> <span class="kd">interface</span> <span class="p">{</span>
- <span class="nx">Reader</span>
- <span class="nx">Writer</span>
- <span class="nx">Seeker</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Writer</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nf">Write</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">WriteSeeker</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">Writer</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">Seeker</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">ReadWriteSeeker</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">Reader</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">Writer</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">Seeker</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="转换接口">转换接口</h3>
 <p>同时在传参的时候，只传递较小的接口，然后根据需要去转换到其他接口。</p>
@@ -358,13 +356,13 @@ like：</p>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Golang" data-lang="Golang"><span class="kd">func</span> <span class="nf">WriteString</span><span class="p">(</span><span class="nx">w</span> <span class="nx">Writer</span><span class="p">,</span> <span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
- <span class="k">if</span> <span class="nx">sw</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">w</span><span class="p">.(</span><span class="nx">StringWriter</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">sw</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
- <span class="p">}</span>
- <span class="k">return</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-Golang" data-lang="Golang"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">WriteString</span><span class="p">(</span><span class="nx">w</span> <span class="nx">Writer</span><span class="p">,</span> <span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="nx">sw</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">w</span><span class="p">.(</span><span class="nx">StringWriter</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">sw</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="好处">好处</h3>
 <p>这样好处是</p>
@@ -402,30 +400,30 @@ like：</p>
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="cm">/*
-</span><span class="cm">type ConfigManager interface {
-</span><span class="cm">  HandleResync()
-</span><span class="cm">  HandleWatch()
-</span><span class="cm">  GetConfig() *Config
-</span><span class="cm">  SetConfig(*Config)
-</span><span class="cm">}
-</span><span class="cm">*/</span>
-
-<span class="kd">type</span> <span class="nx">EventHandler</span> <span class="kd">interface</span> <span class="p">{</span>
-   <span class="nf">HandleResync</span><span class="p">()</span>
-   <span class="nf">HandleWatch</span><span class="p">()</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">DataHolder</span> <span class="kd">interface</span> <span class="p">{</span>
-    <span class="nf">GetConfig</span><span class="p">()</span> <span class="o">*</span><span class="nx">Config</span>
-    <span class="nf">SetConfig</span><span class="p">(</span><span class="o">*</span><span class="nx">Config</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">DataEventHandler</span> <span class="kd">struct</span> <span class="p">{</span>
-     <span class="nx">DataHolder</span>
-     <span class="nx">EventHandler</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">type ConfigManager interface {
+</span></span></span><span class="line"><span class="cl"><span class="cm">  HandleResync()
+</span></span></span><span class="line"><span class="cl"><span class="cm">  HandleWatch()
+</span></span></span><span class="line"><span class="cl"><span class="cm">  GetConfig() *Config
+</span></span></span><span class="line"><span class="cl"><span class="cm">  SetConfig(*Config)
+</span></span></span><span class="line"><span class="cl"><span class="cm">}
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">EventHandler</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nf">HandleResync</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">   <span class="nf">HandleWatch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">DataHolder</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">GetConfig</span><span class="p">()</span> <span class="o">*</span><span class="nx">Config</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">SetConfig</span><span class="p">(</span><span class="o">*</span><span class="nx">Config</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">DataEventHandler</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="nx">DataHolder</span>
+</span></span><span class="line"><span class="cl">     <span class="nx">EventHandler</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样 <code>FileConfigManager</code> 就可以只实现 <code>EventHandler</code> 接口了，减少了暴露的信息，并且可以不实现那些不想暴露的函数。</p>
 <p>对于主逻辑其实也会比较简单：</p>
@@ -446,26 +444,24 @@ like：</p>
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
-</span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">func</span> <span class="nf">mainLoop</span><span class="p">(</span><span class="nx">handler</span> <span class="nx">EventHandler</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// just example
-</span><span class="c1"></span>
-    <span class="c1">// resync
-</span><span class="c1"></span>    <span class="nx">handler</span><span class="p">.</span><span class="nf">HandleResync</span><span class="p">()</span>
-
-    <span class="c1">// watch
-</span><span class="c1"></span>    <span class="nx">handler</span><span class="p">.</span><span class="nf">HandleWatch</span><span class="p">()</span>
-
-    <span class="c1">// ...
-</span><span class="c1"></span>    <span class="c1">// report data
-</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">h</span><span class="p">,</span><span class="nx">ok</span> <span class="o">:=</span> <span class="nx">handler</span><span class="p">.(</span><span class="nx">DataEventHandler</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
-     <span class="nf">report</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nf">GetConfig</span><span class="p">())</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">mainLoop</span><span class="p">(</span><span class="nx">handler</span> <span class="nx">EventHandler</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// just example
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// resync
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">handler</span><span class="p">.</span><span class="nf">HandleResync</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// watch
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">handler</span><span class="p">.</span><span class="nf">HandleWatch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// report data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="nx">h</span><span class="p">,</span><span class="nx">ok</span> <span class="o">:=</span> <span class="nx">handler</span><span class="p">.(</span><span class="nx">DataEventHandler</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="nf">report</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nf">GetConfig</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="结论">结论</h2>
 <p>总结一下，有下面几点我自己的最佳实践：</p>
@@ -623,7 +619,7 @@ like：</p>
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
