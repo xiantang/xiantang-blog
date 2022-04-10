@@ -39,7 +39,7 @@ draft: false
 
 我的建议是: 
 
-1. 先去写一些实现类，先简单用 switch 语句等行为控制调用，然后慢慢的根据实现类的共性慢慢地抽象出上层的接口，如果你用 `Go` 可以看看我之前对 Golang 抽象的一些思考。
+1. 先去写一些实现类，先简单用 switch 语句等行为控制调用，然后慢慢的根据实现类的共性慢慢地抽象出上层的接口，如果你用 `Go` 可以看看我之前对 Golang 抽象的一些思考。[Golang: 如何处理日渐膨胀的 interface](https://vim0.com/post/how_to_fix_big_interface/)
 2. 将接口的函数数目大大减少，每个接口最多 4 个函数，这样实现起来较为方便，将大接口根据 `单一职责原则` 将功能拆分成不同的接口， 然后组合成不同的大接口。可以参考 Golang 的 https://cs.opensource.google/go/go/+/refs/tags/go1.18:src/io/io.go;l=127 的实现。
 
 ## 写代码少炫技
