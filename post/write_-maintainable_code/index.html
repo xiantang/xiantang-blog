@@ -44,12 +44,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vim0.com/post/write_-maintainable_code/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-04-10T23:08:16+08:00" />
-<meta property="article:modified_time" content="2022-04-10T23:53:27+08:00" />
+<meta property="article:modified_time" content="2022-04-10T23:54:53+08:00" />
 
 <meta itemprop="name" content="关于编写可维护的代码的一些实践与想法">
 <meta itemprop="description" content="关于编写可维护的代码的一些实践与想法 最近在改一个代码风格迥异并且经历过很多手的历史代码，发现中间中了很多代码设计上的一些反模式的错误。导致我"><meta itemprop="datePublished" content="2022-04-10T23:08:16+08:00" />
-<meta itemprop="dateModified" content="2022-04-10T23:53:27+08:00" />
-<meta itemprop="wordCount" content="1192"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="dateModified" content="2022-04-10T23:54:53+08:00" />
+<meta itemprop="wordCount" content="1209"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
 <meta itemprop="keywords" content="code," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
 
@@ -140,7 +140,7 @@
       <div class="post-meta">
         <span class="post-time"> 2022-04-10 </span>
         
-          <span class="more-meta"> 1192 words </span>
+          <span class="more-meta"> 1209 words </span>
           <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -177,7 +177,7 @@
 <p>程序员真的是一个非常有意思的群体，对 <code>抽象</code> 这件事情特别的钟情，包括我也是。我在各种仓库也见过好的抽象和烂的抽象。比较烂的抽象往往是那种，在一个接口 <code>interface</code> 中暴露出 10+ 个函数出来，同时每个函数的真正实现就只有两三行，这个我们一般叫它 <code>宽接口</code>。它的缺点是当你横向拓展的时候需要实现 10+ 个函数，非常痛苦，灵活性非常的差。同时每个实现的函数很有可能都是空实现，里面都没有实际执行的代码。</p>
 <p>我的建议是:</p>
 <ol>
-<li>先去写一些实现类，先简单用 switch 语句等行为控制调用，然后慢慢的根据实现类的共性慢慢地抽象出上层的接口，如果你用 <code>Go</code> 可以看看我之前对 Golang 抽象的一些思考。</li>
+<li>先去写一些实现类，先简单用 switch 语句等行为控制调用，然后慢慢的根据实现类的共性慢慢地抽象出上层的接口，如果你用 <code>Go</code> 可以看看我之前对 Golang 抽象的一些思考。<a href="https://vim0.com/post/how_to_fix_big_interface/">Golang: 如何处理日渐膨胀的 interface</a></li>
 <li>将接口的函数数目大大减少，每个接口最多 4 个函数，这样实现起来较为方便，将大接口根据 <code>单一职责原则</code> 将功能拆分成不同的接口， 然后组合成不同的大接口。可以参考 Golang 的 <a href="https://cs.opensource.google/go/go/+/refs/tags/go1.18:src/io/io.go;l=127">https://cs.opensource.google/go/go/+/refs/tags/go1.18:src/io/io.go;l=127</a> 的实现。</li>
 </ol>
 <h2 id="写代码少炫技">写代码少炫技</h2>
@@ -199,7 +199,7 @@
     <span class="item-title">LastMod</span>
     <span class="item-content">
         2022-04-10
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/c04d179bf85e8cd3409802f21adffec3af8501c9" title="A  content/post/workspace.code-workspace A  &#34;content/post/write_ maintainable_code.md&#34;">(c04d179)</a>
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/21a02de7f1bb855440cc5dc0cd0aa8eb84da0f87" title="M  &#34;content/post/write_ maintainable_code.md&#34;">(21a02de)</a>
     </span>
   </p>
   
