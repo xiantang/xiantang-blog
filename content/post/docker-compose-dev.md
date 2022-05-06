@@ -90,9 +90,38 @@ docker run 命令是可以跟着参数将 CMD 改写的。
 
 `docker run -ti  --rm  your_image  bash`
 
-## 编写 dockerfile
+## 编写 compose 的配置文件
 
-## 多阶段编译
+其实你可以把 `Docker` 的容器想的很简单，是一个普通操作系统的进程只不过有独立的网络，独立的文件系统，和自己单独的进程树。
 
-## 微服务网络隔离
+所以在建设自己的微服务环境的时候，需要关注容器的网络是否是联通的，以及容器中的文件是否需要挂载到本地。
 
+### 网络隔离
+
+对于网络的联通，我们可以使甼 `docker network create --driver bridge your_network` 创建一个网络，然后把容器挂载到这个网络中。
+
+docker compose 也可以定义网络，但是需要注意的是，如果你的网络是自己创建的，那么你需要在 `docker-compose.yml` 中指定网络的名称。
+
+```
+networks:
+  your_network:
+    driver: bridge
+```
+
+docker 是建议使用自己建立的网络，而不是使用默认的网络。
+
+
+在这个 network 下的容器，docker 提供了 DNS lookup service。
+
+```
+  mysql:
+    ... 
+    networks:
+      - your_network
+  your_service:
+    ...
+    networks:
+      - your_network
+```
+
+如果你的容器中有 ping，你就可以在 your_service 中使用 `ping mysql` 来检查是否能够 ping 过去。就是说可以通过用 `docker-compose` 中名字来访问到对应的容器。
