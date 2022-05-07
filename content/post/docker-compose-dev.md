@@ -126,6 +126,6 @@ docker 是建议使用自己建立的网络，而不是使用默认的网络。
 
 如果你的容器中有 ping，你就可以在 your_service 中使用 `ping mysql` 来检查是否能够 ping 过去。就是说可以通过用 `docker-compose` 中名字来访问到对应的容器。
 
-## 总结
+也可以使用 `busybox` 来检查容器的网络是否联通。
 
-其实本文就是一些在使用 docker 中的一些学习经验，希望能够帮助大家。
+`docker run -ti --rm  --network=your_network busybox sh`
