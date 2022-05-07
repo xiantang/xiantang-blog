@@ -103,6 +103,21 @@ Compose 有两个重要的概念：
 
 所以在建设自己的微服务环境的时候，需要关注容器的网络是否是联通的，以及容器中的文件是否需要挂载到本地。
 
+```
+version: '3'
+services:
+
+  web:
+    build: .
+    ports:
+     - "5000:5000"
+
+  redis:
+    image: "redis:alpine"
+```
+
+这就是一个十分简单例子，把 web 和 redis 两个 service 关联起来，让两个容器在同一个项目中工作。
+
 ### 网络隔离
 
 对于网络的联通，我们可以使甼 `docker network create --driver bridge your_network` 创建一个网络，然后把容器挂载到这个网络中。
