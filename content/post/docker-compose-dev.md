@@ -1,14 +1,14 @@
 ---
-title: "Docker Compose Dev"
-date: 2022-05-05T22:08:34+08:00
+title: "使用 Docker Compose 建立你自己的开发环境"
+date: 2022-05-05T22:08:34+08:0
 author: "xiantang"
 # lastmod: 
-# tags: []
-# categories: []
+tags: ["Docker"]
+categories: ["Docker"]
 # images:
 #   - ./post/golang/cover.png
 description:
-draft: true
+draft: false
 ---
 
 
