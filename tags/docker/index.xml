@@ -5,11 +5,12 @@
     <link>https://vim0.com/tags/docker/</link>
     <description>Recent content in Docker on 咸糖 - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://vim0.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Thu, 05 May 2022 22:08:34 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用 Docker Compose 建立你自己的开发环境</title>
       <link>https://vim0.com/post/docker-compose-dev/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 05 May 2022 22:08:34 +0800</pubDate>
       
       <guid>https://vim0.com/post/docker-compose-dev/</guid>
       <description>Docker 其实并不是一种新技术，而是一个新瓶装旧酒的工具。 其实我在大学上学的时候就用过 Docker，那个时候还是 17 年左右，Docker 还是如日中天的</description>
