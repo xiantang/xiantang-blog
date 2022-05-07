@@ -106,7 +106,6 @@ Compose 有两个重要的概念：
 ```
 version: '3'
 services:
-
   web:
     build: .
     ports:
@@ -151,3 +150,75 @@ docker 是建议使用自己建立的网络，而不是使用默认的网络。
 也可以使用 `busybox` (将许多常见 [[UNIX]] 实用程序的微小版本组合成一个小型可执行文件。) 来检查容器的网络是否联通。
 
 `docker run -ti --rm  --network=your_network busybox sh`
+
+## 常用的最佳实践
+
+### 使用多阶段构建
+
+使用多阶段构建，只会用最后一个阶段的来构建镜像，可以留下一个更加精简的 image-镜像
+
+```
+FROM python:3.6 
+WORKDIR /APP
+
+COPY . .
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+CMD ["python","spider.py"]
+```
+
+可以改写成下面的格式：
+
+```
+FROM python:3.6 AS builder
+
+COPY requirements.txt ./
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+FROM python:3.6-slim 
+
+COPY --from=builder /usr/local/lib/python3.6/site-packages /usr/local/lib/python3.6/site-packages
+WORKDIR /APP
+
+COPY spider.csv ./
+COPY *.py ./
+
+CMD ["python","spider.py"]
+```
+
+
+### 调整 Dockerfile 的顺序
+
+调整 Dockerfile 的顺序，因为每一个步骤发生变化后，后面的步骤的缓存都会废纸，所以将变动较大的放在后面比较好。
+
+下面的格式就是，当你改动了一个 py 文件中的一行代码，其实每次 docker build 都会把下边的依赖下载的缓存废弃，所以改动较大的放在后面。
+
+```
+FROM python:3.6 
+WORKDIR /APP
+
+COPY . .
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+CMD ["python","spider.py"]
+```
+
+可以改成下面的格式：
+
+```
+FROM python:3.6
+
+WORKDIR /APP
+COPY requirements.txt ./
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+COPY spider.csv ./
+COPY *.py ./
+CMD ["python","spider.py"]
+```
+
+这样就可以改动 spider.py 中的代码没有增加新的依赖的时候，就能复用 pip install 的缓存。
+
+
+## 最后
+
+这就是我最近在使用 Docker 与 docker-compose 的时候的一些心得，希望能对大家有所帮助，本文将会不断地继续更新。
