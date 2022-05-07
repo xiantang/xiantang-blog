@@ -186,7 +186,6 @@ COPY *.py ./
 CMD ["python","spider.py"]
 ```
 
-
 ### 调整 Dockerfile 的顺序
 
 调整 Dockerfile 的顺序，因为每一个步骤发生变化后，后面的步骤的缓存都会废纸，所以将变动较大的放在后面比较好。
