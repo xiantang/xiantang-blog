@@ -5,8 +5,8 @@ author: "xiantang"
 # lastmod: 
 tags: ["Docker"]
 categories: ["Docker"]
-# images:
-#   - ./post/golang/cover.png
+images:
+  - ./post/docker-compose-dev.png
 description:
 draft: false
 ---
