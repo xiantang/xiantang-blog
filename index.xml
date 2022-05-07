@@ -286,5 +286,14 @@
       <description>集合扩容 ArrayList 对于 ArrayList 他默认的容量为 10，所以如果需要对 ArrayList 进行大数据量的处理的时候的话，就需要使用显式制定容量的方式进行处理。这样可以减少不必要的</description>
     </item>
     
+    <item>
+      <title>使用 Docker Compose 建立你自己的开发环境</title>
+      <link>https://vim0.com/post/docker-compose-dev/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://vim0.com/post/docker-compose-dev/</guid>
+      <description>Docker 其实并不是一种新技术，而是一个新瓶装旧酒的工具。 其实我在大学上学的时候就用过 Docker，那个时候还是 17 年左右，Docker 还是如日中天的</description>
+    </item>
+    
   </channel>
 </rss>
