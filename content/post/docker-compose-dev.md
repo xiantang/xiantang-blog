@@ -221,3 +221,11 @@ CMD ["python","spider.py"]
 ## 最后
 
 这就是我最近在使用 Docker 与 docker-compose 的时候的一些心得，希望能对大家有所帮助，本文将会不断地继续更新。
+
+Ref：
+
+- [你一定要了解这 17 条 Docker 最佳实践！](https://shenxianpeng.github.io/2022/01/docker-best-practice/)
+
+- [DOCKER 基础技术：LINUX NAMESPACE (上)](https://coolshell.cn/articles/17010.html)
+
+- [Use containers for development](https://docs.docker.com/language/golang/develop/)
