@@ -2,13 +2,12 @@
 title: "肉身翻墙新加坡安顿指南"
 date: 2022-06-12T21:33:31+08:00
 author: "xiantang"
-# lastmod: 
-# tags: []
-# categories: []
-# images:
-#   - ./post/golang/cover.png
-description:
-draft: true
+images:
+  - ./post/singapore_3_month.png
+tags: ["soft skills"]
+categories: ["中文","软技能"]
+draft: false
+description: "肉身翻墙 程序员 新加坡 出国工作 邀请函 准备"
 ---
 
  
