@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  blog:
+    build:
+        context: .
+        dockerfile: ./Dockerfile
+    volumes:
+        - ./content:/app/content
+    ports:
+        - 1313:1313

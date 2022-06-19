@@ -18,5 +18,5 @@ COPY . .
 EXPOSE 1313
 
 RUN git submodule init && git submodule update
-CMD hugo server --bind 0.0.0.0 -D
+CMD hugo server --bind 0.0.0.0 -D --disableFastRender
 
