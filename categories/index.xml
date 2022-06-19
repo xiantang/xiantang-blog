@@ -6,7 +6,25 @@
     <description>Recent content in Categories on 咸糖 - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 05 May 2022 22:08:34 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Jun 2022 21:33:31 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>中文</title>
+      <link>https://vim0.com/categories/%E4%B8%AD%E6%96%87/</link>
+      <pubDate>Sun, 12 Jun 2022 21:33:31 +0800</pubDate>
+      
+      <guid>https://vim0.com/categories/%E4%B8%AD%E6%96%87/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>软技能</title>
+      <link>https://vim0.com/categories/%E8%BD%AF%E6%8A%80%E8%83%BD/</link>
+      <pubDate>Sun, 12 Jun 2022 21:33:31 +0800</pubDate>
+      
+      <guid>https://vim0.com/categories/%E8%BD%AF%E6%8A%80%E8%83%BD/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Docker</title>
       <link>https://vim0.com/categories/docker/</link>
@@ -22,15 +40,6 @@
       <pubDate>Sun, 27 Feb 2022 23:15:45 +0800</pubDate>
       
       <guid>https://vim0.com/categories/%E7%AC%94%E8%AE%B0/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>中文</title>
-      <link>https://vim0.com/categories/%E4%B8%AD%E6%96%87/</link>
-      <pubDate>Sun, 20 Feb 2022 21:17:20 +0800</pubDate>
-      
-      <guid>https://vim0.com/categories/%E4%B8%AD%E6%96%87/</guid>
       <description></description>
     </item>
     
@@ -76,15 +85,6 @@
       <pubDate>Thu, 14 Oct 2021 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/categories/%E8%8B%B1%E8%AF%AD/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>软技能</title>
-      <link>https://vim0.com/categories/%E8%BD%AF%E6%8A%80%E8%83%BD/</link>
-      <pubDate>Tue, 01 Jun 2021 20:55:56 +0800</pubDate>
-      
-      <guid>https://vim0.com/categories/%E8%BD%AF%E6%8A%80%E8%83%BD/</guid>
       <description></description>
     </item>
     
