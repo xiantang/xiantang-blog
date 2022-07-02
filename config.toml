@@ -54,12 +54,17 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   identifier = "aboutme"
   url = "/post/about/about_me/"
 
-[[menu.main]]
-  name = "Edit"
-  weight = 60
-  identifier = "edit"
-  url = "https://github.dev/xiantang/xiantang-blog"
+#[[menu.main]]
+#  name = "Edit"
+#  weight = 60
+#  identifier = "edit"
+#  url = "https://github.dev/xiantang/xiantang-blog"
 
+[[menu.main]]
+  name= "Search"
+  weight = 60
+  identifier = "search"
+  url = "https://www.google.com/search?q=site%3Avim0.com"
 
 
 [params]
