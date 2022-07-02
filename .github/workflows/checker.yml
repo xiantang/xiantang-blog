@@ -1,0 +1,27 @@
+# This is a basic workflow to help you get started with Actions
+
+# this workflow is used to check image
+name: Checker
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the code branch
+  push:
+    branches: [ code ]
+  pull_request:
+    branches: [ code ]
+  workflow_dispatch:
+
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true  # Fetch Hugo themes
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+    # use check_pug_image.sh to check image
+      - name: Check image
+        run: bash check_pug_image.sh
