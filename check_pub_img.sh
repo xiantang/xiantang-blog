@@ -14,6 +14,8 @@ function check_image_link() {
 }
 
 
+cd content || exit
+
 IMAGE_PATH="$(grep -R "\!\[" .  | grep  -v "Binary file" | cut -d ':' -f 2- | sed  's/.*(//' | sed 's/).*$//' | awk '/http/ {print $0}')"
 
 
