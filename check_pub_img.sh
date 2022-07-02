@@ -7,8 +7,9 @@ function check_image_link() {
     echo $link
     wget -q --max-redirect 0 -O /dev/null $link  > /dev/null
     if [ $? -ne 0 ]; then
-      echo "image link is invalid"
-      exit
+      echo "Invalid image link: $link"
+      # exit with error code 1
+      exit 1
     fi
 }
 
