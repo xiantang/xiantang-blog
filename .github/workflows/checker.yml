@@ -22,6 +22,6 @@ jobs:
         with:
           submodules: true  # Fetch Hugo themes
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
-    # use check_pug_image.sh to check image
+    # use check_pub_img.sh to check image
       - name: Check image
-        run: bash check_pug_image.sh
+        run: bash check_pub_img.sh
