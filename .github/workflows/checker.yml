@@ -20,8 +20,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
+          branch: code
           submodules: true  # Fetch Hugo themes
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
     # use check_pub_img.sh to check image
       - name: Check image
-        run: pwd
+        run: bash check_pug_image.sh
