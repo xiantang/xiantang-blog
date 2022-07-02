@@ -15,4 +15,5 @@ blog
 `![学习金字塔](/image/the_cone_of_learning.png)`
 
 - [ ] todo 迁移所有图片到 content/image 目录下面，使用脚本迁移
+  - `grep -R "\!\[" .  | grep -v "Binary file" | cut -d ':' -f 2- | sed  's/.*(//' | sed 's/).*$//'`
 - [ ] todo pipeline 上配上图片检查
