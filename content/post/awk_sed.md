@@ -287,7 +287,7 @@ math=0
 english=0
 art=0
 printf "%-6s %-6s %-6s %-6s %-6s %-6s\n", "Name", "No.", "MATH", "ENGLISH","ART","TOTAL"
-	}
+}
 {
 	math+=$3
 	english+=$4
@@ -300,7 +300,7 @@ printf "%-6s %-6s %-6s %-6s %-6s %-6s\n", $1, $2,$3,$4,$5,total
 END  {
 printf "%-6s %-6s %-6s %-6s %-6s %-6s\n", "TOTAL","", math,english,art,total
 printf "%-6s %-6s %-6s %-6s %-6s %-6s\n", "AVG","", math/cnt, english/cnt,art/cnt,sum/cnt
-	}
+}
 ```
 
 ## 输出
