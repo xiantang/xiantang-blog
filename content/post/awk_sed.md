@@ -356,9 +356,9 @@ pkg_b_1 opsaa
 
 `something.body assets/footer.html`
 
+可以使用 `awk '/^[^ ]/{ f=/^something/;sub(/:/,".",$0);prefix=$0;  next } f{ b=/body/;} f&&b{printf "%s%s %s\n", prefix,$2,$3}' ymal`
 
-
-
+`something.body: assets/footer.html`
 
 ## 输出
 
