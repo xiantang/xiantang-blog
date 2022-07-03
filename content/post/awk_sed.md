@@ -254,7 +254,8 @@ bar foo ggg
 awk '/foo/ {print $2}' filename
 ```
 
-正确的应该是 `awk '$2 ~ /foo/ {print $2}'`
+正确的应该是 `awk '$2 ~ /foo/ {print $2}'`，当 `$2 ~ /foo/` 匹配的时候会赋值成 1，不匹配的时候会赋值成 0。
+也就是当匹配的时候，这处理这一行记录就会变成 `awk '1 {print $2}` ，不匹配就会变成 `awk '0 {print $2}` 。
 
 
 ### 实现格式化学生的成绩
@@ -302,6 +303,9 @@ printf "%-6s %-6s %-6s %-6s %-6s %-6s\n", "TOTAL","", math,english,art,total
 printf "%-6s %-6s %-6s %-6s %-6s %-6s\n", "AVG","", math/cnt, english/cnt,art/cnt,sum/cnt
 }
 ```
+
+### awk 来找到 yaml 中某一个字段的值
+
 
 ## 输出
 
