@@ -122,6 +122,9 @@ awk -F ',' '{print $NF}' filename
 
 - Print all lines where the 10th column value equals the specified value:
 awk '($10 == value)'
+
+- Sum the values in the first column of a file and print the total:
+  awk '{s+=$1} END {print s}' filename
 ...
 ```
 
@@ -207,10 +210,36 @@ awk '($10 == value)'
 
 这样就能解答 `'{print $5}'` 中 $5 其实就是每一行通过空格分隔的第 5 个字段。并且使用 -F 就能将分隔用的字符串从空格替换为指定的字符串。
 
-`awk -F ','` 这就是使用逗号来分隔。
+`awk -F ','` 这就是使用逗号来分隔字段。
 
 
 ## 学以致用
+
+这个时候你可以打开你的命令行开始把玩 `awk`， 你会发现 
+
+`awk '/foo/ {print $2}' filename` 这样的语法很有意思。
+
+通过查阅文档你发现其实 /foo/ 中的 可以换成各种正则表达式：
+
+对于：
+
+```
+Marry	2143	78	84	77
+Jack	2321	66	78	45
+Tom	2122	48	77	71
+Mike	2537	87	97	95
+Bob	2415	40	57	62
+```
+可以使用这个方式打印出包含 /Bob/ 的行
+`awk '/Bob/ {print $0}'  sheet` 
+
+使用 `awk '/m$/'` 能打印出包含 m 结尾的字段的行，也就是包含 Tom 的行。
+
+通过阅读 man 手册中关于正则表达式的一章 `Regular expressions`
+
+`awk '/m$/' {print $0}` 其实是 `awk $0 ~ '/m$/ {print $0}'` 的简写。
+
+表示当输入的记录（默认为行）的时候
 
 
 
@@ -228,3 +257,7 @@ awk '($10 == value)'
 # 总结
 
 缩小范围找到
+
+不会讲完所有细节 但是会告诉你如何去学
+
+k8s 
