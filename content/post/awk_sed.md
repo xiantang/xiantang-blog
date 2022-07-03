@@ -119,16 +119,39 @@ awk '/foo/ {print $2}' filename
 
 - Print the last column of each line in a file, using a comma (instead of space) as a field separator:
 awk -F ',' '{print $NF}' filename
-  
+
+- Print all lines where the 10th column value equals the specified value:
+awk '($10 == value)'
 ...
 ```
 
 通过这些示例我就能知道 awk 的常用用途有哪些，以及就是哪些语法和参数是最重要的。
 
-用途：
+用途主要有：
+1. 打印文件中的某一列
+2. 根据某个值找到对应的行
+3. 将某一行根据某个 field separator 切分成多个字段
+4. 打印满足某个条件的行
 
+根据例子中我们能了解到 -F 这个参数是比较有用的， 同时 `print` 关键词和 `$` 开头的变量也比较有用。
+
+我们心中也产生了一些疑问：
+* `'{print $5}'` 这种语法指的是什么？
+* `'/foo/ {print $2}'` 为什么在空格分隔的文件中打印包含“foo”的行的第二列? 
 
 ## 找到学习资源
+
+带着这些问题和了解到的常用 case 我们就可以通过搜索引擎来找到相关的资源：
+
+- https://www.eriwen.com/tools/awk-is-a-beautiful-tool/ 一篇关于 awk 的短博客
+- `man awk`  man 手册
+- `tldr awk` tldr awk
+- https://www.gnu.org/software/gawk/manual/gawk.html#Getting-Started 
+- https://www.geeksforgeeks.org/awk-command-unixlinux-examples/
+- https://www.runoob.com/linux/linux-comm-awk.html 基本用法
+- https://www.grymoire.com/Unix/Awk.html#toc-uh-13 [Summary of AWK Commands](https://www.grymoire.com/Unix/Awk.html#toc-uh-13)
+- https://sparky.rice.edu//~hartigan/awk.html
+
 
 ## 设定目标
 
