@@ -1,5 +1,5 @@
 ---
-title: "使用二八法则学习 awk"
+title: "使用二八法则省力地学习 awk"
 date: 2022-06-29T22:14:09+08:00
 author: "xiantang"
 # lastmod: 
