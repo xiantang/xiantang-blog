@@ -106,24 +106,27 @@ awk 其实是一种用于处理文本的编程语言，这就能解释当你从 
 他的输出如下：
 
 ```
-  awk
+awk
 
-  A versatile programming language for working on files.
-  More information: https://github.com/onetrueawk/awk.
+A versatile programming language for working on files.
+More information: https://github.com/onetrueawk/awk.
 
-  - Print the fifth column (a.k.a. field) in a space-separated file:
-    awk '{print $5}' filename
+- Print the fifth column (a.k.a. field) in a space-separated file:
+awk '{print $5}' filename
 
-  - Print the second column of the lines containing "foo" in a space-separated file:
-    awk '/foo/ {print $2}' filename
+- Print the second column of the lines containing "foo" in a space-separated file:
+awk '/foo/ {print $2}' filename
 
-  - Print the last column of each line in a file, using a comma (instead of space) as a field separator:
-    awk -F ',' '{print $NF}' filename
+- Print the last column of each line in a file, using a comma (instead of space) as a field separator:
+awk -F ',' '{print $NF}' filename
   
-  ...
+...
 ```
 
 通过这些示例我就能知道 awk 的常用用途有哪些，以及就是哪些语法和参数是最重要的。
+
+用途：
+
 
 ## 找到学习资源
 
