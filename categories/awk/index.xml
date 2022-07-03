@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>awk on 咸糖 - 自律者自由</title>
+    <link>https://vim0.com/categories/awk/</link>
+    <description>Recent content in awk on 咸糖 - 自律者自由</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 29 Jun 2022 22:14:09 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/awk/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用二八法则省力地学习 awk</title>
+      <link>https://vim0.com/post/awk/</link>
+      <pubDate>Wed, 29 Jun 2022 22:14:09 +0800</pubDate>
+      
+      <guid>https://vim0.com/post/awk/</guid>
+      <description>篇幅只占20%、然而有效性却达到80% -二八法则 本文你能学到什么？ 在本文中，我们将学习到如何使用二八法则来省力轻松学习 linux 文本处理命令 awk。</description>
+    </item>
+    
+  </channel>
+</rss>
