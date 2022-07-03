@@ -350,7 +350,12 @@ pkg_b_1 opsaa
   ```
 * next 指的是跳过当前行，继续解析下面的行。
 * 下面的 f 是一个标志，如果 f 为 1，执行下面的行为。
-* action 中指的是如果是满足就继续向下走
+* 最后的赋值操作就不解释了。
+
+如果我想要读取 something.body 的值，例如这样的输出
+
+`something.body assets/footer.html`
+
 
 
 
