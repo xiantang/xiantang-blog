@@ -278,6 +278,31 @@ END   { print "STOP"  }
 另外 BEGIN 和 END 也是另外两个重要的模式。
 如你所料，这两个词指定了在读取任何行之前和读取最后一行之后要执行的操作。
 
+了解这个就能实现一个这个小目标了：
+
+```awk
+#!/bin/awk -f
+BEGIN {
+math=0
+english=0
+art=0
+printf "%-6s %-6s %-6s %-6s %-6s %-6s\n", "Name", "No.", "MATH", "ENGLISH","ART","TOTAL"
+	}
+{
+	math+=$3
+	english+=$4
+	art+=$5
+	cnt+=1
+	total=$3+$4+$5
+	sum+=total
+printf "%-6s %-6s %-6s %-6s %-6s %-6s\n", $1, $2,$3,$4,$5,total
+}
+END  {
+printf "%-6s %-6s %-6s %-6s %-6s %-6s\n", "TOTAL","", math,english,art,total
+printf "%-6s %-6s %-6s %-6s %-6s %-6s\n", "AVG","", math/cnt, english/cnt,art/cnt,sum/cnt
+	}
+```
+
 ## 输出
 
 # 学习 sed
