@@ -6,7 +6,7 @@ lastmod:
 tags: ["中文","软技能","awk"]
 categories: ["中文","awk"]
 images:
-  - /image/awk.png
+  - ./image/awk.png
 description:
 draft: false
 ---
