@@ -143,14 +143,17 @@ awk '($10 == value)'
 
 带着这些问题和了解到的常用 case 我们就可以通过搜索引擎来找到相关的资源：
 
-- https://www.eriwen.com/tools/awk-is-a-beautiful-tool/ 一篇关于 awk 的短博客
+- https://www.eriwen.com/tools/awk-is-a-beautiful-tool/ 一篇关于 awk 的短博客，讲了一些哲学
 - `man awk`  man 手册
 - `tldr awk` tldr awk
 - https://www.gnu.org/software/gawk/manual/gawk.html#Getting-Started 
-- https://www.geeksforgeeks.org/awk-command-unixlinux-examples/
-- https://www.runoob.com/linux/linux-comm-awk.html 基本用法
-- https://www.grymoire.com/Unix/Awk.html#toc-uh-13 [Summary of AWK Commands](https://www.grymoire.com/Unix/Awk.html#toc-uh-13)
-- https://sparky.rice.edu//~hartigan/awk.html
+- https://www.geeksforgeeks.org/awk-command-unixlinux-examples/ tutorial
+- https://www.runoob.com/linux/linux-comm-awk.html tutorial
+- [Summary of AWK Commands](https://www.grymoire.com/Unix/Awk.html#toc-uh-13) 简明介绍
+- https://sparky.rice.edu//~hartigan/awk.html  如何使用 awk
+
+我们找到了 8 个相关资源，其中包含很长的用户手册，但是不必担心，我们不会读完它，只是扫一下结构知道哪些章节
+包含哪些内容就够了。后面我会对它进行筛选。
 
 
 ## 设定目标
