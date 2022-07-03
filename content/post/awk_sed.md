@@ -191,11 +191,29 @@ awk '($10 == value)'
 可以看到这三个目标都是可以执行的，同时很好衡量结果。
 ## 过滤学习资源
 
-设定了目标之后
+设定了目标之后，我们就可以根据目标来筛选出相关的资源：
 
-## 浅读文档
+我筛选出以下资源：
+[awk is a beautiful tool](https://www.eriwen.com/tools/awk-is-a-beautiful-tool/)，man page,
+[执行 awk 脚本](https://www.grymoire.com/Unix/Awk.html#toc-uh-2),[awk 语法](https://www.grymoire.com/Unix/Awk.html#toc-uh-13),
+[awk 正则表达式 && 条件表达式](https://www.grymoire.com/Unix/Awk.html#toc-uh-11)
+
+
+## 浅读筛选出的资料
+
+首先我们可以浅读以下筛选出的资料：
+
+发现 awk 其实每次只会操作一个记录，这个记录默认是一行。同时会提取每一行中通过空格（默认）分隔的字符串作为每一个字段。
+
+这样就能解答 `'{print $5}'` 中 $5 其实就是每一行通过空格分隔的第 5 个字段。并且使用 -F 就能将分隔用的字符串从空格替换为指定的字符串。
+
+`awk -F ','` 这就是使用逗号来分隔。
+
 
 ## 学以致用
+
+
+
 
 ## 输出
 
@@ -208,3 +226,5 @@ awk '($10 == value)'
 ## 学以致用
 
 # 总结
+
+缩小范围找到
