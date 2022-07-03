@@ -2,13 +2,13 @@
 title: "使用二八法则省力地学习 awk"
 date: 2022-06-29T22:14:09+08:00
 author: "xiantang"
-# lastmod: 
-# tags: []
-# categories: []
-# images:
-#   - ./post/golang/cover.png
+lastmod:
+tags: ["中文","软技能","awk"]
+categories: ["中文","awk"]
+images:
+  - /image/awk.png
 description:
-draft: true
+draft: false
 ---
 
 
