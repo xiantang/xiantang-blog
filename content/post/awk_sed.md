@@ -88,11 +88,42 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 对于这比较有用的 20% 的知识点采用实践的方式去学习之后，当你正在实践的时候，遇到一些偏门的 feature 你就可以通过查阅文档的方式，更加精确得使用
 这些 feature 避免了你在繁杂的细节中迷失。
 
+下面我会举两个实例来说明这个方法：
+
 # 学习 awk
 
-## 寻找 common case
+首先我们通过浅读文档了解到 awk 是一个什么样的工具：
 
-使用 tldr
+`Awk is an extremely versatile programming language for working on files. ` 
+
+awk 其实是一种用于处理文本的编程语言，这就能解释当你从 stackoverflow 上尝试解决文本处理问题的时候，
+很多回答给出 awk 的示例没有那么简单明了，原因也就是他是一门编程语言，并不像 grep 一样只需要添加几个命令行参数就可以
+查找文本。
+
+## 寻找最常用的用途
+
+我这边是使用 `tldr` 来查找这个命令的最常用的用途，`tldr` 通过实际示例简化深受欢迎的 `man` 页面。
+他的输出如下：
+
+```
+  awk
+
+  A versatile programming language for working on files.
+  More information: https://github.com/onetrueawk/awk.
+
+  - Print the fifth column (a.k.a. field) in a space-separated file:
+    awk '{print $5}' filename
+
+  - Print the second column of the lines containing "foo" in a space-separated file:
+    awk '/foo/ {print $2}' filename
+
+  - Print the last column of each line in a file, using a comma (instead of space) as a field separator:
+    awk -F ',' '{print $NF}' filename
+  
+  ...
+```
+
+通过这些示例我就能知道 awk 的常用用途有哪些，以及就是哪些语法和参数是最重要的。
 
 ## 找到学习资源
 
