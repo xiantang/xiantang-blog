@@ -306,6 +306,54 @@ printf "%-6s %-6s %-6s %-6s %-6s %-6s\n", "AVG","", math/cnt, english/cnt,art/cn
 
 ### awk 来找到 yaml 中某一个字段的值
 
+Stackoverflow 上这个回答令人摸不到头脑: 
+```
+something:
+ - whatever:
+   - something
+ - toc: 4
+ - body: assets/footer.html
+pkg:
+ - pkg_a_1:
+   - Shass
+   - AJh55
+   - ASH7
+ - pkg_b_1:
+   - Kjs6
+   - opsaa
+other:
+morestuff:
+ - whatever
+```
+
+需要拿到 pkg_a_1 的值，输出这样：
+```
+pkg_a_1 Shass
+pkg_a_1 AJh55
+pkg_a_1 ASH7
+pkg_b_1 Kjs6
+pkg_b_1 opsaa
+```
+
+所给到的解答是 `awk '/^[^ ]/{ f=/^pkg:/; next } f{ if (sub(/:$/,"")) pkg=$2; else print pkg, $2 }' file`
+
+刚看到答案一脸懵逼是吧，我们将输入拆分一下：
+
+* `/^[^ ]/` 是匹配所有非空行。
+* `f=/^pkg:/`是在当前行做匹配，如果匹配到了，f 就会变成 1，否则 f 就会变成 0。
+  ```
+  xiantang@ubuntu:~$ awk '/^[^ ]/{ f=/^pkg:/;print f}' ymal
+    0
+    1
+    0
+    0
+  ```
+* next 指的是跳过当前行，继续解析下面的行。
+* 下面的 f 是一个标志，如果 f 为 1，执行下面的行为。
+* action 中指的是如果是满足就继续向下走
+
+
+
 
 ## 输出
 
