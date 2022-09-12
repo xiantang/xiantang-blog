@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://vim0.com/post/</loc>
+    <lastmod>2022-09-12T15:59:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/post/shell_is_useful_tool/</loc>
+    <lastmod>2022-09-12T15:59:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/</loc>
+    <lastmod>2022-09-12T15:59:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://vim0.com/tags/awk/</loc>
     <lastmod>2022-07-03T23:18:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -17,13 +38,6 @@
   
   <url>
     <loc>https://vim0.com/categories/</loc>
-    <lastmod>2022-07-03T23:18:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://vim0.com/post/</loc>
     <lastmod>2022-07-03T23:18:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -52,13 +66,6 @@
   
   <url>
     <loc>https://vim0.com/post/awk/</loc>
-    <lastmod>2022-07-03T23:18:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://vim0.com/</loc>
     <lastmod>2022-07-03T23:18:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
