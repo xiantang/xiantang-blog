@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.105.0 with theme even" />
+<meta name="generator" content="Hugo 0.107.0 with theme even" />
 
 
 <link rel="canonical" href="https://vim0.com/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/" />
@@ -256,7 +256,7 @@
 </span></span><span class="line"><span class="cl">        <span class="c1">// 更新上次漏的水
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">lastLeakingTime</span> <span class="o">=</span> <span class="n">currentTimeMillis</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 间隔时间太长，整数数字过大溢出 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="k">if</span> <span class="o">(</span><span class="n">deltaQuota</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="k">if</span> <span class="o">(</span><span class="n">deltaQuota</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">emptyCapacity</span> <span class="o">=</span> <span class="n">capacity</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">        <span class="o">}</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 更新腾出的空间

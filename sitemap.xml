@@ -3,20 +3,27 @@
   
   <url>
     <loc>https://vim0.com/post/</loc>
-    <lastmod>2022-09-12T15:59:59+08:00</lastmod>
+    <lastmod>2022-11-27T22:33:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://vim0.com/post/shell_is_useful_tool/</loc>
-    <lastmod>2022-09-12T15:59:59+08:00</lastmod>
+    <loc>https://vim0.com/post/neovim/</loc>
+    <lastmod>2022-11-27T22:33:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://vim0.com/</loc>
+    <lastmod>2022-11-27T22:33:04+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/post/shell_is_useful_tool/</loc>
     <lastmod>2022-09-12T15:59:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

@@ -6,7 +6,16 @@
     <description>Recent content on 咸糖 - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 12 Sep 2022 14:34:53 +0800</lastBuildDate><atom:link href="https://vim0.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Oct 2022 20:45:20 +0800</lastBuildDate><atom:link href="https://vim0.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 neovim 作为 PDE(个性化开发环境)</title>
+      <link>https://vim0.com/post/neovim/</link>
+      <pubDate>Sat, 29 Oct 2022 20:45:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/post/neovim/</guid>
+      <description>本文不会告诉你如何一步一步地配置 neovim，而是告诉你一些关于 PDE 的 &amp;ldquo;道&amp;rdquo;, 不是具体实践的 &amp;ldquo;术&amp;rdqu</description>
+    </item>
+    
     <item>
       <title>shell 是一个不错的生产力工具</title>
       <link>https://vim0.com/post/shell_is_useful_tool/</link>

@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.105.0 with theme even" />
+<meta name="generator" content="Hugo 0.107.0 with theme even" />
 
 
 <link rel="canonical" href="https://vim0.com/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/" />
@@ -181,7 +181,7 @@
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">incrementAndGet</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">         <span class="k">for</span> <span class="o">(;;)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">          <span class="kt">int</span> <span class="n">current</span> <span class="o">=</span> <span class="n">get</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">          <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">current</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">          <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">current</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="o">(</span><span class="n">compareAndSet</span><span class="o">(</span><span class="n">current</span><span class="o">,</span> <span class="n">next</span><span class="o">))</span>
 </span></span><span class="line"><span class="cl">             <span class="k">return</span> <span class="n">next</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">          <span class="o">}</span>
@@ -311,7 +311,7 @@
 </span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">next</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">do</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">curr</span> <span class="o">=</span> <span class="n">get</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">            <span class="n">next</span> <span class="o">=</span> <span class="n">curr</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">next</span> <span class="o">=</span> <span class="n">curr</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">while</span> <span class="o">(!</span><span class="n">unsafe</span><span class="o">.</span><span class="na">compareAndSwapInt</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">offset</span><span class="o">,</span> <span class="n">curr</span><span class="o">,</span> <span class="n">next</span><span class="o">));</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">get</span><span class="o">();</span>
