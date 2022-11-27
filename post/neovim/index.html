@@ -44,12 +44,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vim0.com/post/neovim/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-10-29T20:45:20+08:00" />
-<meta property="article:modified_time" content="2022-11-27T22:33:04+08:00" />
+<meta property="article:modified_time" content="2022-11-27T23:01:20+08:00" />
 
 <meta itemprop="name" content="使用 neovim 作为 PDE(个性化开发环境)">
 <meta itemprop="description" content="本文不会告诉你如何一步一步地配置 neovim，而是告诉你一些关于 PDE 的 &ldquo;道&rdquo;, 不是具体实践的 &ldquo;术&rdqu"><meta itemprop="datePublished" content="2022-10-29T20:45:20+08:00" />
-<meta itemprop="dateModified" content="2022-11-27T22:33:04+08:00" />
-<meta itemprop="wordCount" content="851"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="dateModified" content="2022-11-27T23:01:20+08:00" />
+<meta itemprop="wordCount" content="1610"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
 
@@ -140,8 +140,8 @@
       <div class="post-meta">
         <span class="post-time"> 2022-10-29 </span>
         
-          <span class="more-meta"> 851 words </span>
-          <span class="more-meta"> 2 mins read </span>
+          <span class="more-meta"> 1610 words </span>
+          <span class="more-meta"> 4 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -165,11 +165,11 @@
         <li><a href="#troubleshooting">Troubleshooting</a></li>
       </ul>
     </li>
-    <li><a href="#lua-作为-neovim-的配置语言">lua 作为 neovim 的配置语言</a></li>
     <li><a href="#不需要突然地转换-可以使用-ideavim-然后慢慢切换">不需要突然地转换， 可以使用 ideavim 然后慢慢切换</a></li>
     <li><a href="#不要无脑去直接使用-他人的配置">不要无脑去直接使用 他人的配置</a></li>
-    <li><a href="#防止配置随着插件变多而导致的卡顿">防止配置随着插件变多而导致的卡顿</a></li>
     <li><a href="#有趣的事">有趣的事</a></li>
+    <li><a href="#end">END</a></li>
+    <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
   </div>
@@ -213,27 +213,48 @@
 <p>有些时候我总有一些有趣的需求, 我就简单举一个例子吧:</p>
 <p>比如说我很多时候会同时修改多个项目在 vim 中, 但是 nerdtree 的 NERDTreeFind 只会从当前树里面找，并且树的根目录总是错的，我的需求是想要在 nerdtree 的 bookmarks 里面找到这个文件，并且根目录是第一个匹配到的 bookmark.</p>
 <p><img src="https://user-images.githubusercontent.com/34479567/204140677-0c11c2c8-cca7-44d2-8971-12632e3f0874.gif" alt="show off"></p>
-<p>修改 lua 来达成</p>
+<p>可以参考我的实现:</p>
+<p><a href="https://github.com/xiantang/nvim-conf/blob/dev/lua/nerdtree.lua">https://github.com/xiantang/nvim-conf/blob/dev/lua/nerdtree.lua</a></p>
+<p>基本上所有你想要的功能都可以通过修改 lua 来达成, 或者通过使用 nvim 系列的插件。</p>
 <ul>
-<li>toggle</li>
-<li>智能化 locate 文件</li>
+<li>比如说快速唤出一个 terminal 或者一个笔记 txt</li>
+<li>添加一些自定义的 snippet</li>
+<li>等等&hellip;</li>
 </ul>
 <h2 id="更好的配置管理">更好的配置管理</h2>
+<p>其实大家在使用 neovim 来制作自己的 PDE 的时候会发现，你很容易就会把自己的 neovim 搞坏，因为你的配置中会有很多插件，而这些插件是很多时候不兼容的。所以下面两点至关重要：</p>
+<ol>
+<li>快速回滚配置到稳定的版本</li>
+<li>快速找到是哪个版本引入的问题</li>
+</ol>
 <h3 id="使用-git-做为-neovim-的配置管理">使用 git 做为 neovim 的配置管理</h3>
-<ul>
-<li>平移配置</li>
-</ul>
+<p>这个其实很简单，你只需要把你的配置文件放到一个 git 仓库中.</p>
+<p>你可以把你最稳定的分枝作为master， 然后你平时修修改改都在 dev 分枝上，当你想要一个功能，就可以在 dev 分枝上修改，然后自己使用一段时间，当功能稳定就将它合并到 master 中。</p>
+<p>倘若 master 分枝的稳定版本出现来问题，我推荐一个 git 的神器命令 git-bisect, 你可以通过设置一个行为错误版本，和一个历史的行为正确的版本，这个命令会采用二分法的方式帮助你找到是哪个版本引入来这个问题。</p>
 <h3 id="troubleshooting">Troubleshooting</h3>
-<h2 id="lua-作为-neovim-的配置语言">lua 作为 neovim 的配置语言</h2>
-<p>lua 是什么</p>
+<p>主要有几个命令吧:</p>
+<p><code>checkhealth</code> 会检查你的 neovim 的健康状况，比如说你的 neovim 是否支持 lua，是否支持 python, 插件依赖以及是否成功安装等等。
+<code>nvim --startuptime</code> 会记录你的 neovim 启动的时间，你可以通过这个来找到是哪个插件导致了你的 neovim 启动变慢。 你也可以通过 Startuptime 这个插件来查看你的 neovim 启动时间。
+<code>verbose &lt;map type&gt; &lt;key&gt;</code> 会显示你的按键映射的详细信息，比如说你的按键映射是否成功，是否有冲突等等。
+<code>lua =vim.inspect(var)</code> 会打印你需要的变量的信息。</p>
 <h2 id="不需要突然地转换-可以使用-ideavim-然后慢慢切换">不需要突然地转换， 可以使用 ideavim 然后慢慢切换</h2>
+<p>如果你不是很熟悉 (neo)vim 的话，我建议你可以先尝试运行 vimtutor 这个命令，来学习一下 vim 的基本操作。
+然后你可以在 jetbrains 使用 ideavim 来使用 vim 的快捷键，这样你就可以慢慢的切换到 neovim 中来。
+纯 vim 开发其实不是一蹴而就的，需要一段时间的适应，但是我相信你会爱上它的。</p>
 <h2 id="不要无脑去直接使用-他人的配置">不要无脑去直接使用 他人的配置</h2>
-<p>你的 PDE 只是最适合你的环境</p>
-<h2 id="防止配置随着插件变多而导致的卡顿">防止配置随着插件变多而导致的卡顿</h2>
+<p>另外 neovim 其实有很多衍生的发行版本，我的建议是如果你不是很熟悉 neovim 的话，不要直接使用他人的配置，因为你可能会遇到很多问题，但是这些问题你不一定能自己解决，所以如果要使用就尽量从别人的 Minimal 模版中去建立自己的配置吧</p>
 <h2 id="有趣的事">有趣的事</h2>
 <ul>
 <li>使用 firenvim 作为浏览器的编辑器来刷 leetcode</li>
 <li>使用 grammarly 作为 英语的language server 来检查你的语法错误</li>
+</ul>
+<h2 id="end">END</h2>
+<p>你的 PDE 只是最适合你的环境, 本文章不提供作者的配置, 适合我的不一定适合你.</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=QMVIJhC9Veg&amp;t=836s&amp;ab_channel=TJDeVries">PDE: A different take on editing code</a></li>
+<li><a href="https://github.com/nanotee/nvim-lua-guide">nvim-lua-guide</a></li>
+<li><a href="https://jdhao.github.io/">jdhao</a></li>
 </ul>
 
     </div>
@@ -247,7 +268,7 @@
     <span class="item-title">LastMod</span>
     <span class="item-content">
         2022-11-27
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/4ea61782e8ca31c64b3da5c223d1fd821804833b" title="commit">(4ea6178)</a>
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/8c8fcc2d8ea2c3efecff02ee5340b5dba1065e4d" title="M  content/post/neovim.md">(8c8fcc2)</a>
     </span>
   </p>
   
