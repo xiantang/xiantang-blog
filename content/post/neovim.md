@@ -71,31 +71,59 @@ PDE 是个性化开发环境，指的是在满足基础的开发需求的基础�
 
 ![show off](https://user-images.githubusercontent.com/34479567/204140677-0c11c2c8-cca7-44d2-8971-12632e3f0874.gif)
 
+可以参考我的实现:
 
-修改 lua 来达成 
-* toggle 
-* 智能化 locate 文件
+https://github.com/xiantang/nvim-conf/blob/dev/lua/nerdtree.lua
+
+基本上所有你想要的功能都可以通过修改 lua 来达成, 或者通过使用 nvim 系列的插件。
+* 比如说快速唤出一个 terminal 或者一个笔记 txt
+* 添加一些自定义的 snippet
+* 等等... 
 
 ## 更好的配置管理
 
+其实大家在使用 neovim 来制作自己的 PDE 的时候会发现，你很容易就会把自己的 neovim 搞坏，因为你的配置中会有很多插件，而这些插件是很多时候不兼容的。所以下面两点至关重要：
+
+1. 快速回滚配置到稳定的版本
+2. 快速找到是哪个版本引入的问题
+
 ### 使用 git 做为 neovim 的配置管理
-* 平移配置
+
+这个其实很简单，你只需要把你的配置文件放到一个 git 仓库中.
+
+你可以把你最稳定的分枝作为master， 然后你平时修修改改都在 dev 分枝上，当你想要一个功能，就可以在 dev 分枝上修改，然后自己使用一段时间，当功能稳定就将它合并到 master 中。
+
+倘若 master 分枝的稳定版本出现来问题，我推荐一个 git 的神器命令 git-bisect, 你可以通过设置一个行为错误版本，和一个历史的行为正确的版本，这个命令会采用二分法的方式帮助你找到是哪个版本引入来这个问题。
 
 ### Troubleshooting
 
+主要有几个命令吧:
 
-## lua 作为 neovim 的配置语言
-
-lua 是什么
+`checkhealth` 会检查你的 neovim 的健康状况，比如说你的 neovim 是否支持 lua，是否支持 python, 插件依赖以及是否成功安装等等。
+`nvim --startuptime` 会记录你的 neovim 启动的时间，你可以通过这个来找到是哪个插件导致了你的 neovim 启动变慢。 你也可以通过 Startuptime 这个插件来查看你的 neovim 启动时间。
+`verbose <map type> <key>` 会显示你的按键映射的详细信息，比如说你的按键映射是否成功，是否有冲突等等。
+`lua =vim.inspect(var)` 会打印你需要的变量的信息。
 
 ## 不需要突然地转换， 可以使用 ideavim 然后慢慢切换
 
+如果你不是很熟悉 (neo)vim 的话，我建议你可以先尝试运行 vimtutor 这个命令，来学习一下 vim 的基本操作。
+然后你可以在 jetbrains 使用 ideavim 来使用 vim 的快捷键，这样你就可以慢慢的切换到 neovim 中来。
+纯 vim 开发其实不是一蹴而就的，需要一段时间的适应，但是我相信你会爱上它的。
+
 ## 不要无脑去直接使用 他人的配置
 
-你的 PDE 只是最适合你的环境
+另外 neovim 其实有很多衍生的发行版本，我的建议是如果你不是很熟悉 neovim 的话，不要直接使用他人的配置，因为你可能会遇到很多问题，但是这些问题你不一定能自己解决，所以如果要使用就尽量从别人的 Minimal 模版中去建立自己的配置吧
 
-## 防止配置随着插件变多而导致的卡顿
+
 ## 有趣的事
 * 使用 firenvim 作为浏览器的编辑器来刷 leetcode
 * 使用 grammarly 作为 英语的language server 来检查你的语法错误
 
+## END
+
+你的 PDE 只是最适合你的环境, 本文章不提供作者的配置, 适合我的不一定适合你.
+
+## 参考
+* [PDE: A different take on editing code](https://www.youtube.com/watch?v=QMVIJhC9Veg&t=836s&ab_channel=TJDeVries)
+* [nvim-lua-guide](https://github.com/nanotee/nvim-lua-guide)
+* [jdhao](https://jdhao.github.io/)
