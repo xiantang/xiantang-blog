@@ -117,7 +117,7 @@ https://github.com/xiantang/nvim-conf/blob/dev/lua/nerdtree.lua
 
 
 ## 有趣的事
-* 使用 firenvim 作为浏览器的编辑器来刷 leetcode
+* 使用 firenvim 作为浏览器的编辑器来刷 leetcode [twitter](https://twitter.com/GIA917229015/status/1573365264439480321)
 * 使用 grammarly 作为 英语的language server 来检查你的语法错误
 
 ## END
