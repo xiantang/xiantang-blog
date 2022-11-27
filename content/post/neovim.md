@@ -3,10 +3,10 @@ title: "使用 neovim 作为 PDE(个性化开发环境)"
 date: 2022-10-29T20:45:20+08:00
 author: "xiantang"
 # lastmod: 
-# tags: []
-# categories: []
-# images:
-#   - ./post/golang/cover.png
+tags: ["neovim"]
+categories: ["neovim"]
+images:
+ - ./post/neovim.png
 description:
 draft: false
 ---
