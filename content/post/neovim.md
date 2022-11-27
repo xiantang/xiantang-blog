@@ -76,9 +76,10 @@ PDE 是个性化开发环境，指的是在满足基础的开发需求的基础�
 https://github.com/xiantang/nvim-conf/blob/dev/lua/nerdtree.lua
 
 基本上所有你想要的功能都可以通过修改 lua 来达成, 或者通过使用 nvim 系列的插件。
-* 比如说快速唤出一个 terminal 或者一个笔记 txt
-* 添加一些自定义的 snippet
-* 等等... 
+
+1. 比如说快速唤出一个 terminal 或者一个笔记 txt
+2. 添加一些自定义的 snippet
+3. 等等... 
 
 ## 更好的配置管理
 
