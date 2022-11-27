@@ -8,7 +8,7 @@ author: "xiantang"
 # images:
 #   - ./post/golang/cover.png
 description:
-draft: true
+draft: false
 ---
 
 
@@ -45,16 +45,32 @@ PDE 是个性化开发环境，指的是在满足基础的开发需求的基础�
 
 ## 需要满足的基础需求
 
+
+定义你的 PDE 需要满足的基础需求，比如：
+
 * 高亮
-* 语法检查（语言server）
+* lsp
+  * 基础的重构 rename
+  * 快速跳转
 * lint
 * 代码建议
-* code snipt
+* code snippet
 * debugging
-* 最近文件
-* 快速跳转
+* 快速找到最近文件
+
+因为只有满足的这些最基础的需求，你才能保证你不会返回到你的老的编辑器中。在此之上不断地找到你自己的痛点，然后解决它，你就会越来越快越来越来越掌握这个工具。
 
 ## 个性化的需求
+
+
+有些时候我总有一些有趣的需求, 我就简单举一个例子吧:
+
+比如说我很多时候会同时修改多个项目在 vim 中, 但是 nerdtree 的 NERDTreeFind 只会从当前树里面找，并且树的根目录总是错的，我的需求是想要在 nerdtree 的 bookmarks 里面找到这个文件，并且根目录是第一个匹配到的 bookmark.
+
+
+
+![show off](https://user-images.githubusercontent.com/34479567/204140677-0c11c2c8-cca7-44d2-8971-12632e3f0874.gif)
+
 
 修改 lua 来达成 
 * toggle 
@@ -65,7 +81,7 @@ PDE 是个性化开发环境，指的是在满足基础的开发需求的基础�
 ### 使用 git 做为 neovim 的配置管理
 * 平移配置
 
-### trouble shotting
+### Troubleshooting
 
 
 ## lua 作为 neovim 的配置语言
@@ -78,6 +94,7 @@ lua 是什么
 
 你的 PDE 只是最适合你的环境
 
+## 防止配置随着插件变多而导致的卡顿
 ## 有趣的事
 * 使用 firenvim 作为浏览器的编辑器来刷 leetcode
 * 使用 grammarly 作为 英语的language server 来检查你的语法错误
