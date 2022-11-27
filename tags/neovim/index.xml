@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>neovim on 咸糖 - 自律者自由</title>
+    <link>https://vim0.com/tags/neovim/</link>
+    <description>Recent content in neovim on 咸糖 - 自律者自由</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 29 Oct 2022 20:45:20 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/neovim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 neovim 作为 PDE(个性化开发环境)</title>
+      <link>https://vim0.com/post/neovim/</link>
+      <pubDate>Sat, 29 Oct 2022 20:45:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/post/neovim/</guid>
+      <description>本文不会告诉你如何一步一步地配置 neovim，而是告诉你一些关于 PDE 的 &amp;ldquo;道&amp;rdquo;, 不是具体实践的 &amp;ldquo;术&amp;rdqu</description>
+    </item>
+    
+  </channel>
+</rss>

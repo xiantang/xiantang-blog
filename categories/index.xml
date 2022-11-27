@@ -6,7 +6,16 @@
     <description>Recent content in Categories on 咸糖 - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 29 Jun 2022 22:14:09 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Oct 2022 20:45:20 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>neovim</title>
+      <link>https://vim0.com/categories/neovim/</link>
+      <pubDate>Sat, 29 Oct 2022 20:45:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/categories/neovim/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>awk</title>
       <link>https://vim0.com/categories/awk/</link>
