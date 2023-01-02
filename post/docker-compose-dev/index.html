@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.107.0 with theme even" />
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
 
 
 <link rel="canonical" href="https://vim0.com/post/docker-compose-dev/" />
@@ -206,11 +206,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">FROM python:3.6 AS builder
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">COPY requirements.txt ./
-</span></span><span class="line"><span class="cl">RUN python -m pip install -r requirements.txt  https://pypi.tuna.tsinghua.edu.cn/simple
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 AS builder
+
+COPY requirements.txt ./
+RUN python -m pip install -r requirements.txt  https://pypi.tuna.tsinghua.edu.cn/simple
+</code></pre></td></tr></table>
 </div>
 </div><p>就比如说倘若 <code>RUN python -m pip install -r requirements.txt  https://pypi.tuna.tsinghua.edu.cn/simple</code> 这个命令一直失败，那我们就可以 Dockerfile 改成上次成功的构建 + CMD[“bash”]</p>
 <div class="highlight"><div class="chroma">
@@ -221,11 +221,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">FROM python:3.6 AS builder
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">COPY requirements.txt ./
-</span></span><span class="line"><span class="cl">CMD [&#34;bash&#34;]
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 AS builder
+
+COPY requirements.txt ./
+CMD [&#34;bash&#34;]
+</code></pre></td></tr></table>
 </div>
 </div><p>构建成功了之后，将这个容器使用直接起来，或者将 CMD 改写成 <code>bash</code>，就可以进入容器了，然后就可以看看到底是为什么 pip install 失败了。</p>
 <p>docker run 命令是可以跟着参数将 CMD 改写的。</p>
@@ -264,16 +264,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">version: &#39;3&#39;
-</span></span><span class="line"><span class="cl">services:
-</span></span><span class="line"><span class="cl">  web:
-</span></span><span class="line"><span class="cl">    build: .
-</span></span><span class="line"><span class="cl">    ports:
-</span></span><span class="line"><span class="cl">     - &#34;5000:5000&#34;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  redis:
-</span></span><span class="line"><span class="cl">    image: &#34;redis:alpine&#34;
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">version: &#39;3&#39;
+services:
+  web:
+    build: .
+    ports:
+     - &#34;5000:5000&#34;
+
+  redis:
+    image: &#34;redis:alpine&#34;
+</code></pre></td></tr></table>
 </div>
 </div><p>这就是一个十分简单例子，把 web 和 redis 两个 service 关联起来，让两个容器在同一个项目中工作。</p>
 <h3 id="网络隔离">网络隔离</h3>
@@ -286,10 +286,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">networks:
-</span></span><span class="line"><span class="cl">  your_network:
-</span></span><span class="line"><span class="cl">    driver: bridge
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">networks:
+  your_network:
+    driver: bridge
+</code></pre></td></tr></table>
 </div>
 </div><p>docker 是建议使用自己建立的网络，而不是使用默认的网络。</p>
 <p>在这个 network 下的容器，docker 提供了 DNS lookup service。</p>
@@ -305,15 +305,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  mysql:
-</span></span><span class="line"><span class="cl">    ... 
-</span></span><span class="line"><span class="cl">    networks:
-</span></span><span class="line"><span class="cl">      - your_network
-</span></span><span class="line"><span class="cl">  your_service:
-</span></span><span class="line"><span class="cl">    ...
-</span></span><span class="line"><span class="cl">    networks:
-</span></span><span class="line"><span class="cl">      - your_network
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">  mysql:
+    ... 
+    networks:
+      - your_network
+  your_service:
+    ...
+    networks:
+      - your_network
+</code></pre></td></tr></table>
 </div>
 </div><p>如果你的容器中有 ping，你就可以在 your_service 中使用 <code>ping mysql</code> 来检查是否能够 ping 过去。就是说可以通过用 <code>docker-compose</code> 中名字来访问到对应的容器。</p>
 <p>也可以使用 <code>busybox</code> (将许多常见 [[UNIX]] 实用程序的微小版本组合成一个小型可执行文件。) 来检查容器的网络是否联通。</p>
@@ -332,14 +332,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">FROM python:3.6 
-</span></span><span class="line"><span class="cl">WORKDIR /APP
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">COPY . .
-</span></span><span class="line"><span class="cl">RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">CMD [&#34;python&#34;,&#34;spider.py&#34;]
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 
+WORKDIR /APP
+
+COPY . .
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+CMD [&#34;python&#34;,&#34;spider.py&#34;]
+</code></pre></td></tr></table>
 </div>
 </div><p>可以改写成下面的格式：</p>
 <div class="highlight"><div class="chroma">
@@ -360,21 +360,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">FROM python:3.6 AS builder
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">COPY requirements.txt ./
-</span></span><span class="line"><span class="cl">RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">FROM python:3.6-slim 
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">COPY --from=builder /usr/local/lib/python3.6/site-packages /usr/local/lib/python3.6/site-packages
-</span></span><span class="line"><span class="cl">WORKDIR /APP
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">COPY spider.csv ./
-</span></span><span class="line"><span class="cl">COPY *.py ./
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">CMD [&#34;python&#34;,&#34;spider.py&#34;]
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 AS builder
+
+COPY requirements.txt ./
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+FROM python:3.6-slim 
+
+COPY --from=builder /usr/local/lib/python3.6/site-packages /usr/local/lib/python3.6/site-packages
+WORKDIR /APP
+
+COPY spider.csv ./
+COPY *.py ./
+
+CMD [&#34;python&#34;,&#34;spider.py&#34;]
+</code></pre></td></tr></table>
 </div>
 </div><h3 id="调整-dockerfile-的顺序">调整 Dockerfile 的顺序</h3>
 <p>调整 Dockerfile 的顺序，因为每一个步骤发生变化后，后面的步骤的缓存都会废纸，所以将变动较大的放在后面比较好。</p>
@@ -390,14 +390,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">FROM python:3.6 
-</span></span><span class="line"><span class="cl">WORKDIR /APP
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">COPY . .
-</span></span><span class="line"><span class="cl">RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">CMD [&#34;python&#34;,&#34;spider.py&#34;]
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 
+WORKDIR /APP
+
+COPY . .
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+CMD [&#34;python&#34;,&#34;spider.py&#34;]
+</code></pre></td></tr></table>
 </div>
 </div><p>可以改成下面的格式：</p>
 <div class="highlight"><div class="chroma">
@@ -412,15 +412,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">FROM python:3.6
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">WORKDIR /APP
-</span></span><span class="line"><span class="cl">COPY requirements.txt ./
-</span></span><span class="line"><span class="cl">RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
-</span></span><span class="line"><span class="cl">COPY spider.csv ./
-</span></span><span class="line"><span class="cl">COPY *.py ./
-</span></span><span class="line"><span class="cl">CMD [&#34;python&#34;,&#34;spider.py&#34;]
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6
+
+WORKDIR /APP
+COPY requirements.txt ./
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+COPY spider.csv ./
+COPY *.py ./
+CMD [&#34;python&#34;,&#34;spider.py&#34;]
+</code></pre></td></tr></table>
 </div>
 </div><p>这样就可以改动 spider.py 中的代码没有增加新的依赖的时候，就能复用 pip install 的缓存。</p>
 <h2 id="最后">最后</h2>
@@ -537,7 +537,7 @@
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
   </span>
 </div>
 
@@ -554,7 +554,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>

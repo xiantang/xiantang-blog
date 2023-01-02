@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.107.0 with theme even" />
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
 
 
 <link rel="canonical" href="https://vim0.com/post/awk/" />
@@ -267,27 +267,27 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">awk
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">A versatile programming language for working on files.
-</span></span><span class="line"><span class="cl">More information: https://github.com/onetrueawk/awk.
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">- Print the fifth column (a.k.a. field) in a space-separated file:
-</span></span><span class="line"><span class="cl">awk &#39;{print $5}&#39; filename
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">- Print the second column of the lines containing &#34;foo&#34; in a space-separated file:
-</span></span><span class="line"><span class="cl">awk &#39;/foo/ {print $2}&#39; filename
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">- Print the last column of each line in a file, using a comma (instead of space) as a field separator:
-</span></span><span class="line"><span class="cl">awk -F &#39;,&#39; &#39;{print $NF}&#39; filename
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">- Print all lines where the 10th column value equals the specified value:
-</span></span><span class="line"><span class="cl">awk &#39;($10 == value)&#39;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">- Sum the values in the first column of a file and print the total:
-</span></span><span class="line"><span class="cl">  awk &#39;{s+=$1} END {print s}&#39; filename
-</span></span><span class="line"><span class="cl">...
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">awk
+
+A versatile programming language for working on files.
+More information: https://github.com/onetrueawk/awk.
+
+- Print the fifth column (a.k.a. field) in a space-separated file:
+awk &#39;{print $5}&#39; filename
+
+- Print the second column of the lines containing &#34;foo&#34; in a space-separated file:
+awk &#39;/foo/ {print $2}&#39; filename
+
+- Print the last column of each line in a file, using a comma (instead of space) as a field separator:
+awk -F &#39;,&#39; &#39;{print $NF}&#39; filename
+
+- Print all lines where the 10th column value equals the specified value:
+awk &#39;($10 == value)&#39;
+
+- Sum the values in the first column of a file and print the total:
+  awk &#39;{s+=$1} END {print s}&#39; filename
+...
+</code></pre></td></tr></table>
 </div>
 </div><p>通过这些示例我就能知道 awk 的常用用途有哪些，以及就是哪些语法和参数是最重要的。</p>
 <p>用途主要有：</p>
@@ -333,12 +333,12 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Marry   2143 78 84 77
-</span></span><span class="line"><span class="cl">Jack    2321 66 78 45
-</span></span><span class="line"><span class="cl">Tom     2122 48 77 71
-</span></span><span class="line"><span class="cl">Mike    2537 87 97 95
-</span></span><span class="line"><span class="cl">Bob     2415 40 57 62
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Marry   2143 78 84 77
+Jack    2321 66 78 45
+Tom     2122 48 77 71
+Mike    2537 87 97 95
+Bob     2415 40 57 62
+</code></pre></td></tr></table>
 </div>
 </div>结果会是这样的
 <div class="highlight"><div class="chroma">
@@ -355,17 +355,17 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">NAME    NO.   MATH  ENGLISH  COMPUTER   TOTAL
-</span></span><span class="line"><span class="cl">---------------------------------------------
-</span></span><span class="line"><span class="cl">Marry  2143     78       84       77      239
-</span></span><span class="line"><span class="cl">Jack   2321     66       78       45      189
-</span></span><span class="line"><span class="cl">Tom    2122     48       77       71      196
-</span></span><span class="line"><span class="cl">Mike   2537     87       97       95      279
-</span></span><span class="line"><span class="cl">Bob    2415     40       57       62      159
-</span></span><span class="line"><span class="cl">---------------------------------------------
-</span></span><span class="line"><span class="cl">TOTAL:       319      393      350
-</span></span><span class="line"><span class="cl">AVERAGE:     63.80    78.60    70.00
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">NAME    NO.   MATH  ENGLISH  COMPUTER   TOTAL
+---------------------------------------------
+Marry  2143     78       84       77      239
+Jack   2321     66       78       45      189
+Tom    2122     48       77       71      196
+Mike   2537     87       97       95      279
+Bob    2415     40       57       62      159
+---------------------------------------------
+TOTAL:       319      393      350
+AVERAGE:     63.80    78.60    70.00
+</code></pre></td></tr></table>
 </div>
 </div></li>
 <li>最后是通过 awk 来找到 yaml 中某一个字段的值，这个难度较大但是比较有意思，<a href="https://unix.stackexchange.com/questions/608137/parse-a-yaml-section-using-shell">Parse a YAML section using shell</a></li>
@@ -397,12 +397,12 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Marry	2143	78	84	77
-</span></span><span class="line"><span class="cl">Jack	2321	66	78	45
-</span></span><span class="line"><span class="cl">Tom	2122	48	77	71
-</span></span><span class="line"><span class="cl">Mike	2537	87	97	95
-</span></span><span class="line"><span class="cl">Bob	2415	40	57	62
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Marry	2143	78	84	77
+Jack	2321	66	78	45
+Tom	2122	48	77	71
+Mike	2537	87	97	95
+Bob	2415	40	57	62
+</code></pre></td></tr></table>
 </div>
 </div><p>可以使用这个方式打印出包含 /Bob/ 的行
 <code>awk '/Bob/ {print $0}'  sheet</code></p>
@@ -417,9 +417,9 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">foo bar ggg
-</span></span><span class="line"><span class="cl">bar foo ggg
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">foo bar ggg
+bar foo ggg
+</code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -427,9 +427,9 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">- Print the second column of the lines containing &#34;foo&#34; in a space-separated file:
-</span></span><span class="line"><span class="cl">awk &#39;/foo/ {print $2}&#39; filename
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">- Print the second column of the lines containing &#34;foo&#34; in a space-separated file:
+awk &#39;/foo/ {print $2}&#39; filename
+</code></pre></td></tr></table>
 </div>
 </div><p>正确的应该是 <code>awk '$2 ~ /foo/ {print $2}'</code>，当 <code>$2 ~ /foo/</code> 匹配的时候会赋值成 1，不匹配的时候会赋值成 0。
 也就是当匹配的时候，这处理这一行记录就会变成 <code>awk '1 {print $2}</code> ，不匹配就会变成 <code>awk '0 {print $2}</code> 。</p>
@@ -445,10 +445,10 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-awk" data-lang="awk"><span class="line"><span class="cl"><span class="nb">BEGIN</span> <span class="p">{</span> <span class="kr">print</span> <span class="s2">&#34;START&#34;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="sr">/foo/</span> <span class="p">{</span> <span class="kr">print</span>         <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nb">END</span>   <span class="p">{</span> <span class="kr">print</span> <span class="s2">&#34;STOP&#34;</span>  <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-awk" data-lang="awk"><span class="nb">BEGIN</span> <span class="p">{</span> <span class="kr">print</span> <span class="s2">&#34;START&#34;</span> <span class="p">}</span>
+<span class="sr">/foo/</span> <span class="p">{</span> <span class="kr">print</span>         <span class="p">}</span>
+<span class="nb">END</span>   <span class="p">{</span> <span class="kr">print</span> <span class="s2">&#34;STOP&#34;</span>  <span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>从上面的例子可以看出 awk 比较重要的是，该模式指定了以读取的每一行作为输入执行的行为。
 如果前边的表达式为真，则执行 <code>{ print }</code> 中的代码。
@@ -480,27 +480,27 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-awk" data-lang="awk"><span class="line"><span class="cl"><span class="c1">#!/bin/awk -f</span>
-</span></span><span class="line"><span class="cl"><span class="nb">BEGIN</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="nx">math</span><span class="o">=</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="nx">english</span><span class="o">=</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="nx">art</span><span class="o">=</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="kr">printf</span> <span class="s2">&#34;%-6s %-6s %-6s %-6s %-6s %-6s\n&#34;</span><span class="p">,</span> <span class="s2">&#34;Name&#34;</span><span class="p">,</span> <span class="s2">&#34;No.&#34;</span><span class="p">,</span> <span class="s2">&#34;MATH&#34;</span><span class="p">,</span> <span class="s2">&#34;ENGLISH&#34;</span><span class="p">,</span><span class="s2">&#34;ART&#34;</span><span class="p">,</span><span class="s2">&#34;TOTAL&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">math</span><span class="o">+=$</span><span class="mi">3</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">english</span><span class="o">+=$</span><span class="mi">4</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">art</span><span class="o">+=$</span><span class="mi">5</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">cnt</span><span class="o">+=</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">total</span><span class="o">=$</span><span class="mi">3</span><span class="o">+$</span><span class="mi">4</span><span class="o">+$</span><span class="mi">5</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">sum</span><span class="o">+=</span><span class="nx">total</span>
-</span></span><span class="line"><span class="cl"><span class="kr">printf</span> <span class="s2">&#34;%-6s %-6s %-6s %-6s %-6s %-6s\n&#34;</span><span class="p">,</span> <span class="o">$</span><span class="mi">1</span><span class="p">,</span> <span class="o">$</span><span class="mi">2</span><span class="p">,</span><span class="o">$</span><span class="mi">3</span><span class="p">,</span><span class="o">$</span><span class="mi">4</span><span class="p">,</span><span class="o">$</span><span class="mi">5</span><span class="p">,</span><span class="nx">total</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nb">END</span>  <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="kr">printf</span> <span class="s2">&#34;%-6s %-6s %-6s %-6s %-6s %-6s\n&#34;</span><span class="p">,</span> <span class="s2">&#34;TOTAL&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="nx">math</span><span class="p">,</span><span class="nx">english</span><span class="p">,</span><span class="nx">art</span><span class="p">,</span><span class="nx">total</span>
-</span></span><span class="line"><span class="cl"><span class="kr">printf</span> <span class="s2">&#34;%-6s %-6s %-6s %-6s %-6s %-6s\n&#34;</span><span class="p">,</span> <span class="s2">&#34;AVG&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="nx">math</span><span class="o">/</span><span class="nx">cnt</span><span class="p">,</span> <span class="nx">english</span><span class="o">/</span><span class="nx">cnt</span><span class="p">,</span><span class="nx">art</span><span class="o">/</span><span class="nx">cnt</span><span class="p">,</span><span class="nx">sum</span><span class="o">/</span><span class="nx">cnt</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-awk" data-lang="awk"><span class="c1">#!/bin/awk -f</span>
+<span class="nb">BEGIN</span> <span class="p">{</span>
+<span class="nx">math</span><span class="o">=</span><span class="mi">0</span>
+<span class="nx">english</span><span class="o">=</span><span class="mi">0</span>
+<span class="nx">art</span><span class="o">=</span><span class="mi">0</span>
+<span class="kr">printf</span> <span class="s2">&#34;%-6s %-6s %-6s %-6s %-6s %-6s\n&#34;</span><span class="p">,</span> <span class="s2">&#34;Name&#34;</span><span class="p">,</span> <span class="s2">&#34;No.&#34;</span><span class="p">,</span> <span class="s2">&#34;MATH&#34;</span><span class="p">,</span> <span class="s2">&#34;ENGLISH&#34;</span><span class="p">,</span><span class="s2">&#34;ART&#34;</span><span class="p">,</span><span class="s2">&#34;TOTAL&#34;</span>
+<span class="p">}</span>
+<span class="p">{</span>
+	<span class="nx">math</span><span class="o">+=$</span><span class="mi">3</span>
+	<span class="nx">english</span><span class="o">+=$</span><span class="mi">4</span>
+	<span class="nx">art</span><span class="o">+=$</span><span class="mi">5</span>
+	<span class="nx">cnt</span><span class="o">+=</span><span class="mi">1</span>
+	<span class="nx">total</span><span class="o">=$</span><span class="mi">3</span><span class="o">+$</span><span class="mi">4</span><span class="o">+$</span><span class="mi">5</span>
+	<span class="nx">sum</span><span class="o">+=</span><span class="nx">total</span>
+<span class="kr">printf</span> <span class="s2">&#34;%-6s %-6s %-6s %-6s %-6s %-6s\n&#34;</span><span class="p">,</span> <span class="o">$</span><span class="mi">1</span><span class="p">,</span> <span class="o">$</span><span class="mi">2</span><span class="p">,</span><span class="o">$</span><span class="mi">3</span><span class="p">,</span><span class="o">$</span><span class="mi">4</span><span class="p">,</span><span class="o">$</span><span class="mi">5</span><span class="p">,</span><span class="nx">total</span>
+<span class="p">}</span>
+<span class="nb">END</span>  <span class="p">{</span>
+<span class="kr">printf</span> <span class="s2">&#34;%-6s %-6s %-6s %-6s %-6s %-6s\n&#34;</span><span class="p">,</span> <span class="s2">&#34;TOTAL&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="nx">math</span><span class="p">,</span><span class="nx">english</span><span class="p">,</span><span class="nx">art</span><span class="p">,</span><span class="nx">total</span>
+<span class="kr">printf</span> <span class="s2">&#34;%-6s %-6s %-6s %-6s %-6s %-6s\n&#34;</span><span class="p">,</span> <span class="s2">&#34;AVG&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="nx">math</span><span class="o">/</span><span class="nx">cnt</span><span class="p">,</span> <span class="nx">english</span><span class="o">/</span><span class="nx">cnt</span><span class="p">,</span><span class="nx">art</span><span class="o">/</span><span class="nx">cnt</span><span class="p">,</span><span class="nx">sum</span><span class="o">/</span><span class="nx">cnt</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h3 id="awk-来找到-yaml-中某一个字段的值">awk 来找到 yaml 中某一个字段的值</h3>
 <p>Stackoverflow 上这个回答令人摸不到头脑:</p>
@@ -524,23 +524,23 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">something:
-</span></span><span class="line"><span class="cl"> - whatever:
-</span></span><span class="line"><span class="cl">   - something
-</span></span><span class="line"><span class="cl"> - toc: 4
-</span></span><span class="line"><span class="cl"> - body: assets/footer.html
-</span></span><span class="line"><span class="cl">pkg:
-</span></span><span class="line"><span class="cl"> - pkg_a_1:
-</span></span><span class="line"><span class="cl">   - Shass
-</span></span><span class="line"><span class="cl">   - AJh55
-</span></span><span class="line"><span class="cl">   - ASH7
-</span></span><span class="line"><span class="cl"> - pkg_b_1:
-</span></span><span class="line"><span class="cl">   - Kjs6
-</span></span><span class="line"><span class="cl">   - opsaa
-</span></span><span class="line"><span class="cl">other:
-</span></span><span class="line"><span class="cl">morestuff:
-</span></span><span class="line"><span class="cl"> - whatever
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">something:
+ - whatever:
+   - something
+ - toc: 4
+ - body: assets/footer.html
+pkg:
+ - pkg_a_1:
+   - Shass
+   - AJh55
+   - ASH7
+ - pkg_b_1:
+   - Kjs6
+   - opsaa
+other:
+morestuff:
+ - whatever
+</code></pre></td></tr></table>
 </div>
 </div><p>需要拿到 pkg_a_1 的值，输出这样：</p>
 <div class="highlight"><div class="chroma">
@@ -552,12 +552,12 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pkg_a_1 Shass
-</span></span><span class="line"><span class="cl">pkg_a_1 AJh55
-</span></span><span class="line"><span class="cl">pkg_a_1 ASH7
-</span></span><span class="line"><span class="cl">pkg_b_1 Kjs6
-</span></span><span class="line"><span class="cl">pkg_b_1 opsaa
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">pkg_a_1 Shass
+pkg_a_1 AJh55
+pkg_a_1 ASH7
+pkg_b_1 Kjs6
+pkg_b_1 opsaa
+</code></pre></td></tr></table>
 </div>
 </div><p>所给到的解答是 <code>awk '/^[^ ]/{ f=/^pkg:/; next } f{ if (sub(/:$/,&quot;&quot;)) pkg=$2; else print pkg, $2 }' file</code></p>
 <p>刚看到答案一脸懵逼是吧，我们将输入拆分一下：</p>
@@ -573,12 +573,12 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">xiantang@ubuntu:~$ awk &#39;/^[^ ]/{ f=/^pkg:/;print f}&#39; ymal
-</span></span><span class="line"><span class="cl">  0
-</span></span><span class="line"><span class="cl">  1
-</span></span><span class="line"><span class="cl">  0
-</span></span><span class="line"><span class="cl">  0
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">xiantang@ubuntu:~$ awk &#39;/^[^ ]/{ f=/^pkg:/;print f}&#39; ymal
+  0
+  1
+  0
+  0
+</code></pre></td></tr></table>
 </div>
 </div></li>
 <li>next 指的是跳过当前行，继续解析下面的行。</li>
@@ -696,7 +696,7 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
   </span>
 </div>
 
@@ -713,7 +713,7 @@ case 来针对性学习，防止真正重要的内容会被埋没在细枝末节
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>

@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.107.0 with theme even" />
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
 
 
 <link rel="canonical" href="https://vim0.com/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/" />
@@ -49,7 +49,7 @@
 <meta itemprop="name" content="实现一个AtomicInteger">
 <meta itemprop="description" content="什么是 AtomicInteger AtomicInteger 顾名思义是一个具有原子化操作的 Integer，与普通的 Integer 的区别是 AtomicInteger 采用一个 CAS 的方式使 Integer 的自增等操作变成原子化操作。 实现的之前需要了"><meta itemprop="datePublished" content="2020-04-06T16:33:34+08:00" />
 <meta itemprop="dateModified" content="2020-04-06T16:33:34+08:00" />
-<meta itemprop="wordCount" content="573"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="wordCount" content="575"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
 <meta itemprop="keywords" content="concurrency," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
 
@@ -143,7 +143,7 @@
             <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
             <a href="/categories/java/"> java </a>
             </div>
-          <span class="more-meta"> 573 words </span>
+          <span class="more-meta"> 575 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -178,15 +178,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">incrementAndGet</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">         <span class="k">for</span> <span class="o">(;;)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">          <span class="kt">int</span> <span class="n">current</span> <span class="o">=</span> <span class="n">get</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">          <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">current</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="o">(</span><span class="n">compareAndSet</span><span class="o">(</span><span class="n">current</span><span class="o">,</span> <span class="n">next</span><span class="o">))</span>
-</span></span><span class="line"><span class="cl">             <span class="k">return</span> <span class="n">next</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">          <span class="o">}</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">incrementAndGet</span><span class="o">()</span> <span class="o">{</span>
+         <span class="k">for</span> <span class="o">(;;)</span> <span class="o">{</span>
+          <span class="kt">int</span> <span class="n">current</span> <span class="o">=</span> <span class="n">get</span><span class="o">();</span>
+          <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">current</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">compareAndSet</span><span class="o">(</span><span class="n">current</span><span class="o">,</span> <span class="n">next</span><span class="o">))</span>
+             <span class="k">return</span> <span class="n">next</span><span class="o">;</span>
+          <span class="o">}</span>
+ <span class="o">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>他采用了死循环，并且每次循环都获取最新的 value，通过这个值计算出自增后的值，使用 compareAndSet 来交换值，并且判断结果，如果是 true 就返回自增后的值，如果是 false 就进行重试，其实这就是一个典型的 CAS 操作。</p>
 <p>并且这个 compareAndSet 操作，其实很简单，就是调用 unsafe 对象的 compareAndSwapInt</p>
@@ -197,10 +197,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">compareAndSet</span><span class="o">(</span><span class="kt">int</span> <span class="n">expect</span><span class="o">,</span> <span class="kt">int</span> <span class="n">update</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">unsafe</span><span class="o">.</span><span class="na">compareAndSwapInt</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">valueOffset</span><span class="o">,</span> <span class="n">expect</span><span class="o">,</span> <span class="n">update</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">compareAndSet</span><span class="o">(</span><span class="kt">int</span> <span class="n">expect</span><span class="o">,</span> <span class="kt">int</span> <span class="n">update</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">unsafe</span><span class="o">.</span><span class="na">compareAndSwapInt</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">valueOffset</span><span class="o">,</span> <span class="n">expect</span><span class="o">,</span> <span class="n">update</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>compareAndSwapInt 就是根据当前对象的所需要 CAS 操作的成员的所在对象的 offset 来进行 CAS 的修改操作。</p>
 <p>然后我们来看一下 get () 方法：</p>
@@ -210,13 +210,15 @@
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
 </div>
 </div><p>就是返回 volatile 修饰的值，因为获取这个值是原子化行为，并且 volatile 能保证这个值是最新的。</p>
 <h2 id="我的实现">我的实现</h2>
@@ -271,57 +273,59 @@
 </span><span class="lnt">46
 </span><span class="lnt">47
 </span><span class="lnt">48
+</span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AtomicInteger</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Unsafe</span> <span class="n">unsafe</span> <span class="o">=</span> <span class="n">getUnsafeInstance</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">offset</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">offset</span> <span class="o">=</span> <span class="n">unsafe</span><span class="o">.</span><span class="na">objectFieldOffset</span><span class="o">(</span><span class="n">AtomicInteger</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;value&#34;</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchFieldException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">AtomicInteger</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">//通过反射获取对应实例
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Unsafe</span> <span class="nf">getUnsafeInstance</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">Field</span> <span class="n">unsafeInstance</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">unsafeInstance</span> <span class="o">=</span> <span class="n">Unsafe</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;theUnsafe&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">unsafeInstance</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="o">(</span><span class="n">Unsafe</span><span class="o">)</span> <span class="n">unsafeInstance</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Unsafe</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchFieldException</span> <span class="o">|</span> <span class="n">IllegalAccessException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">incrementAndGet</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">curr</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">next</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">do</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">curr</span> <span class="o">=</span> <span class="n">get</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">            <span class="n">next</span> <span class="o">=</span> <span class="n">curr</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">while</span> <span class="o">(!</span><span class="n">unsafe</span><span class="o">.</span><span class="na">compareAndSwapInt</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">offset</span><span class="o">,</span> <span class="n">curr</span><span class="o">,</span> <span class="n">next</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">get</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AtomicInteger</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Unsafe</span> <span class="n">unsafe</span> <span class="o">=</span> <span class="n">getUnsafeInstance</span><span class="o">();</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">offset</span><span class="o">;</span>
+
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="n">unsafe</span><span class="o">.</span><span class="na">objectFieldOffset</span><span class="o">(</span><span class="n">AtomicInteger</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;value&#34;</span><span class="o">));</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchFieldException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+
+    <span class="n">AtomicInteger</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//通过反射获取对应实例
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Unsafe</span> <span class="nf">getUnsafeInstance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Field</span> <span class="n">unsafeInstance</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">unsafeInstance</span> <span class="o">=</span> <span class="n">Unsafe</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;theUnsafe&#34;</span><span class="o">);</span>
+            <span class="n">unsafeInstance</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+            <span class="k">return</span> <span class="o">(</span><span class="n">Unsafe</span><span class="o">)</span> <span class="n">unsafeInstance</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Unsafe</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchFieldException</span> <span class="o">|</span> <span class="n">IllegalAccessException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">int</span> <span class="nf">incrementAndGet</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">curr</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">next</span><span class="o">;</span>
+        <span class="k">do</span> <span class="o">{</span>
+            <span class="n">curr</span> <span class="o">=</span> <span class="n">get</span><span class="o">();</span>
+            <span class="n">next</span> <span class="o">=</span> <span class="n">curr</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">while</span> <span class="o">(!</span><span class="n">unsafe</span><span class="o">.</span><span class="na">compareAndSwapInt</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">offset</span><span class="o">,</span> <span class="n">curr</span><span class="o">,</span> <span class="n">next</span><span class="o">));</span>
+
+        <span class="k">return</span> <span class="n">get</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -423,7 +427,7 @@
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
   </span>
 </div>
 
@@ -440,7 +444,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>

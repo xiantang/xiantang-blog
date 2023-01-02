@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.107.0 with theme even" />
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
 
 
 <link rel="canonical" href="https://vim0.com/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/" />
@@ -49,7 +49,7 @@
 <meta itemprop="name" content="单例模式">
 <meta itemprop="description" content="单例模式是什么? 单例模式，也叫单子模式，是一种常用的软件设计模式，属于创建型模式的一种。 在这个设计模式中，单例对象的类必须保证只有一个实例存"><meta itemprop="datePublished" content="2020-04-03T01:37:56+08:00" />
 <meta itemprop="dateModified" content="2020-04-03T01:37:56+08:00" />
-<meta itemprop="wordCount" content="700"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="wordCount" content="701"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
 <meta itemprop="keywords" content="设计模式," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
 
@@ -143,7 +143,7 @@
             <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
             <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> 设计模式 </a>
             </div>
-          <span class="more-meta"> 700 words </span>
+          <span class="more-meta"> 701 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -189,19 +189,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Singleton</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Singleton</span> <span class="n">instance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="nf">Singleton</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="n">Singleton</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singleton</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">      <span class="o">}</span>
-</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Singleton</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Singleton</span> <span class="n">instance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nf">Singleton</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="n">Singleton</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singleton</span><span class="o">();</span>
+      <span class="o">}</span>
+      <span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>单线程的单例比较容易实现，但是如果存在多线程竞争，这个单例模式就可能会造成重复创建。</p>
 <h2 id="多线程">多线程</h2>
@@ -227,28 +227,30 @@
 </span><span class="lnt">17
 </span><span class="lnt">18
 </span><span class="lnt">19
+</span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">TwiceCheckSingleton</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="n">TwiceCheckSingleton</span> <span class="n">instance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">sybObj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="nf">TwiceCheckSingleton</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="n">TwiceCheckSingleton</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// check 1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kd">synchronized</span> <span class="o">(</span><span class="n">sybObj</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// check 2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TwiceCheckSingleton</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">                <span class="o">}</span>
-</span></span><span class="line"><span class="cl">            <span class="o">}</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">TwiceCheckSingleton</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">TwiceCheckSingleton</span> <span class="n">instance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">sybObj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+
+    <span class="kd">private</span> <span class="nf">TwiceCheckSingleton</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="n">TwiceCheckSingleton</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// check 1
+</span><span class="c1"></span>            <span class="kd">synchronized</span> <span class="o">(</span><span class="n">sybObj</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// check 2
+</span><span class="c1"></span>                    <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TwiceCheckSingleton</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
 </div>
 </div><p>但是为什么要使用 TwiceCheckSingleton 并且为啥有两次检验呢?</p>
 <p>首先我们来分析一下 check 1</p>
@@ -267,14 +269,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// check 1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 并发进入
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 3个线程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">synchronized</span> <span class="o">(</span><span class="n">sybObj</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TwiceCheckSingleton</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// check 1
+</span><span class="c1"></span>  <span class="c1">// 并发进入
+</span><span class="c1"></span>  <span class="c1">// 3个线程
+</span><span class="c1"></span>  <span class="kd">synchronized</span> <span class="o">(</span><span class="n">sybObj</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TwiceCheckSingleton</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>假设有3个线程进入了check1 语句块，一个线程已经进入了check2 并且创建完对象，剩下三个线程会依次进入临界区，并且创建三次对象。</p>
 
@@ -377,7 +379,7 @@
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
   </span>
 </div>
 
@@ -394,7 +396,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>

@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.107.0 with theme even" />
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
 
 
 <link rel="canonical" href="https://vim0.com/post/make_zero_value_useful/" />
@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Golang: 让你的零值更有用">
 <meta itemprop="description" content="Golang 使用零值来让你的代码更简洁，其中介绍了 Golang json 零值，Golang map 零值等。"><meta itemprop="datePublished" content="2022-01-16T15:04:40+08:00" />
 <meta itemprop="dateModified" content="2022-02-03T11:49:59+08:00" />
-<meta itemprop="wordCount" content="1569"><meta itemprop="image" content="https://vim0.com/post/make_zero_value_useful.png">
+<meta itemprop="wordCount" content="1570"><meta itemprop="image" content="https://vim0.com/post/make_zero_value_useful.png">
 <meta itemprop="keywords" content="中文,Golang," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/make_zero_value_useful.png"/>
 
@@ -142,7 +142,7 @@
         <div class="post-category">
             <a href="/categories/golang/"> Golang </a>
             </div>
-          <span class="more-meta"> 1569 words </span>
+          <span class="more-meta"> 1570 words </span>
           <span class="more-meta"> 4 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -250,23 +250,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="err">➜</span> <span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>  
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="kd">var</span> <span class="nx">a</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="err">➜</span> <span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>  
+<span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="kd">var</span> <span class="nx">a</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="kt">int</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span>
+<span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>对于结构体也是如此，我们初始化一个引用 A 的 B 结构体，并且没有指定值，那么 B 的每个字段都将被归零。</p>
 <div class="highlight"><div class="chroma">
@@ -286,20 +286,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="err">➜</span> <span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="kd">type</span> <span class="nx">A</span> <span class="kd">struct</span> <span class="p">{</span> <span class="nx">i</span> <span class="kt">int</span><span class="p">;</span> <span class="nx">f</span> <span class="kt">float64</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="kd">type</span> <span class="nx">B</span> <span class="kd">struct</span> <span class="p">{</span> <span class="nx">i</span> <span class="kt">int</span><span class="p">;</span> <span class="nx">f</span> <span class="kt">float64</span><span class="p">;</span> <span class="nx">next</span> <span class="nx">A</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="nb">new</span><span class="p">(</span><span class="nx">B</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="o">&amp;</span><span class="nx">main</span><span class="p">.</span><span class="nx">B</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">i</span><span class="p">:</span>    <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">f</span><span class="p">:</span>    <span class="mf">0.000000</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">next</span><span class="p">:</span> <span class="nx">main</span><span class="p">.</span><span class="nx">A</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">i</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">f</span><span class="p">:</span> <span class="mf">0.000000</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="err">➜</span> <span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>
+<span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="kd">type</span> <span class="nx">A</span> <span class="kd">struct</span> <span class="p">{</span> <span class="nx">i</span> <span class="kt">int</span><span class="p">;</span> <span class="nx">f</span> <span class="kt">float64</span> <span class="p">}</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="kd">type</span> <span class="nx">B</span> <span class="kd">struct</span> <span class="p">{</span> <span class="nx">i</span> <span class="kt">int</span><span class="p">;</span> <span class="nx">f</span> <span class="kt">float64</span><span class="p">;</span> <span class="nx">next</span> <span class="nx">A</span> <span class="p">}</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nb">new</span><span class="p">(</span><span class="nx">B</span><span class="p">)</span>
+<span class="o">&amp;</span><span class="nx">main</span><span class="p">.</span><span class="nx">B</span><span class="p">{</span>
+  <span class="nx">i</span><span class="p">:</span>    <span class="mi">0</span><span class="p">,</span>
+  <span class="nx">f</span><span class="p">:</span>    <span class="mf">0.000000</span><span class="p">,</span>
+  <span class="nx">next</span><span class="p">:</span> <span class="nx">main</span><span class="p">.</span><span class="nx">A</span><span class="p">{</span>
+    <span class="nx">i</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">f</span><span class="p">:</span> <span class="mf">0.000000</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>note：</p>
 <ul>
@@ -331,24 +331,24 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;sync&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">MyInt</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">mu</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">val</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">i</span> <span class="nx">MyInt</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// i.mu is usable without explicit initialisation.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">i</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>      
-</span></span><span class="line"><span class="cl">        <span class="nx">i</span><span class="p">.</span><span class="nx">val</span><span class="o">++</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">i</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;sync&#34;</span>
+
+<span class="kd">type</span> <span class="nx">MyInt</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">mu</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+        <span class="nx">val</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">i</span> <span class="nx">MyInt</span>
+
+        <span class="c1">// i.mu is usable without explicit initialisation.
+</span><span class="c1"></span>        <span class="nx">i</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>      
+        <span class="nx">i</span><span class="p">.</span><span class="nx">val</span><span class="o">++</span>
+        <span class="nx">i</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>得益于零值的特性，Mutex 内部两个未导出的变量都会被初始化为零值。所以 sync.Mutex 的零值是一个未锁定的 Mutex。</p>
 <div class="highlight"><div class="chroma">
@@ -363,15 +363,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="c1">// A Mutex is a mutual exclusion lock.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// The zero value for a Mutex is an unlocked mutex.
-</span></span></span><span class="line"><span class="cl"><span class="c1">//
-</span></span></span><span class="line"><span class="cl"><span class="c1">// A Mutex must not be copied after first use.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Mutex</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"> <span class="nx">state</span> <span class="kt">int32</span>
-</span></span><span class="line"><span class="cl"> <span class="nx">sema</span>  <span class="kt">uint32</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// A Mutex is a mutual exclusion lock.
+</span><span class="c1">// The zero value for a Mutex is an unlocked mutex.
+</span><span class="c1">//
+</span><span class="c1">// A Mutex must not be copied after first use.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Mutex</span> <span class="kd">struct</span> <span class="p">{</span>
+ <span class="nx">state</span> <span class="kt">int32</span>
+ <span class="nx">sema</span>  <span class="kt">uint32</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h3 id="bytesbuffer">bytes.Buffer</h3>
 <p>另外一个例子是 bytes.Buffer，它的零值是一个空的 Buffer。</p>
@@ -390,18 +390,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;bytes&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;io&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;os&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">b</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">b</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;go go go&#34;</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">io</span><span class="p">.</span><span class="nf">Copy</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;bytes&#34;</span>
+<span class="kn">import</span> <span class="s">&#34;io&#34;</span>
+<span class="kn">import</span> <span class="s">&#34;os&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">b</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span>
+        <span class="nx">b</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;go go go&#34;</span><span class="p">))</span>
+        <span class="nx">io</span><span class="p">.</span><span class="nf">Copy</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">b</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><h3 id="json-omitempty">JSON omitempty</h3>
 <p>JSON 接收器也接受 <code>omitempty</code> 这个 flag，当输入的字段是 <code>零值</code> 时，接收器会忽略这个字段。</p>
@@ -429,27 +429,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="err">➜</span>  <span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>          
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span><span class="p">..</span>         <span class="nx">Name</span> <span class="kt">string</span> <span class="s">`json:&#34;name&#34;`</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span><span class="p">..</span>         <span class="nx">Age</span>  <span class="kt">int</span>    <span class="s">`json:&#34;age&#34;`</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span><span class="p">..</span>         <span class="nx">Addr</span> <span class="kt">string</span> <span class="s">`json:&#34;addr,omitempty&#34;`</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span><span class="p">..</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">p1</span> <span class="o">:=</span> <span class="nx">Person</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span><span class="p">..</span>             <span class="nx">Name</span><span class="p">:</span> <span class="s">&#34;taoge&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span><span class="p">..</span>             <span class="nx">Age</span><span class="p">:</span>  <span class="mi">30</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span><span class="p">..</span>     <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">main</span><span class="p">.</span><span class="nx">Person</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">Name</span><span class="p">:</span> <span class="s">&#34;taoge&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">Age</span><span class="p">:</span>  <span class="mi">30</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">Addr</span><span class="p">:</span> <span class="s">&#34;&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="nb">string</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="s">&#34;{\&#34;name\&#34;:\&#34;taoge\&#34;,\&#34;age\&#34;:30}&#34;</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="err">➜</span>  <span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>          
+<span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="o">...</span><span class="p">..</span>         <span class="nx">Name</span> <span class="kt">string</span> <span class="s">`json:&#34;name&#34;`</span>
+<span class="o">...</span><span class="p">..</span>         <span class="nx">Age</span>  <span class="kt">int</span>    <span class="s">`json:&#34;age&#34;`</span>
+<span class="o">...</span><span class="p">..</span>         <span class="nx">Addr</span> <span class="kt">string</span> <span class="s">`json:&#34;addr,omitempty&#34;`</span>
+<span class="o">...</span><span class="p">..</span> <span class="p">}</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">p1</span> <span class="o">:=</span> <span class="nx">Person</span><span class="p">{</span>
+<span class="o">...</span><span class="p">..</span>             <span class="nx">Name</span><span class="p">:</span> <span class="s">&#34;taoge&#34;</span><span class="p">,</span>
+<span class="o">...</span><span class="p">..</span>             <span class="nx">Age</span><span class="p">:</span>  <span class="mi">30</span><span class="p">,</span>
+<span class="o">...</span><span class="p">..</span>     <span class="p">}</span>
+<span class="nx">main</span><span class="p">.</span><span class="nx">Person</span><span class="p">{</span>
+  <span class="nx">Name</span><span class="p">:</span> <span class="s">&#34;taoge&#34;</span><span class="p">,</span>
+  <span class="nx">Age</span><span class="p">:</span>  <span class="mi">30</span><span class="p">,</span>
+  <span class="nx">Addr</span><span class="p">:</span> <span class="s">&#34;&#34;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nb">string</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="s">&#34;{\&#34;name\&#34;:\&#34;taoge\&#34;,\&#34;age\&#34;:30}&#34;</span>
+</code></pre></td></tr></table>
 </div>
 </div><h3 id="channel-close">channel close</h3>
 <p>在<a href="https://dave.cheney.net/2014/03/19/channel-axioms">《Channel Axioms》</a>中，也有一条与零值相关的规则，当 channel 关闭时，对被关闭的 channel 做&lt;- 操作，总是立即返回 <code>零值</code>。</p>
@@ -471,21 +471,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">         <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">         <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">         <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">2</span>
-</span></span><span class="line"><span class="cl">         <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">3</span>
-</span></span><span class="line"><span class="cl">         <span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">         <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="o">&lt;-</span><span class="nx">c</span><span class="p">)</span> <span class="c1">// prints 1 2 3 0
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>         <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+         <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+         <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span>
+         <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">2</span>
+         <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">3</span>
+         <span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+         <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+                  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="o">&lt;-</span><span class="nx">c</span><span class="p">)</span> <span class="c1">// prints 1 2 3 0
+</span><span class="c1"></span>         <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>解决上述问题的正确的方式是使用 for loop：</p>
 <div class="highlight"><div class="chroma">
@@ -493,12 +493,14 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">         <span class="c1">// do something with v
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="k">for</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
+         <span class="c1">// do something with v
+</span><span class="c1"></span><span class="p">}</span>
+
+</code></pre></td></tr></table>
 </div>
 </div><h3 id="map-中未找到对应-key-的-value">map 中未找到对应 key 的 value</h3>
 <p>对于一个 map，如果没有找到对应的 key，那么这个 map 会返回对应类型一个零值。</p>
@@ -514,15 +516,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="err">➜</span> <span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span><span class="p">[</span><span class="s">&#34;123&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&#34;456&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s">&#34;456&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span><span class="p">[</span><span class="s">&#34;000&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="s">&#34;&#34;</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="err">➜</span> <span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>
+<span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
+<span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{}</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span><span class="p">[</span><span class="s">&#34;123&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&#34;456&#34;</span>
+<span class="s">&#34;456&#34;</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span><span class="p">[</span><span class="s">&#34;000&#34;</span><span class="p">]</span>
+<span class="s">&#34;&#34;</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>解决这个问题的方法是返回多个值：</p>
 <div class="highlight"><div class="chroma">
@@ -536,14 +538,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">c</span><span class="p">,</span><span class="nx">ok</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">[</span><span class="s">&#34;000&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="s">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="kc">false</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>
+<span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
+<span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{}</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">c</span><span class="p">,</span><span class="nx">ok</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">[</span><span class="s">&#34;000&#34;</span><span class="p">]</span>
+<span class="s">&#34;&#34;</span>
+<span class="kc">false</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>对于不存在的 key，ok 的 value 将会变成 false。</p>
 <h2 id="总结">总结</h2>
@@ -664,7 +666,7 @@
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
   </span>
 </div>
 
@@ -681,7 +683,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>

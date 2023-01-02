@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.107.0 with theme even" />
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
 
 
 <link rel="canonical" href="https://vim0.com/post/collection/collection/" />
@@ -183,18 +183,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">grow</span><span class="o">(</span><span class="kt">int</span> <span class="n">minCapacity</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// overflow-conscious code
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">oldCapacity</span> <span class="o">=</span> <span class="n">elementData</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">oldCapacity</span> <span class="o">+</span> <span class="o">(</span><span class="n">oldCapacity</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">newCapacity</span> <span class="o">-</span> <span class="n">minCapacity</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">minCapacity</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">newCapacity</span> <span class="o">-</span> <span class="n">MAX_ARRAY_SIZE</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">hugeCapacity</span><span class="o">(</span><span class="n">minCapacity</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// minCapacity is usually close to size, so this is a win:
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">elementData</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOf</span><span class="o">(</span><span class="n">elementData</span><span class="o">,</span> <span class="n">newCapacity</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">grow</span><span class="o">(</span><span class="kt">int</span> <span class="n">minCapacity</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">// overflow-conscious code
+</span><span class="c1"></span>  <span class="kt">int</span> <span class="n">oldCapacity</span> <span class="o">=</span> <span class="n">elementData</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+  <span class="kt">int</span> <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">oldCapacity</span> <span class="o">+</span> <span class="o">(</span><span class="n">oldCapacity</span> <span class="o">&gt;&gt;</span> <span class="n">1</span><span class="o">);</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">newCapacity</span> <span class="o">-</span> <span class="n">minCapacity</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span>
+    <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">minCapacity</span><span class="o">;</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">newCapacity</span> <span class="o">-</span> <span class="n">MAX_ARRAY_SIZE</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span>
+    <span class="n">newCapacity</span> <span class="o">=</span> <span class="n">hugeCapacity</span><span class="o">(</span><span class="n">minCapacity</span><span class="o">);</span>
+  <span class="c1">// minCapacity is usually close to size, so this is a win:
+</span><span class="c1"></span>  <span class="n">elementData</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOf</span><span class="o">(</span><span class="n">elementData</span><span class="o">,</span> <span class="n">newCapacity</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>Arrays.copyOf 的方式是采用开辟空间再复制的方式，很有可能会造成 OOM。</p>
 <h3 id="hashmap">HashMap</h3>
@@ -216,19 +216,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm">     * Returns a power of two size for the given target capacity.
-</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">tableSizeFor</span><span class="o">(</span><span class="kt">int</span> <span class="n">cap</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">cap</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">4</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">8</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">16</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="n">MAXIMUM_CAPACITY</span><span class="o">)</span> <span class="o">?</span> <span class="n">MAXIMUM_CAPACITY</span> <span class="o">:</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="cm">/**
+</span><span class="cm">     * Returns a power of two size for the given target capacity.
+</span><span class="cm">     */</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">tableSizeFor</span><span class="o">(</span><span class="kt">int</span> <span class="n">cap</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">cap</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">1</span><span class="o">;</span>
+        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">2</span><span class="o">;</span>
+        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">4</span><span class="o">;</span>
+        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">8</span><span class="o">;</span>
+        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">16</span><span class="o">;</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">?</span> <span class="n">1</span> <span class="o">:</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="n">MAXIMUM_CAPACITY</span><span class="o">)</span> <span class="o">?</span> <span class="n">MAXIMUM_CAPACITY</span> <span class="o">:</span> <span class="n">n</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>至于为什么是 2 的幂，是因为 SUN 的大师们发现，让容量为 2^n 时候，<code>(length - 1) &amp; hash</code> 快于模运算。</p>
 <div class="highlight"><div class="chroma">
@@ -253,25 +253,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="nd">@Test</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testModAndWith</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">long</span> <span class="n">currentTimeMillis</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">i1</span> <span class="o">=</span> <span class="mi">6666</span> <span class="o">%</span> <span class="mi">16</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">            <span class="n">assertEquals</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="n">i1</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">long</span> <span class="n">l</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">-</span> <span class="n">currentTimeMillis</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;使用%时间: &#34;</span> <span class="o">+</span> <span class="n">l</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">long</span> <span class="n">currentTimeMillis1</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">i1</span> <span class="o">=</span> <span class="mi">6666</span> <span class="o">&amp;</span> <span class="o">(</span><span class="mi">16</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">assertEquals</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="n">i1</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">long</span> <span class="n">l1</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">-</span> <span class="n">currentTimeMillis1</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;使用&amp;时间: &#34;</span> <span class="o">+</span> <span class="n">l1</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testModAndWith</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">currentTimeMillis</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">10000000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">i1</span> <span class="o">=</span> <span class="n">6666</span> <span class="o">%</span> <span class="n">16</span><span class="o">;</span>
+            <span class="n">assertEquals</span><span class="o">(</span><span class="n">10</span><span class="o">,</span> <span class="n">i1</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kt">long</span> <span class="n">l</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">-</span> <span class="n">currentTimeMillis</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;使用%时间: &#34;</span> <span class="o">+</span> <span class="n">l</span><span class="o">);</span>
+        <span class="kt">long</span> <span class="n">currentTimeMillis1</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">10000000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">i1</span> <span class="o">=</span> <span class="n">6666</span> <span class="o">&amp;</span> <span class="o">(</span><span class="n">16</span><span class="o">-</span><span class="n">1</span><span class="o">);</span>
+            <span class="n">assertEquals</span><span class="o">(</span><span class="n">10</span><span class="o">,</span> <span class="n">i1</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kt">long</span> <span class="n">l1</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">-</span> <span class="n">currentTimeMillis1</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;使用&amp;时间: &#34;</span> <span class="o">+</span> <span class="n">l1</span><span class="o">);</span>
+
+    <span class="o">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>使用%时间：16
 使用&amp;时间：9</p>
@@ -375,7 +375,7 @@
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
   </span>
 </div>
 
@@ -392,7 +392,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>

@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://vim0.com/post/2022/</loc>
+    <lastmod>2023-01-02T16:33:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/post/</loc>
+    <lastmod>2023-01-02T16:33:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/</loc>
+    <lastmod>2023-01-02T16:33:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://vim0.com/categories/</loc>
     <lastmod>2022-11-27T23:15:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -23,13 +44,6 @@
   </url>
   
   <url>
-    <loc>https://vim0.com/post/</loc>
-    <lastmod>2022-11-27T23:15:37+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://vim0.com/tags/</loc>
     <lastmod>2022-11-27T23:15:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -38,13 +52,6 @@
   
   <url>
     <loc>https://vim0.com/post/neovim/</loc>
-    <lastmod>2022-11-27T23:15:37+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://vim0.com/</loc>
     <lastmod>2022-11-27T23:15:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
