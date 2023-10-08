@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -140,8 +140,8 @@
           <a href="/categories/scala/"> scala </a>
           <a href="/categories/akka/"> akka </a>
           </div>
-        <span class="more-meta"> 597 words </span>
-        <span class="more-meta"> 2 mins read </span>
+        <span class="more-meta">  </span>
+        <span class="more-meta">  </span>
     </div>
   </header>
   
@@ -150,7 +150,7 @@
       观察了一下业务的代码中发现在 Actor 中采用了很多 import scala.concurrent.ExecutionContext.Implicits.global 来作为 Actor 内部的执行 Future 的线程池，之前觉得好像也没啥问题。 但是在看完 akka 源码后发现好像有些不妥。 简单
     </div>
     <div class="read-more">
-      <a href="/post/scala/future_in_actor/" class="read-more-link">Read more...</a>
+      <a href="/post/scala/future_in_actor/" class="read-more-link"></a>
     </div>
   </div>
 </article>
@@ -165,8 +165,8 @@
           <a href="/categories/scala/"> scala </a>
           <a href="/categories/akka/"> akka </a>
           </div>
-        <span class="more-meta"> 1482 words </span>
-        <span class="more-meta"> 3 mins read </span>
+        <span class="more-meta">  </span>
+        <span class="more-meta">  </span>
     </div>
   </header>
   
@@ -175,7 +175,7 @@
       1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&#34;HelloSystem&#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&#34;Parov Stelar&#34;)) // jazzListener
     </div>
     <div class="read-more">
-      <a href="/post/scala/akka_source_code/" class="read-more-link">Read more...</a>
+      <a href="/post/scala/akka_source_code/" class="read-more-link"></a>
     </div>
   </div>
 </article>
@@ -189,8 +189,8 @@
           <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
           <a href="/categories/scala/"> scala </a>
           </div>
-        <span class="more-meta"> 903 words </span>
-        <span class="more-meta"> 2 mins read </span>
+        <span class="more-meta">  </span>
+        <span class="more-meta">  </span>
     </div>
   </header>
   
@@ -199,7 +199,7 @@
       背景: 刚来到以scala为技术栈的公司的时候，配置了半天环境，然后终于将项目起了起来，发现里面的代码很奇怪，没有任何循环，数据的操作是一个函
     </div>
     <div class="read-more">
-      <a href="/post/scala/how_to_learn_scala/" class="read-more-link">Read more...</a>
+      <a href="/post/scala/how_to_learn_scala/" class="read-more-link"></a>
     </div>
   </div>
 </article>
@@ -213,8 +213,8 @@
           <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
           <a href="/categories/scala/"> scala </a>
           </div>
-        <span class="more-meta"> 438 words </span>
-        <span class="more-meta"> 1 min read </span>
+        <span class="more-meta">  </span>
+        <span class="more-meta">  </span>
     </div>
   </header>
   
@@ -223,7 +223,7 @@
       写了一个工具类用来加密解密数据库的 app 字段 本地环境运行单测什么都没有任何问题，但是一到生产环境就出现 BUG。 这个的原因是因为线上环境没有支持 AES
     </div>
     <div class="read-more">
-      <a href="/post/scala/aes_limit_length/" class="read-more-link">Read more...</a>
+      <a href="/post/scala/aes_limit_length/" class="read-more-link"></a>
     </div>
   </div>
 </article>
@@ -236,8 +236,8 @@
       <div class="post-category">
           <a href="/categories/%E4%B8%AD%E6%96%87/"> 中文 </a>
           </div>
-        <span class="more-meta"> 1069 words </span>
-        <span class="more-meta"> 3 mins read </span>
+        <span class="more-meta">  </span>
+        <span class="more-meta">  </span>
     </div>
   </header>
   
@@ -246,7 +246,7 @@
       一般来说equals()和&quot;==&quot;运算符是用来比较两个对象是否相等，但是这两者之前还是有许多不同： 最主要的不同是.equ
     </div>
     <div class="read-more">
-      <a href="/post/translate/java_equals/" class="read-more-link">Read more...</a>
+      <a href="/post/translate/java_equals/" class="read-more-link"></a>
     </div>
   </div>
 </article>
@@ -256,10 +256,10 @@
   <nav class="pagination">
     <a class="prev" href="/page/6/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text">Prev</span>
+        <span class="prev-text"></span>
       </a>
     <a class="next" href="/page/8/">
-        <span class="next-text">Next</span>
+        <span class="next-text"></span>
         <i class="iconfont icon-right"></i>
       </a>
   </nav>
@@ -279,18 +279,18 @@
 
 <div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+    %!(EXTRA string=<a class="hexo-link" href="https://gohugo.io">Hugo</a>)
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    Theme - 
+     - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span id="busuanzi_container_site_pv"> %!(EXTRA string=<span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span id="busuanzi_container_site_uv"> %!(EXTRA string=<span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
   </div>
 
   <span class="copyright-year">
