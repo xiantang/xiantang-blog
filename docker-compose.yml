@@ -7,6 +7,6 @@ services:
         context: .
         dockerfile: ./Dockerfile
     volumes:
-        - ./content:/app/content
+        - .:/app
     ports:
         - 1313:1313
