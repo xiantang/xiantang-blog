@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
   blog:
+    platform: linux/amd64
     build:
         context: .
         dockerfile: ./Dockerfile
