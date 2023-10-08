@@ -27,7 +27,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
     languageName = "Chinese"
     weight = 1
   [languages.en]
-    title = "xiantang"
+    title = "xiantang - Self-discipline set me free."
     languageName = "English"
     weight = 2
 
