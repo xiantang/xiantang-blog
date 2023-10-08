@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Using Docker Compose to Set Up Your Own Development Environment - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="Docker is not a new technology, but a tool that puts old wine in new bottles.
+ Actually, I used Docker when I was in college, around 2017, when Docker was in its heyday. It was just used to start various lightweight applications, such as magnetic link downloaders, personal network disks, etc. Until recently, my understanding of Docker was still relatively vague. As I continued to encounter requirements at work, I also continued to understand Docker, so I decided to write an article to summarize my recent use of Docker." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/docker-compose-dev/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Using Docker Compose to Set Up Your Own Development Environment" />
+<meta property="og:description" content="Docker is not a new technology, but a tool that puts old wine in new bottles.
+ Actually, I used Docker when I was in college, around 2017, when Docker was in its heyday. It was just used to start various lightweight applications, such as magnetic link downloaders, personal network disks, etc. Until recently, my understanding of Docker was still relatively vague. As I continued to encounter requirements at work, I also continued to understand Docker, so I decided to write an article to summarize my recent use of Docker." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/docker-compose-dev/" /><meta property="og:image" content="https://vim0.com/post/docker-compose-dev.png" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-05-05T22:08:34+08:00" />
+<meta property="article:modified_time" content="2023-10-08T20:52:20+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Using Docker Compose to Set Up Your Own Development Environment">
+<meta itemprop="description" content="Docker is not a new technology, but a tool that puts old wine in new bottles.
+ Actually, I used Docker when I was in college, around 2017, when Docker was in its heyday. It was just used to start various lightweight applications, such as magnetic link downloaders, personal network disks, etc. Until recently, my understanding of Docker was still relatively vague. As I continued to encounter requirements at work, I also continued to understand Docker, so I decided to write an article to summarize my recent use of Docker."><meta itemprop="datePublished" content="2022-05-05T22:08:34+08:00" />
+<meta itemprop="dateModified" content="2023-10-08T20:52:20+08:00" />
+<meta itemprop="wordCount" content="1323"><meta itemprop="image" content="https://vim0.com/post/docker-compose-dev.png">
+<meta itemprop="keywords" content="Docker," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/docker-compose-dev.png"/>
+
+<meta name="twitter:title" content="Using Docker Compose to Set Up Your Own Development Environment"/>
+<meta name="twitter:description" content="Docker is not a new technology, but a tool that puts old wine in new bottles.
+ Actually, I used Docker when I was in college, around 2017, when Docker was in its heyday. It was just used to start various lightweight applications, such as magnetic link downloaders, personal network disks, etc. Until recently, my understanding of Docker was still relatively vague. As I continued to encounter requirements at work, I also continued to understand Docker, so I decided to write an article to summarize my recent use of Docker."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Using Docker Compose to Set Up Your Own Development Environment</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-05-05 </span>
+        <div class="post-category">
+            <a href="/en/categories/docker/"> Docker </a>
+            </div>
+          <span class="more-meta"> 1323 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#what-is-docker-compose">What is docker-compose</a></li>
+    <li><a href="#the-dilemma-of-not-playing-well">The dilemma of not playing well</a>
+      <ul>
+        <li><a href="#difficult-to-troubleshoot">Difficult to troubleshoot</a></li>
+        <li><a href="#private-libraries-in-the-company-repository">Private libraries in the company repository</a></li>
+        <li><a href="#docker-logs">docker logs</a></li>
+        <li><a href="#the-container-hangs-as-soon-as-it-comes-up">The container hangs as soon as it comes up</a></li>
+      </ul>
+    </li>
+    <li><a href="#writing-the-compose-configuration-file">Writing the compose configuration file</a>
+      <ul>
+        <li><a href="#network-isolation">Network isolation</a></li>
+      </ul>
+    </li>
+    <li><a href="#common-best-practices">Common Best Practices</a>
+      <ul>
+        <li><a href="#use-multi-stage-builds">Use multi-stage builds</a></li>
+        <li><a href="#adjust-the-order-of-dockerfile">Adjust the order of Dockerfile</a></li>
+      </ul>
+    </li>
+    <li><a href="#finally">Finally</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p>Docker is not a new technology, but a tool that puts old wine in new bottles.</p>
+</blockquote>
+<p>Actually, I used Docker when I was in college, around 2017, when Docker was in its heyday. It was just used to start various lightweight applications, such as magnetic link downloaders, personal network disks, etc. Until recently, my understanding of Docker was still relatively vague. As I continued to encounter requirements at work, I also continued to understand Docker, so I decided to write an article to summarize my recent use of Docker.</p>
+<h2 id="background">Background</h2>
+<p>There has always been a pain point, that is, there are multiple services during our development, and there is a call relationship between the services, but if it is started on the local machine, the service may always be occupied by various ports, and if your local machine restarts, then your service will also be closed. There needs to be a good development environment solution.</p>
+<p>docker-compose provides a way to bind multiple containers together, which can solve the above problems well.</p>
+<h2 id="what-is-docker-compose">What is docker-compose</h2>
+<p>Compose is a tool for defining and running multi-container Docker applications. With Compose, you can use a YAML file to configure your application&rsquo;s services. Then, with a single command, you can create and start all services from your configuration.</p>
+<p>That is, you only need a simple <code>docker-compose up</code> to start the related services that the project depends on, such as databases, caches, microservices, etc.</p>
+<h2 id="the-dilemma-of-not-playing-well">The dilemma of not playing well</h2>
+<p>Actually, I tried to use <code>docker-compose</code> to build my development environment a long time ago, but I encountered some points that made me feel uncomfortable. However, as my understanding of <code>Docker</code> deepened, I gradually figured it out.</p>
+<h3 id="difficult-to-troubleshoot">Difficult to troubleshoot</h3>
+<p>The first point is that it is difficult to troubleshoot after getting started with <code>Docker</code>. Troubleshooting is mainly divided into two points. It is difficult to troubleshoot the problem of failure in building images. The second point is that it is difficult to troubleshoot the problem of container startup failure.</p>
+<p>Container build failures are very common:</p>
+<p>For example, see the Dockerfile below</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 AS builder
+
+COPY requirements.txt ./
+RUN python -m pip install -r requirements.txt  https://pypi.tuna.tsinghua.edu.cn/simple
+</code></pre></td></tr></table>
+</div>
+</div><p>For instance, if the <code>RUN python -m pip install -r requirements.txt  https://pypi.tuna.tsinghua.edu.cn/simple</code> command keeps failing, we can change the Dockerfile to the last successful build + CMD[&ldquo;bash&rdquo;]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 AS builder
+
+COPY requirements.txt ./
+CMD [&#34;bash&#34;]
+</code></pre></td></tr></table>
+</div>
+</div><p>After the build is successful, you can directly start this container, or rewrite CMD to <code>bash</code>, then you can enter the container, and then you can see why pip install failed.</p>
+<p>The docker run command can follow parameters to rewrite CMD.</p>
+<p><code>docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</code>
+<code>docker run -ti  --rm  your_image  bash</code></p>
+<h3 id="private-libraries-in-the-company-repository">Private libraries in the company repository</h3>
+<p>When using <code>Golang</code> at work, you often get blocked by various private libraries, such as <code>Github</code>, <code>Gitlab</code>, <code>Gitee</code>, etc.
+Actually, this is very simple. When you find that <code>go mod download</code> cannot be downloaded, you can try to rewrite your COMMAND and then enter the container for troubleshooting.</p>
+<p>For Dockerfile used for your own development, you can actually use the <code>.netrc</code> method to solve this problem.
+See this answer:</p>
+<p><code>https://stackoverflow.com/questions/65824786/building-go-apps-with-private-gitlab-modules-in-docker</code></p>
+<h3 id="docker-logs">docker logs</h3>
+<p>If you want to view the logs of the container, you can use the <code>docker logs</code> command, but you need to note that if your logs are all in the local log file and are not written to <code>stdout</code>, you cannot find the problem with <code>docker logs</code>.</p>
+<h3 id="the-container-hangs-as-soon-as-it-comes-up">The container hangs as soon as it comes up</h3>
+<p>Many times when you have just completed the image build and try to run it, the container will keep exiting. At this time, you can use the method I mentioned above, rewrite the default CMD command to bash, go directly into the container to run your command, and look at the exit logs. You can easily find out the problem.</p>
+<p><code>docker run -ti  --rm  your_image  bash</code></p>
+<h2 id="writing-the-compose-configuration-file">Writing the compose configuration file</h2>
+<p>Compose has two important concepts:</p>
+<ul>
+<li><strong>services</strong>, this is a <code>map</code>, where the key is the name of the container, and the value is the configuration of the container.</li>
+<li><strong>projects</strong>, a complete business unit composed of a set of associated application containers, defined in the docker-compose.yml file.</li>
+</ul>
+<p>As you can see, a project can be associated with multiple services (containers), and Compose manages projects.</p>
+<p>In fact, you can think of <code>Docker</code> containers very simply, they are just ordinary operating system processes, but they have independent networks, independent file systems, and their own separate process trees.</p>
+<p>Therefore, when building your own microservice environment, you need to pay attention to whether the network of the container is connected, and whether the files in the container need to be mounted locally.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">version: &#39;3&#39;
+services:
+  web:
+    build: .
+    ports:
+     - &#34;5000:5000&#34;
+
+  redis:
+    image: &#34;redis:alpine&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>This is a very simple example, linking the web and redis services together, allowing the two containers to work in the same project.</p>
+<h3 id="network-isolation">Network isolation</h3>
+<p>For network connectivity, we can create a network with <code>docker network create --driver bridge your_network</code>, and then mount the container to this network.</p>
+<p>docker compose can also define networks, but what needs to be noted is that if your network is created by yourself, then you need to specify the name of the network in <code>docker-compose.yml</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">networks:
+  your_network:
+    driver: bridge
+</code></pre></td></tr></table>
+</div>
+</div><p>Docker recommends using your own established network, rather than using the default network.</p>
+<p>For containers under this network, docker provides a DNS lookup service.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">  mysql:
+    ... 
+    networks:
+      - your_network
+  your_service:
+    ...
+    networks:
+      - your_network
+</code></pre></td></tr></table>
+</div>
+</div><p>If your container has ping, you can use <code>ping mysql</code> in your_service to check if you can ping. That is, you can access the corresponding container by using the name in <code>docker-compose</code>.</p>
+<p>You can also use <code>busybox</code> (a tiny version of many common [[UNIX]] utilities combined into a small executable file.) to check whether the container&rsquo;s network is connected.</p>
+<p><code>docker run -ti --rm  --network=your_network busybox sh</code></p>
+<h2 id="common-best-practices">Common Best Practices</h2>
+<h3 id="use-multi-stage-builds">Use multi-stage builds</h3>
+<p>By using multi-stage builds, only the last stage is used to build the image, resulting in a more streamlined image.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 
+WORKDIR /APP
+
+COPY . .
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+CMD [&#34;python&#34;,&#34;spider.py&#34;]
+</code></pre></td></tr></table>
+</div>
+</div><p>It can be rewritten in the following format:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 AS builder
+
+COPY requirements.txt ./
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+FROM python:3.6-slim 
+
+COPY --from=builder /usr/local/lib/python3.6/site-packages /usr/local/lib/python3.6/site-packages
+WORKDIR /APP
+
+COPY spider.csv ./
+COPY *.py ./
+
+CMD [&#34;python&#34;,&#34;spider.py&#34;]
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="adjust-the-order-of-dockerfile">Adjust the order of Dockerfile</h3>
+<p>Adjust the order of Dockerfile. Because once a step changes, the cache of the following steps will be discarded. Therefore, it is better to put the larger changes at the end.</p>
+<p>The following format is that when you change a line of code in a py file, every time docker build will discard the cache of the dependencies downloaded below, so it is better to put the larger changes at the end.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 
+WORKDIR /APP
+
+COPY . .
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+CMD [&#34;python&#34;,&#34;spider.py&#34;]
+</code></pre></td></tr></table>
+</div>
+</div><p>It can be rewritten in the following format:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6
+
+WORKDIR /APP
+COPY requirements.txt ./
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+COPY spider.csv ./
+COPY *.py ./
+CMD [&#34;python&#34;,&#34;spider.py&#34;]
+</code></pre></td></tr></table>
+</div>
+</div><p>In this way, when you change the code in spider.py without adding new dependencies, you can reuse the cache of pip install.</p>
+<h2 id="finally">Finally</h2>
+<p>These are some of my insights when using Docker and docker-compose recently. I hope they can be helpful to everyone. This article will continue to be updated.</p>
+<p>Ref：</p>
+<ul>
+<li>
+<p><a href="https://shenxianpeng.github.io/2022/01/docker-best-practice/">You must understand these 17 Docker best practices!</a></p>
+</li>
+<li>
+<p><a href="https://coolshell.cn/articles/17010.html">DOCKER BASIC TECHNOLOGY: LINUX NAMESPACE (UP)</a></p>
+</li>
+<li>
+<p><a href="https://docs.docker.com/language/golang/develop/">Use containers for development</a></p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-10-08
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/05461cf5116804daddfccd754bde8183713e4e8c" title="use chatgpt to generate English version">(05461cf)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/docker/">Docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/awk/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Using the 80/20 Rule to Learn awk Effortlessly</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/anxiety/">
+            <span class="next-text nav-default">About Anxiety and Procrastination</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Implementation of Distributed Token Bucket Algorithm - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="What is the Token Bucket Algorithm? The token bucket algorithm is a rate limiting algorithm, which is the opposite implementation of the leaky bucket algorithm.
+The leaky bucket algorithm leaks at a certain frequency rate, and our requests can be imagined as the faucet above.
+The token bucket algorithm, on the other hand, periodically puts tokens into the bucket, and each request will get a token from the token bucket. If there are no tokens in the bucket, the request is rejected or blocked until a token can be obtained." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Implementation of Distributed Token Bucket Algorithm" />
+<meta property="og:description" content="What is the Token Bucket Algorithm? The token bucket algorithm is a rate limiting algorithm, which is the opposite implementation of the leaky bucket algorithm.
+The leaky bucket algorithm leaks at a certain frequency rate, and our requests can be imagined as the faucet above.
+The token bucket algorithm, on the other hand, periodically puts tokens into the bucket, and each request will get a token from the token bucket. If there are no tokens in the bucket, the request is rejected or blocked until a token can be obtained." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-04-09T01:37:56+08:00" />
+<meta property="article:modified_time" content="2020-04-09T01:37:56+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Implementation of Distributed Token Bucket Algorithm">
+<meta itemprop="description" content="What is the Token Bucket Algorithm? The token bucket algorithm is a rate limiting algorithm, which is the opposite implementation of the leaky bucket algorithm.
+The leaky bucket algorithm leaks at a certain frequency rate, and our requests can be imagined as the faucet above.
+The token bucket algorithm, on the other hand, periodically puts tokens into the bucket, and each request will get a token from the token bucket. If there are no tokens in the bucket, the request is rejected or blocked until a token can be obtained."><meta itemprop="datePublished" content="2020-04-09T01:37:56+08:00" />
+<meta itemprop="dateModified" content="2020-04-09T01:37:56+08:00" />
+<meta itemprop="wordCount" content="525"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="keywords" content="algorithm," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
+
+<meta name="twitter:title" content="Implementation of Distributed Token Bucket Algorithm"/>
+<meta name="twitter:description" content="What is the Token Bucket Algorithm? The token bucket algorithm is a rate limiting algorithm, which is the opposite implementation of the leaky bucket algorithm.
+The leaky bucket algorithm leaks at a certain frequency rate, and our requests can be imagined as the faucet above.
+The token bucket algorithm, on the other hand, periodically puts tokens into the bucket, and each request will get a token from the token bucket. If there are no tokens in the bucket, the request is rejected or blocked until a token can be obtained."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Implementation of Distributed Token Bucket Algorithm</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-09 </span>
+        <div class="post-category">
+            <a href="/en/categories/english/"> English </a>
+            <a href="/en/categories/algorithm/"> algorithm </a>
+            </div>
+          <span class="more-meta"> 525 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-the-token-bucket-algorithm">What is the Token Bucket Algorithm?</a></li>
+    <li><a href="#distributed-token-bucket-algorithm">Distributed Token Bucket Algorithm</a>
+      <ul>
+        <li><a href="#nextfreeticketmillis-is-before-the-current-time">nextFreeTicketMillis is before the current time</a></li>
+        <li><a href="#nextfreeticketmillis-is-after-the-current-time">nextFreeTicketMillis is after the current time</a></li>
+      </ul>
+    </li>
+    <li><a href="#advantages">Advantages</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="what-is-the-token-bucket-algorithm">What is the Token Bucket Algorithm?</h2>
+<p>The token bucket algorithm is a rate limiting algorithm, which is the opposite implementation of the leaky bucket algorithm.</p>
+<p>The leaky bucket algorithm leaks at a certain frequency rate, and our requests can be imagined as the faucet above.</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdnjduhuivj30cb08b74u.jpg" alt="img"></p>
+<p>The token bucket algorithm, on the other hand, periodically puts tokens into the bucket, and each request will get a token from the token bucket. If there are no tokens in the bucket, the request is rejected or blocked until a token can be obtained.</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdnjhiarxgj30bp06pwek.jpg" alt="img"></p>
+<h2 id="distributed-token-bucket-algorithm">Distributed Token Bucket Algorithm</h2>
+<p>Because all the token bucket algorithms I&rsquo;ve seen are single-machine, for example: RateLimiter is a thread-level token bucket algorithm.</p>
+<p>Because I need to implement a distributed token bucket algorithm, I use Redis as the container for the token bucket.</p>
+<p>Let&rsquo;s look at the main idea of the token bucket algorithm:</p>
+<p>In fact, it does not create a thread to continuously put data into the token bucket, but uses a lazy calculation method to handle it. This has the advantage of low performance consumption and can avoid some useless polling operations.</p>
+<p>We can imagine the token bucket as an object:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">RedisPermits</span><span class="o">(</span>
+                    <span class="n">name</span><span class="k">:</span><span class="kt">String</span><span class="o">,</span>
+                    <span class="n">maxPermits</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span>
+                    <span class="n">storePermits</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span>
+                    <span class="n">intervalMillis</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span>
+                    <span class="n">nextFreeTicketMillis</span><span class="k">:</span> <span class="kt">Long</span>
+                  <span class="o">)</span> <span class="o">{}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Let me introduce the member variables of this token bucket:</p>
+<p>Name: Represents the name of this token bucket, which is the key in redis.</p>
+<p>maxPermits: Represents the number of tokens in the token bucket.</p>
+<p>storePermits: Represents the current number of tokens in the token bucket.</p>
+<p>intervalMillis: The interval time between each token insertion. Calculated based on the request&rsquo;s QPS.</p>
+<p>nextFreeTicketMillis: The next time these tokens can be obtained.</p>
+<p>For a token acquisition operation, we can judge whether we can get the token, that is, whether the nextFreeTicketMillis is before or after the current time.</p>
+<h3 id="nextfreeticketmillis-is-before-the-current-time">nextFreeTicketMillis is before the current time</h3>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdnkapnorij31fk0n045x.jpg" alt="image-20200409154830414"></p>
+<p>The current number of tokens stored can be calculated through the formula in the picture. Compare it with the number of tokens you need:</p>
+<ul>
+<li>If it is enough, subtract the number of tokens needed, set nextFreeTicketMillis to now, and return the function immediately.</li>
+<li>If it is not enough, get the current number of tokens, set the current number of tokens to 0, then find out the number needed, push nextFreeTicketMillis back, generate the time. The current thread waits for the corresponding nextFreeTicketMillis - now time to find out the waiting time. Go to sleep, and you can make the corresponding request after waking up.</li>
+</ul>
+<h3 id="nextfreeticketmillis-is-after-the-current-time">nextFreeTicketMillis is after the current time</h3>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdnkj2oezoj31ig0dk79x.jpg" alt="image-20200409155633013"></p>
+<p>Since nextFreeTicketMillis is after the current time, the current token bucket must be empty, so we need to drag the sleep time back, that is, nextFreeTicketMillis =+ intervalMillis*need, and then the current thread sleeps for nextFreeTicketMillis - now time.</p>
+<h2 id="advantages">Advantages</h2>
+<p>The token bucket algorithm can use the method of setting maxPermits, that is, the maximum token quantity, to 1, to evenly distribute the requests, which is very suitable for scenarios that need to be called at a uniform speed.</p>
+<p>And using this implementation can block the requests, ensuring that all requests can be hit, which is actually a peak shaving function.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-04-09
+        
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/algorithm/">algorithm</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/softskills/how_do_i_acquire_knowledge_and_information/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Soft Skills: How do I acquire knowledge and information?</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/">
+            <span class="next-text nav-default">Implementing an AtomicInteger</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

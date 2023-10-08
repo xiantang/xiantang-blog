@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Some Details About Golang Slice - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="Golang Slice implements Array append contains" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/golang/about_slice/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Some Details About Golang Slice" />
+<meta property="og:description" content="Golang Slice implements Array append contains" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/golang/about_slice/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-12-21T01:37:56+08:00" />
+<meta property="article:modified_time" content="2023-10-08T20:52:20+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Some Details About Golang Slice">
+<meta itemprop="description" content="Golang Slice implements Array append contains"><meta itemprop="datePublished" content="2021-12-21T01:37:56+08:00" />
+<meta itemprop="dateModified" content="2023-10-08T20:52:20+08:00" />
+<meta itemprop="wordCount" content="996"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="keywords" content="Golang," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
+
+<meta name="twitter:title" content="Some Details About Golang Slice"/>
+<meta name="twitter:description" content="Golang Slice implements Array append contains"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Some Details About Golang Slice</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-12-21 </span>
+        <div class="post-category">
+            <a href="/en/categories/golang/"> Golang </a>
+            </div>
+          <span class="more-meta"> 996 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#some-details-about-golang-slice">Some Details About Golang Slice</a></li>
+    <li><a href="#distinguish-between-array-and-slice">Distinguish Between Array and Slice</a></li>
+    <li><a href="#implementation-and-characteristics-of-slice">Implementation and Characteristics of Slice</a>
+      <ul>
+        <li><a href="#slice-header">slice header</a></li>
+      </ul>
+    </li>
+    <li><a href="#some-pitfalls-of-slice">Some pitfalls of Slice</a>
+      <ul>
+        <li><a href="#pitfalls-of-slicing">Pitfalls of slicing</a></li>
+      </ul>
+    </li>
+    <li><a href="#is-string-actually-a-slice">Is string actually a slice?</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#related-reading">Related Reading</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="some-details-about-golang-slice">Some Details About Golang Slice</h2>
+<p>In Golang, there are two types of data:</p>
+<p>One is an array with a fixed length, called Array, and the other is an array with an unlimited length, called Slice.</p>
+<h2 id="distinguish-between-array-and-slice">Distinguish Between Array and Slice</h2>
+<p>The difference between Array and Slice is:</p>
+<p>Array is of fixed length, and the length of Array is part of the type, so the length of Array cannot be changed, while the length of Slice can be changed.</p>
+<p>Slice is of unlimited length and can be created using the <code>make</code> function.</p>
+<p><code>foo = make([]int, 5)</code>
+And Slice is just a data structure, there is a pointer inside, pointing to the first address of the array, you can use the <code>len</code> function to get the length of the Slice, and you can also use the <code>cap</code> function to get the capacity of the Slice.</p>
+<p>The following will introduce some implementation details and characteristics of Slice in detail.</p>
+<h2 id="implementation-and-characteristics-of-slice">Implementation and Characteristics of Slice</h2>
+<p>As mentioned above, Slice is actually a data structure, and there is a pointer inside, pointing to the first address of the array.
+Let&rsquo;s take a simple look at the implementation of Slice:</p>
+<p>Let&rsquo;s first give a simple data structure to demonstrate the implementation of Slice:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">slice</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">array</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+        <span class="nx">len</span>   <span class="kt">int</span>
+        <span class="nx">cap</span>   <span class="kt">int</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>We can see that the implementation of Slice is a structure, which includes three fields:
+The first field is a pointer to the underlying array, the second field is the length of the Slice, and the third field is the capacity of the Slice.
+When you initialize a Slice with a length of 5, it looks like this:</p>
+<p><code>foo = make([]int, 5)</code></p>
+<p><code>foo = make([]int, 3, 5)</code></p>
+<p><img src="https://divan.dev/images/slice2.png" alt="slice"></p>
+<p>When you initialize a Slice as nil, it looks like this:
+<code>var foo []int</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">sliceHeader</span><span class="p">{</span>
+    <span class="nx">Length</span><span class="p">:</span>        <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">Capacity</span><span class="p">:</span>      <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">ZerothElement</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="slice-header">slice header</h3>
+<p>As can be seen from the data structure above, Slice is not a real array, but a data structure. Its implementation is a structure, so when we transmit Slice between functions, we are actually transmitting a Slice header. Therefore, for experienced Gophers, they often mention slice headers when transmitting between functions and channels.</p>
+<p>We can discuss what happens when Slice is passed as a parameter.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+ <span class="nx">slice</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;a&#34;</span><span class="p">}</span>
+
+ <span class="kd">func</span><span class="p">(</span><span class="nx">slice</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">slice</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">slice</span><span class="p">,</span> <span class="s">&#34;a&#34;</span><span class="p">)</span>
+  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
+ <span class="p">}(</span><span class="nx">slice</span><span class="p">)</span>
+ <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The output of its operation can be found:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="p">[</span><span class="nx">a</span> <span class="nx">a</span> <span class="nx">a</span><span class="p">][</span><span class="nx">a</span> <span class="nx">a</span><span class="p">]</span>
+<span class="nx">Program</span> <span class="nx">exited</span><span class="p">.</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>It can be found that when Slice is passed as a parameter, it is actually the same as passing a structure. When you use append and then assign it to the slice variable, you just change the value copied by the function.
+From this example, it can be seen that Golang is actually copy by value, not copy by reference. When you pass in a structure, Golang actually copies this structure.</p>
+<p>Here is another example to illustrate the effect of append:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+ <span class="nx">x</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+
+ <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">y</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">,</span> <span class="s">&#34;world&#34;</span><span class="p">)</span>
+  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span>
+ <span class="p">}()</span>
+ <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">z</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s">&#34;goodbye&#34;</span><span class="p">,</span> <span class="s">&#34;bob&#34;</span><span class="p">)</span>
+  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">z</span><span class="p">)</span>
+ <span class="p">}()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="p">[</span><span class="nx">hello</span> <span class="nx">world</span><span class="p">][</span><span class="nx">goodbye</span> <span class="nx">bob</span><span class="p">]</span>
+<span class="nx">Program</span> <span class="nx">exited</span><span class="p">.</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>It can be seen that when you append, you actually modify the underlying array. But we found that if the array is appended, it will not actually modify x, because x has not been modified. Remember that it is only a slice header, and its content only depends on its len, cap and array pointer.</p>
+<h2 id="some-pitfalls-of-slice">Some pitfalls of Slice</h2>
+<h3 id="pitfalls-of-slicing">Pitfalls of slicing</h3>
+<p>When Slice appends, if it exceeds the length of cap, it will try to allocate memory, trying to double the current capacity, so the operation is very expensive. This is not a big problem, because the underlying array will be GC recycled after append, but if there is another Slice referencing this underlying array, it is easy to have problems.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">a</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="nx">b</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
+<span class="nx">a</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nx">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">42</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Note: By the way, append only grows slices by doubling the capacity within 1024, after which it will use so-called memory size classes to ensure growth does not exceed ~ 12.5%. Applying for 64 bytes for a 32-byte array is okay, but if your slice is 4GB, allocating another 4GB to add an element is quite expensive, so it makes sense.</p>
+</blockquote>
+<p>So we can conclude:
+When you try to read 3 characters from a very large array, you will find that the original data is still in memory.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">digitRegexp</span> <span class="p">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">MustCompile</span><span class="p">(</span><span class="s">&#34;[0-9]+&#34;</span><span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">FindDigits</span><span class="p">(</span><span class="nx">filename</span> <span class="kt">string</span><span class="p">)</span> <span class="p">[]</span><span class="kt">byte</span> <span class="p">{</span>
+    <span class="nx">b</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">digitRegexp</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Bamboo shoots explode💥!!!</p>
+<h2 id="is-string-actually-a-slice">Is string actually a slice?</h2>
+<p>In Golang, a string is just a read-only byte slice, so you can directly operate on it, but you cannot modify it.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">placeOfInterest</span> <span class="p">=</span> <span class="s">`中文`</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%v\n&#34;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="nx">placeOfInterest</span><span class="p">))</span>
+    
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">placeOfInterest</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%x &#34;</span><span class="p">,</span> <span class="nx">placeOfInterest</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+    <span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Output:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="mi">6</span>
+<span class="nx">e4</span> <span class="nx">b8</span> <span class="nx">ad</span> <span class="nx">e6</span> <span class="mi">96</span> <span class="mi">87</span> 
+
+<span class="nx">Program</span> <span class="nx">exited</span><span class="p">.</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>You can find that the length of the string is not 2, but 6, because the string contains the corresponding UTF-8 encoding (because Golang code is UTF-8 encoded), and the string is a byte slice. Because each Chinese character corresponds to a code point in unicode, and each code point occupies 3 bytes, the length of the string is 6.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The above are some common uses of slices.</p>
+<h2 id="related-reading">Related Reading</h2>
+<ul>
+<li><a href="https://go.dev/blog/strings">Strings, bytes, runes and characters in Go</a></li>
+<li><a href="https://go.dev/blog/slices">Arrays, slices (and strings): The mechanics of &lsquo;append&rsquo;</a></li>
+<li><a href="https://dave.cheney.net/2018/07/12/slices-from-the-ground-up">Slices from the ground up</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-10-08
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/05461cf5116804daddfccd754bde8183713e4e8c" title="use chatgpt to generate English version">(05461cf)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/golang/">Golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/golang/use_mock_to_test/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Using Mock and Interface for Golang Unit Testing</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/english/english_grammar/">
+            <span class="next-text nav-default">Relearning English Grammar</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

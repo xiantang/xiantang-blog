@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Implementing an AtomicInteger - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="What is AtomicInteger As the name suggests, AtomicInteger is an Integer with atomic operations. The difference between AtomicInteger and a regular Integer is that AtomicInteger uses a CAS method to make Integer&amp;rsquo;s increment and other operations atomic. Knowledge needed before implementation First, let&amp;rsquo;s look at the increment operation of AtomicInteger: 1 2 3 4 5 6 7 8 public final int incrementAndGet() { for (;;) { int current = get();" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Implementing an AtomicInteger" />
+<meta property="og:description" content="What is AtomicInteger As the name suggests, AtomicInteger is an Integer with atomic operations. The difference between AtomicInteger and a regular Integer is that AtomicInteger uses a CAS method to make Integer&rsquo;s increment and other operations atomic. Knowledge needed before implementation First, let&rsquo;s look at the increment operation of AtomicInteger: 1 2 3 4 5 6 7 8 public final int incrementAndGet() { for (;;) { int current = get();" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-04-06T16:33:34+08:00" />
+<meta property="article:modified_time" content="2020-04-06T16:33:34+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Implementing an AtomicInteger">
+<meta itemprop="description" content="What is AtomicInteger As the name suggests, AtomicInteger is an Integer with atomic operations. The difference between AtomicInteger and a regular Integer is that AtomicInteger uses a CAS method to make Integer&rsquo;s increment and other operations atomic. Knowledge needed before implementation First, let&rsquo;s look at the increment operation of AtomicInteger: 1 2 3 4 5 6 7 8 public final int incrementAndGet() { for (;;) { int current = get();"><meta itemprop="datePublished" content="2020-04-06T16:33:34+08:00" />
+<meta itemprop="dateModified" content="2020-04-06T16:33:34+08:00" />
+<meta itemprop="wordCount" content="447"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="keywords" content="concurrency," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
+
+<meta name="twitter:title" content="Implementing an AtomicInteger"/>
+<meta name="twitter:description" content="What is AtomicInteger As the name suggests, AtomicInteger is an Integer with atomic operations. The difference between AtomicInteger and a regular Integer is that AtomicInteger uses a CAS method to make Integer&rsquo;s increment and other operations atomic. Knowledge needed before implementation First, let&rsquo;s look at the increment operation of AtomicInteger: 1 2 3 4 5 6 7 8 public final int incrementAndGet() { for (;;) { int current = get();"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Implementing an AtomicInteger</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-06 </span>
+        <div class="post-category">
+            <a href="/en/categories/english/"> English </a>
+            <a href="/en/categories/java/"> java </a>
+            </div>
+          <span class="more-meta"> 447 words </span>
+          <span class="more-meta"> 1 min read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-atomicinteger">What is AtomicInteger</a></li>
+    <li><a href="#knowledge-needed-before-implementation">Knowledge needed before implementation</a></li>
+    <li><a href="#my-implementation">My implementation</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="what-is-atomicinteger">What is AtomicInteger</h2>
+<p>As the name suggests, AtomicInteger is an Integer with atomic operations. The difference between AtomicInteger and a regular Integer is that AtomicInteger uses a CAS method to make Integer&rsquo;s increment and other operations atomic.</p>
+<h2 id="knowledge-needed-before-implementation">Knowledge needed before implementation</h2>
+<p>First, let&rsquo;s look at the increment operation of AtomicInteger:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">incrementAndGet</span><span class="o">()</span> <span class="o">{</span>
+         <span class="k">for</span> <span class="o">(;;)</span> <span class="o">{</span>
+          <span class="kt">int</span> <span class="n">current</span> <span class="o">=</span> <span class="n">get</span><span class="o">();</span>
+          <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">current</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">compareAndSet</span><span class="o">(</span><span class="n">current</span><span class="o">,</span> <span class="n">next</span><span class="o">))</span>
+             <span class="k">return</span> <span class="n">next</span><span class="o">;</span>
+          <span class="o">}</span>
+ <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>It uses a loop, and each time it loops, it gets the latest value, calculates the value after incrementing, uses compareAndSet to swap values, and checks the result. If it&rsquo;s true, it returns the value after incrementing. If it&rsquo;s false, it retries. This is a typical CAS operation.</p>
+<p>And this compareAndSet operation is actually very simple, it just calls the compareAndSwapInt of the unsafe object</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">compareAndSet</span><span class="o">(</span><span class="kt">int</span> <span class="n">expect</span><span class="o">,</span> <span class="kt">int</span> <span class="n">update</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">unsafe</span><span class="o">.</span><span class="na">compareAndSwapInt</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">valueOffset</span><span class="o">,</span> <span class="n">expect</span><span class="o">,</span> <span class="n">update</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>compareAndSwapInt performs the CAS modification operation based on the offset of the object where the member that needs the CAS operation is located.</p>
+<p>Then let&rsquo;s look at the get() method:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>It just returns the value modified by volatile, because getting this value is an atomic action, and volatile can ensure that this value is the latest.</p>
+<h2 id="my-implementation">My implementation</h2>
+<p>It should be noted that <code>Unsafe.getUnsafe</code> cannot be called directly, because it will determine whether it is a BootStap class loader or an Ext class loader. If not, it will throw an exception.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AtomicInteger</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Unsafe</span> <span class="n">unsafe</span> <span class="o">=</span> <span class="n">getUnsafeInstance</span><span class="o">();</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">offset</span><span class="o">;</span>
+
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="n">unsafe</span><span class="o">.</span><span class="na">objectFieldOffset</span><span class="o">(</span><span class="n">AtomicInteger</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;value&#34;</span><span class="o">));</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchFieldException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+
+    <span class="n">AtomicInteger</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//通过反射获取对应实例
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Unsafe</span> <span class="nf">getUnsafeInstance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Field</span> <span class="n">unsafeInstance</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">unsafeInstance</span> <span class="o">=</span> <span class="n">Unsafe</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;theUnsafe&#34;</span><span class="o">);</span>
+            <span class="n">unsafeInstance</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+            <span class="k">return</span> <span class="o">(</span><span class="n">Unsafe</span><span class="o">)</span> <span class="n">unsafeInstance</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Unsafe</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchFieldException</span> <span class="o">|</span> <span class="n">IllegalAccessException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">int</span> <span class="nf">incrementAndGet</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">curr</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">next</span><span class="o">;</span>
+        <span class="k">do</span> <span class="o">{</span>
+            <span class="n">curr</span> <span class="o">=</span> <span class="n">get</span><span class="o">();</span>
+            <span class="n">next</span> <span class="o">=</span> <span class="n">curr</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">while</span> <span class="o">(!</span><span class="n">unsafe</span><span class="o">.</span><span class="na">compareAndSwapInt</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">offset</span><span class="o">,</span> <span class="n">curr</span><span class="o">,</span> <span class="n">next</span><span class="o">));</span>
+
+        <span class="k">return</span> <span class="n">get</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Sure, please provide the Markdown content you want to translate.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-04-06
+        
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/concurrency/">concurrency</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Implementation of Distributed Token Bucket Algorithm</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/jvm/full_gc/">
+            <span class="next-text nav-default">What is Minor GC/Major GC</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

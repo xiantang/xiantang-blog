@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JVM on xiantang</title>
+    <link>https://vim0.com/en/tags/jvm/</link>
+    <description>Recent content in JVM on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 06 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What is Minor GC/Major GC</title>
+      <link>https://vim0.com/en/post/jvm/full_gc/</link>
+      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/jvm/full_gc/</guid>
+      <description>What is Minor GC/Major GC First, let&amp;rsquo;s popularize the classic heap layout of JVM:
+For the classic JVM heap layout, there are two clear areas, the first is the Young area, which generally stores young objects or objects that have just been created. The second is the Old area, also known as the old generation, which generally stores longer-lived objects or objects promoted from the young area.
+For the young area, we have three areas, one is the Eden area, and the other two are Survivor areas of equal size.</description>
+    </item>
+    
+    <item>
+      <title>Where is the GC root?</title>
+      <link>https://vim0.com/en/post/jvm/gc_root/</link>
+      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/jvm/gc_root/</guid>
+      <description>What is GC Root First of all, we know the marking algorithm, the JVM&amp;rsquo;s marking algorithm can be understood as a reachability algorithm, so all reachability algorithms will have a starting point, and this starting point is the GC Root.
+That is, it is necessary to find all living objects through the GC Root, and then all the remaining unmarked objects are the objects to be recycled.
+Characteristics of GC Root  Objects that are alive at the current moment!</description>
+    </item>
+    
+  </channel>
+</rss>

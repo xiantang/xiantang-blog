@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Design Patterns on xiantang</title>
+    <link>https://vim0.com/en/tags/design-patterns/</link>
+    <description>Recent content in Design Patterns on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 03 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/design-patterns/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Singleton Pattern</title>
+      <link>https://vim0.com/en/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</link>
+      <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</guid>
+      <description>What is the Singleton Pattern? The Singleton Pattern, also known as the Singleton, is a commonly used software design pattern and is one of the creational patterns. In this design pattern, the class of the singleton object must ensure that only one instance exists. Pros and Cons Pros: There is only one instance in memory, reducing memory overhead. Cons: It violates the Single Responsibility Principle, and there is no interface,</description>
+    </item>
+    
+  </channel>
+</rss>

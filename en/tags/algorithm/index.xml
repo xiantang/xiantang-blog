@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>algorithm on xiantang</title>
+    <link>https://vim0.com/en/tags/algorithm/</link>
+    <description>Recent content in algorithm on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 09 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Implementation of Distributed Token Bucket Algorithm</title>
+      <link>https://vim0.com/en/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Thu, 09 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>What is the Token Bucket Algorithm? The token bucket algorithm is a rate limiting algorithm, which is the opposite implementation of the leaky bucket algorithm.
+The leaky bucket algorithm leaks at a certain frequency rate, and our requests can be imagined as the faucet above.
+The token bucket algorithm, on the other hand, periodically puts tokens into the bucket, and each request will get a token from the token bucket. If there are no tokens in the bucket, the request is rejected or blocked until a token can be obtained.</description>
+    </item>
+    
+    <item>
+      <title>Design and Implementation of the Leaky Bucket Algorithm</title>
+      <link>https://vim0.com/en/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Sun, 05 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</guid>
+      <description>What is the Leaky Bucket Algorithm? As the name suggests, the Leaky Bucket algorithm uses a leaky bucket to limit traffic. Because there is a hole at the bottom of the bucket, it will leak water at regular intervals, and we can imagine the traffic as water falling into the bucket from above. This leads to two situations. If the speed at which traffic is injected into the bucket is</description>
+    </item>
+    
+    <item>
+      <title>Pointing to offer</title>
+      <link>https://vim0.com/en/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</link>
+      <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</guid>
+      <description>No2 Singleton Pattern 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够创建 private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton</description>
+    </item>
+    
+  </channel>
+</rss>

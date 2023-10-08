@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>awk on xiantang</title>
+    <link>https://vim0.com/en/tags/awk/</link>
+    <description>Recent content in awk on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 29 Jun 2022 22:14:09 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/awk/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using the 80/20 Rule to Learn awk Effortlessly</title>
+      <link>https://vim0.com/en/post/awk/</link>
+      <pubDate>Wed, 29 Jun 2022 22:14:09 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/awk/</guid>
+      <description>The length only accounts for 20%, but the effectiveness reaches 80% - 80/20 Rule
+ What can you learn from this article? In this article, we will learn how to use the 80/20 rule to effortlessly learn the linux text processing command awk. After reading this article, you will learn a fast learning method, and how to use awk to process text and stdout.
+Recently, while learning awk, I found that there are really many details.</description>
+    </item>
+    
+  </channel>
+</rss>

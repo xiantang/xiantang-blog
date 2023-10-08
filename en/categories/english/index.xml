@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>English on xiantang</title>
+    <link>https://vim0.com/en/categories/english/</link>
+    <description>Recent content in English on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 14 Oct 2021 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/en/categories/english/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Relearning English Grammar</title>
+      <link>https://vim0.com/en/post/english/english_grammar/</link>
+      <pubDate>Thu, 14 Oct 2021 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/english/english_grammar/</guid>
+      <description>Background I feel that there are still many deficiencies in my English, so I studied some English grammar a while ago. In fact, many of them are things that need to be learned in junior high school, but I didn&amp;rsquo;t take it seriously at that time, and I didn&amp;rsquo;t learn anything from the teacher. I can&amp;rsquo;t say that I gave everything back to the teacher, because the scenarios where English is needed in work are increasing, so I still followed Youtube and learned a lot, so I wrote this summary article.</description>
+    </item>
+    
+    <item>
+      <title>About me</title>
+      <link>https://vim0.com/en/post/about/about_me/</link>
+      <pubDate>Sat, 15 May 2021 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/about/about_me/</guid>
+      <description>About me Welcome! I am Xiantang. This is my personal website, where I blog about things I learn or think about in my daily life. I hope you like it.
+My personal telegram channel is https://t.me/xiantang.
+I like programming and can use many languages, such as:
+Golang https://github.com/cosmtrek/air is my main language currently.
+Scala https://github.com/xiantang/redislimiter I have written some services.
+Python https://github.com/xiantang/Spider I have written some crawlers.
+Java https://github.com/xiantang/JerryMouse I have written a simple web container.</description>
+    </item>
+    
+    <item>
+      <title>Soft Skills: How do I acquire knowledge and information?</title>
+      <link>https://vim0.com/en/post/softskills/how_do_i_acquire_knowledge_and_information/</link>
+      <pubDate>Fri, 02 Apr 2021 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/softskills/how_do_i_acquire_knowledge_and_information/</guid>
+      <description>​ &amp;ldquo;We are all hunters in the wilderness of the information age, surviving in the vast wilderness of information.&amp;rdquo; - &amp;ldquo;Why Become an Information Predator&amp;rdquo;
+​ In the era of mobile internet with information explosion, every internet giant is trying to build their own &amp;ldquo;information cocoon&amp;rdquo;, trying to recommend you some things you are interested in, and gradually your life will be shackled in a cocoon-like cage. As a [hacker] who yearns for freedom, naturally, he cannot be restricted by such a cage.</description>
+    </item>
+    
+    <item>
+      <title>Implementation of Distributed Token Bucket Algorithm</title>
+      <link>https://vim0.com/en/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Thu, 09 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>What is the Token Bucket Algorithm? The token bucket algorithm is a rate limiting algorithm, which is the opposite implementation of the leaky bucket algorithm.
+The leaky bucket algorithm leaks at a certain frequency rate, and our requests can be imagined as the faucet above.
+The token bucket algorithm, on the other hand, periodically puts tokens into the bucket, and each request will get a token from the token bucket. If there are no tokens in the bucket, the request is rejected or blocked until a token can be obtained.</description>
+    </item>
+    
+    <item>
+      <title>Implementing an AtomicInteger</title>
+      <link>https://vim0.com/en/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</link>
+      <pubDate>Mon, 06 Apr 2020 16:33:34 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</guid>
+      <description>What is AtomicInteger As the name suggests, AtomicInteger is an Integer with atomic operations. The difference between AtomicInteger and a regular Integer is that AtomicInteger uses a CAS method to make Integer&amp;rsquo;s increment and other operations atomic. Knowledge needed before implementation First, let&amp;rsquo;s look at the increment operation of AtomicInteger: 1 2 3 4 5 6 7 8 public final int incrementAndGet() { for (;;) { int current = get();</description>
+    </item>
+    
+    <item>
+      <title>Where is the GC root?</title>
+      <link>https://vim0.com/en/post/jvm/gc_root/</link>
+      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/jvm/gc_root/</guid>
+      <description>What is GC Root First of all, we know the marking algorithm, the JVM&amp;rsquo;s marking algorithm can be understood as a reachability algorithm, so all reachability algorithms will have a starting point, and this starting point is the GC Root.
+That is, it is necessary to find all living objects through the GC Root, and then all the remaining unmarked objects are the objects to be recycled.
+Characteristics of GC Root  Objects that are alive at the current moment!</description>
+    </item>
+    
+    <item>
+      <title>Singleton Pattern</title>
+      <link>https://vim0.com/en/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</link>
+      <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</guid>
+      <description>What is the Singleton Pattern? The Singleton Pattern, also known as the Singleton, is a commonly used software design pattern and is one of the creational patterns. In this design pattern, the class of the singleton object must ensure that only one instance exists. Pros and Cons Pros: There is only one instance in memory, reducing memory overhead. Cons: It violates the Single Responsibility Principle, and there is no interface,</description>
+    </item>
+    
+  </channel>
+</rss>

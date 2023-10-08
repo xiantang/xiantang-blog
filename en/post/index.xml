@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on xiantang</title>
+    <link>https://vim0.com/en/post/</link>
+    <description>Recent content in Posts on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 01 Jan 2023 16:30:40 +0800</lastBuildDate><atom:link href="https://vim0.com/en/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Summary of 2022</title>
+      <link>https://vim0.com/en/post/2022/</link>
+      <pubDate>Sun, 01 Jan 2023 16:30:40 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/2022/</guid>
+      <description>Today is the first day of 2023, I want to write a year-end summary, to review some things in 2022. It is also a review of myself.
+Year-end Summary of 2022 2022 was not a very smooth year, it seems that everyone is not doing particularly well due to the economic downturn.
+Work I have been working in Singapore for more than a year and a half. Because Singapore does not have four seasons, every day is actually similar to the previous one.</description>
+    </item>
+    
+    <item>
+      <title>Using the 80/20 Rule to Learn awk Effortlessly</title>
+      <link>https://vim0.com/en/post/awk/</link>
+      <pubDate>Wed, 29 Jun 2022 22:14:09 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/awk/</guid>
+      <description>The length only accounts for 20%, but the effectiveness reaches 80% - 80/20 Rule
+ What can you learn from this article? In this article, we will learn how to use the 80/20 rule to effortlessly learn the linux text processing command awk. After reading this article, you will learn a fast learning method, and how to use awk to process text and stdout.
+Recently, while learning awk, I found that there are really many details.</description>
+    </item>
+    
+    <item>
+      <title>Using Docker Compose to Set Up Your Own Development Environment</title>
+      <link>https://vim0.com/en/post/docker-compose-dev/</link>
+      <pubDate>Thu, 05 May 2022 22:08:34 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/docker-compose-dev/</guid>
+      <description>Docker is not a new technology, but a tool that puts old wine in new bottles.
+ Actually, I used Docker when I was in college, around 2017, when Docker was in its heyday. It was just used to start various lightweight applications, such as magnetic link downloaders, personal network disks, etc. Until recently, my understanding of Docker was still relatively vague. As I continued to encounter requirements at work, I also continued to understand Docker, so I decided to write an article to summarize my recent use of Docker.</description>
+    </item>
+    
+    <item>
+      <title>About Anxiety and Procrastination</title>
+      <link>https://vim0.com/en/post/anxiety/</link>
+      <pubDate>Sun, 20 Feb 2022 21:17:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/anxiety/</guid>
+      <description>Procrastination always allows us to live in peace, but the problem does not disappear. &amp;ndash; &amp;ldquo;Pomodoro Technique Illustrated&amp;rdquo;
+ Current Issues Stress causes anxiety, there is always a lot of pressure in Internet companies, some come from overly high OKRs, some come from colleagues&#39; push, and even you will put a lot of pressure on yourself. For me, it might be all of these, and possibly the pressure given by the morning meeting and weekly report.</description>
+    </item>
+    
+    <item>
+      <title>Golang: How to Handle Growing Interfaces</title>
+      <link>https://vim0.com/en/post/how_to_fix_big_interface/</link>
+      <pubDate>Sun, 13 Feb 2022 20:23:51 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/how_to_fix_big_interface/</guid>
+      <description>The bigger the interface, the weaker the abstraction. Go Proverbs
+ Let&amp;rsquo;s start with the conclusion. If your Golang interface has too many functions that make it difficult for you to expand horizontally, then split it into multiple interfaces according to its responsibilities, and then use embed to combine them.
+Problem Encountered Recently, when refactoring a component that manages configurations, we have an interface and more than 5 structs implement this interface.</description>
+    </item>
+    
+    <item>
+      <title>Using the Pomodoro Technique to Better Utilize Your Time</title>
+      <link>https://vim0.com/en/post/pomodoro_todo/</link>
+      <pubDate>Thu, 03 Feb 2022 00:48:05 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/pomodoro_todo/</guid>
+      <description>For me, it&amp;rsquo;s easy to fall into a state of working all day, being busy all day but not knowing what I&amp;rsquo;m busy with, leading to anxiety the next day, not knowing what to say at the morning meeting, and only being able to do things that make me feel like I can talk.
+ Why introduce the Pomodoro Technique: To solve this problem, I thought of many methods, such as writing a TODO list every day, but I still wasted a lot of time due to various interruptions, which made it impossible for me to complete the tasks in my original TODO list.</description>
+    </item>
+    
+    <item>
+      <title>How to kill a process and its descendants in Unix?</title>
+      <link>https://vim0.com/en/post/kill_process_and_its_childs/</link>
+      <pubDate>Mon, 24 Jan 2022 21:49:48 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/kill_process_and_its_childs/</guid>
+      <description>Recently, I was maintaining an open source project called air on the weekend. It is a hot loading code tool for Golang, which will monitor local file changes and then automatically reload.
+ Problem encountered Recently, I encountered a particularly interesting problem, that is, when using the kill -9 pid command to kill the process, although it will kill its child process, its grandchild process will still survive.
+Background In short, our hot loading component will run commands, and then will monitor file changes, once the file changes, it will kill the previous process, then recompile the code, and then execute the running command.</description>
+    </item>
+    
+    <item>
+      <title>Using Mock and Interface for Golang Unit Testing</title>
+      <link>https://vim0.com/en/post/golang/use_mock_to_test/</link>
+      <pubDate>Fri, 07 Jan 2022 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/golang/use_mock_to_test/</guid>
+      <description>At work, I often find that many engineers&#39; Golang unit tests are problematic, just simply calling code for output, and it will include various IO operations, making the unit test unable to run everywhere.
+ Using Mock and Interface for Golang Unit Testing This article will introduce how to do unit testing correctly in Golang.
+What is unit testing? Characteristics of unit testing Unit testing is a very important part of quality assurance.</description>
+    </item>
+    
+    <item>
+      <title>Some Details About Golang Slice</title>
+      <link>https://vim0.com/en/post/golang/about_slice/</link>
+      <pubDate>Tue, 21 Dec 2021 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/golang/about_slice/</guid>
+      <description>Some Details About Golang Slice In Golang, there are two types of data: One is an array with a fixed length, called Array, and the other is an array with an unlimited length, called Slice. Distinguish Between Array and Slice The difference between Array and Slice is: Array is of fixed length, and the length of Array is part of the type, so the length of Array cannot be changed,</description>
+    </item>
+    
+    <item>
+      <title>Relearning English Grammar</title>
+      <link>https://vim0.com/en/post/english/english_grammar/</link>
+      <pubDate>Thu, 14 Oct 2021 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/english/english_grammar/</guid>
+      <description>Background I feel that there are still many deficiencies in my English, so I studied some English grammar a while ago. In fact, many of them are things that need to be learned in junior high school, but I didn&amp;rsquo;t take it seriously at that time, and I didn&amp;rsquo;t learn anything from the teacher. I can&amp;rsquo;t say that I gave everything back to the teacher, because the scenarios where English is needed in work are increasing, so I still followed Youtube and learned a lot, so I wrote this summary article.</description>
+    </item>
+    
+    <item>
+      <title>Office Worker&#39;s Recent Half-Year Experience in Learning and Practicing Fund Investment Portfolio</title>
+      <link>https://vim0.com/en/post/investment/learned_about_investment/</link>
+      <pubDate>Tue, 01 Jun 2021 20:55:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/investment/learned_about_investment/</guid>
+      <description>&amp;ldquo;Everyone should invest, the sooner the better. Even if you keep losing money, at least you will learn how to lose less after ten years. Instead of waiting until ten years later when you are forced to invest, you lose most of your principal at once&amp;rdquo; &amp;ndash;@xiaodotdo
+ Preface Because I stepped into work from school, I was actually a bit richer than when I was studying, and I was also quite frugal, so I had a lot of money left every month when I got paid.</description>
+    </item>
+    
+    <item>
+      <title>Guide to Physically Crossing the Wall to Singapore During the Pandemic</title>
+      <link>https://vim0.com/en/post/softskills/physical_break_gfw/</link>
+      <pubDate>Wed, 19 May 2021 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/softskills/physical_break_gfw/</guid>
+      <description>&amp;ldquo;The difficulty of living abroad is smaller than imagined, but the determination needed to go abroad is greater than imagined&amp;rdquo; &amp;ndash;@FreiheitYu The author wrote this article in early 2021, and there may be discrepancies due to the relaxation and tightening of immigration policies, for reference only. Preface This is a very struggling and bumpy experience. Under the situation of the pandemic, I still chose to come out from my country</description>
+    </item>
+    
+    <item>
+      <title>About me</title>
+      <link>https://vim0.com/en/post/about/about_me/</link>
+      <pubDate>Sat, 15 May 2021 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/about/about_me/</guid>
+      <description>About me Welcome! I am Xiantang. This is my personal website, where I blog about things I learn or think about in my daily life. I hope you like it.
+My personal telegram channel is https://t.me/xiantang.
+I like programming and can use many languages, such as:
+Golang https://github.com/cosmtrek/air is my main language currently.
+Scala https://github.com/xiantang/redislimiter I have written some services.
+Python https://github.com/xiantang/Spider I have written some crawlers.
+Java https://github.com/xiantang/JerryMouse I have written a simple web container.</description>
+    </item>
+    
+    <item>
+      <title>Soft Skills: A Guide for Lower-Level Employees in Big Companies</title>
+      <link>https://vim0.com/en/post/softskills/how_to_live_in_big_company/</link>
+      <pubDate>Mon, 26 Apr 2021 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/softskills/how_to_live_in_big_company/</guid>
+      <description>&amp;ldquo;I found that many articles and interviews are about how to get into big companies, but actually surviving in big companies is also a skill&amp;rdquo;
+ Preface The author recently changed jobs, chose to follow his heart, and did not continue to work in the previous company. Taking advantage of the recent resignation, I quickly calmed down and output my previous experience. Although I only stayed in the previous company for almost a year (the previous company referred to in this article is a certain company), I still learned some of the working methods and processes of big companies.</description>
+    </item>
+    
+    <item>
+      <title>Soft Skills: How do I acquire knowledge and information?</title>
+      <link>https://vim0.com/en/post/softskills/how_do_i_acquire_knowledge_and_information/</link>
+      <pubDate>Fri, 02 Apr 2021 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/softskills/how_do_i_acquire_knowledge_and_information/</guid>
+      <description>​ &amp;ldquo;We are all hunters in the wilderness of the information age, surviving in the vast wilderness of information.&amp;rdquo; - &amp;ldquo;Why Become an Information Predator&amp;rdquo;
+​ In the era of mobile internet with information explosion, every internet giant is trying to build their own &amp;ldquo;information cocoon&amp;rdquo;, trying to recommend you some things you are interested in, and gradually your life will be shackled in a cocoon-like cage. As a [hacker] who yearns for freedom, naturally, he cannot be restricted by such a cage.</description>
+    </item>
+    
+    <item>
+      <title>Implementation of Distributed Token Bucket Algorithm</title>
+      <link>https://vim0.com/en/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Thu, 09 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>What is the Token Bucket Algorithm? The token bucket algorithm is a rate limiting algorithm, which is the opposite implementation of the leaky bucket algorithm.
+The leaky bucket algorithm leaks at a certain frequency rate, and our requests can be imagined as the faucet above.
+The token bucket algorithm, on the other hand, periodically puts tokens into the bucket, and each request will get a token from the token bucket. If there are no tokens in the bucket, the request is rejected or blocked until a token can be obtained.</description>
+    </item>
+    
+    <item>
+      <title>Implementing an AtomicInteger</title>
+      <link>https://vim0.com/en/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</link>
+      <pubDate>Mon, 06 Apr 2020 16:33:34 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</guid>
+      <description>What is AtomicInteger As the name suggests, AtomicInteger is an Integer with atomic operations. The difference between AtomicInteger and a regular Integer is that AtomicInteger uses a CAS method to make Integer&amp;rsquo;s increment and other operations atomic. Knowledge needed before implementation First, let&amp;rsquo;s look at the increment operation of AtomicInteger: 1 2 3 4 5 6 7 8 public final int incrementAndGet() { for (;;) { int current = get();</description>
+    </item>
+    
+    <item>
+      <title>What is Minor GC/Major GC</title>
+      <link>https://vim0.com/en/post/jvm/full_gc/</link>
+      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/jvm/full_gc/</guid>
+      <description>What is Minor GC/Major GC First, let&amp;rsquo;s popularize the classic heap layout of JVM:
+For the classic JVM heap layout, there are two clear areas, the first is the Young area, which generally stores young objects or objects that have just been created. The second is the Old area, also known as the old generation, which generally stores longer-lived objects or objects promoted from the young area.
+For the young area, we have three areas, one is the Eden area, and the other two are Survivor areas of equal size.</description>
+    </item>
+    
+    <item>
+      <title>Where is the GC root?</title>
+      <link>https://vim0.com/en/post/jvm/gc_root/</link>
+      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/jvm/gc_root/</guid>
+      <description>What is GC Root First of all, we know the marking algorithm, the JVM&amp;rsquo;s marking algorithm can be understood as a reachability algorithm, so all reachability algorithms will have a starting point, and this starting point is the GC Root.
+That is, it is necessary to find all living objects through the GC Root, and then all the remaining unmarked objects are the objects to be recycled.
+Characteristics of GC Root  Objects that are alive at the current moment!</description>
+    </item>
+    
+    <item>
+      <title>Design and Implementation of the Leaky Bucket Algorithm</title>
+      <link>https://vim0.com/en/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Sun, 05 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</guid>
+      <description>What is the Leaky Bucket Algorithm? As the name suggests, the Leaky Bucket algorithm uses a leaky bucket to limit traffic. Because there is a hole at the bottom of the bucket, it will leak water at regular intervals, and we can imagine the traffic as water falling into the bucket from above. This leads to two situations. If the speed at which traffic is injected into the bucket is</description>
+    </item>
+    
+    <item>
+      <title>Pointing to offer</title>
+      <link>https://vim0.com/en/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</link>
+      <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</guid>
+      <description>No2 Singleton Pattern 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够创建 private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton</description>
+    </item>
+    
+    <item>
+      <title>Singleton Pattern</title>
+      <link>https://vim0.com/en/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</link>
+      <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</guid>
+      <description>What is the Singleton Pattern? The Singleton Pattern, also known as the Singleton, is a commonly used software design pattern and is one of the creational patterns. In this design pattern, the class of the singleton object must ensure that only one instance exists. Pros and Cons Pros: There is only one instance in memory, reducing memory overhead. Cons: It violates the Single Responsibility Principle, and there is no interface,</description>
+    </item>
+    
+    <item>
+      <title>Java Collection Expansion</title>
+      <link>https://vim0.com/en/post/collection/collection/</link>
+      <pubDate>Fri, 07 Dec 2018 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/collection/collection/</guid>
+      <description>Collection Expansion ArrayList The default capacity of ArrayList is 10, so if you need to handle large amounts of data with ArrayList, you need to use the method of explicitly specifying the capacity. This can reduce unnecessary expansion operations. The main reason is that the expansion operation of ArrayList requires extra space, and it uses the Arrays.copyOf method for copying: 1 2 3 4 5 6 7 8 9 10</description>
+    </item>
+    
+  </channel>
+</rss>

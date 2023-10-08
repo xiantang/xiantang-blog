@@ -5,6 +5,151 @@
     <link>https://vim0.com/en/tags/</link>
     <description>Recent content in Tags on xiantang</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://vim0.com/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 29 Jun 2022 22:14:09 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>awk</title>
+      <link>https://vim0.com/en/tags/awk/</link>
+      <pubDate>Wed, 29 Jun 2022 22:14:09 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/awk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Chinese</title>
+      <link>https://vim0.com/en/tags/chinese/</link>
+      <pubDate>Wed, 29 Jun 2022 22:14:09 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/chinese/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Soft Skills</title>
+      <link>https://vim0.com/en/tags/soft-skills/</link>
+      <pubDate>Wed, 29 Jun 2022 22:14:09 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/soft-skills/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://vim0.com/en/tags/docker/</link>
+      <pubDate>Thu, 05 May 2022 22:08:34 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Anxiety</title>
+      <link>https://vim0.com/en/tags/anxiety/</link>
+      <pubDate>Sun, 20 Feb 2022 21:17:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/anxiety/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pomodoro Technique</title>
+      <link>https://vim0.com/en/tags/pomodoro-technique/</link>
+      <pubDate>Sun, 20 Feb 2022 21:17:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/pomodoro-technique/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Procrastination</title>
+      <link>https://vim0.com/en/tags/procrastination/</link>
+      <pubDate>Sun, 20 Feb 2022 21:17:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/procrastination/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>https://vim0.com/en/tags/golang/</link>
+      <pubDate>Sun, 13 Feb 2022 20:23:51 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Refactor</title>
+      <link>https://vim0.com/en/tags/refactor/</link>
+      <pubDate>Sun, 13 Feb 2022 20:23:51 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/refactor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>English</title>
+      <link>https://vim0.com/en/tags/english/</link>
+      <pubDate>Thu, 14 Oct 2021 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/english/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>aboutme</title>
+      <link>https://vim0.com/en/tags/aboutme/</link>
+      <pubDate>Sat, 15 May 2021 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/aboutme/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>algorithm</title>
+      <link>https://vim0.com/en/tags/algorithm/</link>
+      <pubDate>Thu, 09 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>concurrency</title>
+      <link>https://vim0.com/en/tags/concurrency/</link>
+      <pubDate>Mon, 06 Apr 2020 16:33:34 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/concurrency/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JVM</title>
+      <link>https://vim0.com/en/tags/jvm/</link>
+      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/jvm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Design Patterns</title>
+      <link>https://vim0.com/en/tags/design-patterns/</link>
+      <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/design-patterns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>https://vim0.com/en/tags/java/</link>
+      <pubDate>Fri, 07 Dec 2018 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/java/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

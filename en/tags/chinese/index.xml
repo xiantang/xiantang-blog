@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chinese on xiantang</title>
+    <link>https://vim0.com/en/tags/chinese/</link>
+    <description>Recent content in Chinese on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 29 Jun 2022 22:14:09 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/chinese/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using the 80/20 Rule to Learn awk Effortlessly</title>
+      <link>https://vim0.com/en/post/awk/</link>
+      <pubDate>Wed, 29 Jun 2022 22:14:09 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/awk/</guid>
+      <description>The length only accounts for 20%, but the effectiveness reaches 80% - 80/20 Rule
+ What can you learn from this article? In this article, we will learn how to use the 80/20 rule to effortlessly learn the linux text processing command awk. After reading this article, you will learn a fast learning method, and how to use awk to process text and stdout.
+Recently, while learning awk, I found that there are really many details.</description>
+    </item>
+    
+    <item>
+      <title>Using the Pomodoro Technique to Better Utilize Your Time</title>
+      <link>https://vim0.com/en/post/pomodoro_todo/</link>
+      <pubDate>Thu, 03 Feb 2022 00:48:05 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/pomodoro_todo/</guid>
+      <description>For me, it&amp;rsquo;s easy to fall into a state of working all day, being busy all day but not knowing what I&amp;rsquo;m busy with, leading to anxiety the next day, not knowing what to say at the morning meeting, and only being able to do things that make me feel like I can talk.
+ Why introduce the Pomodoro Technique: To solve this problem, I thought of many methods, such as writing a TODO list every day, but I still wasted a lot of time due to various interruptions, which made it impossible for me to complete the tasks in my original TODO list.</description>
+    </item>
+    
+    <item>
+      <title>How to kill a process and its descendants in Unix?</title>
+      <link>https://vim0.com/en/post/kill_process_and_its_childs/</link>
+      <pubDate>Mon, 24 Jan 2022 21:49:48 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/kill_process_and_its_childs/</guid>
+      <description>Recently, I was maintaining an open source project called air on the weekend. It is a hot loading code tool for Golang, which will monitor local file changes and then automatically reload.
+ Problem encountered Recently, I encountered a particularly interesting problem, that is, when using the kill -9 pid command to kill the process, although it will kill its child process, its grandchild process will still survive.
+Background In short, our hot loading component will run commands, and then will monitor file changes, once the file changes, it will kill the previous process, then recompile the code, and then execute the running command.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Using the 80/20 Rule to Learn awk Effortlessly - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="The length only accounts for 20%, but the effectiveness reaches 80% - 80/20 Rule
+ What can you learn from this article? In this article, we will learn how to use the 80/20 rule to effortlessly learn the linux text processing command awk. After reading this article, you will learn a fast learning method, and how to use awk to process text and stdout.
+Recently, while learning awk, I found that there are really many details." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/awk/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Using the 80/20 Rule to Learn awk Effortlessly" />
+<meta property="og:description" content="The length only accounts for 20%, but the effectiveness reaches 80% - 80/20 Rule
+ What can you learn from this article? In this article, we will learn how to use the 80/20 rule to effortlessly learn the linux text processing command awk. After reading this article, you will learn a fast learning method, and how to use awk to process text and stdout.
+Recently, while learning awk, I found that there are really many details." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/awk/" /><meta property="og:image" content="https://vim0.com/post/awk.png" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-06-29T22:14:09+08:00" />
+<meta property="article:modified_time" content="2023-10-08T20:52:20+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Using the 80/20 Rule to Learn awk Effortlessly">
+<meta itemprop="description" content="The length only accounts for 20%, but the effectiveness reaches 80% - 80/20 Rule
+ What can you learn from this article? In this article, we will learn how to use the 80/20 rule to effortlessly learn the linux text processing command awk. After reading this article, you will learn a fast learning method, and how to use awk to process text and stdout.
+Recently, while learning awk, I found that there are really many details."><meta itemprop="datePublished" content="2022-06-29T22:14:09+08:00" />
+<meta itemprop="dateModified" content="2023-10-08T20:52:20+08:00" />
+<meta itemprop="wordCount" content="2577"><meta itemprop="image" content="https://vim0.com/post/awk.png">
+<meta itemprop="keywords" content="Chinese,Soft Skills,awk," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/awk.png"/>
+
+<meta name="twitter:title" content="Using the 80/20 Rule to Learn awk Effortlessly"/>
+<meta name="twitter:description" content="The length only accounts for 20%, but the effectiveness reaches 80% - 80/20 Rule
+ What can you learn from this article? In this article, we will learn how to use the 80/20 rule to effortlessly learn the linux text processing command awk. After reading this article, you will learn a fast learning method, and how to use awk to process text and stdout.
+Recently, while learning awk, I found that there are really many details."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Using the 80/20 Rule to Learn awk Effortlessly</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-06-29 </span>
+        <div class="post-category">
+            <a href="/en/categories/chinese/"> Chinese </a>
+            <a href="/en/categories/awk/"> awk </a>
+            </div>
+          <span class="more-meta"> 2577 words </span>
+          <span class="more-meta"> 13 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-the-8020-rule">What is the 80/20 Rule?</a></li>
+    <li><a href="#how-to-use-the-8020-rule-to-learn">How to Use the 80/20 Rule to Learn?</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#find-the-most-common-use">Find the most common use</a></li>
+    <li><a href="#find-learning-resources">Find learning resources</a></li>
+    <li><a href="#setting-goals">Setting Goals</a></li>
+    <li><a href="#filtering-learning-resources">Filtering Learning Resources</a></li>
+    <li><a href="#skim-through-the-filtered-materials">Skim through the filtered materials</a></li>
+    <li><a href="#learning-to-use">Learning to Use</a>
+      <ul>
+        <li><a href="#reproduce-the-examples-in-tldr">Reproduce the examples in tldr</a></li>
+        <li><a href="#implement-the-formatting-of-student-grades">Implement the formatting of student grades</a></li>
+        <li><a href="#use-awk-to-find-the-value-of-a-field-in-yaml">Use awk to find the value of a field in yaml</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p>The length only accounts for 20%, but the effectiveness reaches 80% - 80/20 Rule</p>
+</blockquote>
+<h1 id="what-can-you-learn-from-this-article">What can you learn from this article?</h1>
+<p>In this article, we will learn how to use the 80/20 rule to effortlessly learn the linux text processing command awk. After reading this article, you will learn a fast learning method,
+and how to use awk to process text and stdout.</p>
+<p>Recently, while learning awk, I found that there are really many details. It&rsquo;s impossible to grasp the most important part at the beginning, and I&rsquo;m troubled by the complicated syntax, which is quite difficult to understand.
+So I used the 80/20 rule I learned from &ldquo;Soft Skills: The Software Developer&rsquo;s Life Manual&rdquo; to practice the basic usage of awk, and found the effect to be very good.
+This article will introduce how I used the 80/20 rule to learn awk.</p>
+<h2 id="what-is-the-8020-rule">What is the 80/20 Rule?</h2>
+<p>At the beginning of the article, it was mentioned that &ldquo;the length only accounts for 20%, but the effectiveness reaches 80%&rdquo;, which is called the &ldquo;Pareto Principle&rdquo;. It points out that about 20% of the factors can affect 80% of the results.
+This is also very applicable to learning technology. The most used 20% of technical knowledge points can complete 80% of technical work. That is to say, we actually only need to focus on the most common
+cases for targeted learning, to prevent the truly important content from being buried in the details.</p>
+<h2 id="how-to-use-the-8020-rule-to-learn">How to Use the 80/20 Rule to Learn?</h2>
+<p>Since the 80/20 rule is so useful, how can it be practiced? &ldquo;Soft Skills: The Software Developer&rsquo;s Life Manual&rdquo; mainly summarizes 10 steps, that is, learning a new technology can be completed through the following ten steps:</p>
+<ul>
+<li>Step 1: How to start: What basic knowledge do I need to use it?</li>
+<li>Step 2: Scope of the subject: How big is the thing I&rsquo;m learning? What should I do?</li>
+<li>Step 3: Need to understand basic user cases, and common problems, know which 20% to learn to satisfy 80% of application scenarios</li>
+<li>Step 4: Find resources</li>
+<li>Step 5: Define goals</li>
+<li>Step 6: Filter resources</li>
+<li>Step 7: Start learning, taste and stop</li>
+<li>Step 8: Hands-on operation, learn while playing</li>
+<li>Step 9: Master it fully, learn to use it</li>
+<li>Step 10: Be a good teacher</li>
+</ul>
+<p>We can divide these 10 steps into two major parts</p>
+<ul>
+<li>The first part, from step one to step six, only needs to be executed once from start to finish</li>
+<li>The second part, from step seven to step ten, needs to be executed repeatedly</li>
+</ul>
+<p>The first part involves searching and filtering input resources, and defining targets. Here are some things to note:</p>
+<p>Find out what the <strong>main uses of the actual application</strong> are:
+For example, with sed, you&rsquo;ll find that its main use cases are for adding, deleting, modifying, and querying text and stream data. For these common cases, you can get a rough idea by scanning related materials. If you don&rsquo;t know how to effectively acquire information, you can read my article <a href="/post/softskills/how_do_i_acquire_knowledge_and_information/">How I Acquire Knowledge and Information</a></p>
+<p>Define an <strong>executable target</strong>:
+You need to define an executable target, for example, for sed, I need to rewrite all the use cases in <code>tldr sed</code>. For <code>awk</code>, my goal is to use <code>awk</code> to find the value of a certain field in yaml.</p>
+<p>Filter <strong>enough materials needed to achieve the target</strong>:
+When you find some good materials through a search engine, you can filter out the materials that will allow you to achieve your goal after reading, i.e., the most common use materials. Although they may be rough, you will find the materials you really need more precisely in your practice later.</p>
+<p>The second part is to <strong>practice while checking the documentation and output insights</strong>:
+In fact, my method for quickly learning technology has always been to do it hands-on and practice more. When I first graduated, I liked to learn a technical knowledge point in a &ldquo;from cover to cover&rdquo; way, but as time became less and less, I no longer had the energy to read a book from beginning to end.</p>
+<p>So, learning in a way that practices while checking the documentation is more efficient, and it also conforms to the idea of the learning pyramid.</p>
+<p><img src="/image/the_cone_of_learning.png" alt="Learning Pyramid"></p>
+<p>If you only read to learn a knowledge point, you can only absorb 10% of the content, but if you learn by teaching and playing, you can absorb 90% of the content. To give a simple example, when I was in high school, I played Hearthstone, which has 300+ classic cards, but I could recite 90% of the cards' stats and effects. I didn&rsquo;t deliberately remember them, but because I liked playing, I learned all these cards.</p>
+<p>So, it&rsquo;s very important to <strong>learn in a playful way</strong>, to practice rather than just read the documentation.
+Similarly, <strong>teaching is a better way to learn</strong>, because you can consolidate and confirm that your knowledge points are correct at the same time. I wrote this article to better consolidate my knowledge of the 80/20 rule and awk.</p>
+<p>After practicing the more useful 20% of the knowledge points, when you are practicing, you can use the documentation to use these features more accurately when you encounter some niche features, avoiding you getting lost in the complicated details.</p>
+<p>Below I will give two examples to illustrate this method:</p>
+<h1 id="learning-awk">Learning awk</h1>
+<p>First, we understand what kind of tool awk is by skimming the documentation:</p>
+<p><code>Awk is an extremely versatile programming language for working on files.</code></p>
+<p>Awk is actually a programming language for processing text, which can explain why when you try to solve text processing problems from stackoverflow, many answers give awk examples that are not so simple and clear, the reason is that it is a programming language, not like grep Just add a few command line parameters to search for text.</p>
+<h2 id="find-the-most-common-use">Find the most common use</h2>
+<p>I use <code>tldr</code> to find the most common use of this command. <code>tldr</code> simplifies the popular <code>man</code> pages through actual examples.
+His output is as follows:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">awk
+
+A versatile programming language for working on files.
+More information: https://github.com/onetrueawk/awk.
+
+- Print the fifth column (a.k.a. field) in a space-separated file:
+awk &#39;{print $5}&#39; filename
+
+- Print the second column of the lines containing &#34;foo&#34; in a space-separated file:
+awk &#39;/foo/ {print $2}&#39; filename
+
+- Print the last column of each line in a file, using a comma (instead of space) as a field separator:
+awk -F &#39;,&#39; &#39;{print $NF}&#39; filename
+
+- Print all lines where the 10th column value equals the specified value:
+awk &#39;($10 == value)&#39;
+
+- Sum the values in the first column of a file and print the total:
+  awk &#39;{s+=$1} END {print s}&#39; filename
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>Through these examples, I can know what the common uses of awk are, and what syntax and parameters are the most important.</p>
+<p>The main uses are:</p>
+<ol>
+<li>Print a column in the file</li>
+<li>Find the corresponding row based on a certain value</li>
+<li>Split a row into multiple fields based on a field separator</li>
+<li>Print rows that meet certain conditions</li>
+</ol>
+<p>According to the example, we can understand that the -F parameter is quite useful, and the <code>print</code> keyword and variables starting with <code>$</code> are also quite useful.</p>
+<p>We also have some doubts:</p>
+<ul>
+<li>What does <code>'{print $5}'</code> syntax mean?</li>
+<li>Why does <code>'/foo/ {print $2}'</code> print the second column of the row containing &ldquo;foo&rdquo; in a space-separated file?</li>
+</ul>
+<h2 id="find-learning-resources">Find learning resources</h2>
+<p>With these questions and the common cases we understand, we can find related resources through search engines:</p>
+<ul>
+<li><a href="https://www.eriwen.com/tools/awk-is-a-beautiful-tool/">https://www.eriwen.com/tools/awk-is-a-beautiful-tool/</a> A short blog about awk, talking about some philosophy</li>
+<li><code>man awk</code> man manual</li>
+<li><code>tldr awk</code> tldr awk</li>
+<li><a href="https://www.gnu.org/software/gawk/manual/gawk.html#Getting-Started">https://www.gnu.org/software/gawk/manual/gawk.html#Getting-Started</a></li>
+<li><a href="https://www.geeksforgeeks.org/awk-command-unixlinux-examples/">https://www.geeksforgeeks.org/awk-command-unixlinux-examples/</a> tutorial</li>
+<li><a href="https://www.runoob.com/linux/linux-comm-awk.html">https://www.runoob.com/linux/linux-comm-awk.html</a> tutorial</li>
+<li><a href="https://www.grymoire.com/Unix/Awk.html#toc-uh-13">Summary of AWK Commands</a> Brief introduction</li>
+<li><a href="https://sparky.rice.edu//~hartigan/awk.html">https://sparky.rice.edu//~hartigan/awk.html</a> How to use awk</li>
+</ul>
+<p>We found 8 related resources, including a very long user manual, but don&rsquo;t worry, we won&rsquo;t read it all, just skim through the structure to know what content is in which chapters. I will filter it later.</p>
+<h2 id="setting-goals">Setting Goals</h2>
+<p>Then it&rsquo;s about setting learning goals, note that this goal must be <strong>executable</strong>. If you have used OKR or GTD, then you will basically understand what it is like.
+The key result of OKR is a measurable result for this goal, or each small task of the GTD execution list, which is executable and measurable.</p>
+<p>In this example, I mainly set 3 goals:</p>
+<ul>
+<li>The first is to ensure that I can write out the examples in tldr by handwriting, because this example is the most commonly used case</li>
+<li>The second is to format the average total score of the students below:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Marry   2143 78 84 77
+Jack    2321 66 78 45
+Tom     2122 48 77 71
+Mike    2537 87 97 95
+Bob     2415 40 57 62
+</code></pre></td></tr></table>
+</div>
+</div>The result will be like this
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">NAME    NO.   MATH  ENGLISH  COMPUTER   TOTAL
+---------------------------------------------
+Marry  2143     78       84       77      239
+Jack   2321     66       78       45      189
+Tom    2122     48       77       71      196
+Mike   2537     87       97       95      279
+Bob    2415     40       57       62      159
+---------------------------------------------
+TOTAL:       319      393      350
+AVERAGE:     63.80    78.60    70.00
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>The last is to find the value of a field in yaml through awk, which is more difficult but interesting, <a href="https://unix.stackexchange.com/questions/608137/parse-a-yaml-section-using-shell">Parse a YAML section using shell</a></li>
+</ul>
+<p>You can see that these three goals are executable and the results are easy to measure.</p>
+<h2 id="filtering-learning-resources">Filtering Learning Resources</h2>
+<p>After setting the goals, we can filter out relevant resources based on the goals:</p>
+<p>I filtered out the following resources:
+<a href="https://www.eriwen.com/tools/awk-is-a-beautiful-tool/">awk is a beautiful tool</a>, man page,
+<a href="https://www.grymoire.com/Unix/Awk.html#toc-uh-2">Executing awk scripts</a>,<a href="https://www.grymoire.com/Unix/Awk.html#toc-uh-13">awk syntax</a>,
+<a href="https://www.grymoire.com/Unix/Awk.html#toc-uh-11">awk regular expression &amp;&amp; conditional expression</a></p>
+<h2 id="skim-through-the-filtered-materials">Skim through the filtered materials</h2>
+<p>First, we can skim through the filtered materials:</p>
+<p>I found that awk actually only operates one record at a time, this record is a line by default. At the same time, it will extract each string separated by spaces (default) in each line as each field.</p>
+<p>This can explain that <code>$5</code> in <code>'{print $5}'</code> is actually the 5th field separated by spaces in each line. And using <code>-F</code> can replace the string used for separation from space to the specified string.</p>
+<p><code>awk -F ','</code> This is to use a comma to separate fields.</p>
+<h2 id="learning-to-use">Learning to Use</h2>
+<h3 id="reproduce-the-examples-in-tldr">Reproduce the examples in tldr</h3>
+<p>At this time, you can open your command line and start playing with <code>awk</code>, you will find</p>
+<p><code>awk '/foo/ {print $2}' filename</code> This syntax is very interesting.</p>
+<p>By consulting the documentation, you actually find that /foo/ can be replaced with various regular expressions:</p>
+<p>For:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Marry	2143	78	84	77
+Jack	2321	66	78	45
+Tom	2122	48	77	71
+Mike	2537	87	97	95
+Bob	2415	40	57	62
+</code></pre></td></tr></table>
+</div>
+</div><p>You can use this method to print out lines containing /Bob/
+<code>awk '/Bob/ {print $0}'  sheet</code></p>
+<p>Using <code>awk '/m$/'</code> can print out lines with fields ending in m, that is, lines containing Tom.</p>
+<p>By reading the chapter on regular expressions in the man manual <code>Regular expressions</code></p>
+<p><code>awk '/m$/' {print $0}</code> is actually a shorthand for <code>awk $0 ~ '/m$/ {print $0}'</code>.</p>
+<p>It means that when the input record (default is line), if the fields match this expression, print out the current line.</p>
+<p>So we will find that the case in <code>tldr</code> is wrong</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">foo bar ggg
+bar foo ggg
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">- Print the second column of the lines containing &#34;foo&#34; in a space-separated file:
+awk &#39;/foo/ {print $2}&#39; filename
+</code></pre></td></tr></table>
+</div>
+</div><p>The correct one should be <code>awk '$2 ~ /foo/ {print $2}'</code>, when <code>$2 ~ /foo/</code> matches, it will be assigned to 1, and when it does not match, it will be assigned to 0.
+That is, when it matches, this line of record processing will become <code>awk '1 {print $2}</code> , and when it does not match, it will become <code>awk '0 {print $2}</code> .</p>
+<h3 id="implement-the-formatting-of-student-grades">Implement the formatting of student grades</h3>
+<p>To implement the formatting of student grades, you need to introduce the <code>awk</code> script, which can be read from the filtered materials.
+To sum up, -f can specify the awk script, the first line of the file needs to be <code>#!/bin/awk -f</code>, and the subsequent script is the <code>awk</code> script.</p>
+<p>The keywords of awk can also be found in the filtered documents. Playing while reading the documents can really effectively find important resources.</p>
+<p><a href="https://www.grymoire.com/Unix/Awk.html#toc-uh-1">Basic Structure</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-awk" data-lang="awk"><span class="nb">BEGIN</span> <span class="p">{</span> <span class="kr">print</span> <span class="s2">&#34;START&#34;</span> <span class="p">}</span>
+<span class="sr">/foo/</span> <span class="p">{</span> <span class="kr">print</span>         <span class="p">}</span>
+<span class="nb">END</span>   <span class="p">{</span> <span class="kr">print</span> <span class="s2">&#34;STOP&#34;</span>  <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>From the above example, it can be seen that what is important about awk is that this pattern specifies the behavior to be executed with each line read as input.
+If the preceding expression is true, execute the code in <code>{ print }</code>.
+If there is no expression before, it will match the content in each line by default.
+In addition, BEGIN and END are two other important patterns.
+As you would expect, these two words specify the operations to be performed before reading any lines and after reading the last line.</p>
+<p>Understanding this can achieve this small goal:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-awk" data-lang="awk"><span class="c1">#!/bin/awk -f</span>
+<span class="nb">BEGIN</span> <span class="p">{</span>
+<span class="nx">math</span><span class="o">=</span><span class="mi">0</span>
+<span class="nx">english</span><span class="o">=</span><span class="mi">0</span>
+<span class="nx">art</span><span class="o">=</span><span class="mi">0</span>
+<span class="kr">printf</span> <span class="s2">&#34;%-6s %-6s %-6s %-6s %-6s %-6s\n&#34;</span><span class="p">,</span> <span class="s2">&#34;Name&#34;</span><span class="p">,</span> <span class="s2">&#34;No.&#34;</span><span class="p">,</span> <span class="s2">&#34;MATH&#34;</span><span class="p">,</span> <span class="s2">&#34;ENGLISH&#34;</span><span class="p">,</span><span class="s2">&#34;ART&#34;</span><span class="p">,</span><span class="s2">&#34;TOTAL&#34;</span>
+<span class="p">}</span>
+<span class="p">{</span>
+	<span class="nx">math</span><span class="o">+=$</span><span class="mi">3</span>
+	<span class="nx">english</span><span class="o">+=$</span><span class="mi">4</span>
+	<span class="nx">art</span><span class="o">+=$</span><span class="mi">5</span>
+	<span class="nx">cnt</span><span class="o">+=</span><span class="mi">1</span>
+	<span class="nx">total</span><span class="o">=$</span><span class="mi">3</span><span class="o">+$</span><span class="mi">4</span><span class="o">+$</span><span class="mi">5</span>
+	<span class="nx">sum</span><span class="o">+=</span><span class="nx">total</span>
+<span class="kr">printf</span> <span class="s2">&#34;%-6s %-6s %-6s %-6s %-6s %-6s\n&#34;</span><span class="p">,</span> <span class="o">$</span><span class="mi">1</span><span class="p">,</span> <span class="o">$</span><span class="mi">2</span><span class="p">,</span><span class="o">$</span><span class="mi">3</span><span class="p">,</span><span class="o">$</span><span class="mi">4</span><span class="p">,</span><span class="o">$</span><span class="mi">5</span><span class="p">,</span><span class="nx">total</span>
+<span class="p">}</span>
+<span class="nb">END</span>  <span class="p">{</span>
+<span class="kr">printf</span> <span class="s2">&#34;%-6s %-6s %-6s %-6s %-6s %-6s\n&#34;</span><span class="p">,</span> <span class="s2">&#34;TOTAL&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="nx">math</span><span class="p">,</span><span class="nx">english</span><span class="p">,</span><span class="nx">art</span><span class="p">,</span><span class="nx">total</span>
+<span class="kr">printf</span> <span class="s2">&#34;%-6s %-6s %-6s %-6s %-6s %-6s\n&#34;</span><span class="p">,</span> <span class="s2">&#34;AVG&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="nx">math</span><span class="o">/</span><span class="nx">cnt</span><span class="p">,</span> <span class="nx">english</span><span class="o">/</span><span class="nx">cnt</span><span class="p">,</span><span class="nx">art</span><span class="o">/</span><span class="nx">cnt</span><span class="p">,</span><span class="nx">sum</span><span class="o">/</span><span class="nx">cnt</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="use-awk-to-find-the-value-of-a-field-in-yaml">Use awk to find the value of a field in yaml</h3>
+<p>This answer on Stackoverflow is baffling:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">something:
+ - whatever:
+   - something
+ - toc: 4
+ - body: assets/footer.html
+pkg:
+ - pkg_a_1:
+   - Shass
+   - AJh55
+   - ASH7
+ - pkg_b_1:
+   - Kjs6
+   - opsaa
+other:
+morestuff:
+ - whatever
+</code></pre></td></tr></table>
+</div>
+</div><p>Need to get the value of pkg_a_1, output like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">pkg_a_1 Shass
+pkg_a_1 AJh55
+pkg_a_1 ASH7
+pkg_b_1 Kjs6
+pkg_b_1 opsaa
+</code></pre></td></tr></table>
+</div>
+</div><p>The given answer is <code>awk '/^[^ ]/{ f=/^pkg:/; next } f{ if (sub(/:$/,&quot;&quot;)) pkg=$2; else print pkg, $2 }' file</code></p>
+<p>Just looking at the answer is a bit confusing, isn&rsquo;t it? Let&rsquo;s break down the input:</p>
+<ul>
+<li><code>/^[^ ]/</code> matches all non-empty lines.</li>
+<li><code>f=/^pkg:/</code> does a match on the current line, if it matches, f becomes 1, otherwise f becomes 0.
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">xiantang@ubuntu:~$ awk &#39;/^[^ ]/{ f=/^pkg:/;print f}&#39; ymal
+  0
+  1
+  0
+  0
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>next means to skip the current line and continue parsing the following lines.</li>
+<li>The following f is a flag, if f is 1, perform the following behavior.</li>
+<li>The final assignment operation is self-explanatory.</li>
+</ul>
+<p>If I want to read the value of something.body, for example, this output</p>
+<p><code>something.body assets/footer.html</code></p>
+<p>You can use <code>awk '/^[^ ]/{ f=/^something/;sub(/:/,&quot;.&quot;,$0);prefix=$0;  next } f{ b=/body/;} f&amp;&amp;b{printf &quot;%s%s %s\n&quot;, prefix,$2,$3}' ymal</code></p>
+<p><code>something.body: assets/footer.html</code></p>
+<p>This way, we have achieved our three small goals for awk. Remember to practice while reviewing the documentation, and try different behaviors. Only when you try, you truly learn.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>This article explains how to find information and how to filter information by setting goals, as well as how to quickly learn knowledge through practice. It also gives an example of learning awk to practice this method. This method is applicable to 80% of learning scenarios. Don&rsquo;t forget to share after you have achieved something!</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-10-08
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/05461cf5116804daddfccd754bde8183713e4e8c" title="use chatgpt to generate English version">(05461cf)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/chinese/">Chinese</a>
+          <a href="/en/tags/soft-skills/">Soft Skills</a>
+          <a href="/en/tags/awk/">awk</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/2022/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Summary of 2022</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/docker-compose-dev/">
+            <span class="next-text nav-default">Using Docker Compose to Set Up Your Own Development Environment</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>How to kill a process and its descendants in Unix? - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="Recently, I was maintaining an open source project called air on the weekend. It is a hot loading code tool for Golang, which will monitor local file changes and then automatically reload.
+ Problem encountered Recently, I encountered a particularly interesting problem, that is, when using the kill -9 pid command to kill the process, although it will kill its child process, its grandchild process will still survive.
+Background In short, our hot loading component will run commands, and then will monitor file changes, once the file changes, it will kill the previous process, then recompile the code, and then execute the running command." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/kill_process_and_its_childs/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="How to kill a process and its descendants in Unix?" />
+<meta property="og:description" content="Recently, I was maintaining an open source project called air on the weekend. It is a hot loading code tool for Golang, which will monitor local file changes and then automatically reload.
+ Problem encountered Recently, I encountered a particularly interesting problem, that is, when using the kill -9 pid command to kill the process, although it will kill its child process, its grandchild process will still survive.
+Background In short, our hot loading component will run commands, and then will monitor file changes, once the file changes, it will kill the previous process, then recompile the code, and then execute the running command." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/kill_process_and_its_childs/" /><meta property="og:image" content="https://vim0.com/post/kill_process_and_its_childs.png" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-01-24T21:49:48+08:00" />
+<meta property="article:modified_time" content="2023-10-08T20:52:20+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="How to kill a process and its descendants in Unix?">
+<meta itemprop="description" content="Recently, I was maintaining an open source project called air on the weekend. It is a hot loading code tool for Golang, which will monitor local file changes and then automatically reload.
+ Problem encountered Recently, I encountered a particularly interesting problem, that is, when using the kill -9 pid command to kill the process, although it will kill its child process, its grandchild process will still survive.
+Background In short, our hot loading component will run commands, and then will monitor file changes, once the file changes, it will kill the previous process, then recompile the code, and then execute the running command."><meta itemprop="datePublished" content="2022-01-24T21:49:48+08:00" />
+<meta itemprop="dateModified" content="2023-10-08T20:52:20+08:00" />
+<meta itemprop="wordCount" content="794"><meta itemprop="image" content="https://vim0.com/post/kill_process_and_its_childs.png">
+<meta itemprop="keywords" content="Chinese,Golang," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/kill_process_and_its_childs.png"/>
+
+<meta name="twitter:title" content="How to kill a process and its descendants in Unix?"/>
+<meta name="twitter:description" content="Recently, I was maintaining an open source project called air on the weekend. It is a hot loading code tool for Golang, which will monitor local file changes and then automatically reload.
+ Problem encountered Recently, I encountered a particularly interesting problem, that is, when using the kill -9 pid command to kill the process, although it will kill its child process, its grandchild process will still survive.
+Background In short, our hot loading component will run commands, and then will monitor file changes, once the file changes, it will kill the previous process, then recompile the code, and then execute the running command."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">How to kill a process and its descendants in Unix?</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-01-24 </span>
+        <div class="post-category">
+            <a href="/en/categories/golang/"> Golang </a>
+            </div>
+          <span class="more-meta"> 794 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#problem-encountered">Problem encountered</a></li>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#conclusion">Conclusion</a>
+      <ul>
+        <li><a href="#reference-materials">Reference Materials</a></li>
+      </ul>
+    </li>
+    <li><a href="#recommended-section">Recommended Section</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p>Recently, I was maintaining an open source project called <a href="https://github.com/cosmtrek/air">air</a> on the weekend. It is a hot loading code tool for Golang, which will monitor local file changes and then automatically reload.</p>
+</blockquote>
+<h2 id="problem-encountered">Problem encountered</h2>
+<p>Recently, I encountered a particularly interesting problem, that is, when using the <code>kill -9 pid</code> command to kill the process, although it will kill its child process, its grandchild process will still survive.</p>
+<h2 id="background">Background</h2>
+<p>In short, our hot loading component will run commands, and then will monitor file changes, once the file changes, it will kill the previous process, then recompile the code, and then execute the running command.</p>
+<p>But I encountered a user who raised such a problem: <a href="https://github.com/cosmtrek/air/issues/216#issuecomment-982348931">https://github.com/cosmtrek/air/issues/216#issuecomment-982348931</a> When executing the command, use <code>dlv exec --accept-multiclient --log --headless --continue --listen :2345 --api-version 2 ./tmp/main</code> to run the code and start debugging, our component will not completely kill the process, but will continue to survive. This causes the corresponding port to be occupied the next time it comes up.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>Through <code>ps -efj | grep &quot;tmp/main&quot;</code> you can clearly see that actually running this command will start three processes</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-s" data-lang="s"><span class="m">1594910868</span> <span class="m">75277</span> <span class="m">74711</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">09</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.14</span> <span class="n">dlv</span> <span class="n">exec</span> <span class="o">--</span><span class="n">accep</span> <span class="n">xt</span>       <span class="m">75277</span>      <span class="m">0</span>    <span class="m">1</span> <span class="n">S</span>    <span class="n">s005</span>
+<span class="m">1594910868</span> <span class="m">75280</span> <span class="m">75277</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">09</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.02</span> <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">Develop</span> <span class="n">xt</span>       <span class="m">75280</span>      <span class="m">0</span>    <span class="m">1</span> <span class="n">S</span><span class="o">+</span>   <span class="n">s005</span>
+<span class="m">1594910868</span> <span class="m">75281</span> <span class="m">75280</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">09</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.01</span> <span class="n">./tmp</span><span class="o">/</span><span class="n">main</span>       <span class="n">xt</span>       <span class="m">75280</span>      <span class="m">0</span>    <span class="m">1</span> <span class="n">SX</span><span class="o">+</span>  <span class="n">s005</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>And it&rsquo;s very clear to see the grandparent-child relationship of the processes:</p>
+<p>75277 is the parent process</p>
+<p>75280 is the child process</p>
+<p>75281 is the grandchild process</p>
+<p>If you just use <code>kill -9 pid</code> to kill the process, its child process will also be killed, but the grandchild process will still survive.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-s" data-lang="s"><span class="o">&gt;</span> <span class="n">kill</span> <span class="m">-9</span> <span class="m">75277</span>
+<span class="o">&gt;</span> <span class="n">ps</span> <span class="o">-</span><span class="n">ef</span> <span class="o">|</span> <span class="n">grep</span> <span class="s">&#34;tmp/main&#34;</span>
+<span class="m">1594910868</span> <span class="m">75281</span>     <span class="m">1</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">09</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.01</span> <span class="n">./tmp</span><span class="o">/</span><span class="n">main</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>You can see that only the 75281 process is left, and the parent process of this process has now become 1, an orphan process. It&rsquo;s really an orphan.</p>
+<p>If this process continues to occupy the port, it will prevent the command from being executed normally the next time.</p>
+<h2 id="solution">Solution</h2>
+<p>After consulting various materials, I found a good solution: use the pgid parameter to allow the processes in the process group to share a process group number.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-s" data-lang="s">  <span class="n">PID</span>  <span class="n">PPID</span>  <span class="n">PGID</span>   <span class="n">UID</span>   <span class="n">C</span> <span class="n">STIME</span>   <span class="n">TTY</span>             <span class="n">TIME</span> <span class="n">CMD</span>              
+<span class="m">75837</span> <span class="m">74711</span> <span class="m">75837</span> <span class="m">1594910868</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">22</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.23</span> <span class="n">dlv</span> <span class="n">exec</span> <span class="o">--</span><span class="n">accep</span> 
+<span class="m">75840</span> <span class="m">75837</span> <span class="m">75840</span> <span class="m">1594910868</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">22</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.02</span> <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">Develop</span> 
+<span class="m">75841</span> <span class="m">75840</span> <span class="m">75840</span> <span class="m">1594910868</span>   <span class="m">0</span> <span class="m">10</span><span class="o">:</span><span class="m">22</span><span class="n">PM</span> <span class="n">ttys005</span>    <span class="m">0</span><span class="o">:</span><span class="m">00.01</span> <span class="n">./tmp</span><span class="o">/</span><span class="n">main</span>       
+</code></pre></td></tr></table>
+</div>
+</div><p>You can see that the third column corresponds to the pgid. Although the pgid we start with the command is different, we can use Golang to set the process group number, so that we can share the process group number.</p>
+<p>At the same time, when killing the process, you also need to use this pgid parameter, so that you can kill the corresponding process group. You can refer to <code>man kill</code></p>
+<blockquote>
+<p>Negative PID values may be used to choose whole process groups; see the PGID column in ps command output.</p>
+</blockquote>
+<p>That is, for pid, it represents PGID, which is the entire process group. When killing, it will kill all processes in the process group.</p>
+<p>Although it is impossible to share processes in the above command, for this bug, we can use <code>Setpgid</code> to enable PGID, so that the started process can share the process group number. At the same time, use <code>syscall.Kill(-pgid, 15)</code> to kill the process group.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span> <span class="nx">some_command</span> <span class="p">)</span>
+<span class="nx">cmd</span><span class="p">.</span><span class="nx">SysProcAttr</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">syscall</span><span class="p">.</span><span class="nx">SysProcAttr</span><span class="p">{</span><span class="nx">Setpgid</span><span class="p">:</span> <span class="kc">true</span><span class="p">}</span>
+<span class="nx">cmd</span><span class="p">.</span><span class="nf">Start</span><span class="p">()</span>
+
+<span class="nx">pgid</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">syscall</span><span class="p">.</span><span class="nf">Getpgid</span><span class="p">(</span><span class="nx">cmd</span><span class="p">.</span><span class="nx">Process</span><span class="p">.</span><span class="nx">Pid</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+<span class="nx">syscall</span><span class="p">.</span><span class="nf">Kill</span><span class="p">(</span><span class="o">-</span><span class="nx">pgid</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>  <span class="c1">// note the minus sign
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="nx">cmd</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="conclusion">Conclusion</h2>
+<p>Add relevant unit tests in the unit test to ensure that the behavior of <code>kill</code> all child processes will not be lost due to iteration. <a href="https://github.com/cosmtrek/air/commit/1c27effe33a180f3fbbcee8f2d9ea7122d89a50b#diff-6266cec6be43e607de84d431f656ea78fac62405058d84312d9c12f3f52c7462R146">https://github.com/cosmtrek/air/commit/1c27effe33a180f3fbbcee8f2d9ea7122d89a50b#diff-6266cec6be43e607de84d431f656ea78fac62405058d84312d9c12f3f52c7462R146</a></p>
+<h3 id="reference-materials">Reference Materials</h3>
+<ul>
+<li><a href="https://groups.google.com/g/golang-nuts/c/XoQ3RhFBJl8">https://groups.google.com/g/golang-nuts/c/XoQ3RhFBJl8</a></li>
+<li><a href="https://stackoverflow.com/questions/392022/whats-the-best-way-to-send-a-signal-to-all-members-of-a-process-group">https://stackoverflow.com/questions/392022/whats-the-best-way-to-send-a-signal-to-all-members-of-a-process-group</a></li>
+<li><a href="https://forum.golangbridge.org/t/killing-child-process-on-timeout-in-go-code/995/2">https://forum.golangbridge.org/t/killing-child-process-on-timeout-in-go-code/995/2</a></li>
+</ul>
+<h2 id="recommended-section">Recommended Section</h2>
+<p>Finally, I would like to share with you some good articles that I have been reading recently. I thought about sending them in a weekly newsletter, but because I read them sporadically, I decided to put them at the end of each blog post. I hope you find them useful!</p>
+<ul>
+<li>
+<p><a href="https://book.douban.com/subject/35119866/">The Pomodoro Technique for Intermittent High Efficiency</a> After reading an article in a news letter, I discovered a crucial <a href="https://happyxiao.com/pomodoro/">trick</a>: If you set a Pomodoro timer for a task, but finish early, say you&rsquo;re taking notes for a chapter in a book, but you finish early - you shouldn&rsquo;t immediately move on to the next task, or end the Pomodoro timer early.</p>
+</li>
+<li>
+<p><a href="https://blog.kalan.dev/2022-01-23-infinite-alert-loop/">Writing infinite alerts in Japan will get you arrested</a></p>
+</li>
+<li>
+<p>Useful commands for checking dependencies between two Golang modules</p>
+<ul>
+<li>go mod graph</li>
+<li><code>go mod why -m  &quot;module&quot;</code></li>
+</ul>
+</li>
+<li>
+<p><a href="https://www.nginx.com/blog/do-svidaniya-igor-thank-you-for-nginx/">Nginx founder leaves F5</a></p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-10-08
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/05461cf5116804daddfccd754bde8183713e4e8c" title="use chatgpt to generate English version">(05461cf)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/chinese/">Chinese</a>
+          <a href="/en/tags/golang/">Golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/pomodoro_todo/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Using the Pomodoro Technique to Better Utilize Your Time</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/golang/use_mock_to_test/">
+            <span class="next-text nav-default">Using Mock and Interface for Golang Unit Testing</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

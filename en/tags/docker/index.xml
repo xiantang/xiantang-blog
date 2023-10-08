@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on xiantang</title>
+    <link>https://vim0.com/en/tags/docker/</link>
+    <description>Recent content in Docker on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 05 May 2022 22:08:34 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using Docker Compose to Set Up Your Own Development Environment</title>
+      <link>https://vim0.com/en/post/docker-compose-dev/</link>
+      <pubDate>Thu, 05 May 2022 22:08:34 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/docker-compose-dev/</guid>
+      <description>Docker is not a new technology, but a tool that puts old wine in new bottles.
+ Actually, I used Docker when I was in college, around 2017, when Docker was in its heyday. It was just used to start various lightweight applications, such as magnetic link downloaders, personal network disks, etc. Until recently, my understanding of Docker was still relatively vague. As I continued to encounter requirements at work, I also continued to understand Docker, so I decided to write an article to summarize my recent use of Docker.</description>
+    </item>
+    
+  </channel>
+</rss>

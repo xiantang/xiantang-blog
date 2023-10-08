@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on xiantang</title>
+    <link>https://vim0.com/en/categories/golang/</link>
+    <description>Recent content in Golang on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 13 Feb 2022 20:23:51 +0800</lastBuildDate><atom:link href="https://vim0.com/en/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang: How to Handle Growing Interfaces</title>
+      <link>https://vim0.com/en/post/how_to_fix_big_interface/</link>
+      <pubDate>Sun, 13 Feb 2022 20:23:51 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/how_to_fix_big_interface/</guid>
+      <description>The bigger the interface, the weaker the abstraction. Go Proverbs
+ Let&amp;rsquo;s start with the conclusion. If your Golang interface has too many functions that make it difficult for you to expand horizontally, then split it into multiple interfaces according to its responsibilities, and then use embed to combine them.
+Problem Encountered Recently, when refactoring a component that manages configurations, we have an interface and more than 5 structs implement this interface.</description>
+    </item>
+    
+    <item>
+      <title>How to kill a process and its descendants in Unix?</title>
+      <link>https://vim0.com/en/post/kill_process_and_its_childs/</link>
+      <pubDate>Mon, 24 Jan 2022 21:49:48 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/kill_process_and_its_childs/</guid>
+      <description>Recently, I was maintaining an open source project called air on the weekend. It is a hot loading code tool for Golang, which will monitor local file changes and then automatically reload.
+ Problem encountered Recently, I encountered a particularly interesting problem, that is, when using the kill -9 pid command to kill the process, although it will kill its child process, its grandchild process will still survive.
+Background In short, our hot loading component will run commands, and then will monitor file changes, once the file changes, it will kill the previous process, then recompile the code, and then execute the running command.</description>
+    </item>
+    
+    <item>
+      <title>Using Mock and Interface for Golang Unit Testing</title>
+      <link>https://vim0.com/en/post/golang/use_mock_to_test/</link>
+      <pubDate>Fri, 07 Jan 2022 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/golang/use_mock_to_test/</guid>
+      <description>At work, I often find that many engineers&#39; Golang unit tests are problematic, just simply calling code for output, and it will include various IO operations, making the unit test unable to run everywhere.
+ Using Mock and Interface for Golang Unit Testing This article will introduce how to do unit testing correctly in Golang.
+What is unit testing? Characteristics of unit testing Unit testing is a very important part of quality assurance.</description>
+    </item>
+    
+    <item>
+      <title>Some Details About Golang Slice</title>
+      <link>https://vim0.com/en/post/golang/about_slice/</link>
+      <pubDate>Tue, 21 Dec 2021 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/golang/about_slice/</guid>
+      <description>Some Details About Golang Slice In Golang, there are two types of data: One is an array with a fixed length, called Array, and the other is an array with an unlimited length, called Slice. Distinguish Between Array and Slice The difference between Array and Slice is: Array is of fixed length, and the length of Array is part of the type, so the length of Array cannot be changed,</description>
+    </item>
+    
+  </channel>
+</rss>

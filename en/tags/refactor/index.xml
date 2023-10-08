@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Refactor on xiantang</title>
+    <link>https://vim0.com/en/tags/refactor/</link>
+    <description>Recent content in Refactor on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 13 Feb 2022 20:23:51 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/refactor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang: How to Handle Growing Interfaces</title>
+      <link>https://vim0.com/en/post/how_to_fix_big_interface/</link>
+      <pubDate>Sun, 13 Feb 2022 20:23:51 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/how_to_fix_big_interface/</guid>
+      <description>The bigger the interface, the weaker the abstraction. Go Proverbs
+ Let&amp;rsquo;s start with the conclusion. If your Golang interface has too many functions that make it difficult for you to expand horizontally, then split it into multiple interfaces according to its responsibilities, and then use embed to combine them.
+Problem Encountered Recently, when refactoring a component that manages configurations, we have an interface and more than 5 structs implement this interface.</description>
+    </item>
+    
+  </channel>
+</rss>

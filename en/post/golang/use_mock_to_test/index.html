@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Using Mock and Interface for Golang Unit Testing - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="Best practices for golang unit testing Go language Automated testing golang unit testing database golang unit testing mock golang unit testing standards" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/golang/use_mock_to_test/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Using Mock and Interface for Golang Unit Testing" />
+<meta property="og:description" content="Best practices for golang unit testing Go language Automated testing golang unit testing database golang unit testing mock golang unit testing standards" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/golang/use_mock_to_test/" /><meta property="og:image" content="https://vim0.com/post/golang/cover.png" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-01-07T01:37:56+08:00" />
+<meta property="article:modified_time" content="2023-10-08T20:52:20+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Using Mock and Interface for Golang Unit Testing">
+<meta itemprop="description" content="Best practices for golang unit testing Go language Automated testing golang unit testing database golang unit testing mock golang unit testing standards"><meta itemprop="datePublished" content="2022-01-07T01:37:56+08:00" />
+<meta itemprop="dateModified" content="2023-10-08T20:52:20+08:00" />
+<meta itemprop="wordCount" content="1788"><meta itemprop="image" content="https://vim0.com/post/golang/cover.png">
+<meta itemprop="keywords" content="Golang," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/golang/cover.png"/>
+
+<meta name="twitter:title" content="Using Mock and Interface for Golang Unit Testing"/>
+<meta name="twitter:description" content="Best practices for golang unit testing Go language Automated testing golang unit testing database golang unit testing mock golang unit testing standards"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Using Mock and Interface for Golang Unit Testing</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-01-07 </span>
+        <div class="post-category">
+            <a href="/en/categories/golang/"> Golang </a>
+            </div>
+          <span class="more-meta"> 1788 words </span>
+          <span class="more-meta"> 9 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#using-mock-and-interface-for-golang-unit-testing">Using Mock and Interface for Golang Unit Testing</a>
+      <ul>
+        <li><a href="#what-is-unit-testing-characteristics-of-unit-testing">What is unit testing? Characteristics of unit testing</a></li>
+        <li><a href="#what-is-mock">What is Mock?</a></li>
+        <li><a href="#what-is-interface">What is Interface?</a></li>
+        <li><a href="#some-other-examples">Some other examples</a></li>
+        <li><a href="#other-tips">other tips</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a>
+      <ul>
+        <li><a href="#interesting-link-recommendations">Interesting link recommendations</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p>At work, I often find that many engineers' <code>Golang</code> unit tests are problematic, just simply calling code for output, and it will include various <code>IO</code> operations, making the unit test unable to run everywhere.</p>
+</blockquote>
+<h2 id="using-mock-and-interface-for-golang-unit-testing">Using Mock and Interface for Golang Unit Testing</h2>
+<p>This article will introduce how to do unit testing correctly in <code>Golang</code>.</p>
+<h3 id="what-is-unit-testing-characteristics-of-unit-testing">What is unit testing? Characteristics of unit testing</h3>
+<p>Unit testing is a very important part of quality assurance. Good unit tests can not only find problems in time, but also facilitate debugging and improve production efficiency. Therefore, many people think that writing unit tests requires extra time and will reduce production efficiency. This is the biggest prejudice and misunderstanding about unit testing.</p>
+<p>Unit tests will isolate the corresponding test modules for testing, so we should remove all related external dependencies as much as possible and only conduct unit tests on related modules.</p>
+<p>So what you see in the business code repository is that some of the unit tests that call <code>HTTP</code> in the <code>client</code> module are actually non-standard, because <code>HTTP</code> is an external dependency. If your target server has a fault, then your unit test will fail.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Test_xxx</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+ <span class="nx">DemoClient</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">demo</span><span class="p">.</span><span class="nx">DemoClient</span><span class="p">{</span><span class="nx">url</span><span class="p">:</span> <span class="s">&#34;http://localhost:8080&#34;</span><span class="p">}</span>
+ <span class="nx">DemoClient</span><span class="p">.</span><span class="nf">Init</span><span class="p">()</span>
+ <span class="nx">resp</span> <span class="o">:=</span> <span class="nx">DemoCliten</span><span class="p">.</span><span class="nf">DoHTTPReq</span><span class="p">()</span>
+ <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">resp</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>In the above example, when <code>DemoClient</code> does the <code>DoHTTPReq</code> method, it will call the <code>http.Get</code> method. This method contains external dependencies, which means it will request the local server. If a new colleague just got your code and there is no such server locally, then your unit test will fail.</p>
+<p>And in the above example, for the <code>DoHTTPReq</code> function, it just simply outputs, without checking the return value at all. If the internal logic is modified and the return value is changed, although your test can still <code>pass</code>, in fact, your unit test is not working.</p>
+<p>From the above examples, we can summarize two characteristics of unit tests:</p>
+<ul>
+<li>They have no external dependencies, are as side-effect free as possible, and can run anywhere.</li>
+<li>They check the output.</li>
+</ul>
+<p>Another point I want to mention is that the difficulty of writing unit tests is actually ranked:</p>
+<p>UI &gt; Service &gt; Utils</p>
+<p>So when writing unit tests, we will prioritize unit tests for <code>Utils</code> because <code>Utils</code> will not have too many dependencies. Next is the unit test for <code>Service</code>, because the unit test for <code>Service</code> mainly depends on upstream services and databases, and only needs to separate dependencies to test logic.</p>
+<p>So how to separate dependencies? Let&rsquo;s move on to the next section, where we will introduce how to separate dependencies.</p>
+<h3 id="what-is-mock">What is Mock?</h3>
+<p>For <code>IO</code> dependencies, we can use <code>Mock</code> to simulate data, so we don&rsquo;t have to worry about unstable data sources.</p>
+<p>So what is <code>Mock</code>? And how do we <code>Mock</code>? Think about a scenario where you and your colleagues are developing a collaborative project. Your progress is relatively fast and you are almost done with your development, but your colleague&rsquo;s progress is slightly slower, and you also depend on his service. How do you not <code>block</code> your progress and continue development?</p>
+<p>Here you can use <code>Mock</code>, that is, you can agree with your colleague in advance on the data format to be interacted with. In your test code, you can write a client that can generate the corresponding data format, and these data are all fake, then you can continue to write your code. When your colleague has completed his part of the code, you only need to replace <code>Mock Clients</code> with real <code>Clients</code>. This is the role of <code>Mock</code>.</p>
+<p>Similarly, we can also use <code>Mock</code> to simulate the data that the module to be tested depends on. Here is an example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">myapp_test</span>
+<span class="c1">// TestYoClient provides mockable implementation of yo.Client.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TestYoClient</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">SendFunc</span> <span class="kd">func</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">TestYoClient</span><span class="p">)</span> <span class="nf">Send</span><span class="p">(</span><span class="nx">recipient</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nf">SendFunc</span><span class="p">(</span><span class="nx">recipient</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="nf">TestMyApplication_SendYo</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">c</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">TestYoClient</span><span class="p">{}</span>
+    <span class="nx">a</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">MyApplication</span><span class="p">{</span><span class="nx">YoClient</span><span class="p">:</span> <span class="nx">c</span><span class="p">}</span>
+    <span class="c1">// Mock our send function to capture the argument.
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">recipient</span> <span class="kt">string</span>
+    <span class="nx">c</span><span class="p">.</span><span class="nx">SendFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+        <span class="nx">recipient</span> <span class="p">=</span> <span class="nx">s</span>
+        <span class="k">return</span> <span class="kc">nil</span>
+    <span class="p">}</span>
+    <span class="c1">// Send the yo and verify the recipient.
+</span><span class="c1"></span>    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nf">Yo</span><span class="p">(</span><span class="s">&#34;susy&#34;</span><span class="p">)</span>
+    <span class="nf">ok</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="nf">equals</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="s">&#34;susy&#34;</span><span class="p">,</span> <span class="nx">recipient</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>We will have a <code>MyApplication</code> and it also depends on a reporting <code>YoClient</code>. In the above code, we will replace the dependent <code>YoClient</code> with <code>TestYoClient</code>. So when the code calls <code>MyApplication.Yo</code>, what it actually executes is <code>TestYoClient.Send</code>, so we can customize the input and output of external dependencies.</p>
+<p>You can also find an interesting point, that is, we replace the <code>SendFunc</code> of <code>TestYoClient</code> with <code>func(string) error</code>, so we can control the input and output more flexibly. For different tests, we only need to change the value of <code>SendFunc</code>. In this way, we can control the input and output at will for each test.</p>
+<p>At this point, you may encounter another problem. If you want to successfully inject <code>TestYoClient</code> into <code>MyApplication</code>, the corresponding member variable needs to be the specific type <code>TestYoClient</code> or an interface type that satisfies the <code>Send()</code> method. However, if we use a specific type, we can&rsquo;t replace the real <code>Client</code> with the <code>Mock Client</code>.</p>
+<p>So we can use the interface type to replace it.</p>
+<h3 id="what-is-interface">What is Interface?</h3>
+<p>Interfaces in <code>Golang</code> may be different from the interfaces you have encountered in other languages. In <code>Golang</code>, an interface is a collection of functions. And <code>Golang</code> interfaces are implicit, no explicit definition is required.</p>
+<p>I personally agree with this design, because through multiple practices, I found that the pre-defined abstraction often cannot accurately describe the behavior of the specific implementation. So we need to abstract afterwards, instead of writing types to satisfy <code>interface</code>, we should write interfaces to meet usage requirements.</p>
+<blockquote>
+<p>Always <em>abstract</em> things when you actually need them, never when you just foresee that you need them.</p>
+</blockquote>
+<p>My personal recommendation is that for several similar processes, we can first organize the code by writing several structs, and then when we find that these structs have similar behaviors, we can abstract an interface to describe these behaviors, which is the most accurate.</p>
+<p>At the same time, the number of methods contained in the <code>Golang</code> interface also needs to be limited, not too many, 1-3 methods are enough. The reason is that if your interface contains too many methods, it will be troublesome to add a new implementation type code, and such code is not easy to maintain. Similarly, if your interface has many implementations and many methods, it will be difficult to add another function to the interface, you need to implement these methods in each struct.</p>
+<p>Back to the topic, for <code>YoClient</code>, if we didn&rsquo;t adopt the <code>TDD</code> method at the beginning, then what <code>MyApplication</code> depends on must be a formal specific type. At this time, we can write a <code>TestYoClient</code> type instance in the test code, extract the common functions to abstract the interface, and then replace the <code>YoClient</code> in <code>MyApplication</code> with the interface type.</p>
+<p>This can achieve our goal.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">myapp</span>
+<span class="kd">type</span> <span class="nx">MyApplication</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">YoClient</span> <span class="kd">interface</span> <span class="p">{</span>
+        <span class="nf">Send</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">MyApplication</span><span class="p">)</span> <span class="nf">Yo</span><span class="p">(</span><span class="nx">recipient</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">YoClient</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="nx">recipient</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="some-other-examples">Some other examples</h3>
+<p>In addition, I have provided an example for reference, mainly found from the official production code, an example that masks sensitive information.</p>
+<p>This example is a <code>mock</code> of the external dependency <code>etcd</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">type</span> <span class="nx">ETCD</span> <span class="kd">interface</span> <span class="p">{</span>
+ <span class="nf">GetWithTimeout</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+ <span class="nf">Watch</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nx">WatchChan</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">MockEtcdClient</span> <span class="kd">struct</span> <span class="p">{</span>
+ <span class="nx">GetWithTimeoutFunc</span> <span class="kd">func</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+ <span class="nx">WatchFunc</span>          <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nx">WatchChan</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="nx">MockEtcdClient</span><span class="p">)</span> <span class="nf">GetWithTimeout</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+ <span class="k">return</span> <span class="nx">m</span><span class="p">.</span><span class="nf">GetWithTimeoutFunc</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">opts</span><span class="o">...</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="nx">MockEtcdClient</span><span class="p">)</span> <span class="nf">Watch</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nx">WatchChan</span> <span class="p">{</span>
+ <span class="k">return</span> <span class="nx">m</span><span class="p">.</span><span class="nf">WatchFunc</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">opts</span><span class="o">...</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>An example of a unit test:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Test_saveTestConf</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+ <span class="nx">etcd</span> <span class="o">:=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">MockEtcdClient</span><span class="p">{</span>
+  <span class="nx">GetWithTimeoutFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="o">&amp;</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">{</span>
+    <span class="nx">Kvs</span><span class="p">:</span> <span class="p">[]</span><span class="o">*</span><span class="nx">mvccpb</span><span class="p">.</span><span class="nx">KeyValue</span><span class="p">{</span>
+     <span class="p">{</span>
+      <span class="nx">Key</span><span class="p">:</span>   <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;/xxxx/xxx/config&#34;</span><span class="p">),</span>
+      <span class="nx">Value</span><span class="p">:</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;{\&#34;xxx\&#34;:\&#34;xxx\&#34;}&#34;</span><span class="p">),</span>
+     <span class="p">},</span>
+    <span class="p">},</span>
+   <span class="p">},</span> <span class="kc">nil</span>
+  <span class="p">},</span>
+  <span class="nx">WatchFunc</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">...</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">OpOption</span><span class="p">)</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nx">WatchChan</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="kc">nil</span>
+  <span class="p">},</span>
+ <span class="p">}</span>
+
+ <span class="nx">configKey</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">saveTestConf</span><span class="p">(</span><span class="nx">etcd</span> <span class="p">,</span><span class="s">&#34;xxxx&#34;</span><span class="p">,</span> <span class="s">&#34;/xxxx/xxx/config&#34;</span><span class="p">)</span>
+ <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+  <span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+ <span class="p">}</span>
+ <span class="nx">assert</span><span class="p">.</span><span class="nf">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="s">&#34;/xxxx/xxx/config&#34;</span><span class="p">,</span> <span class="nx">configKey</span><span class="p">)</span>
+<span class="p">}</span>
+
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="other-tips">other tips</h3>
+<p>I have some little tricks about testing that you might not know</p>
+<h4 id="golangs-internal-and-external-testing">golang&rsquo;s internal and external testing</h4>
+<p>For a package&rsquo;s exported methods and variables, you can create a <code>test</code> file in the same package to test, just change the package suffix to <code>_test</code>. This can achieve <code>black box testing</code>. The advantage is that you can describe your test from the perspective of the caller, rather than writing your test from the internal perspective. It can also serve as an example for users to see how to use it.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// in example.go
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">example</span>
+
+<span class="kd">var</span> <span class="nx">start</span> <span class="kt">int</span>
+
+<span class="kd">func</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+  <span class="nx">start</span> <span class="o">+=</span> <span class="nx">n</span>
+  <span class="k">return</span> <span class="nx">start</span>
+<span class="p">}</span>
+
+<span class="c1">// in example_test.go
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">example_test</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+ <span class="s">&#34;testing&#34;</span>
+
+ <span class="p">.</span> <span class="s">&#34;bitbucket.org/splice/blog/example&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">TestAdd</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">got</span> <span class="o">:=</span> <span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">if</span> <span class="nx">got</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">{</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;got %d, want 1&#34;</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>In addition, you can also test unexported methods and variables, you can create a file with a suffix of <code>_internal_test</code> to indicate that you want to test unexported methods and variables.</p>
+<h2 id="conclusion">Conclusion</h2>
+<ul>
+<li>
+<p>Characteristics of <code>Golang</code> unit tests:</p>
+<ul>
+<li>No external dependencies, try to have no side effects, can run everywhere</li>
+<li>Need to check the output</li>
+<li>Can serve as an example for users to see how to use</li>
+</ul>
+</li>
+<li>
+<p><code>Golang</code> can use interfaces to replace dependencies</p>
+</li>
+</ul>
+<h3 id="interesting-link-recommendations">Interesting link recommendations</h3>
+<p>Finally, I would like to share with you the links I referred to, as well as some good articles I have been reading recently. Since I read them in a scattered way, I wrote them all for you, hoping that you can gain something.</p>
+<ul>
+<li><a href="https://talks.golang.org/2012/10things.slide#8">How to mock file system</a></li>
+<li><a href="https://medium.com/@benbjohnson/structuring-tests-in-go-46ddee7a25c">How to write a mock struct</a> It&rsquo;s really convenient to reuse through function variables</li>
+<li><a href="https://splice.com/blog/lesser-known-features-go-test/">Lesser-known testing techniques</a></li>
+<li><a href="https://geekplux.com/newsletters/2">How to achieve financial freedom without trying</a> Making money is always the theme</li>
+<li><a href="https://github.com/enocom/gopher-reading-list">gopher-reading-list</a> I&rsquo;ve learned a lot from reading through it</li>
+<li><a href="https://medium.com/@cep21/what-accept-interfaces-return-structs-means-in-go-2fe879e25ee8">What “accept interfaces, return structs” means in Go</a> Always [abstract] things when you actually need them, not when you just foresee that you need them.</li>
+<li><a href="https://github.com/xiantang/kkndme_tianya">Discussion on house prices on Tianya</a></li>
+</ul>
+<p>Sure, please provide the Markdown content you want to translate.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-10-08
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/05461cf5116804daddfccd754bde8183713e4e8c" title="use chatgpt to generate English version">(05461cf)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/golang/">Golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/kill_process_and_its_childs/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">How to kill a process and its descendants in Unix?</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/golang/about_slice/">
+            <span class="next-text nav-default">Some Details About Golang Slice</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

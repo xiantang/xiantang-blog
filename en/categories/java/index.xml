@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on xiantang</title>
+    <link>https://vim0.com/en/categories/java/</link>
+    <description>Recent content in Java on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 06 Apr 2020 16:33:34 +0800</lastBuildDate><atom:link href="https://vim0.com/en/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Implementing an AtomicInteger</title>
+      <link>https://vim0.com/en/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</link>
+      <pubDate>Mon, 06 Apr 2020 16:33:34 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/concurrency/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAatomicinteger/</guid>
+      <description>What is AtomicInteger As the name suggests, AtomicInteger is an Integer with atomic operations. The difference between AtomicInteger and a regular Integer is that AtomicInteger uses a CAS method to make Integer&amp;rsquo;s increment and other operations atomic. Knowledge needed before implementation First, let&amp;rsquo;s look at the increment operation of AtomicInteger: 1 2 3 4 5 6 7 8 public final int incrementAndGet() { for (;;) { int current = get();</description>
+    </item>
+    
+    <item>
+      <title>Java Collection Expansion</title>
+      <link>https://vim0.com/en/post/collection/collection/</link>
+      <pubDate>Fri, 07 Dec 2018 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/collection/collection/</guid>
+      <description>Collection Expansion ArrayList The default capacity of ArrayList is 10, so if you need to handle large amounts of data with ArrayList, you need to use the method of explicitly specifying the capacity. This can reduce unnecessary expansion operations. The main reason is that the expansion operation of ArrayList requires extra space, and it uses the Arrays.copyOf method for copying: 1 2 3 4 5 6 7 8 9 10</description>
+    </item>
+    
+  </channel>
+</rss>

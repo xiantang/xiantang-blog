@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Pointing to offer - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="No2 Singleton Pattern 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够创建 private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Pointing to offer" />
+<meta property="og:description" content="No2 Singleton Pattern 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够创建 private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-04-03T01:37:56+08:00" />
+<meta property="article:modified_time" content="2020-04-03T01:37:56+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Pointing to offer">
+<meta itemprop="description" content="No2 Singleton Pattern 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够创建 private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton"><meta itemprop="datePublished" content="2020-04-03T01:37:56+08:00" />
+<meta itemprop="dateModified" content="2020-04-03T01:37:56+08:00" />
+<meta itemprop="wordCount" content="3643"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="keywords" content="algorithm," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
+
+<meta name="twitter:title" content="Pointing to offer"/>
+<meta name="twitter:description" content="No2 Singleton Pattern 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够创建 private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Pointing to offer</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-03 </span>
+        <div class="post-category">
+            <a href="/en/categories/chinese/"> Chinese </a>
+            <a href="/en/categories/algorithm/"> algorithm </a>
+            </div>
+          <span class="more-meta"> 3643 words </span>
+          <span class="more-meta"> 8 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#no2-singleton-pattern">No2 Singleton Pattern</a></li>
+    <li><a href="#no3-find-the-duplicate-number">No3 Find the duplicate number</a></li>
+    <li><a href="#no-3-find-the-duplicate-number-without-modifying-the-array">No 3 Find the duplicate number without modifying the array</a></li>
+    <li><a href="#no4-find-in-a-two-dimensional-array">No4 Find in a two-dimensional array</a></li>
+    <li><a href="#no5-replace-spaces">No5 Replace Spaces</a></li>
+    <li><a href="#no6-print-the-linked-list-from-the-end">No6 Print the linked list from the end</a></li>
+    <li><a href="#no7-rebuild-binary-tree">No7 Rebuild Binary Tree</a></li>
+    <li><a href="#no8-next-node-of-the-binary-tree">No8 Next node of the binary tree</a></li>
+    <li><a href="#no9-implement-a-queue-with-two-stacks">No9 Implement a queue with two stacks</a></li>
+    <li><a href="#no10-11-fibonacci-sequence-and-frog-jumping-steps">No10 11 Fibonacci sequence and frog jumping steps</a></li>
+    <li><a href="#no11-the-smallest-number-in-the-rotated-array">No11 The smallest number in the rotated array</a></li>
+    <li><a href="#no12-path-in-the-matrix">No12 Path in the matrix</a></li>
+    <li><a href="#no18-delete-nodes-in-the-linked-list">No18 Delete nodes in the linked list</a></li>
+    <li><a href="#quick-sort-naive-implementation">Quick sort (naive implementation)</a></li>
+    <li><a href="#print-all-legal-brackets">Print all legal brackets</a></li>
+    <li><a href="#move-the-negative-numbers-of-an-array-to-the-right-and-the-positive-numbers-to-the-left">Move the negative numbers of an array to the right and the positive numbers to the left</a></li>
+    <li><a href="#find-the-next-number-of-permutations">Find the next number of permutations</a></li>
+    <li><a href="#binary-search">Binary search</a></li>
+    <li><a href="#robot-movement-range">Robot movement range</a></li>
+    <li><a href="#multithreaded-printing-abc">Multithreaded Printing ABC</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="no2-singleton-pattern">No2 Singleton Pattern</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">No2TwiceCheckSingleton</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kd">static</span> <span class="n">No2TwiceCheckSingleton</span> <span class="n">instance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">sybObj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+
+  <span class="c1">// 一定记住要私有化构造器，不然人家还是能够创建
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="nf">No2TwiceCheckSingleton</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="n">No2TwiceCheckSingleton</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">synchronized</span> <span class="o">(</span><span class="n">sybObj</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">No2TwiceCheckSingleton</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="no3-find-the-duplicate-number">No3 Find the duplicate number</h2>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdeeud3so4j314i0aa7nj.jpg" alt="image-20200401174837347"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">No3FindDupNum</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">find</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="c1">// 确保当前索引下的是对的
+</span><span class="c1"></span>            <span class="k">while</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// 如果相等说明已经重复了
+</span><span class="c1"></span>                <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]]</span> <span class="o">==</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+                    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="c1">// 当前的
+</span><span class="c1"></span>                <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+                <span class="c1">// 当前所在索引的
+</span><span class="c1"></span>                <span class="kt">int</span> <span class="n">num1</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">num</span><span class="o">];</span>
+                <span class="c1">// 交换
+</span><span class="c1"></span>                <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">num1</span><span class="o">;</span>
+                <span class="n">nums</span><span class="o">[</span><span class="n">num</span><span class="o">]</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>If we rearrange {2,3,1,0,2,5,3}, its sorted position will become {0,1,2,2,3,3,5} that is, some numbers are not on their corresponding index, i.e., nums[i] != i. We can do this, traverse the entire list to ensure that each corresponding value is its index, if it is not the corresponding index, then swap the corresponding value until the current value is the corresponding index, where encountering the value under its own index equals the corresponding value will return true indicating that it has been found.</p>
+<h2 id="no-3-find-the-duplicate-number-without-modifying-the-array">No 3 Find the duplicate number without modifying the array</h2>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdegpd0txkj314q0aeh47.jpg" alt="image-20200401185303988"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">No4FindDupNumUnModify</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">findUnmodified</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">another</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">length</span><span class="o">];</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">fill</span><span class="o">(</span><span class="n">another</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">num</span> <span class="o">:</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">another</span><span class="o">[</span><span class="n">num</span><span class="o">]</span> <span class="o">==</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">another</span><span class="o">[</span><span class="n">num</span><span class="o">]</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Use an array to copy this array, the length is the same, check if it exists when it is released.</p>
+<h2 id="no4-find-in-a-two-dimensional-array">No4 Find in a two-dimensional array</h2>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdegw890cfj314m05odor.jpg" alt="image-20200401185939762"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">No5FindInTwoMatrixArray</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">find</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">arr</span><span class="o">,</span><span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">a</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">][</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">j</span><span class="o">--;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">i</span><span class="o">++;</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="o">{</span>
+<span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">8</span><span class="o">,</span> <span class="n">9</span><span class="o">},</span>
+<span class="o">{</span><span class="n">2</span><span class="o">,</span> <span class="n">4</span><span class="o">,</span> <span class="n">9</span><span class="o">,</span> <span class="n">12</span><span class="o">},</span>
+<span class="o">{</span><span class="n">4</span><span class="o">,</span> <span class="n">7</span><span class="o">,</span> <span class="n">10</span><span class="o">,</span> <span class="n">13</span><span class="o">},</span>
+<span class="o">{</span><span class="n">6</span><span class="o">,</span> <span class="n">8</span><span class="o">,</span> <span class="n">11</span><span class="o">,</span> <span class="n">15</span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>We can easily find that the number below 9 is greater than 9, and the number to the left of 9 is less than 9</p>
+<p>So if we want to find a value, we can start from the upper right corner. Because the target number is 7 less than 9, we can exclude the numbers below 9.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="o">{</span>
+<span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">8</span><span class="o">},</span>
+<span class="o">{</span><span class="n">2</span><span class="o">,</span> <span class="n">4</span><span class="o">,</span> <span class="n">9</span><span class="o">},</span>
+<span class="o">{</span><span class="n">4</span><span class="o">,</span> <span class="n">7</span><span class="o">,</span> <span class="n">10</span><span class="o">},</span>
+<span class="o">{</span><span class="n">6</span><span class="o">,</span> <span class="n">8</span><span class="o">,</span> <span class="n">11</span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Start investigating from 8 below, the same as 9, excluding the data below 8</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="o">{</span>
+<span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">},</span>
+<span class="o">{</span><span class="n">2</span><span class="o">,</span> <span class="n">4</span><span class="o">},</span>
+<span class="o">{</span><span class="n">4</span><span class="o">,</span> <span class="n">7</span><span class="o">},</span>
+<span class="o">{</span><span class="n">6</span><span class="o">,</span> <span class="n">8</span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Start investigating from 2 because 7 is greater than 2, so exclude the data to the left of 2</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="o">{</span>
+<span class="o">{</span><span class="n">2</span><span class="o">,</span> <span class="n">4</span><span class="o">},</span>
+<span class="o">{</span><span class="n">4</span><span class="o">,</span> <span class="n">7</span><span class="o">},</span>
+<span class="o">{</span><span class="n">6</span><span class="o">,</span> <span class="n">8</span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>And so on, until the number in the upper right corner equals 7.</p>
+<h2 id="no5-replace-spaces">No5 Replace Spaces</h2>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdeh9f2aqnj314i04c44n.jpg" alt="image-20200401191220574"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">No6ReplaceSpace</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="n">String</span> <span class="nf">replace</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">spaceCount</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">spaceCount</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">newLength</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">+</span> <span class="n">spaceCount</span> <span class="o">*</span> <span class="n">2</span><span class="o">;</span>
+        <span class="kt">char</span><span class="o">[]</span> <span class="n">newString</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="n">newLength</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="n">newString</span><span class="o">[</span><span class="n">cur</span><span class="o">]</span> <span class="o">=</span> <span class="sc">&#39;%&#39;</span><span class="o">;</span>
+                <span class="n">cur</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
+                <span class="n">newString</span><span class="o">[</span><span class="n">cur</span><span class="o">]</span> <span class="o">=</span> <span class="sc">&#39;2&#39;</span><span class="o">;</span>
+                <span class="n">cur</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
+                <span class="n">newString</span><span class="o">[</span><span class="n">cur</span><span class="o">]</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span><span class="o">;</span>
+                <span class="n">cur</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+                <span class="n">newString</span><span class="o">[</span><span class="n">cur</span><span class="o">]</span> <span class="o">=</span> <span class="n">c</span><span class="o">;</span>
+                <span class="n">cur</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">newString</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>The method is relatively simple, with a time complexity of O(n). First, traverse the string, then find the space, calculate the length required by the space, and build an array with this length. Then go down and fill in the corresponding values at the corresponding positions, and maintain a cur pointer.</p>
+<h2 id="no6-print-the-linked-list-from-the-end">No6 Print the linked list from the end</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">No7PrintLinkedListFromTail</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">print</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">data</span><span class="o">);</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>There&rsquo;s nothing to say about using backtracking.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">No7PrintLinkedListFromTail</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printUseStack</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">nodes</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;&gt;();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">nodes</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">nodes</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">nodes</span><span class="o">.</span><span class="na">pop</span><span class="o">().</span><span class="na">data</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Use the stack, pay attention to the boundary, there&rsquo;s nothing to say.</p>
+<p>The stack and recursion are the same.</p>
+<h2 id="no7-rebuild-binary-tree">No7 Rebuild Binary Tree</h2>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdeir7rlk0j314u07wtks.jpg" alt="image-20200401200402633"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">No8RebuildBinaryTree</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="n">TreeNode</span> <span class="nf">rebuild</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">preOrder</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">midOrder</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">preOrder</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">0</span> <span class="o">||</span> <span class="n">midOrder</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">rootVal</span> <span class="o">=</span> <span class="n">preOrder</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+        <span class="n">TreeNode</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">rootVal</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">cutIndex</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">midOrder</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">midOrder</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">==</span> <span class="n">rootVal</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">cutIndex</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">midOrderLeft</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOfRange</span><span class="o">(</span><span class="n">midOrder</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">cutIndex</span><span class="o">);</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">midOrderRight</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOfRange</span><span class="o">(</span><span class="n">midOrder</span><span class="o">,</span> <span class="n">cutIndex</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">midOrder</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">preOrderLeft</span> <span class="o">=</span>  <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOfRange</span><span class="o">(</span><span class="n">preOrder</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">1</span> <span class="o">+</span> <span class="n">cutIndex</span><span class="o">);</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">preOrderRight</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOfRange</span><span class="o">(</span><span class="n">preOrder</span><span class="o">,</span> <span class="n">preOrder</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span><span class="n">1</span> <span class="o">-</span> <span class="n">cutIndex</span><span class="o">,</span> <span class="n">preOrder</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+        <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">rebuild</span><span class="o">(</span><span class="n">preOrderLeft</span><span class="o">,</span> <span class="n">midOrderLeft</span><span class="o">);</span>
+        <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">rebuild</span><span class="o">(</span><span class="n">preOrderRight</span><span class="o">,</span> <span class="n">midOrderRight</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The first element of the pre-order traversal must be the root node 1</p>
+<p>We can find the left and right subtrees of the root node 1 in the in-order traversal based on this root node</p>
+<p>Left subtree {4,7,2}  Right subtree {5,3,8,6}</p>
+<p>You can also find the left and right subtrees of the pre-order traversal based on this</p>
+<p>Left subtree {2,4,7}  Right subtree {3,5,6,8}</p>
+<p>You can get the corresponding root nodes 2,3 and continue to recurse</p>
+<h2 id="no8-next-node-of-the-binary-tree">No8 Next node of the binary tree</h2>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdf8rre6cjj314q06yguw.jpg" alt="image-20200402110410382"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FindNextNodeByMidOrder</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">TreeNode</span> <span class="nf">find</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">treeNodes</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">find</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">treeNodes</span><span class="o">);</span>
+        <span class="kt">boolean</span> <span class="n">flag</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">TreeNode</span> <span class="n">treeNode</span> <span class="o">:</span> <span class="n">treeNodes</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">flag</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">treeNode</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">treeNode</span><span class="o">.</span><span class="na">data</span> <span class="o">==</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">flag</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">find</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">nodes</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">find</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">nodes</span><span class="o">);</span>
+        <span class="n">nodes</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+        <span class="n">find</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">nodes</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>There&rsquo;s not much to say, read the nodes in inorder traversal and then find the next node of the corresponding node.</p>
+<h2 id="no9-implement-a-queue-with-two-stacks">No9 Implement a queue with two stacks</h2>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdf8v34ttfj314q05uwn6.jpg" alt="image-20200402110725037"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">N9Queue</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">inStack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">private</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">outStack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;&gt;();</span>
+
+
+    <span class="kt">void</span> <span class="nf">appendTail</span><span class="o">(</span><span class="n">T</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">inStack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">element</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="n">T</span> <span class="nf">deleteHead</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">outStack</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">outStack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="n">inStack</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">outStack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">inStack</span><span class="o">.</span><span class="na">pop</span><span class="o">());</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">outStack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>One is the enqueue stack and the other is the dequeue stack.</p>
+<p>No matter what, elements are always put into the dequeue stack.</p>
+<p>When taking out elements, there are two situations. Situation 1: The dequeue stack has no elements, read all the data from the enqueue stack into the dequeue stack, and then pop the top element of the stack.</p>
+<p>Situation 2: The dequeue stack has elements, directly pop the top element of the stack.</p>
+<h2 id="no10-11-fibonacci-sequence-and-frog-jumping-steps">No10 11 Fibonacci sequence and frog jumping steps</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">No10Fibonacci</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="nf">fibonacciRecursive</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">i</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">fibonacciRecursive</span><span class="o">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">fibonacciRecursive</span><span class="o">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">2</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Use recursion</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdfctp8comj30li0c674t.jpg" alt="image-20200402132423497"></p>
+<p>It will construct into a binary tree, the time complexity is relatively high, but it is relatively concise, but the interviewer will not like it.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">No10Fibonacci</span> <span class="o">{</span>
+      <span class="kd">static</span> <span class="kt">int</span> <span class="nf">fibonacciIteration</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">fib</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">];</span>
+        <span class="n">fib</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="n">fib</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">fib</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">fib</span><span class="o">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">fib</span><span class="o">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">2</span><span class="o">];</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">fib</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>The time complexity of using iteration is relatively low, and this recursion can reduce repeated calculations.</p>
+<h2 id="no11-the-smallest-number-in-the-rotated-array">No11 The smallest number in the rotated array</h2>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdfi1zohzfj314w08cna6.jpg" alt="image-20200402162527648"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">N11FindMinDigInArray</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">find</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">start</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">])</span> <span class="o">{</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">];</span>
+            <span class="o">}</span>
+
+            <span class="n">mid</span> <span class="o">=</span> <span class="o">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">end</span><span class="o">)</span> <span class="o">/</span> <span class="n">2</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">midVal</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">mid</span><span class="o">];</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">midVal</span> <span class="o">&gt;=</span> <span class="n">array</span><span class="o">[</span><span class="n">start</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">mid</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">midVal</span> <span class="o">&lt;=</span> <span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">mid</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">array</span><span class="o">[</span><span class="n">mid</span><span class="o">];</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>First of all, we must affirm that array[start] will be greater than array[end]</p>
+<p>Then there are two situations when you get the corresponding midpoint</p>
+<p>If the midpoint falls in the previous array</p>
+<p>[3,4,5,1,2]</p>
+<p>Falls on 5 and satisfies 5 is greater than array[start], so you can move start to mid</p>
+<p>[5,1,2]</p>
+<p>Falls on 1 and satisfies less than 2, so move end to mid</p>
+<p>At this point, only two are left. The minimum value will be the second element.</p>
+<h2 id="no12-path-in-the-matrix">No12 Path in the matrix</h2>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdfjn8zra6j31520dae0z.jpg" alt="image-20200402172029688"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">No12HasPathInMatrix</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">find</span><span class="o">(</span><span class="kt">char</span><span class="o">[][]</span> <span class="n">matrix</span><span class="o">,</span> <span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">matrix</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">matrix</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="kt">int</span><span class="o">[][]</span> <span class="n">visited</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">matrix</span><span class="o">.</span><span class="na">length</span><span class="o">][</span><span class="n">matrix</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">];</span>
+                <span class="kt">boolean</span> <span class="n">result</span> <span class="o">=</span> <span class="n">find</span><span class="o">(</span><span class="n">matrix</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">,</span> <span class="n">str</span><span class="o">,</span><span class="n">visited</span><span class="o">);</span>
+
+                <span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">find</span><span class="o">(</span><span class="kt">char</span><span class="o">[][]</span> <span class="n">matrix</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">,</span> <span class="n">String</span> <span class="n">str</span><span class="o">,</span> <span class="kt">int</span><span class="o">[][]</span> <span class="n">visited</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">matrix</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span> <span class="o">||</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="n">matrix</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span> <span class="o">||</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">matrix</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">||</span> <span class="n">visited</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">visited</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">find</span><span class="o">(</span><span class="n">matrix</span><span class="o">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">j</span><span class="o">,</span> <span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">1</span><span class="o">),</span> <span class="n">visited</span><span class="o">)</span> <span class="o">||</span> <span class="n">find</span><span class="o">(</span><span class="n">matrix</span><span class="o">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">,</span> <span class="n">j</span><span class="o">,</span> <span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">1</span><span class="o">),</span> <span class="n">visited</span><span class="o">)</span> <span class="o">||</span> <span class="n">find</span><span class="o">(</span><span class="n">matrix</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">1</span><span class="o">),</span> <span class="n">visited</span><span class="o">)</span>
+                <span class="o">||</span> <span class="n">find</span><span class="o">(</span><span class="n">matrix</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">j</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">1</span><span class="o">),</span> <span class="n">visited</span><span class="o">);</span>
+
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Traverse all cells, as the starting point, find all the starting points, and then set off</p>
+<p>Judge the boundary condition if it is an empty string is correct</p>
+<p>Return false if it exceeds the boundary or has been visited</p>
+<p>And look for the corresponding surrounding cells up, down, left, and right, the result of the backtracking is correct as long as one of the remaining paths is correct.</p>
+<h2 id="no18-delete-nodes-in-the-linked-list">No18 Delete nodes in the linked list</h2>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdmgry7df0j314i09849i.jpg" alt="image-20200408170055155"></p>
+<p>If you think of deleting a node in a linked list, the first reaction is actually to use a while loop to keep traversing. If you find that the next node is the target node, set the next of the current node as the next of the next node.</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdmh4mhf0xj30yg052tal.jpg" alt="image-20200408171308210"></p>
+<p>That is this way, but there is actually a faster way to implement it.</p>
+<p>That is, you can replace the node that needs to be deleted based on the next node of the node that needs to be deleted.</p>
+<p>That is to replace the next and data of the next node with the content of the node that needs to be deleted.</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdmh7v14fsj30ym04e408.jpg" alt="image-20200408171615578"></p>
+<p>Then what needs to be noted is the boundary conditions and the situation of deleting the tail node.</p>
+<p>The tail node cannot be deleted in this way, so it needs to be implemented by traversal.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">info.xiantang.algorithm.interview</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">info.xiantang.algorithm.offer.offer1.Node</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">No18DeleteNodeFromLinkedListO1</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Node</span> <span class="nf">delete</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">,</span> <span class="n">Node</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="c1">// 如果这个节点是头节点
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">target</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">root</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// 如果这个节点在中间
+</span><span class="c1"></span>        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">target</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Node</span> <span class="n">next</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">target</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">target</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">next</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// 如果这个节点在末尾
+</span><span class="c1"></span>        <span class="k">else</span> <span class="o">{</span>
+            <span class="n">Node</span> <span class="n">a</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">Node</span> <span class="n">next</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">next</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">target</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="n">root</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="quick-sort-naive-implementation">Quick sort (naive implementation)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">No11Qsort</span> <span class="o">{</span>
+      <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">sort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">midVal</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">start</span><span class="o">];</span>
+        <span class="n">swap</span><span class="o">(</span><span class="n">array</span><span class="o">,</span> <span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">small</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">end</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">midVal</span><span class="o">)</span> <span class="o">{</span>
+                <span class="o">++</span><span class="n">small</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">small</span> <span class="o">!=</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">swap</span><span class="o">(</span><span class="n">array</span><span class="o">,</span> <span class="n">small</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">small</span><span class="o">++;</span>
+        <span class="n">swap</span><span class="o">(</span><span class="n">array</span><span class="o">,</span> <span class="n">small</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
+        <span class="n">sort</span><span class="o">(</span><span class="n">array</span><span class="o">,</span> <span class="n">start</span><span class="o">,</span> <span class="n">small</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">sort</span><span class="o">(</span><span class="n">array</span><span class="o">,</span> <span class="n">small</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>I think the difficulty of quick sort is the in-place partition of the array.</p>
+<p>I use a simpler way to deal with it here:</p>
+<p>Use the first element as the base element.</p>
+<p>For the array [3,4,1,3,5,6,1], we can use the first element as the base to exchange it with the end</p>
+<p>Get the array [1,4,1,3,5,6,3]. Then define a small index pointing to the position greater than the base, the initial value is -1</p>
+<p>Then traverse from start to the element before end.</p>
+<p>If it is less than the critical value and the index is not uniform, exchange elements.</p>
+<h2 id="print-all-legal-brackets">Print all legal brackets</h2>
+<p>Here is your translated text:</p>
+<p>Give you a number and print all its valid parentheses 1 -&gt; {}</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintAllBrackets</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="kt">int</span> <span class="n">count</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">backtrack</span><span class="o">(</span><span class="n">count</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">backtrack</span><span class="o">(</span><span class="kt">int</span> <span class="n">count</span><span class="o">,</span> <span class="kt">int</span> <span class="n">left</span><span class="o">,</span> <span class="kt">int</span> <span class="n">right</span><span class="o">,</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">==</span> <span class="n">count</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">==</span> <span class="n">count</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">count</span> <span class="o">)</span> <span class="o">{</span>
+            <span class="n">backtrack</span><span class="o">(</span><span class="n">count</span><span class="o">,</span><span class="n">left</span><span class="o">+</span><span class="n">1</span><span class="o">,</span><span class="n">right</span><span class="o">,</span><span class="n">str</span><span class="o">+</span><span class="s">&#34;(&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">left</span><span class="o">){</span>
+            <span class="n">backtrack</span><span class="o">(</span><span class="n">count</span><span class="o">,</span> <span class="n">left</span><span class="o">,</span> <span class="n">right</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">str</span> <span class="o">+</span> <span class="s">&#34;)&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>The left parenthesis is less than count and the right parenthesis is less than the left parenthesis</p>
+<h2 id="move-the-negative-numbers-of-an-array-to-the-right-and-the-positive-numbers-to-the-left">Move the negative numbers of an array to the right and the positive numbers to the left</h2>
+<p><code>{-1, 2, 3, -1, 2, 13, 123, -555, -888, 66}</code> -&gt; <code>{66,2,3,123,2,13,-1,-555,-888,-1}</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoTempMoveLeftOrRight</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">move</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">left</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">left</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">right</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">right</span> <span class="o">-=</span> <span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">&gt;=</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">left</span><span class="o">];</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">left</span><span class="o">]</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">right</span><span class="o">];</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">right</span><span class="o">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>The most important thing to note is that after two loops, left &gt;= right will cause the final element to be swapped, so you need to use an if to break this loop.</p>
+<h2 id="find-the-next-number-of-permutations">Find the next number of permutations</h2>
+<p>Given a positive integer, find the next number of all permutations of this positive integer.</p>
+<p>First we have a number</p>
+<p>1 2 3 5 4</p>
+<p>And we need to be clear that if a number is from high to low from large to small.</p>
+<p>That is 5 4 3 2 1.</p>
+<p>Then there will be no permutation larger than him.</p>
+<p>So we just need to find the previous permutation</p>
+<p>1 2 <code>3</code> 5 4</p>
+<p>Then we swap 1 2 <code>4</code> 5 <code>3</code>  Because the area of 5 3 is reversed, we just need to swap the position of 5 3.</p>
+<p>That is 1 2 4 3 5</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-JAVA" data-lang="JAVA"><span class="kn">package</span> <span class="nn">info.xiantang.algorithm.interview</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoTempFindNextPermute</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">find</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">end</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
+        <span class="n">array</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">];</span>
+        <span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+        <span class="n">index</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">i1</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">];</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">]</span> <span class="o">=</span> <span class="n">i1</span><span class="o">;</span>
+            <span class="n">end</span><span class="o">--;</span>
+            <span class="n">index</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">array</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="binary-search">Binary search</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoTempBinarySearch</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">find</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="o">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="o">)</span> <span class="o">/</span> <span class="n">2</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">mid</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span><span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>My method is very simple, get the values of left and right separately, which are 0 and array.length -1</p>
+<p>Then the condition of while is left &lt;= right. It should be noted that in the case of left == right = ture, the mid we calculated is likely to be the value we need, so this boundary condition needs to be considered.</p>
+<p>Then calculate mid and see if it is larger than array[mid] or smaller than array[mid]</p>
+<ul>
+<li>Greater than target = 3 mid = 4 [1, 2,3,<code>4</code>,5,6,7] We need to set right to mid -1</li>
+<li>Less than target = 6 mid = 4 [1, 2,3,<code>4</code>,5,6,7] We need to set left to mid +1</li>
+</ul>
+<h2 id="robot-movement-range">Robot movement range</h2>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdfkpcbcddj315009kwhr.jpg" alt="image-20200402175701351"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">info.xiantang.algorithm.interview</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">N13RobotMoveRangeCount</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">count</span><span class="o">(</span><span class="kt">int</span> <span class="n">threshold</span><span class="o">,</span> <span class="kt">int</span> <span class="n">rows</span><span class="o">,</span> <span class="kt">int</span> <span class="n">cols</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">boolean</span><span class="o">[][]</span> <span class="n">visited</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">boolean</span><span class="o">[</span><span class="n">rows</span><span class="o">][</span><span class="n">cols</span><span class="o">];</span>
+        <span class="k">return</span> <span class="n">count</span><span class="o">(</span><span class="n">threshold</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">visited</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">count</span><span class="o">(</span><span class="kt">int</span> <span class="n">threshold</span><span class="o">,</span> <span class="kt">int</span> <span class="n">rows</span><span class="o">,</span> <span class="kt">int</span> <span class="n">cols</span><span class="o">,</span> <span class="kt">boolean</span><span class="o">[][]</span> <span class="n">visited</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">rows</span> <span class="o">&gt;</span> <span class="n">visited</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span> <span class="o">||</span> <span class="n">cols</span> <span class="o">&gt;</span> <span class="n">visited</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">-</span><span class="n">1</span> <span class="o">||</span> <span class="n">rows</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">cols</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">visited</span><span class="o">[</span><span class="n">rows</span><span class="o">][</span><span class="n">cols</span><span class="o">])</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">visited</span><span class="o">[</span><span class="n">rows</span><span class="o">][</span><span class="n">cols</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">getSum</span><span class="o">(</span><span class="n">rows</span><span class="o">)</span> <span class="o">+</span> <span class="n">getSum</span><span class="o">(</span><span class="n">cols</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">threshold</span> <span class="o">&gt;=</span> <span class="n">sum</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">count</span> <span class="o">+</span> <span class="n">count</span><span class="o">(</span><span class="n">threshold</span><span class="o">,</span> <span class="n">rows</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">cols</span><span class="o">,</span> <span class="n">visited</span><span class="o">)</span> <span class="o">+</span>
+                <span class="n">count</span><span class="o">(</span><span class="n">threshold</span><span class="o">,</span> <span class="n">rows</span> <span class="o">-</span> <span class="n">1</span><span class="o">,</span> <span class="n">cols</span><span class="o">,</span> <span class="n">visited</span><span class="o">)</span> <span class="o">+</span>
+                <span class="n">count</span><span class="o">(</span><span class="n">threshold</span><span class="o">,</span> <span class="n">rows</span><span class="o">,</span> <span class="n">cols</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">visited</span><span class="o">)+</span>
+                <span class="n">count</span><span class="o">(</span><span class="n">threshold</span><span class="o">,</span> <span class="n">rows</span><span class="o">,</span> <span class="n">cols</span> <span class="o">-</span> <span class="n">1</span><span class="o">,</span> <span class="n">visited</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">getSum</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">substring</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">j</span><span class="o">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">substring</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">sum</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Use a visit two-dimensional array to do it. The idea is the same as the previous question, there is nothing to say, next question.</p>
+<h2 id="multithreaded-printing-abc">Multithreaded Printing ABC</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">info.xiantang.concurrency.interview</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.concurrent.locks.Condition</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.concurrent.locks.ReentrantLock</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintAbc</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="n">ReentrantLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span>
+    <span class="kd">static</span> <span class="n">Condition</span> <span class="n">condition</span> <span class="o">=</span> <span class="n">lock</span><span class="o">.</span><span class="na">newCondition</span><span class="o">();</span>
+
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">AbcPrinter</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kt">char</span> <span class="n">alpha</span><span class="o">;</span>
+
+        <span class="kd">public</span> <span class="nf">AbcPrinter</span><span class="o">(</span><span class="kt">char</span> <span class="n">alpha</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">%</span> <span class="n">3</span> <span class="o">==</span> <span class="n">alpha</span> <span class="o">-</span> <span class="n">97</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">alpha</span><span class="o">);</span>
+                    <span class="n">count</span> <span class="o">+=</span> <span class="n">1</span><span class="o">;</span>
+                    <span class="n">condition</span><span class="o">.</span><span class="na">signalAll</span><span class="o">();</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                    <span class="k">try</span> <span class="o">{</span>
+                        <span class="n">condition</span><span class="o">.</span><span class="na">await</span><span class="o">();</span>
+                    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">new</span> <span class="n">AbcPrinter</span><span class="o">(</span><span class="sc">&#39;a&#39;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+        <span class="k">new</span> <span class="n">AbcPrinter</span><span class="o">(</span><span class="sc">&#39;b&#39;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+        <span class="k">new</span> <span class="n">AbcPrinter</span><span class="o">(</span><span class="sc">&#39;c&#39;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+
+    <span class="o">}</span>
+
+
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>The method I used is ReentrantLock, using a modulo operation to calculate the current letter, and the thread is either waiting or outputting, which improves efficiency. If the print is successful, it will wake up the waiting thread, and the corresponding thread will process it. If the current thread is not the thread that needs to be printed, it will be in a waiting state until the next signalAll();</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-04-03
+        
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/algorithm/">algorithm</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Design and Implementation of the Leaky Bucket Algorithm</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/">
+            <span class="next-text nav-default">Singleton Pattern</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chinese on xiantang</title>
+    <link>https://vim0.com/en/categories/chinese/</link>
+    <description>Recent content in Chinese on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 29 Jun 2022 22:14:09 +0800</lastBuildDate><atom:link href="https://vim0.com/en/categories/chinese/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using the 80/20 Rule to Learn awk Effortlessly</title>
+      <link>https://vim0.com/en/post/awk/</link>
+      <pubDate>Wed, 29 Jun 2022 22:14:09 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/awk/</guid>
+      <description>The length only accounts for 20%, but the effectiveness reaches 80% - 80/20 Rule
+ What can you learn from this article? In this article, we will learn how to use the 80/20 rule to effortlessly learn the linux text processing command awk. After reading this article, you will learn a fast learning method, and how to use awk to process text and stdout.
+Recently, while learning awk, I found that there are really many details.</description>
+    </item>
+    
+    <item>
+      <title>About Anxiety and Procrastination</title>
+      <link>https://vim0.com/en/post/anxiety/</link>
+      <pubDate>Sun, 20 Feb 2022 21:17:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/anxiety/</guid>
+      <description>Procrastination always allows us to live in peace, but the problem does not disappear. &amp;ndash; &amp;ldquo;Pomodoro Technique Illustrated&amp;rdquo;
+ Current Issues Stress causes anxiety, there is always a lot of pressure in Internet companies, some come from overly high OKRs, some come from colleagues&#39; push, and even you will put a lot of pressure on yourself. For me, it might be all of these, and possibly the pressure given by the morning meeting and weekly report.</description>
+    </item>
+    
+    <item>
+      <title>Using the Pomodoro Technique to Better Utilize Your Time</title>
+      <link>https://vim0.com/en/post/pomodoro_todo/</link>
+      <pubDate>Thu, 03 Feb 2022 00:48:05 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/pomodoro_todo/</guid>
+      <description>For me, it&amp;rsquo;s easy to fall into a state of working all day, being busy all day but not knowing what I&amp;rsquo;m busy with, leading to anxiety the next day, not knowing what to say at the morning meeting, and only being able to do things that make me feel like I can talk.
+ Why introduce the Pomodoro Technique: To solve this problem, I thought of many methods, such as writing a TODO list every day, but I still wasted a lot of time due to various interruptions, which made it impossible for me to complete the tasks in my original TODO list.</description>
+    </item>
+    
+    <item>
+      <title>Office Worker&#39;s Recent Half-Year Experience in Learning and Practicing Fund Investment Portfolio</title>
+      <link>https://vim0.com/en/post/investment/learned_about_investment/</link>
+      <pubDate>Tue, 01 Jun 2021 20:55:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/investment/learned_about_investment/</guid>
+      <description>&amp;ldquo;Everyone should invest, the sooner the better. Even if you keep losing money, at least you will learn how to lose less after ten years. Instead of waiting until ten years later when you are forced to invest, you lose most of your principal at once&amp;rdquo; &amp;ndash;@xiaodotdo
+ Preface Because I stepped into work from school, I was actually a bit richer than when I was studying, and I was also quite frugal, so I had a lot of money left every month when I got paid.</description>
+    </item>
+    
+    <item>
+      <title>Guide to Physically Crossing the Wall to Singapore During the Pandemic</title>
+      <link>https://vim0.com/en/post/softskills/physical_break_gfw/</link>
+      <pubDate>Wed, 19 May 2021 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/softskills/physical_break_gfw/</guid>
+      <description>&amp;ldquo;The difficulty of living abroad is smaller than imagined, but the determination needed to go abroad is greater than imagined&amp;rdquo; &amp;ndash;@FreiheitYu The author wrote this article in early 2021, and there may be discrepancies due to the relaxation and tightening of immigration policies, for reference only. Preface This is a very struggling and bumpy experience. Under the situation of the pandemic, I still chose to come out from my country</description>
+    </item>
+    
+    <item>
+      <title>Soft Skills: A Guide for Lower-Level Employees in Big Companies</title>
+      <link>https://vim0.com/en/post/softskills/how_to_live_in_big_company/</link>
+      <pubDate>Mon, 26 Apr 2021 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/softskills/how_to_live_in_big_company/</guid>
+      <description>&amp;ldquo;I found that many articles and interviews are about how to get into big companies, but actually surviving in big companies is also a skill&amp;rdquo;
+ Preface The author recently changed jobs, chose to follow his heart, and did not continue to work in the previous company. Taking advantage of the recent resignation, I quickly calmed down and output my previous experience. Although I only stayed in the previous company for almost a year (the previous company referred to in this article is a certain company), I still learned some of the working methods and processes of big companies.</description>
+    </item>
+    
+    <item>
+      <title>What is Minor GC/Major GC</title>
+      <link>https://vim0.com/en/post/jvm/full_gc/</link>
+      <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/jvm/full_gc/</guid>
+      <description>What is Minor GC/Major GC First, let&amp;rsquo;s popularize the classic heap layout of JVM:
+For the classic JVM heap layout, there are two clear areas, the first is the Young area, which generally stores young objects or objects that have just been created. The second is the Old area, also known as the old generation, which generally stores longer-lived objects or objects promoted from the young area.
+For the young area, we have three areas, one is the Eden area, and the other two are Survivor areas of equal size.</description>
+    </item>
+    
+    <item>
+      <title>Design and Implementation of the Leaky Bucket Algorithm</title>
+      <link>https://vim0.com/en/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Sun, 05 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</guid>
+      <description>What is the Leaky Bucket Algorithm? As the name suggests, the Leaky Bucket algorithm uses a leaky bucket to limit traffic. Because there is a hole at the bottom of the bucket, it will leak water at regular intervals, and we can imagine the traffic as water falling into the bucket from above. This leads to two situations. If the speed at which traffic is injected into the bucket is</description>
+    </item>
+    
+    <item>
+      <title>Pointing to offer</title>
+      <link>https://vim0.com/en/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</link>
+      <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</guid>
+      <description>No2 Singleton Pattern 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够创建 private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton</description>
+    </item>
+    
+  </channel>
+</rss>

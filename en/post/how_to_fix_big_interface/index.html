@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang: How to Handle Growing Interfaces - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="The bigger the interface, the weaker the abstraction. Go Proverbs
+ Let&amp;rsquo;s start with the conclusion. If your Golang interface has too many functions that make it difficult for you to expand horizontally, then split it into multiple interfaces according to its responsibilities, and then use embed to combine them.
+Problem Encountered Recently, when refactoring a component that manages configurations, we have an interface and more than 5 structs implement this interface." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/how_to_fix_big_interface/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang: How to Handle Growing Interfaces" />
+<meta property="og:description" content="The bigger the interface, the weaker the abstraction. Go Proverbs
+ Let&rsquo;s start with the conclusion. If your Golang interface has too many functions that make it difficult for you to expand horizontally, then split it into multiple interfaces according to its responsibilities, and then use embed to combine them.
+Problem Encountered Recently, when refactoring a component that manages configurations, we have an interface and more than 5 structs implement this interface." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/how_to_fix_big_interface/" /><meta property="og:image" content="https://vim0.com/post/how_to_fix_big_interface.png" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-02-13T20:23:51+08:00" />
+<meta property="article:modified_time" content="2023-10-08T20:52:20+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Golang: How to Handle Growing Interfaces">
+<meta itemprop="description" content="The bigger the interface, the weaker the abstraction. Go Proverbs
+ Let&rsquo;s start with the conclusion. If your Golang interface has too many functions that make it difficult for you to expand horizontally, then split it into multiple interfaces according to its responsibilities, and then use embed to combine them.
+Problem Encountered Recently, when refactoring a component that manages configurations, we have an interface and more than 5 structs implement this interface."><meta itemprop="datePublished" content="2022-02-13T20:23:51+08:00" />
+<meta itemprop="dateModified" content="2023-10-08T20:52:20+08:00" />
+<meta itemprop="wordCount" content="1249"><meta itemprop="image" content="https://vim0.com/post/how_to_fix_big_interface.png">
+<meta itemprop="keywords" content="Golang,Refactor," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/how_to_fix_big_interface.png"/>
+
+<meta name="twitter:title" content="Golang: How to Handle Growing Interfaces"/>
+<meta name="twitter:description" content="The bigger the interface, the weaker the abstraction. Go Proverbs
+ Let&rsquo;s start with the conclusion. If your Golang interface has too many functions that make it difficult for you to expand horizontally, then split it into multiple interfaces according to its responsibilities, and then use embed to combine them.
+Problem Encountered Recently, when refactoring a component that manages configurations, we have an interface and more than 5 structs implement this interface."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang: How to Handle Growing Interfaces</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-02-13 </span>
+        <div class="post-category">
+            <a href="/en/categories/golang/"> Golang </a>
+            </div>
+          <span class="more-meta"> 1249 words </span>
+          <span class="more-meta"> 6 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#problem-encountered">Problem Encountered</a></li>
+    <li><a href="#an-example">An Example</a></li>
+    <li><a href="#how-i-solved-it">How I solved it</a>
+      <ul>
+        <li><a href="#split-the-interface">Split the interface</a></li>
+        <li><a href="#concatenate-the-interface">Concatenate the interface</a></li>
+        <li><a href="#convert-the-interface">Convert the interface</a></li>
+        <li><a href="#benefits">Benefits</a></li>
+      </ul>
+    </li>
+    <li><a href="#refactoring-the-above-code">Refactoring the above code</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#recommended-section">Recommended Section</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p>The bigger the interface, the weaker the abstraction. <a href="https://www.youtube.com/watch?v=PAAkCSZUG1c&amp;t=317s">Go Proverbs</a></p>
+</blockquote>
+<p>Let&rsquo;s start with the conclusion. If your Golang interface has too many functions that make it difficult for you to expand horizontally, then split it into multiple interfaces according to its responsibilities, and then use embed to <strong>combine</strong> them.</p>
+<h2 id="problem-encountered">Problem Encountered</h2>
+<p>Recently, when refactoring a component that manages configurations, we have an interface and more than 5 structs implement this interface. We encountered some problems, that is, the problem of <strong>interface bloating</strong>. When you first abstract an interface, it may only have 1 - 2 functions, which is very beautiful, and you feel very comfortable when you expand horizontally.
+But many times, the reality is different from what you imagine. Because each implementation may also have its own different methods that it wants to expose, at this time you will expose these functions, and each implementation will implement this function in order to satisfy the interface, which will lead to interface bloating.</p>
+<h2 id="an-example">An Example</h2>
+<p>At first, I had an interface called <code>ConfigManager</code>, which had two functions, one was <code>HandleResync</code>, and the other was <code>HandleWatch</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="kd">type</span> <span class="nx">ConfigManager</span> <span class="kd">interface</span> <span class="p">{</span>
+ <span class="nf">HandleResync</span><span class="p">()</span>
+ <span class="nf">HandleWatch</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>HandleResync</code> and <code>HandleWatch</code> are both for pulling data from etcd. After pulling the data, we will write the data to disk, and also store a copy of the latest data in memory.</p>
+<p>At the same time, this interface has two implementations, one is <code>EtcdConfigManager</code>, and the other is <code>FileConfigManager</code>. The names here are quite casual, mainly to express multiple implementations of an interface.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="kd">type</span> <span class="nx">EtcdConfigManager</span> <span class="kd">struct</span> <span class="p">{</span>
+ <span class="nx">config</span> <span class="o">*</span><span class="nx">Config</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">FileConfigManager</span> <span class="kd">struct</span> <span class="p">{</span>
+ <span class="nx">config</span> <span class="o">*</span><span class="nx">Config</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>However, as the business continues to grow, we need to expose two more interfaces for <code>EtcdConfigManager</code> to perform actions such as reporting on in-memory replicas. These are <code>GetConfig</code> and <code>SetConfig</code>.</p>
+<p>But for <code>FileConfigManager</code>, this implementation class actually does not need to expose the internal config.</p>
+<p>At this time, many students will directly add two functions to the <code>ConfigManager</code> interface, and <code>FileConfigManager</code> will become the following look:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="kd">type</span> <span class="nx">ConfigManager</span> <span class="kd">interface</span> <span class="p">{</span>
+  <span class="nf">HandleResync</span><span class="p">()</span>
+  <span class="nf">HandleWatch</span><span class="p">()</span>
+  <span class="nf">GetConfig</span><span class="p">()</span> <span class="o">*</span><span class="nx">Config</span>
+  <span class="nf">SetConfig</span><span class="p">(</span><span class="o">*</span><span class="nx">Config</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// impl for `ConfigManager`
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">FileConfigManager</span> <span class="kd">struct</span> <span class="p">{</span>
+   <span class="nx">config</span> <span class="o">*</span><span class="nx">Config</span>
+<span class="p">}</span>
+<span class="o">...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">FileConfigManager</span><span class="p">)</span> <span class="nf">GetConfig</span><span class="p">()</span> <span class="o">*</span><span class="nx">Config</span> <span class="p">{</span>
+ <span class="c1">// painc here
+</span><span class="c1"></span> <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;implement me&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">FileConfigManager</span><span class="p">)</span> <span class="nf">SetConfig</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Config</span><span class="p">)</span> <span class="p">{</span>
+ <span class="c1">// painc here
+</span><span class="c1"></span> <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;implement me&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Although the problem has been successfully solved, it will cause some problems:</p>
+<ul>
+<li>If there is a new configuration to be managed, it will need to satisfy 4 functions to implement this interface.</li>
+<li>If there are already 10 implementation classes that have implemented <code>ConfigManager</code>, if you want to add a new function to the <code>ConfigManager</code> interface, then these 10 implementation classes need to be updated, which will be a lot of work.</li>
+<li>Exposing too much internal information to the outside world, if it involves authority issues, it will cause problems such as asset loss.</li>
+</ul>
+<p>In fact, in the company&rsquo;s codebase, there are already interfaces with 10+ functions, and horizontal expansion is simply a nightmare.</p>
+<h2 id="how-i-solved-it">How I solved it</h2>
+<p>Because I was fed up with the problem of interface inflation, I really racked my brains. Although the author of Golang always says to keep the interface small, he actually didn&rsquo;t tell us how to prevent interface inflation. Finally, I found a solution in the io package of Golang.</p>
+<p>In the interfaces defined from <a href="https://github.com/golang/go/blob/master/src/io/io.go#L83">io.go#83</a> to <a href="https://github.com/golang/go/blob/master/src/io/io.go#L172">io.go#172</a>.</p>
+<h3 id="split-the-interface">Split the interface</h3>
+<p>We found that he split a bunch of small interfaces with only 1 - 2 functions according to their functions.
+like：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="kd">type</span> <span class="nx">Reader</span> <span class="kd">interface</span> <span class="p">{</span>
+ <span class="nf">Read</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">type</span> <span class="nx">Writer</span> <span class="kd">interface</span> <span class="p">{</span>
+ <span class="nf">Write</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">type</span> <span class="nx">Closer</span> <span class="kd">interface</span> <span class="p">{</span>
+ <span class="nf">Close</span><span class="p">()</span> <span class="kt">error</span>
+<span class="p">}</span>
+<span class="kd">type</span> <span class="nx">Seeker</span> <span class="kd">interface</span> <span class="p">{</span>
+ <span class="nf">Seek</span><span class="p">(</span><span class="nx">offset</span> <span class="kt">int64</span><span class="p">,</span> <span class="nx">whence</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="kt">int64</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="concatenate-the-interface">Concatenate the interface</h3>
+<p>Use the incremental concatenation method to concatenate these interfaces:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Writer</span> <span class="kd">interface</span> <span class="p">{</span>
+ <span class="nf">Write</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">type</span> <span class="nx">WriteSeeker</span> <span class="kd">interface</span> <span class="p">{</span>
+ <span class="nx">Writer</span>
+ <span class="nx">Seeker</span>
+<span class="p">}</span>
+<span class="kd">type</span> <span class="nx">ReadWriteSeeker</span> <span class="kd">interface</span> <span class="p">{</span>
+ <span class="nx">Reader</span>
+ <span class="nx">Writer</span>
+ <span class="nx">Seeker</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="convert-the-interface">Convert the interface</h3>
+<p>At the same time, when passing parameters, only pass the smaller interface, and then convert to other interfaces as needed.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Golang" data-lang="Golang"><span class="kd">func</span> <span class="nf">WriteString</span><span class="p">(</span><span class="nx">w</span> <span class="nx">Writer</span><span class="p">,</span> <span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+ <span class="k">if</span> <span class="nx">sw</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">w</span><span class="p">.(</span><span class="nx">StringWriter</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">sw</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+ <span class="p">}</span>
+ <span class="k">return</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="benefits">Benefits</h3>
+<p>The benefits of this are</p>
+<ul>
+<li><em>Expose as little information as possible to the user</em>: For all implementation classes, we only need to implement the necessary functions, without having to satisfy all the functions of the above interface.</li>
+<li><em>Stronger abstraction capability</em>: Because your interface only has 1 - 2 functions, horizontal expansion is simpler, which is why the io.Writer interface can easily write 20+ implementation classes.</li>
+</ul>
+<h2 id="refactoring-the-above-code">Refactoring the above code</h2>
+<p>For the above code, we can refactor it:</p>
+<p>We can refactor the <code>ConfigManager</code> with 4 interfaces into two small interfaces, and then combine them:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="cm">/*
+</span><span class="cm">type ConfigManager interface {
+</span><span class="cm">  HandleResync()
+</span><span class="cm">  HandleWatch()
+</span><span class="cm">  GetConfig() *Config
+</span><span class="cm">  SetConfig(*Config)
+</span><span class="cm">}
+</span><span class="cm">*/</span>
+
+<span class="kd">type</span> <span class="nx">EventHandler</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nf">HandleResync</span><span class="p">()</span>
+   <span class="nf">HandleWatch</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">DataHolder</span> <span class="kd">interface</span> <span class="p">{</span>
+    <span class="nf">GetConfig</span><span class="p">()</span> <span class="o">*</span><span class="nx">Config</span>
+    <span class="nf">SetConfig</span><span class="p">(</span><span class="o">*</span><span class="nx">Config</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">DataEventHandler</span> <span class="kd">struct</span> <span class="p">{</span>
+     <span class="nx">DataHolder</span>
+     <span class="nx">EventHandler</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>In this way, <code>FileConfigManager</code> can only implement the <code>EventHandler</code> interface, reducing the exposed information, and can not implement those functions that do not want to be exposed.</p>
+<p>The main logic will also be simpler:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">func</span> <span class="nf">mainLoop</span><span class="p">(</span><span class="nx">handler</span> <span class="nx">EventHandler</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// just example
+</span><span class="c1"></span>
+    <span class="c1">// resync
+</span><span class="c1"></span>    <span class="nx">handler</span><span class="p">.</span><span class="nf">HandleResync</span><span class="p">()</span>
+
+    <span class="c1">// watch
+</span><span class="c1"></span>    <span class="nx">handler</span><span class="p">.</span><span class="nf">HandleWatch</span><span class="p">()</span>
+
+    <span class="c1">// ...
+</span><span class="c1"></span>    <span class="c1">// report data
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">h</span><span class="p">,</span><span class="nx">ok</span> <span class="o">:=</span> <span class="nx">handler</span><span class="p">.(</span><span class="nx">DataEventHandler</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+     <span class="nf">report</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nf">GetConfig</span><span class="p">())</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="conclusion">Conclusion</h2>
+<p>In summary, there are the following points of my best practice:</p>
+<ul>
+<li>
+<p>Ensure that the interface is small enough with 1 - 2 functions, so that the interface can be expanded more simply, and the name of the interface can use a single word, eg: <code>Reader</code>, <code>Writer</code>, <code>Closer</code>, <code>Seeker</code>.</p>
+</li>
+<li>
+<p>Use the method of interface combination to combine large interfaces.</p>
+</li>
+<li>
+<p>Use the method of interface conversion in the main process to convert small interfaces into large interfaces.</p>
+</li>
+<li>
+<p><a href="https://jishuin.proginn.com/p/763bfbd7078f">Go: How to deal with the constantly expanding interface</a></p>
+</li>
+<li>
+<p><a href="https://rauljordan.com/2021/06/10/using-interface-composition-in-go-as-guardrails.html">Using Interface Composition in Go As Guardrails</a></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/45395982/go-interfaces-with-more-than-one-method-acceptable-or-unacceptable">Go Interfaces with more than one method - Acceptable or unacceptable?</a></p>
+</li>
+</ul>
+<h2 id="recommended-section">Recommended Section</h2>
+<p>Finally, I would like to share with you some good articles that I have been reading recently. I thought about sending them in a weekly newsletter, but since my reading is quite scattered, I decided to put them at the end of each blog post. I hope you find them useful!</p>
+<ul>
+<li>
+<p><a href="https://cbea.ms/git-commit/">How to Write a Git Commit Message</a> Recommendation: This method of writing git commit messages is very useful for people like me who only know how to write &ldquo;fix xxxx issue&rdquo; every day.</p>
+</li>
+<li>
+<p><a href="https://index.medium.com/career-advice-nobody-gave-me-never-ignore-a-recruiter-4474eac9556">Career Advice Nobody Gave Me: Never Ignore a Recruiter</a> Programmers don&rsquo;t like headhunters, but this article tells us that headhunters are actually very important.</p>
+</li>
+<li>
+<p><a href="https://vikingz.me/save-yourself/">A Self-Help Guide for Programmers Facing Panic and Boredom</a> WFH really increases anxiety. This article gave me some inspiration, and I might write an article on overcoming anxiety in the future.</p>
+</li>
+<li>
+<p><a href="https://book.douban.com/subject/30248303/">《Communication of Love》</a> taught me how to communicate and prevent defensive listening.</p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-10-08
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/05461cf5116804daddfccd754bde8183713e4e8c" title="use chatgpt to generate English version">(05461cf)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/golang/">Golang</a>
+          <a href="/en/tags/refactor/">Refactor</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/anxiety/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">About Anxiety and Procrastination</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/pomodoro_todo/">
+            <span class="next-text nav-default">Using the Pomodoro Technique to Better Utilize Your Time</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
