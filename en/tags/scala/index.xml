@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>scala on xiantang</title>
+    <link>https://vim0.com/en/tags/scala/</link>
+    <description>Recent content in scala on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 15 Jan 2020 17:51:36 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/scala/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How Actor Handles Blocking Messages</title>
+      <link>https://vim0.com/en/post/scala/future_in_actor/</link>
+      <pubDate>Wed, 15 Jan 2020 17:51:36 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/scala/future_in_actor/</guid>
+      <description>I noticed in the business code that a lot of
+import scala.concurrent.ExecutionContext.Implicits.global
+is used as the thread pool for executing Future inside the Actor. I didn&amp;rsquo;t think there was a problem before. But after reading the akka source code, it seems a bit inappropriate.
+Let&amp;rsquo;s briefly talk about the architecture of Actor
+When an Actor sends a message to another Actor, it sends this message to the recipient&amp;rsquo;s mailbox
+The mailbox is a class that implements Runnable, so it can be executed by a thread pool.</description>
+    </item>
+    
+    <item>
+      <title>Analysis of Akka Source Code</title>
+      <link>https://vim0.com/en/post/scala/akka_source_code/</link>
+      <pubDate>Wed, 15 Jan 2020 17:26:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/scala/akka_source_code/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&amp;#34;HelloSystem&amp;#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&amp;#34;Parov Stelar&amp;#34;)) // jazzListener</description>
+    </item>
+    
+    <item>
+      <title>How to learn Scala</title>
+      <link>https://vim0.com/en/post/scala/how_to_learn_scala/</link>
+      <pubDate>Wed, 15 Jan 2020 16:33:34 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/scala/how_to_learn_scala/</guid>
+      <description>Background: When I first came to a company with Scala as its technology stack, I spent a long time setting up the environment. After finally getting the project up and running, I found the code inside to be very strange. There were no loops, and data operations were a function nested within another function. This was very puzzling. So, driven by business needs and curiosity, I began to learn about Scala.</description>
+    </item>
+    
+    <item>
+      <title>AES Requires Limiting SEED Length</title>
+      <link>https://vim0.com/en/post/scala/aes_limit_length/</link>
+      <pubDate>Sun, 20 Oct 2019 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/scala/aes_limit_length/</guid>
+      <description>I wrote a utility class to encrypt and decrypt the app field in the database
+There are no problems running unit tests in the local environment, but bugs appear in the production environment.
+The reason for this is that the online environment does not support the AES algorithm Provider. It needs to be solved by adding a third-party package that supports it under the ext package or introducing a third-party library.</description>
+    </item>
+    
+  </channel>
+</rss>

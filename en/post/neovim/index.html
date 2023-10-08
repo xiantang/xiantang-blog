@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Using neovim as a PDE (Personalized Development Environment) - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="This article will not tell you how to configure neovim step by step, but will tell you some &amp;ldquo;Tao&amp;rdquo; about PDE, not the specific practice of &amp;ldquo;Art&amp;rdquo;.
+Introduction to neovim and PDE Seeing TJ&amp;rsquo;s YouTube introduced the use of neovim as a PDE, it was interesting, so I tried it myself, it felt good, so I recorded it.
+What is neovim Neovim is a branch of vim, vim is a text editor, neovim is a branch of vim, its goal is to provide a better vim, not a substitute for vim." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/neovim/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Using neovim as a PDE (Personalized Development Environment)" />
+<meta property="og:description" content="This article will not tell you how to configure neovim step by step, but will tell you some &ldquo;Tao&rdquo; about PDE, not the specific practice of &ldquo;Art&rdquo;.
+Introduction to neovim and PDE Seeing TJ&rsquo;s YouTube introduced the use of neovim as a PDE, it was interesting, so I tried it myself, it felt good, so I recorded it.
+What is neovim Neovim is a branch of vim, vim is a text editor, neovim is a branch of vim, its goal is to provide a better vim, not a substitute for vim." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/neovim/" /><meta property="og:image" content="https://vim0.com/post/neovim.png" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-10-29T20:45:20+08:00" />
+<meta property="article:modified_time" content="2023-10-08T21:02:03+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Using neovim as a PDE (Personalized Development Environment)">
+<meta itemprop="description" content="This article will not tell you how to configure neovim step by step, but will tell you some &ldquo;Tao&rdquo; about PDE, not the specific practice of &ldquo;Art&rdquo;.
+Introduction to neovim and PDE Seeing TJ&rsquo;s YouTube introduced the use of neovim as a PDE, it was interesting, so I tried it myself, it felt good, so I recorded it.
+What is neovim Neovim is a branch of vim, vim is a text editor, neovim is a branch of vim, its goal is to provide a better vim, not a substitute for vim."><meta itemprop="datePublished" content="2022-10-29T20:45:20+08:00" />
+<meta itemprop="dateModified" content="2023-10-08T21:02:03+08:00" />
+<meta itemprop="wordCount" content="935"><meta itemprop="image" content="https://vim0.com/post/neovim.png">
+<meta itemprop="keywords" content="neovim," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/neovim.png"/>
+
+<meta name="twitter:title" content="Using neovim as a PDE (Personalized Development Environment)"/>
+<meta name="twitter:description" content="This article will not tell you how to configure neovim step by step, but will tell you some &ldquo;Tao&rdquo; about PDE, not the specific practice of &ldquo;Art&rdquo;.
+Introduction to neovim and PDE Seeing TJ&rsquo;s YouTube introduced the use of neovim as a PDE, it was interesting, so I tried it myself, it felt good, so I recorded it.
+What is neovim Neovim is a branch of vim, vim is a text editor, neovim is a branch of vim, its goal is to provide a better vim, not a substitute for vim."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Using neovim as a PDE (Personalized Development Environment)</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-10-29 </span>
+        <div class="post-category">
+            <a href="/en/categories/neovim/"> neovim </a>
+            </div>
+          <span class="more-meta"> 935 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction-to-neovim-and-pde">Introduction to neovim and PDE</a>
+      <ul>
+        <li><a href="#what-is-neovim">What is neovim</a></li>
+        <li><a href="#what-is-pde">What is PDE</a></li>
+      </ul>
+    </li>
+    <li><a href="#basic-needs-to-be-met">Basic needs to be met</a></li>
+    <li><a href="#personalized-needs">Personalized needs</a></li>
+    <li><a href="#better-configuration-management">Better configuration management</a>
+      <ul>
+        <li><a href="#use-git-as-the-configuration-management-of-neovim">Use git as the configuration management of neovim</a></li>
+        <li><a href="#troubleshooting">Troubleshooting</a></li>
+      </ul>
+    </li>
+    <li><a href="#no-need-to-switch-suddenly-you-can-use-ideavim-and-then-switch-slowly">No need to switch suddenly, you can use ideavim and then switch slowly</a></li>
+    <li><a href="#dont-blindly-use-other-peoples-configurations-directly">Don&rsquo;t blindly use other people&rsquo;s configurations directly</a></li>
+    <li><a href="#interesting-things">Interesting things</a></li>
+    <li><a href="#end">END</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>This article will not tell you how to configure neovim step by step, but will tell you some &ldquo;Tao&rdquo; about PDE, not the specific practice of &ldquo;Art&rdquo;.</p>
+<h2 id="introduction-to-neovim-and-pde">Introduction to neovim and PDE</h2>
+<p>Seeing TJ&rsquo;s YouTube introduced the use of neovim as a PDE, it was interesting, so I tried it myself, it felt good, so I recorded it.</p>
+<h3 id="what-is-neovim">What is neovim</h3>
+<p>Neovim is a branch of vim, vim is a text editor, neovim is a branch of vim, its goal is to provide a better vim, not a substitute for vim.</p>
+<p>What&rsquo;s the difference between neovim and vim?
+The difference is that neovim has refactored vim&rsquo;s code, supports lua scripts as configuration language on the basis of compatible vimscipt. At the same time, neovim&rsquo;s community on Github is more active than vim&rsquo;s. Neovim has a more useful lsp server, you can understand neovim is a superset of vim.</p>
+<h3 id="what-is-pde">What is PDE</h3>
+<p>PDE is a personalized development environment, which means that on the basis of meeting basic development needs, users can script and customize their development environment, thereby improving user development experience and efficiency.</p>
+<p>As you continue to solve the pain points in your development environment, your development efficiency will get higher and higher, and your development experience will get better and better, this is the charm of PDE.</p>
+<p>You can also continue to learn new things from it, in this process, you will also get a sense of accomplishment.</p>
+<h2 id="basic-needs-to-be-met">Basic needs to be met</h2>
+<p>Define the basic needs that your PDE needs to meet, such as:</p>
+<ul>
+<li>Highlighting</li>
+<li>lsp
+<ul>
+<li>Basic refactoring rename</li>
+<li>Quick jump</li>
+</ul>
+</li>
+<li>lint</li>
+<li>Code suggestion</li>
+<li>Code snippet</li>
+<li>Debugging</li>
+<li>Quickly find recent files</li>
+</ul>
+<p>Because only by satisfying these basic needs can you ensure that you will not return to your old editor. Keep finding your own pain points on top of this, and then solve them, you will get faster and faster and master this tool more and more.</p>
+<h2 id="personalized-needs">Personalized needs</h2>
+<p>Sometimes I always have some interesting needs, let me just give an example:</p>
+<p>For example, I often modify multiple projects in vim at the same time, but NERDTreeFind in nerdtree will only find from the current tree, and the root directory of the tree is always wrong. My requirement is to find this file in the bookmarks of nerdtree, and the root directory is the first matched bookmark.</p>
+<p><img src="https://user-images.githubusercontent.com/34479567/204140677-0c11c2c8-cca7-44d2-8971-12632e3f0874.gif" alt="show off"></p>
+<p>You can refer to my implementation:</p>
+<p><a href="https://github.com/xiantang/nvim-conf/blob/dev/lua/nerdtree.lua">https://github.com/xiantang/nvim-conf/blob/dev/lua/nerdtree.lua</a></p>
+<p>Basically all the functions you want can be achieved by modifying lua, or by using nvim series plugins.</p>
+<ol>
+<li>For example, quickly call up a terminal or a note txt</li>
+<li>Add some custom snippets</li>
+<li>And so on&hellip;</li>
+</ol>
+<h2 id="better-configuration-management">Better configuration management</h2>
+<p>In fact, when everyone uses neovim to make their own PDE, they will find that you can easily mess up your neovim, because there are many plugins in your configuration, and these plugins are often incompatible. So the following two points are crucial:</p>
+<ol>
+<li>Quickly roll back the configuration to a stable version</li>
+<li>Quickly find out which version introduced the problem</li>
+</ol>
+<h3 id="use-git-as-the-configuration-management-of-neovim">Use git as the configuration management of neovim</h3>
+<p>This is actually very simple, you just need to put your configuration file in a git repository.</p>
+<p>You can use your most stable branch as the master, and then you usually modify it on the dev branch. When you want a function, you can modify it on the dev branch, and then use it for a while. When the function is stable, merge it into the master.</p>
+<p>If the stable version of the master branch has a problem, I recommend a god command of git, git-bisect. You can set a behavior error version and a historical behavior correct version. This command will use a binary method to help you find out which version introduced this problem.</p>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<p>There are several main commands:</p>
+<p><code>checkhealth</code> checks the health of your neovim, such as whether your neovim supports lua, whether it supports python, whether the plugin dependencies are successfully installed, etc.
+<code>nvim --startuptime</code> records the startup time of your neovim. You can use this to find out which plugin is slowing down your neovim startup. You can also use the Startuptime plugin to view your neovim startup time.
+<code>verbose &lt;map type&gt; &lt;key&gt;</code> displays detailed information about your key mapping, such as whether your key mapping is successful, whether there are conflicts, etc.
+<code>lua =vim.inspect(var)</code> prints the information of the variable you need.</p>
+<h2 id="no-need-to-switch-suddenly-you-can-use-ideavim-and-then-switch-slowly">No need to switch suddenly, you can use ideavim and then switch slowly</h2>
+<p>If you are not very familiar with (neo)vim, I suggest you try running the vimtutor command first to learn the basic operations of vim.
+Then you can use vim shortcuts in jetbrains using ideavim, so you can slowly switch to neovim.
+Pure vim development is not achieved overnight, it takes some time to adapt, but I believe you will love it.</p>
+<h2 id="dont-blindly-use-other-peoples-configurations-directly">Don&rsquo;t blindly use other people&rsquo;s configurations directly</h2>
+<p>In addition, neovim actually has many derivative distributions. My suggestion is that if you are not very familiar with neovim, do not directly use other people&rsquo;s configurations, because you may encounter many problems, but you may not be able to solve these problems yourself, so if you want to use it, try to build your own configuration from other people&rsquo;s Minimal templates.</p>
+<h2 id="interesting-things">Interesting things</h2>
+<ul>
+<li>Use firenvim as a browser editor to brush leetcode <a href="https://twitter.com/GIA917229015/status/1573365264439480321">twitter</a></li>
+<li>Use grammarly as an English language server to check your grammar errors</li>
+</ul>
+<h2 id="end">END</h2>
+<p>Your PDE is just the most suitable for your environment, this article does not provide the author&rsquo;s configuration, what suits me may not suit you.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=QMVIJhC9Veg&amp;t=836s&amp;ab_channel=TJDeVries">PDE: A different take on editing code</a></li>
+<li><a href="https://github.com/nanotee/nvim-lua-guide">nvim-lua-guide</a></li>
+<li><a href="https://jdhao.github.io/">jdhao</a></li>
+</ul>
+<p>Sure, please provide the Markdown content you want to translate.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-10-08
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/049e9a9b902cc4103a27eb47305da3a164dab1c7" title="commit">(049e9a9)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/neovim/">neovim</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/2022/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Summary of 2022</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/shell_is_useful_tool/">
+            <span class="next-text nav-default">Shell is a good productivity tool</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

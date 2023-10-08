@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Summary of Commonly Used Principles in Computing - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="Commonly Used Principles in Computing When writing code, we often have some insights and experiences. These experiences have long been summarized into principles by the predecessors. In the past year, I have been collecting various principles and constantly applying and practicing them.
+KISS Principle The KISS Principle is an acronym for Keep It Simple, Stupid.
+The KISS principle refers to the principle that simplicity should be emphasized in design. Summarizing the experience of engineering professionals in the design process, most system designs should remain simple and pure, without incorporating unnecessary complexity, so that the system can operate optimally." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/summary/rules/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Summary of Commonly Used Principles in Computing" />
+<meta property="og:description" content="Commonly Used Principles in Computing When writing code, we often have some insights and experiences. These experiences have long been summarized into principles by the predecessors. In the past year, I have been collecting various principles and constantly applying and practicing them.
+KISS Principle The KISS Principle is an acronym for Keep It Simple, Stupid.
+The KISS principle refers to the principle that simplicity should be emphasized in design. Summarizing the experience of engineering professionals in the design process, most system designs should remain simple and pure, without incorporating unnecessary complexity, so that the system can operate optimally." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/summary/rules/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-11-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-10-08T21:02:03+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Summary of Commonly Used Principles in Computing">
+<meta itemprop="description" content="Commonly Used Principles in Computing When writing code, we often have some insights and experiences. These experiences have long been summarized into principles by the predecessors. In the past year, I have been collecting various principles and constantly applying and practicing them.
+KISS Principle The KISS Principle is an acronym for Keep It Simple, Stupid.
+The KISS principle refers to the principle that simplicity should be emphasized in design. Summarizing the experience of engineering professionals in the design process, most system designs should remain simple and pure, without incorporating unnecessary complexity, so that the system can operate optimally."><meta itemprop="datePublished" content="2021-11-10T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-10-08T21:02:03+08:00" />
+<meta itemprop="wordCount" content="506"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="keywords" content="summary," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
+
+<meta name="twitter:title" content="Summary of Commonly Used Principles in Computing"/>
+<meta name="twitter:description" content="Commonly Used Principles in Computing When writing code, we often have some insights and experiences. These experiences have long been summarized into principles by the predecessors. In the past year, I have been collecting various principles and constantly applying and practicing them.
+KISS Principle The KISS Principle is an acronym for Keep It Simple, Stupid.
+The KISS principle refers to the principle that simplicity should be emphasized in design. Summarizing the experience of engineering professionals in the design process, most system designs should remain simple and pure, without incorporating unnecessary complexity, so that the system can operate optimally."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Summary of Commonly Used Principles in Computing</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-11-10 </span>
+        <div class="post-category">
+            <a href="/en/categories/english/"> English </a>
+            <a href="/en/categories/principles/"> Principles </a>
+            </div>
+          <span class="more-meta"> 506 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#commonly-used-principles-in-computing">Commonly Used Principles in Computing</a>
+      <ul>
+        <li><a href="#kiss-principle">KISS Principle</a></li>
+        <li><a href="#dry-principle">DRY Principle</a></li>
+        <li><a href="#yagni-principle">YAGNI Principle</a></li>
+        <li><a href="#single-responsibility-principle">Single Responsibility Principle</a></li>
+        <li><a href="#interface-oriented-programming-principle">Interface-oriented programming principle</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="commonly-used-principles-in-computing">Commonly Used Principles in Computing</h2>
+<p>When writing code, we often have some insights and experiences. These experiences have long been summarized into principles by the predecessors. In the past year, I have been collecting various principles and constantly applying and practicing them.</p>
+<h3 id="kiss-principle">KISS Principle</h3>
+<p>The <strong>KISS Principle</strong> is an acronym for <strong>K</strong>eep <strong>I</strong>t <strong>S</strong>imple, <strong>S</strong>tupid.</p>
+<p>The KISS principle refers to the principle that <strong>simplicity should be emphasized</strong> in design. Summarizing the experience of engineering professionals in the design process, most system designs should remain simple and pure, without incorporating unnecessary complexity, so that the system can operate optimally.</p>
+<p>The correct approach should be for developers to break down a problem into understandable small pieces after encountering it, and then enter the coding phase.</p>
+<ul>
+<li>
+<p>Advantages:</p>
+<ul>
+<li>You will be able to solve complex problems with just a few lines of code.</li>
+<li>You will be able to produce high-quality code.</li>
+<li>When new requirements come, your code will be more flexible.</li>
+</ul>
+</li>
+<li>
+<p>How to use:</p>
+<ul>
+<li>You&rsquo;re not a genius, your code is stupid simple, so you don&rsquo;t need to be a genius.</li>
+<li>Break down problems. Break tasks down into 4 - 12 hour subtasks.</li>
+<li>Solve each subtask with one or very few classes. <strong>Keep classes small</strong> and don&rsquo;t put too many use cases in them.</li>
+<li>Keep methods short enough. 30 - 40 lines.</li>
+<li>Try to keep things simple in any scenario.</li>
+</ul>
+</li>
+</ul>
+<h3 id="dry-principle">DRY Principle</h3>
+<p>Don&rsquo;t repeat yourself.</p>
+<p>This principle is actually particularly commonly used in work, for example, if you often write repetitive code, you can abstract it into a function.</p>
+<p>But I think the best practice is: if something is done 3 times, then abstract it into a function or do abstraction, because premature abstraction can lead to lack of universality and is not conducive to code maintenance.</p>
+<h3 id="yagni-principle">YAGNI Principle</h3>
+<p>You aren&rsquo;t gonna need it, YAGNI means &ldquo;you don&rsquo;t need it&rdquo;: don&rsquo;t do extra things before it&rsquo;s necessary.</p>
+<p>This principle mainly tells us not to think about a problem too early, to reduce the cost of implementation.
+Although it contradicts the former, we can try to abstract it by doing it 3 times as I mentioned above, which will be a better compromise.</p>
+<h3 id="single-responsibility-principle">Single Responsibility Principle</h3>
+<p>The Single Responsibility Principle (SRP) simply means that a class should only be responsible for one duty, not multiple duties. In program design, the single responsibility principle is a very important principle because it can help us better organize code, better manage code, and better solve problems.</p>
+<p>Let each class do one thing, rather than letting each class do everything, which will make the maintenance and expansion of the code more convenient.</p>
+<h3 id="interface-oriented-programming-principle">Interface-oriented programming principle</h3>
+<p>The Interface Segregation Principle, simply put, is to use as many interfaces as possible, rather than using many classes.</p>
+<p>The advantage of this is: the program is divided into different modules, what is exposed to the outside is the upper-level interface, not the lower-level class. In this way, when the implementation is modified, the upper-level interface does not need to be modified, only the lower-level class needs to be modified.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-10-08
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/049e9a9b902cc4103a27eb47305da3a164dab1c7" title="commit">(049e9a9)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/summary/">summary</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/golang/about_slice/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Some Details About Golang Slice</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/english/english_grammar/">
+            <span class="next-text nav-default">Relearning English Grammar</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

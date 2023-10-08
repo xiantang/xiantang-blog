@@ -3,7 +3,7 @@
   
   <url>
     <loc>https://vim0.com/en/post/</loc>
-    <lastmod>2023-10-08T20:52:20+08:00</lastmod>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -17,7 +17,49 @@
   
   <url>
     <loc>https://vim0.com/en/</loc>
-    <lastmod>2023-10-08T20:52:20+08:00</lastmod>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/categories/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/tags/neovim/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/categories/neovim/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/tags/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/neovim/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/shell_is_useful_tool/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -37,36 +79,22 @@
   </url>
   
   <url>
-    <loc>https://vim0.com/en/categories/</loc>
-    <lastmod>2023-10-08T20:52:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://vim0.com/en/tags/chinese/</loc>
-    <lastmod>2023-10-08T20:52:20+08:00</lastmod>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://vim0.com/en/categories/chinese/</loc>
-    <lastmod>2023-10-08T20:52:20+08:00</lastmod>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://vim0.com/en/tags/soft-skills/</loc>
-    <lastmod>2023-10-08T20:52:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://vim0.com/en/tags/</loc>
-    <lastmod>2023-10-08T20:52:20+08:00</lastmod>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -74,6 +102,27 @@
   <url>
     <loc>https://vim0.com/en/post/awk/</loc>
     <lastmod>2023-10-08T20:52:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/categories/english/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/singapore_3_month/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/categories/soft-skills/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -95,6 +144,41 @@
   <url>
     <loc>https://vim0.com/en/post/docker-compose-dev/</loc>
     <lastmod>2023-10-08T20:52:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/tags/code/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/write_-maintainable_code/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/tags/bidirectional-links/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/categories/notes/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/two-way-link/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -136,14 +220,14 @@
   
   <url>
     <loc>https://vim0.com/en/tags/golang/</loc>
-    <lastmod>2023-10-08T20:52:20+08:00</lastmod>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://vim0.com/en/categories/golang/</loc>
-    <lastmod>2023-10-08T20:52:20+08:00</lastmod>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -184,6 +268,13 @@
   </url>
   
   <url>
+    <loc>https://vim0.com/en/post/make_zero_value_useful/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://vim0.com/en/post/golang/use_mock_to_test/</loc>
     <lastmod>2023-10-08T20:52:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -198,14 +289,28 @@
   </url>
   
   <url>
-    <loc>https://vim0.com/en/tags/english/</loc>
-    <lastmod>2023-10-08T20:52:20+08:00</lastmod>
+    <loc>https://vim0.com/en/categories/principles/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://vim0.com/en/categories/english/</loc>
+    <loc>https://vim0.com/en/tags/summary/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/summary/rules/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/tags/english/</loc>
     <lastmod>2023-10-08T20:52:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -220,13 +325,6 @@
   
   <url>
     <loc>https://vim0.com/en/post/investment/learned_about_investment/</loc>
-    <lastmod>2023-10-08T20:52:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://vim0.com/en/categories/soft-skills/</loc>
     <lastmod>2023-10-08T20:52:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -373,8 +471,99 @@
   </url>
   
   <url>
+    <loc>https://vim0.com/en/tags/network/</loc>
+    <lastmod>2020-04-01T01:37:56+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/categories/network/</loc>
+    <lastmod>2020-04-01T01:37:56+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2020-04-01T01:37:56+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/categories/akka/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/scala/future_in_actor/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/tags/scala/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/categories/scala/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/scala/akka_source_code/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/scala/how_to_learn_scala/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/scala/aes_limit_length/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/translate/java_equals/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://vim0.com/en/tags/java/</loc>
-    <lastmod>2023-10-08T20:52:20+08:00</lastmod>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/post/summary/2018_summary/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://vim0.com/en/categories/year-end-summary/</loc>
+    <lastmod>2023-10-08T21:02:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

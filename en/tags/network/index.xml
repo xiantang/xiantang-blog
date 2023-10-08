@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>network on xiantang</title>
+    <link>https://vim0.com/en/tags/network/</link>
+    <description>Recent content in network on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 01 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TCP Study for Interviews</title>
+      <link>https://vim0.com/en/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Wed, 01 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</guid>
+      <description>What is TCP  TCP is a full-duplex, byte-stream protocol based on the IP protocol. TCP provides end-to-end accurate transmission.  Acknowledges each byte Handles poor network conditions  Timeout retransmission Congestion control   Efficiency improvement  Uses sliding window protocol     TCP is a connection-oriented protocol.  Since it is connection-oriented, how is this connection established?
+That is, the following question is how to establish a virtual link using a three-way handshake.</description>
+    </item>
+    
+  </channel>
+</rss>

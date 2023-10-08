@@ -19,6 +19,29 @@ Work I have been working in Singapore for more than a year and a half. Because S
     </item>
     
     <item>
+      <title>Using neovim as a PDE (Personalized Development Environment)</title>
+      <link>https://vim0.com/en/post/neovim/</link>
+      <pubDate>Sat, 29 Oct 2022 20:45:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/neovim/</guid>
+      <description>This article will not tell you how to configure neovim step by step, but will tell you some &amp;ldquo;Tao&amp;rdquo; about PDE, not the specific practice of &amp;ldquo;Art&amp;rdquo;.
+Introduction to neovim and PDE Seeing TJ&amp;rsquo;s YouTube introduced the use of neovim as a PDE, it was interesting, so I tried it myself, it felt good, so I recorded it.
+What is neovim Neovim is a branch of vim, vim is a text editor, neovim is a branch of vim, its goal is to provide a better vim, not a substitute for vim.</description>
+    </item>
+    
+    <item>
+      <title>Shell is a good productivity tool</title>
+      <link>https://vim0.com/en/post/shell_is_useful_tool/</link>
+      <pubDate>Mon, 12 Sep 2022 14:34:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/shell_is_useful_tool/</guid>
+      <description>If a sequence of three commands is executed twice in a row, it is recommended that you write it as a Shell script &amp;ndash; blog.fleeto.us
+ Recently, I increasingly realize that shell can replace python as the second language for devops engineers.
+Because daily work may be repetitive, many repetitive operations in work can be reduced by shell scripts to reduce mental burden.
+Let me give you an example:</description>
+    </item>
+    
+    <item>
       <title>Using the 80/20 Rule to Learn awk Effortlessly</title>
       <link>https://vim0.com/en/post/awk/</link>
       <pubDate>Wed, 29 Jun 2022 22:14:09 +0800</pubDate>
@@ -30,6 +53,16 @@ Recently, while learning awk, I found that there are really many details.</descr
     </item>
     
     <item>
+      <title>Guide to Settling in Singapore After Physically Crossing the Wall</title>
+      <link>https://vim0.com/en/post/singapore_3_month/</link>
+      <pubDate>Sun, 12 Jun 2022 21:33:31 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/singapore_3_month/</guid>
+      <description>What can you get from reading this article This article mainly talks about some things you need to do after coming to work in Singapore. By reading this article, you can get some necessary things you need to do after landing in Singapore, such as renting a house, applying for a bank card, etc., to prevent everyone from stepping into pitfalls.
+Renting a House The first important thing after coming to work in Singapore is to rent a house.</description>
+    </item>
+    
+    <item>
       <title>Using Docker Compose to Set Up Your Own Development Environment</title>
       <link>https://vim0.com/en/post/docker-compose-dev/</link>
       <pubDate>Thu, 05 May 2022 22:08:34 +0800</pubDate>
@@ -37,6 +70,26 @@ Recently, while learning awk, I found that there are really many details.</descr
       <guid>https://vim0.com/en/post/docker-compose-dev/</guid>
       <description>Docker is not a new technology, but a tool that puts old wine in new bottles.
  Actually, I used Docker when I was in college, around 2017, when Docker was in its heyday. It was just used to start various lightweight applications, such as magnetic link downloaders, personal network disks, etc. Until recently, my understanding of Docker was still relatively vague. As I continued to encounter requirements at work, I also continued to understand Docker, so I decided to write an article to summarize my recent use of Docker.</description>
+    </item>
+    
+    <item>
+      <title>Some Practices and Thoughts on Writing Maintainable Code</title>
+      <link>https://vim0.com/en/post/write_-maintainable_code/</link>
+      <pubDate>Sun, 10 Apr 2022 23:08:16 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/write_-maintainable_code/</guid>
+      <description>Some Practices and Thoughts on Writing Maintainable Code Recently, I have been modifying a piece of historical code that has a distinct style and has been handled by many hands. I found that there are many mistakes in the design of the code. This makes it very difficult for me to modify the code and add new features. This article is written with personal emotions, so there may be some subjectivity.</description>
+    </item>
+    
+    <item>
+      <title>Why do I use bidirectional links for note-taking?</title>
+      <link>https://vim0.com/en/post/two-way-link/</link>
+      <pubDate>Sun, 27 Feb 2022 23:15:45 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/two-way-link/</guid>
+      <description>The value of a person lies in finding connections between memorized information.
+ I previously recommended bidirectional link software to my friends for rote memorization, and many people asked me &amp;ldquo;Why use bidirectional links? What are the benefits?&amp;rdquo;. I will write a short article here to answer these questions.
+I have tried many note-taking software before, such as Notion, Evernote, and even Typora managed directly with git. Most of the time, I didn&amp;rsquo;t have the motivation to take notes.</description>
     </item>
     
     <item>
@@ -82,6 +135,17 @@ Background In short, our hot loading component will run commands, and then will 
     </item>
     
     <item>
+      <title>Golang: Making Your Zero Values More Useful</title>
+      <link>https://vim0.com/en/post/make_zero_value_useful/</link>
+      <pubDate>Sun, 16 Jan 2022 15:04:40 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/make_zero_value_useful/</guid>
+      <description>Make the zero value useful. &amp;ndash;Go Proverbs
+ Let&amp;rsquo;s start with the Golang blog: The zero value
+ When memory is allocated to store a value, whether by declaration or by calling make or new, and no explicit initialization is provided, the memory is given a default initialization. Each element of this value is set to its type&amp;rsquo;s zero value: false for booleans, 0 for integers, 0.0 for floats, &amp;quot;&amp;quot; for strings, and nil for pointers, functions, interfaces, slices, channels, and maps.</description>
+    </item>
+    
+    <item>
       <title>Using Mock and Interface for Golang Unit Testing</title>
       <link>https://vim0.com/en/post/golang/use_mock_to_test/</link>
       <pubDate>Fri, 07 Jan 2022 01:37:56 +0800</pubDate>
@@ -99,6 +163,17 @@ What is unit testing? Characteristics of unit testing Unit testing is a very imp
       
       <guid>https://vim0.com/en/post/golang/about_slice/</guid>
       <description>Some Details About Golang Slice In Golang, there are two types of data: One is an array with a fixed length, called Array, and the other is an array with an unlimited length, called Slice. Distinguish Between Array and Slice The difference between Array and Slice is: Array is of fixed length, and the length of Array is part of the type, so the length of Array cannot be changed,</description>
+    </item>
+    
+    <item>
+      <title>Summary of Commonly Used Principles in Computing</title>
+      <link>https://vim0.com/en/post/summary/rules/</link>
+      <pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://vim0.com/en/post/summary/rules/</guid>
+      <description>Commonly Used Principles in Computing When writing code, we often have some insights and experiences. These experiences have long been summarized into principles by the predecessors. In the past year, I have been collecting various principles and constantly applying and practicing them.
+KISS Principle The KISS Principle is an acronym for Keep It Simple, Stupid.
+The KISS principle refers to the principle that simplicity should be emphasized in design. Summarizing the experience of engineering professionals in the design process, most system designs should remain simple and pure, without incorporating unnecessary complexity, so that the system can operate optimally.</description>
     </item>
     
     <item>
@@ -231,6 +306,82 @@ Characteristics of GC Root  Objects that are alive at the current moment!</descr
       
       <guid>https://vim0.com/en/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</guid>
       <description>What is the Singleton Pattern? The Singleton Pattern, also known as the Singleton, is a commonly used software design pattern and is one of the creational patterns. In this design pattern, the class of the singleton object must ensure that only one instance exists. Pros and Cons Pros: There is only one instance in memory, reducing memory overhead. Cons: It violates the Single Responsibility Principle, and there is no interface,</description>
+    </item>
+    
+    <item>
+      <title>TCP Study for Interviews</title>
+      <link>https://vim0.com/en/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Wed, 01 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</guid>
+      <description>What is TCP  TCP is a full-duplex, byte-stream protocol based on the IP protocol. TCP provides end-to-end accurate transmission.  Acknowledges each byte Handles poor network conditions  Timeout retransmission Congestion control   Efficiency improvement  Uses sliding window protocol     TCP is a connection-oriented protocol.  Since it is connection-oriented, how is this connection established?
+That is, the following question is how to establish a virtual link using a three-way handshake.</description>
+    </item>
+    
+    <item>
+      <title>How Actor Handles Blocking Messages</title>
+      <link>https://vim0.com/en/post/scala/future_in_actor/</link>
+      <pubDate>Wed, 15 Jan 2020 17:51:36 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/scala/future_in_actor/</guid>
+      <description>I noticed in the business code that a lot of
+import scala.concurrent.ExecutionContext.Implicits.global
+is used as the thread pool for executing Future inside the Actor. I didn&amp;rsquo;t think there was a problem before. But after reading the akka source code, it seems a bit inappropriate.
+Let&amp;rsquo;s briefly talk about the architecture of Actor
+When an Actor sends a message to another Actor, it sends this message to the recipient&amp;rsquo;s mailbox
+The mailbox is a class that implements Runnable, so it can be executed by a thread pool.</description>
+    </item>
+    
+    <item>
+      <title>Analysis of Akka Source Code</title>
+      <link>https://vim0.com/en/post/scala/akka_source_code/</link>
+      <pubDate>Wed, 15 Jan 2020 17:26:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/scala/akka_source_code/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&amp;#34;HelloSystem&amp;#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&amp;#34;Parov Stelar&amp;#34;)) // jazzListener</description>
+    </item>
+    
+    <item>
+      <title>How to learn Scala</title>
+      <link>https://vim0.com/en/post/scala/how_to_learn_scala/</link>
+      <pubDate>Wed, 15 Jan 2020 16:33:34 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/scala/how_to_learn_scala/</guid>
+      <description>Background: When I first came to a company with Scala as its technology stack, I spent a long time setting up the environment. After finally getting the project up and running, I found the code inside to be very strange. There were no loops, and data operations were a function nested within another function. This was very puzzling. So, driven by business needs and curiosity, I began to learn about Scala.</description>
+    </item>
+    
+    <item>
+      <title>AES Requires Limiting SEED Length</title>
+      <link>https://vim0.com/en/post/scala/aes_limit_length/</link>
+      <pubDate>Sun, 20 Oct 2019 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/scala/aes_limit_length/</guid>
+      <description>I wrote a utility class to encrypt and decrypt the app field in the database
+There are no problems running unit tests in the local environment, but bugs appear in the production environment.
+The reason for this is that the online environment does not support the AES algorithm Provider. It needs to be solved by adding a third-party package that supports it under the ext package or introducing a third-party library.</description>
+    </item>
+    
+    <item>
+      <title>How to distinguish between == and .equals() method in Java</title>
+      <link>https://vim0.com/en/post/translate/java_equals/</link>
+      <pubDate>Sun, 24 Feb 2019 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/translate/java_equals/</guid>
+      <description>Generally speaking, equals() and &amp;quot;==&amp;quot; operator are used to compare whether two objects are equal, but there are many differences between the two:
+ The main difference is that .equals() is a method, == is an operator. Use == to compare references, referring to whether they point to the same memory address. Use .equals() to compare the content of objects, comparing values. If .equals is not overridden, it will default to calling the nearest superclass to override this method.</description>
+    </item>
+    
+    <item>
+      <title>2018 Year-end Summary</title>
+      <link>https://vim0.com/en/post/summary/2018_summary/</link>
+      <pubDate>Sun, 30 Dec 2018 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/summary/2018_summary/</guid>
+      <description>It&amp;rsquo;s the end of the year, so I&amp;rsquo;m going to write a little summary of 2018.
+This year, there have been losses and gains. The loss was the failure of a relationship that didn&amp;rsquo;t work out, and the gain was a general improvement in my personal quality.
+Let&amp;rsquo;s not dwell on what&amp;rsquo;s lost.
+Let&amp;rsquo;s talk about the gains.
+The gains can be divided into three aspects: physical, technical, and financial.</description>
     </item>
     
     <item>

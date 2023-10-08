@@ -39,5 +39,16 @@ Recently, while learning awk, I found that there are really many details.</descr
 Background In short, our hot loading component will run commands, and then will monitor file changes, once the file changes, it will kill the previous process, then recompile the code, and then execute the running command.</description>
     </item>
     
+    <item>
+      <title>Golang: Making Your Zero Values More Useful</title>
+      <link>https://vim0.com/en/post/make_zero_value_useful/</link>
+      <pubDate>Sun, 16 Jan 2022 15:04:40 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/make_zero_value_useful/</guid>
+      <description>Make the zero value useful. &amp;ndash;Go Proverbs
+ Let&amp;rsquo;s start with the Golang blog: The zero value
+ When memory is allocated to store a value, whether by declaration or by calling make or new, and no explicit initialization is provided, the memory is given a default initialization. Each element of this value is set to its type&amp;rsquo;s zero value: false for booleans, 0 for integers, 0.0 for floats, &amp;quot;&amp;quot; for strings, and nil for pointers, functions, interfaces, slices, channels, and maps.</description>
+    </item>
+    
   </channel>
 </rss>

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang: Making Your Zero Values More Useful - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="Golang uses zero values to make your code more concise, including Golang json zero value, Golang map zero value, etc." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/make_zero_value_useful/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang: Making Your Zero Values More Useful" />
+<meta property="og:description" content="Golang uses zero values to make your code more concise, including Golang json zero value, Golang map zero value, etc." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/make_zero_value_useful/" /><meta property="og:image" content="https://vim0.com/post/make_zero_value_useful.png" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-01-16T15:04:40+08:00" />
+<meta property="article:modified_time" content="2023-10-08T21:02:03+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Golang: Making Your Zero Values More Useful">
+<meta itemprop="description" content="Golang uses zero values to make your code more concise, including Golang json zero value, Golang map zero value, etc."><meta itemprop="datePublished" content="2022-01-16T15:04:40+08:00" />
+<meta itemprop="dateModified" content="2023-10-08T21:02:03+08:00" />
+<meta itemprop="wordCount" content="1061"><meta itemprop="image" content="https://vim0.com/post/make_zero_value_useful.png">
+<meta itemprop="keywords" content="Chinese,Golang," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/make_zero_value_useful.png"/>
+
+<meta name="twitter:title" content="Golang: Making Your Zero Values More Useful"/>
+<meta name="twitter:description" content="Golang uses zero values to make your code more concise, including Golang json zero value, Golang map zero value, etc."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang: Making Your Zero Values More Useful</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-01-16 </span>
+        <div class="post-category">
+            <a href="/en/categories/golang/"> Golang </a>
+            </div>
+          <span class="more-meta"> 1061 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#zero-value-cheat-sheet">Zero value cheat sheet</a></li>
+    <li><a href="#usage-of-zero-values">Usage of Zero Values</a>
+      <ul>
+        <li><a href="#syncmutex">sync.Mutex</a></li>
+        <li><a href="#bytesbuffer">bytes.Buffer</a></li>
+        <li><a href="#json-omitempty">JSON omitempty</a></li>
+        <li><a href="#channel-close">channel close</a></li>
+        <li><a href="#value-not-found-for-corresponding-key-in-map">Value not found for corresponding key in map</a></li>
+      </ul>
+    </li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#related-links">Related Links</a></li>
+    <li><a href="#article-recommendations">Article Recommendations</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p>Make the zero value useful.
+&ndash;Go Proverbs</p>
+</blockquote>
+<p>Let&rsquo;s start with the Golang blog: <a href="https://go.dev/ref/spec#The_zero_value">The zero value</a></p>
+<blockquote>
+<p>When memory is allocated to store a value, whether by declaration or by calling make or new, and no explicit initialization is provided, the memory is given a default initialization. Each element of this value is set to its type&rsquo;s zero value: false for booleans, 0 for integers, 0.0 for floats, <code>&quot;&quot;</code> for strings, and nil for pointers, functions, interfaces, slices, channels, and maps. This initialization is done recursively, so, for example, if no value is specified, each element of a structure array will be zeroed.</p>
+</blockquote>
+<p>Setting a value to zero in this way provides a great guarantee for the safety and correctness of the program, and also ensures the readability and simplicity of the program. This is what Golang programmers call &ldquo;Make the zero value useful&rdquo;.</p>
+<h2 id="zero-value-cheat-sheet">Zero value cheat sheet</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Zero Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bool</td>
+<td>false</td>
+</tr>
+<tr>
+<td>int</td>
+<td>0</td>
+</tr>
+<tr>
+<td>float</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>string</td>
+<td>&quot;&quot;</td>
+</tr>
+<tr>
+<td>pointer</td>
+<td>nil</td>
+</tr>
+<tr>
+<td>function</td>
+<td>nil</td>
+</tr>
+<tr>
+<td>slice</td>
+<td>nil</td>
+</tr>
+<tr>
+<td>map</td>
+<td>nil</td>
+</tr>
+<tr>
+<td>channel</td>
+<td>nil</td>
+</tr>
+</tbody>
+</table>
+<p>The initialization of zero values is recursive, so if no value is specified, each element of the structure array will be zeroed.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="err">➜</span> <span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>  
+<span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="kd">var</span> <span class="nx">a</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="kt">int</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span>
+<span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+  <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The same is true for structures. We initialize a B structure that references A, and if no value is specified, each field of B will be zeroed.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="err">➜</span> <span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>
+<span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="kd">type</span> <span class="nx">A</span> <span class="kd">struct</span> <span class="p">{</span> <span class="nx">i</span> <span class="kt">int</span><span class="p">;</span> <span class="nx">f</span> <span class="kt">float64</span> <span class="p">}</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="kd">type</span> <span class="nx">B</span> <span class="kd">struct</span> <span class="p">{</span> <span class="nx">i</span> <span class="kt">int</span><span class="p">;</span> <span class="nx">f</span> <span class="kt">float64</span><span class="p">;</span> <span class="nx">next</span> <span class="nx">A</span> <span class="p">}</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nb">new</span><span class="p">(</span><span class="nx">B</span><span class="p">)</span>
+<span class="o">&amp;</span><span class="nx">main</span><span class="p">.</span><span class="nx">B</span><span class="p">{</span>
+  <span class="nx">i</span><span class="p">:</span>    <span class="mi">0</span><span class="p">,</span>
+  <span class="nx">f</span><span class="p">:</span>    <span class="mf">0.000000</span><span class="p">,</span>
+  <span class="nx">next</span><span class="p">:</span> <span class="nx">main</span><span class="p">.</span><span class="nx">A</span><span class="p">{</span>
+    <span class="nx">i</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">f</span><span class="p">:</span> <span class="mf">0.000000</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>note:</p>
+<ul>
+<li>new: new(T) returns a pointer to the <code>zero value</code> of the newly allocated T type.</li>
+<li>The tool used is <a href="https://github.com/x-motemen/gore">gore</a></li>
+</ul>
+<h2 id="usage-of-zero-values">Usage of Zero Values</h2>
+<p>The previous section has introduced what zero values are, here we will see how to use them.</p>
+<h3 id="syncmutex">sync.Mutex</h3>
+<p>Here is an example of sync.Mutex, sync.Mutex is designed to be used directly through zero values without explicit initialization.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;sync&#34;</span>
+
+<span class="kd">type</span> <span class="nx">MyInt</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">mu</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+        <span class="nx">val</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">i</span> <span class="nx">MyInt</span>
+
+        <span class="c1">// i.mu is usable without explicit initialisation.
+</span><span class="c1"></span>        <span class="nx">i</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>      
+        <span class="nx">i</span><span class="p">.</span><span class="nx">val</span><span class="o">++</span>
+        <span class="nx">i</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Thanks to the characteristics of zero values, the two unexported variables inside Mutex will be initialized to zero values. So the zero value of sync.Mutex is an unlocked Mutex.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// A Mutex is a mutual exclusion lock.
+</span><span class="c1">// The zero value for a Mutex is an unlocked mutex.
+</span><span class="c1">//
+</span><span class="c1">// A Mutex must not be copied after first use.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Mutex</span> <span class="kd">struct</span> <span class="p">{</span>
+ <span class="nx">state</span> <span class="kt">int32</span>
+ <span class="nx">sema</span>  <span class="kt">uint32</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="bytesbuffer">bytes.Buffer</h3>
+<p>Another example is bytes.Buffer, its zero value is an empty Buffer.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;bytes&#34;</span>
+<span class="kn">import</span> <span class="s">&#34;io&#34;</span>
+<span class="kn">import</span> <span class="s">&#34;os&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">b</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span>
+        <span class="nx">b</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;go go go&#34;</span><span class="p">))</span>
+        <span class="nx">io</span><span class="p">.</span><span class="nf">Copy</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">b</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="json-omitempty">JSON omitempty</h3>
+<p>JSON receivers also accept the <code>omitempty</code> flag, when the input field is a <code>zero value</code>, the receiver will ignore this field.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="err">➜</span>  <span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>          
+<span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="o">...</span><span class="p">..</span>         <span class="nx">Name</span> <span class="kt">string</span> <span class="s">`json:&#34;name&#34;`</span>
+<span class="o">...</span><span class="p">..</span>         <span class="nx">Age</span>  <span class="kt">int</span>    <span class="s">`json:&#34;age&#34;`</span>
+<span class="o">...</span><span class="p">..</span>         <span class="nx">Addr</span> <span class="kt">string</span> <span class="s">`json:&#34;addr,omitempty&#34;`</span>
+<span class="o">...</span><span class="p">..</span> <span class="p">}</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">p1</span> <span class="o">:=</span> <span class="nx">Person</span><span class="p">{</span>
+<span class="o">...</span><span class="p">..</span>             <span class="nx">Name</span><span class="p">:</span> <span class="s">&#34;taoge&#34;</span><span class="p">,</span>
+<span class="o">...</span><span class="p">..</span>             <span class="nx">Age</span><span class="p">:</span>  <span class="mi">30</span><span class="p">,</span>
+<span class="o">...</span><span class="p">..</span>     <span class="p">}</span>
+<span class="nx">main</span><span class="p">.</span><span class="nx">Person</span><span class="p">{</span>
+  <span class="nx">Name</span><span class="p">:</span> <span class="s">&#34;taoge&#34;</span><span class="p">,</span>
+  <span class="nx">Age</span><span class="p">:</span>  <span class="mi">30</span><span class="p">,</span>
+  <span class="nx">Addr</span><span class="p">:</span> <span class="s">&#34;&#34;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nb">string</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="s">&#34;{\&#34;name\&#34;:\&#34;taoge\&#34;,\&#34;age\&#34;:30}&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="channel-close">channel close</h3>
+<p>In <a href="https://dave.cheney.net/2014/03/19/channel-axioms">Channel Axioms</a>, there is also a rule related to zero values, when the channel is closed, the &lt;- operation on the closed channel always returns <code>zero value</code> immediately.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+         <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+         <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span>
+         <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">2</span>
+         <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">3</span>
+         <span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+         <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+                  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="o">&lt;-</span><span class="nx">c</span><span class="p">)</span> <span class="c1">// prints 1 2 3 0
+</span><span class="c1"></span>         <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The correct way to solve the above problem is to use a for loop:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="k">for</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
+         <span class="c1">// do something with v
+</span><span class="c1"></span><span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="value-not-found-for-corresponding-key-in-map">Value not found for corresponding key in map</h3>
+<p>For a map, if the corresponding key is not found, the map will return a zero value of the corresponding type.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="err">➜</span> <span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>
+<span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
+<span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{}</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span><span class="p">[</span><span class="s">&#34;123&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&#34;456&#34;</span>
+<span class="s">&#34;456&#34;</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span><span class="p">[</span><span class="s">&#34;000&#34;</span><span class="p">]</span>
+<span class="s">&#34;&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The solution to this problem is to return multiple values:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="nx">gore</span> <span class="o">--</span><span class="nx">autoimport</span>
+<span class="nx">gore</span> <span class="nx">version</span> <span class="mf">0.5.3</span>  <span class="p">:</span><span class="nx">help</span> <span class="k">for</span> <span class="nx">help</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">a</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
+<span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{}</span>
+<span class="nx">gore</span><span class="p">&gt;</span> <span class="nx">c</span><span class="p">,</span><span class="nx">ok</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">[</span><span class="s">&#34;000&#34;</span><span class="p">]</span>
+<span class="s">&#34;&#34;</span>
+<span class="kc">false</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>For non-existent keys, the value of ok will become false.</p>
+<h2 id="summary">Summary</h2>
+<p>The above is some experience summary about <code>zero value</code>. I hope everyone can use the <code>zero value</code> better when designing code, and use the features provided by <code>zero value</code> to initialize some variables.</p>
+<h2 id="related-links">Related Links</h2>
+<ul>
+<li><a href="https://dave.cheney.net/2013/01/19/what-is-the-zero-value-and-why-is-it-useful">Golang zero value</a></li>
+<li><a href="https://dave.cheney.net/2014/03/19/channel-axioms">《Channel Axioms》</a></li>
+<li><a href="https://github.com/x-motemen/gore">Go REPL</a></li>
+</ul>
+<h2 id="article-recommendations">Article Recommendations</h2>
+<p>Finally, I would like to share with you some good articles I have been reading recently. I wanted to send them in a weekly format, but because I read them in a scattered way, I put them at the end of each blog post, hoping everyone can gain something.</p>
+<ul>
+<li><a href="https://shuxiao.wang/posts/why-no-new-baby/">Why we don&rsquo;t have children</a> Some thoughts about having children</li>
+<li><a href="https://blog.csdn.net/LuciferMS/article/details/122522964">Detailed interpretation of the paper &ldquo;The Tail At Scale&rdquo;</a></li>
+<li><a href="https://jogendra.dev/writing-maintainable-go-code">Writing maintainable Go code</a> Many points resonate with me after practice. The code is written once, but it will be read hundreds of times, so writing maintainable code is very important.</li>
+<li><a href="https://go.dev/blog/io2013-talk-concurrency">Advanced Golang concurrency programming talk</a> The sharer provides actual concurrency problems and then gives some of his own solutions. Very beneficial.</li>
+<li><a href="https://github.com/google/pprof/blob/master/doc/README.md#interpreting-the-callgraph">pprof graphic explanation</a> Finally, I can read pprof.</li>
+</ul>
+<p>Sure, please provide the Markdown content you want to translate. I&rsquo;ll make sure to follow the rules you&rsquo;ve outlined.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-10-08
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/049e9a9b902cc4103a27eb47305da3a164dab1c7" title="commit">(049e9a9)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/chinese/">Chinese</a>
+          <a href="/en/tags/golang/">Golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/kill_process_and_its_childs/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">How to kill a process and its descendants in Unix?</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/golang/use_mock_to_test/">
+            <span class="next-text nav-default">Using Mock and Interface for Golang Unit Testing</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

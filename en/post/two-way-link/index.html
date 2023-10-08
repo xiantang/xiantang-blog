@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Why do I use bidirectional links for note-taking? - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="The value of a person lies in finding connections between memorized information.
+ I previously recommended bidirectional link software to my friends for rote memorization, and many people asked me &amp;ldquo;Why use bidirectional links? What are the benefits?&amp;rdquo;. I will write a short article here to answer these questions.
+I have tried many note-taking software before, such as Notion, Evernote, and even Typora managed directly with git. Most of the time, I didn&amp;rsquo;t have the motivation to take notes." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/two-way-link/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Why do I use bidirectional links for note-taking?" />
+<meta property="og:description" content="The value of a person lies in finding connections between memorized information.
+ I previously recommended bidirectional link software to my friends for rote memorization, and many people asked me &ldquo;Why use bidirectional links? What are the benefits?&rdquo;. I will write a short article here to answer these questions.
+I have tried many note-taking software before, such as Notion, Evernote, and even Typora managed directly with git. Most of the time, I didn&rsquo;t have the motivation to take notes." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/two-way-link/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-02-27T23:15:45+08:00" />
+<meta property="article:modified_time" content="2023-10-08T21:02:03+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Why do I use bidirectional links for note-taking?">
+<meta itemprop="description" content="The value of a person lies in finding connections between memorized information.
+ I previously recommended bidirectional link software to my friends for rote memorization, and many people asked me &ldquo;Why use bidirectional links? What are the benefits?&rdquo;. I will write a short article here to answer these questions.
+I have tried many note-taking software before, such as Notion, Evernote, and even Typora managed directly with git. Most of the time, I didn&rsquo;t have the motivation to take notes."><meta itemprop="datePublished" content="2022-02-27T23:15:45+08:00" />
+<meta itemprop="dateModified" content="2023-10-08T21:02:03+08:00" />
+<meta itemprop="wordCount" content="584"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="keywords" content="Bidirectional Links," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
+
+<meta name="twitter:title" content="Why do I use bidirectional links for note-taking?"/>
+<meta name="twitter:description" content="The value of a person lies in finding connections between memorized information.
+ I previously recommended bidirectional link software to my friends for rote memorization, and many people asked me &ldquo;Why use bidirectional links? What are the benefits?&rdquo;. I will write a short article here to answer these questions.
+I have tried many note-taking software before, such as Notion, Evernote, and even Typora managed directly with git. Most of the time, I didn&rsquo;t have the motivation to take notes."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Why do I use bidirectional links for note-taking?</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-02-27 </span>
+        <div class="post-category">
+            <a href="/en/categories/notes/"> Notes </a>
+            </div>
+          <span class="more-meta"> 584 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-are-bidirectional-links">What are bidirectional links?</a></li>
+    <li><a href="#what-are-the-benefits-of-bidirectional-links">What are the benefits of bidirectional links?</a></li>
+    <li><a href="#examples">Examples</a>
+      <ul>
+        <li><a href="#i-want-to-learn-a-concept">I want to learn a concept</a></li>
+        <li><a href="#making-records">Making records</a></li>
+        <li><a href="#review">Review</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p>The value of a person lies in finding connections between memorized information.</p>
+</blockquote>
+<p>I previously recommended bidirectional link software to my friends for rote memorization, and many people asked me &ldquo;Why use bidirectional links? What are the benefits?&rdquo;.
+I will write a short article here to answer these questions.</p>
+<p>I have tried many note-taking software before, such as Notion, Evernote, and even Typora managed directly with git. Most of the time, I didn&rsquo;t have the motivation to take notes.
+The main reasons are:</p>
+<ul>
+<li>
+<p>There is no use when looking at the notes for the second time, it just looks like a mess. As shown below:
+<img src="2022-02-27-23-32-09.png" alt="Previous notes"></p>
+</li>
+<li>
+<p>When taking notes, I don&rsquo;t know where to write? This folder or that folder?</p>
+</li>
+<li>
+<p>There is no connection between the notes, no relevance, and the reusability of the knowledge points is very low. Writing is just for the sake of writing.</p>
+</li>
+</ul>
+<p>I found bidirectional links, which is a new way of note-taking, and it allows us to directly find the original knowledge points in the notes.</p>
+<h2 id="what-are-bidirectional-links">What are bidirectional links?</h2>
+<p>Bidirectional links refer to the reference relationship between two notes. For example: Note A refers to Note B, and Note B will automatically refer to Note A, then the two notes are interrelated, which is a bidirectional link, supporting bidirectional jumps.</p>
+<h2 id="what-are-the-benefits-of-bidirectional-links">What are the benefits of bidirectional links?</h2>
+<p>I will list a few benefits of bidirectional link notes:</p>
+<ol>
+<li>
+<p><strong>Good reusability</strong>, when you write down an entry, if the later notes can directly refer to this entry.</p>
+</li>
+<li>
+<p><strong>No pressure to record</strong>, because you know that constantly linking notes can help you in the future, you will be more motivated to record. At the same time, you don&rsquo;t need to think about where to write the notes, just write the related content directly into the entry, let them link to each other. Later, you can easily find the notes.</p>
+</li>
+<li>
+<p><strong>Facilitates internalization</strong>, when you plan to write an article, there may be many concepts. If you have accumulated these concepts in bidirectional link notes before, then you can directly refer to these concepts. At the same time, for this concept, you can know which notes refer to this concept. In this way, you can more completely find out the knowledge points you have summarized before, and output a complete summary article.</p>
+</li>
+</ol>
+<h2 id="examples">Examples</h2>
+<h3 id="i-want-to-learn-a-concept">I want to learn a concept</h3>
+<p>Some time ago, I was learning a concept called <code>Golang Channel</code>, and I read related articles, such as: &ldquo;Channel Axioms&rdquo;, &ldquo;Golang Channels Tutorial&rdquo;, &ldquo;Effective Go&rdquo;.</p>
+<p>First, I would write the concept of Channel into the bidirectional link notes:</p>
+<p><img src="/image/2022-02-28-00-02-46.png" alt=""></p>
+<h3 id="making-records">Making records</h3>
+<p>For each article, I would write an entry in the bidirectional link notes, this entry is the title of the article, and then write the notes of the article in the entry.
+But this note is not simply copied up, but written in my own language, I need to chew it myself. For example, the above Channel&rsquo;s axioms:</p>
+<p><img src="../2022-02-28-00-21-46.png" alt=""></p>
+<h3 id="review">Review</h3>
+<p>When you need to do output and review, you just need to open the Channel entry, and you can find all the notes that referenced Channel before.</p>
+<p><img src="../2022-02-28-00-22-14.png" alt=""></p>
+<p>The benefits of this are obvious, when we output to make an outline, the notes of these reverse links will provide good help. Initially, there were few entries when recording, but after a period of time, we can write the entries more completely. At the same time, the cost will become very low after outputting an article.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://dave.cheney.net/2014/03/19/channel-axioms">Channel Axioms</a></li>
+<li><a href="https://staging.yinxiang.com/hc/articles/knowledge/">Bidirectional Link and Knowledge Star Map User Guide-Windows/Mac side</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-10-08
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/049e9a9b902cc4103a27eb47305da3a164dab1c7" title="commit">(049e9a9)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/bidirectional-links/">Bidirectional Links</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/write_-maintainable_code/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Some Practices and Thoughts on Writing Maintainable Code</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/anxiety/">
+            <span class="next-text nav-default">About Anxiety and Procrastination</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

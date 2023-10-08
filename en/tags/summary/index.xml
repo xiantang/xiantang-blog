@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>summary on xiantang</title>
+    <link>https://vim0.com/en/tags/summary/</link>
+    <description>Recent content in summary on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 10 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://vim0.com/en/tags/summary/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Summary of Commonly Used Principles in Computing</title>
+      <link>https://vim0.com/en/post/summary/rules/</link>
+      <pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://vim0.com/en/post/summary/rules/</guid>
+      <description>Commonly Used Principles in Computing When writing code, we often have some insights and experiences. These experiences have long been summarized into principles by the predecessors. In the past year, I have been collecting various principles and constantly applying and practicing them.
+KISS Principle The KISS Principle is an acronym for Keep It Simple, Stupid.
+The KISS principle refers to the principle that simplicity should be emphasized in design. Summarizing the experience of engineering professionals in the design process, most system designs should remain simple and pure, without incorporating unnecessary complexity, so that the system can operate optimally.</description>
+    </item>
+    
+    <item>
+      <title>2018 Year-end Summary</title>
+      <link>https://vim0.com/en/post/summary/2018_summary/</link>
+      <pubDate>Sun, 30 Dec 2018 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/summary/2018_summary/</guid>
+      <description>It&amp;rsquo;s the end of the year, so I&amp;rsquo;m going to write a little summary of 2018.
+This year, there have been losses and gains. The loss was the failure of a relationship that didn&amp;rsquo;t work out, and the gain was a general improvement in my personal quality.
+Let&amp;rsquo;s not dwell on what&amp;rsquo;s lost.
+Let&amp;rsquo;s talk about the gains.
+The gains can be divided into three aspects: physical, technical, and financial.</description>
+    </item>
+    
+  </channel>
+</rss>

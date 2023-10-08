@@ -6,7 +6,28 @@
     <description>Recent content in English on xiantang</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 14 Oct 2021 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/en/categories/english/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Jun 2022 21:33:31 +0800</lastBuildDate><atom:link href="https://vim0.com/en/categories/english/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Guide to Settling in Singapore After Physically Crossing the Wall</title>
+      <link>https://vim0.com/en/post/singapore_3_month/</link>
+      <pubDate>Sun, 12 Jun 2022 21:33:31 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/singapore_3_month/</guid>
+      <description>What can you get from reading this article This article mainly talks about some things you need to do after coming to work in Singapore. By reading this article, you can get some necessary things you need to do after landing in Singapore, such as renting a house, applying for a bank card, etc., to prevent everyone from stepping into pitfalls.
+Renting a House The first important thing after coming to work in Singapore is to rent a house.</description>
+    </item>
+    
+    <item>
+      <title>Summary of Commonly Used Principles in Computing</title>
+      <link>https://vim0.com/en/post/summary/rules/</link>
+      <pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://vim0.com/en/post/summary/rules/</guid>
+      <description>Commonly Used Principles in Computing When writing code, we often have some insights and experiences. These experiences have long been summarized into principles by the predecessors. In the past year, I have been collecting various principles and constantly applying and practicing them.
+KISS Principle The KISS Principle is an acronym for Keep It Simple, Stupid.
+The KISS principle refers to the principle that simplicity should be emphasized in design. Summarizing the experience of engineering professionals in the design process, most system designs should remain simple and pure, without incorporating unnecessary complexity, so that the system can operate optimally.</description>
+    </item>
+    
     <item>
       <title>Relearning English Grammar</title>
       <link>https://vim0.com/en/post/english/english_grammar/</link>
@@ -79,6 +100,46 @@ Characteristics of GC Root  Objects that are alive at the current moment!</descr
       
       <guid>https://vim0.com/en/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</guid>
       <description>What is the Singleton Pattern? The Singleton Pattern, also known as the Singleton, is a commonly used software design pattern and is one of the creational patterns. In this design pattern, the class of the singleton object must ensure that only one instance exists. Pros and Cons Pros: There is only one instance in memory, reducing memory overhead. Cons: It violates the Single Responsibility Principle, and there is no interface,</description>
+    </item>
+    
+    <item>
+      <title>TCP Study for Interviews</title>
+      <link>https://vim0.com/en/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Wed, 01 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</guid>
+      <description>What is TCP  TCP is a full-duplex, byte-stream protocol based on the IP protocol. TCP provides end-to-end accurate transmission.  Acknowledges each byte Handles poor network conditions  Timeout retransmission Congestion control   Efficiency improvement  Uses sliding window protocol     TCP is a connection-oriented protocol.  Since it is connection-oriented, how is this connection established?
+That is, the following question is how to establish a virtual link using a three-way handshake.</description>
+    </item>
+    
+    <item>
+      <title>How to learn Scala</title>
+      <link>https://vim0.com/en/post/scala/how_to_learn_scala/</link>
+      <pubDate>Wed, 15 Jan 2020 16:33:34 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/scala/how_to_learn_scala/</guid>
+      <description>Background: When I first came to a company with Scala as its technology stack, I spent a long time setting up the environment. After finally getting the project up and running, I found the code inside to be very strange. There were no loops, and data operations were a function nested within another function. This was very puzzling. So, driven by business needs and curiosity, I began to learn about Scala.</description>
+    </item>
+    
+    <item>
+      <title>AES Requires Limiting SEED Length</title>
+      <link>https://vim0.com/en/post/scala/aes_limit_length/</link>
+      <pubDate>Sun, 20 Oct 2019 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/scala/aes_limit_length/</guid>
+      <description>I wrote a utility class to encrypt and decrypt the app field in the database
+There are no problems running unit tests in the local environment, but bugs appear in the production environment.
+The reason for this is that the online environment does not support the AES algorithm Provider. It needs to be solved by adding a third-party package that supports it under the ext package or introducing a third-party library.</description>
+    </item>
+    
+    <item>
+      <title>How to distinguish between == and .equals() method in Java</title>
+      <link>https://vim0.com/en/post/translate/java_equals/</link>
+      <pubDate>Sun, 24 Feb 2019 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/translate/java_equals/</guid>
+      <description>Generally speaking, equals() and &amp;quot;==&amp;quot; operator are used to compare whether two objects are equal, but there are many differences between the two:
+ The main difference is that .equals() is a method, == is an operator. Use == to compare references, referring to whether they point to the same memory address. Use .equals() to compare the content of objects, comparing values. If .equals is not overridden, it will default to calling the nearest superclass to override this method.</description>
     </item>
     
   </channel>

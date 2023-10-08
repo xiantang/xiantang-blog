@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Some Practices and Thoughts on Writing Maintainable Code - xiantang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="Some Practices and Thoughts on Writing Maintainable Code Recently, I have been modifying a piece of historical code that has a distinct style and has been handled by many hands. I found that there are many mistakes in the design of the code. This makes it very difficult for me to modify the code and add new features. This article is written with personal emotions, so there may be some subjectivity." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/en/post/write_-maintainable_code/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Some Practices and Thoughts on Writing Maintainable Code" />
+<meta property="og:description" content="Some Practices and Thoughts on Writing Maintainable Code Recently, I have been modifying a piece of historical code that has a distinct style and has been handled by many hands. I found that there are many mistakes in the design of the code. This makes it very difficult for me to modify the code and add new features. This article is written with personal emotions, so there may be some subjectivity." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/en/post/write_-maintainable_code/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-04-10T23:08:16+08:00" />
+<meta property="article:modified_time" content="2023-10-08T21:02:03+08:00" /><meta property="og:site_name" content="xiantang" />
+
+<meta itemprop="name" content="Some Practices and Thoughts on Writing Maintainable Code">
+<meta itemprop="description" content="Some Practices and Thoughts on Writing Maintainable Code Recently, I have been modifying a piece of historical code that has a distinct style and has been handled by many hands. I found that there are many mistakes in the design of the code. This makes it very difficult for me to modify the code and add new features. This article is written with personal emotions, so there may be some subjectivity."><meta itemprop="datePublished" content="2022-04-10T23:08:16+08:00" />
+<meta itemprop="dateModified" content="2023-10-08T21:02:03+08:00" />
+<meta itemprop="wordCount" content="722"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="keywords" content="code," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
+
+<meta name="twitter:title" content="Some Practices and Thoughts on Writing Maintainable Code"/>
+<meta name="twitter:description" content="Some Practices and Thoughts on Writing Maintainable Code Recently, I have been modifying a piece of historical code that has a distinct style and has been handled by many hands. I found that there are many mistakes in the design of the code. This makes it very difficult for me to modify the code and add new features. This article is written with personal emotions, so there may be some subjectivity."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/en/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/en">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/en/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/en">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Some Practices and Thoughts on Writing Maintainable Code</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-04-10 </span>
+        
+          <span class="more-meta"> 722 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#repeating-the-same-logic">Repeating the same logic</a></li>
+    <li><a href="#dont-just-add-if-else-special-logic">Don&rsquo;t just add if else special logic</a></li>
+    <li><a href="#delayed-abstraction">Delayed abstraction</a></li>
+    <li><a href="#write-less-flashy-code">Write less flashy code</a></li>
+    <li><a href="#group-the-code-together">Group the code together</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="some-practices-and-thoughts-on-writing-maintainable-code">Some Practices and Thoughts on Writing Maintainable Code</h1>
+<p>Recently, I have been modifying a piece of historical code that has a distinct style and has been handled by many hands. I found that there are many mistakes in the design of the code. This makes it very difficult for me to modify the code and add new features. This article is written with personal emotions, so there may be some subjectivity.</p>
+<p>Below, I list a few coding behaviors that I think greatly affect maintainability.</p>
+<h2 id="repeating-the-same-logic">Repeating the same logic</h2>
+<p>Long, identical logic, written twice. Many times, some developers encounter a piece of historical code with poor performance, but lack the time to optimize this code, so we will rewrite a set of code with the same behavior and open an API interface for use. Although this does indeed complete the existing task, it is actually very risky.</p>
+<p>If a new colleague needs to modify the existing API behavior, he will fall into a big pit, because two sets of logic are running online at the same time and have the same behavior. It is very likely that this new colleague may only change one set of logic and ignore the other set. This situation is really easy to exist, because newcomers often lack information. In the case of insufficient QA, it will introduce difficult-to-troubleshoot BUGs.</p>
+<h2 id="dont-just-add-if-else-special-logic">Don&rsquo;t just add if else special logic</h2>
+<p>Many times, we encounter some requirements, a simple look actually does not need to modify, just need to add a sentence of if else such special logic in the main process or abstraction.
+This simple judgment logic is likely to give you a punch in the near future, such as two or three months later.
+Before considering adding if else, think about whether it is convenient for you to modify it later? Can it be written in the configuration file and modified by the configuration center?
+If you really need to add it, you need to add comments to this code. You need to determine the behavior of your own code, not pile up a bunch of logic, and when others ask about the behavior, say it might do this? Might do that?
+Programming by coincidence will only bring more and more problems.</p>
+<h2 id="delayed-abstraction">Delayed abstraction</h2>
+<p>Programmers are a very interesting group, especially fond of the matter of <code>abstraction</code>, including me. I have seen good abstractions and bad abstractions in various repositories. The worse abstraction is often the kind that exposes 10+ functions in an <code>interface</code>, and each function&rsquo;s real implementation is only two or three lines, we generally call it <code>wide interface</code>. Its disadvantage is that when you expand horizontally, you need to implement 10+ functions, which is very painful, and the flexibility is very poor. At the same time, each implemented function is likely to be an empty implementation, with no actual execution code inside.</p>
+<p>My suggestions are:</p>
+<ol>
+<li>Start by writing some implementation classes, initially using simple switch statements and other behavior controls for calls, then gradually abstract the upper-level interfaces based on the commonality of the implementation classes. If you are using <code>Go</code>, you can refer to my previous thoughts on Golang abstraction. <a href="https://vim0.com/post/how_to_fix_big_interface/">Golang: How to handle the ever-expanding interface</a></li>
+<li>Greatly reduce the number of functions in the interface, with a maximum of 4 functions per interface, which makes it easier to implement. Break down the large interface into different interfaces according to the <code>single responsibility principle</code>, and then combine them into different large interfaces. You can refer to the implementation of Golang at <a href="https://cs.opensource.google/go/go/+/refs/tags/go1.18:src/io/io.go;l=127">https://cs.opensource.google/go/go/+/refs/tags/go1.18:src/io/io.go;l=127</a>.</li>
+</ol>
+<h2 id="write-less-flashy-code">Write less flashy code</h2>
+<p>A line of code is written once, but it will be read hundreds of times, so simplicity is important when writing. Showy code/overuse of design patterns makes the code difficult to maintain and adds complexity to the system.</p>
+<h2 id="group-the-code-together">Group the code together</h2>
+<p>I often find some code where the entire function has 500+ lines, with no comments, and 70% of the entire function is done in a for loop.
+My suggestion is that if you break down what this function needs to do into smaller tasks before writing the code, and there are comments in front of each task, the readability of the code will be much better.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>The rant is over, I hope I can think more when writing code and write code that is easy to modify.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-10-08
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/049e9a9b902cc4103a27eb47305da3a164dab1c7" title="commit">(049e9a9)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/en/tags/code/">code</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/en/post/docker-compose-dev/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Using Docker Compose to Set Up Your Own Development Environment</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/en/post/two-way-link/">
+            <span class="next-text nav-default">Why do I use bidirectional links for note-taking?</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -96,5 +96,41 @@ For the young area, we have three areas, one is the Eden area, and the other two
       <description>No2 Singleton Pattern 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够创建 private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton</description>
     </item>
     
+    <item>
+      <title>How Actor Handles Blocking Messages</title>
+      <link>https://vim0.com/en/post/scala/future_in_actor/</link>
+      <pubDate>Wed, 15 Jan 2020 17:51:36 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/scala/future_in_actor/</guid>
+      <description>I noticed in the business code that a lot of
+import scala.concurrent.ExecutionContext.Implicits.global
+is used as the thread pool for executing Future inside the Actor. I didn&amp;rsquo;t think there was a problem before. But after reading the akka source code, it seems a bit inappropriate.
+Let&amp;rsquo;s briefly talk about the architecture of Actor
+When an Actor sends a message to another Actor, it sends this message to the recipient&amp;rsquo;s mailbox
+The mailbox is a class that implements Runnable, so it can be executed by a thread pool.</description>
+    </item>
+    
+    <item>
+      <title>Analysis of Akka Source Code</title>
+      <link>https://vim0.com/en/post/scala/akka_source_code/</link>
+      <pubDate>Wed, 15 Jan 2020 17:26:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/scala/akka_source_code/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&amp;#34;HelloSystem&amp;#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&amp;#34;Parov Stelar&amp;#34;)) // jazzListener</description>
+    </item>
+    
+    <item>
+      <title>2018 Year-end Summary</title>
+      <link>https://vim0.com/en/post/summary/2018_summary/</link>
+      <pubDate>Sun, 30 Dec 2018 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/summary/2018_summary/</guid>
+      <description>It&amp;rsquo;s the end of the year, so I&amp;rsquo;m going to write a little summary of 2018.
+This year, there have been losses and gains. The loss was the failure of a relationship that didn&amp;rsquo;t work out, and the gain was a general improvement in my personal quality.
+Let&amp;rsquo;s not dwell on what&amp;rsquo;s lost.
+Let&amp;rsquo;s talk about the gains.
+The gains can be divided into three aspects: physical, technical, and financial.</description>
+    </item>
+    
   </channel>
 </rss>

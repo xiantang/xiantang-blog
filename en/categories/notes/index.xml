@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Notes on xiantang</title>
+    <link>https://vim0.com/en/categories/notes/</link>
+    <description>Recent content in Notes on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 27 Feb 2022 23:15:45 +0800</lastBuildDate><atom:link href="https://vim0.com/en/categories/notes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why do I use bidirectional links for note-taking?</title>
+      <link>https://vim0.com/en/post/two-way-link/</link>
+      <pubDate>Sun, 27 Feb 2022 23:15:45 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/two-way-link/</guid>
+      <description>The value of a person lies in finding connections between memorized information.
+ I previously recommended bidirectional link software to my friends for rote memorization, and many people asked me &amp;ldquo;Why use bidirectional links? What are the benefits?&amp;rdquo;. I will write a short article here to answer these questions.
+I have tried many note-taking software before, such as Notion, Evernote, and even Typora managed directly with git. Most of the time, I didn&amp;rsquo;t have the motivation to take notes.</description>
+    </item>
+    
+  </channel>
+</rss>

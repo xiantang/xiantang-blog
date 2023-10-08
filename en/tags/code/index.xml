@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>code on xiantang</title>
+    <link>https://vim0.com/en/tags/code/</link>
+    <description>Recent content in code on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 10 Apr 2022 23:08:16 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/code/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Some Practices and Thoughts on Writing Maintainable Code</title>
+      <link>https://vim0.com/en/post/write_-maintainable_code/</link>
+      <pubDate>Sun, 10 Apr 2022 23:08:16 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/write_-maintainable_code/</guid>
+      <description>Some Practices and Thoughts on Writing Maintainable Code Recently, I have been modifying a piece of historical code that has a distinct style and has been handled by many hands. I found that there are many mistakes in the design of the code. This makes it very difficult for me to modify the code and add new features. This article is written with personal emotions, so there may be some subjectivity.</description>
+    </item>
+    
+  </channel>
+</rss>

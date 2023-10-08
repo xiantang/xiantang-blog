@@ -6,7 +6,17 @@
     <description>Recent content in Java on xiantang</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 07 Dec 2018 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Feb 2019 14:40:53 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to distinguish between == and .equals() method in Java</title>
+      <link>https://vim0.com/en/post/translate/java_equals/</link>
+      <pubDate>Sun, 24 Feb 2019 14:40:53 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/translate/java_equals/</guid>
+      <description>Generally speaking, equals() and &amp;quot;==&amp;quot; operator are used to compare whether two objects are equal, but there are many differences between the two:
+ The main difference is that .equals() is a method, == is an operator. Use == to compare references, referring to whether they point to the same memory address. Use .equals() to compare the content of objects, comparing values. If .equals is not overridden, it will default to calling the nearest superclass to override this method.</description>
+    </item>
+    
     <item>
       <title>Java Collection Expansion</title>
       <link>https://vim0.com/en/post/collection/collection/</link>

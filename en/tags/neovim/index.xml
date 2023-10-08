@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>neovim on xiantang</title>
+    <link>https://vim0.com/en/tags/neovim/</link>
+    <description>Recent content in neovim on xiantang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 29 Oct 2022 20:45:20 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/neovim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using neovim as a PDE (Personalized Development Environment)</title>
+      <link>https://vim0.com/en/post/neovim/</link>
+      <pubDate>Sat, 29 Oct 2022 20:45:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/neovim/</guid>
+      <description>This article will not tell you how to configure neovim step by step, but will tell you some &amp;ldquo;Tao&amp;rdquo; about PDE, not the specific practice of &amp;ldquo;Art&amp;rdquo;.
+Introduction to neovim and PDE Seeing TJ&amp;rsquo;s YouTube introduced the use of neovim as a PDE, it was interesting, so I tried it myself, it felt good, so I recorded it.
+What is neovim Neovim is a branch of vim, vim is a text editor, neovim is a branch of vim, its goal is to provide a better vim, not a substitute for vim.</description>
+    </item>
+    
+  </channel>
+</rss>

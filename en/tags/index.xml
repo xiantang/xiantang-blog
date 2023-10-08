@@ -6,7 +6,16 @@
     <description>Recent content in Tags on xiantang</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 29 Jun 2022 22:14:09 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Oct 2022 20:45:20 +0800</lastBuildDate><atom:link href="https://vim0.com/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>neovim</title>
+      <link>https://vim0.com/en/tags/neovim/</link>
+      <pubDate>Sat, 29 Oct 2022 20:45:20 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/neovim/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>awk</title>
       <link>https://vim0.com/en/tags/awk/</link>
@@ -40,6 +49,24 @@
       <pubDate>Thu, 05 May 2022 22:08:34 +0800</pubDate>
       
       <guid>https://vim0.com/en/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>code</title>
+      <link>https://vim0.com/en/tags/code/</link>
+      <pubDate>Sun, 10 Apr 2022 23:08:16 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bidirectional Links</title>
+      <link>https://vim0.com/en/tags/bidirectional-links/</link>
+      <pubDate>Sun, 27 Feb 2022 23:15:45 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/bidirectional-links/</guid>
       <description></description>
     </item>
     
@@ -85,6 +112,15 @@
       <pubDate>Sun, 13 Feb 2022 20:23:51 +0800</pubDate>
       
       <guid>https://vim0.com/en/tags/refactor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>summary</title>
+      <link>https://vim0.com/en/tags/summary/</link>
+      <pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://vim0.com/en/tags/summary/</guid>
       <description></description>
     </item>
     
@@ -143,9 +179,27 @@
     </item>
     
     <item>
+      <title>network</title>
+      <link>https://vim0.com/en/tags/network/</link>
+      <pubDate>Wed, 01 Apr 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/network/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>scala</title>
+      <link>https://vim0.com/en/tags/scala/</link>
+      <pubDate>Wed, 15 Jan 2020 17:51:36 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/tags/scala/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Java</title>
       <link>https://vim0.com/en/tags/java/</link>
-      <pubDate>Fri, 07 Dec 2018 01:37:56 +0800</pubDate>
+      <pubDate>Sun, 24 Feb 2019 14:40:53 +0800</pubDate>
       
       <guid>https://vim0.com/en/tags/java/</guid>
       <description></description>
