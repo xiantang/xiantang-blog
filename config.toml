@@ -39,32 +39,32 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   priority = 0.5
   filename = "sitemap.xml"
 
-[[menu.main]]             # config your menu              # 配置目录
+[[languages.zh-cn.menu.main]]             # config your menu              # 配置目录
   name = "Home"
   weight = 10
   identifier = "home"
   url = "/"
-[[menu.main]]
+[[languages.zh-cn.menu.main]]
   name = "Archives"
   weight = 20
   identifier = "archives"
   url = "/post/"
-[[menu.main]]
+[[languages.zh-cn.menu.main]]
   name = "Tags"
   weight = 30
   identifier = "tags"
   url = "/tags/"
-[[menu.main]]
+[[languages.zh-cn.menu.main]]
   name = "Categories"
   weight = 40
   identifier = "categories"
   url = "/categories/"
-[[menu.main]]
+[[languages.zh-cn.menu.main]]
   name = "AboutMe"
   weight = 50
   identifier = "aboutme"
   url = "/post/about/about_me/"
-[[menu.main]]
+[[languages.zh-cn.menu.main]]
   name= "Search"
   weight = 60
   identifier = "search"
