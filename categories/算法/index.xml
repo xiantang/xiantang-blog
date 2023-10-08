@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>算法 on 自律者自由</title>
+    <title>算法 on 咸糖 - 自律者自由</title>
     <link>https://vim0.com/categories/%E7%AE%97%E6%B3%95/</link>
-    <description>Recent content in 算法 on 自律者自由</description>
+    <description>Recent content in 算法 on 咸糖 - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 09 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
@@ -13,23 +13,7 @@
       <pubDate>Thu, 09 Apr 2020 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/post/interview/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
-      <description>什么是令牌桶算法? 令牌桶算法是一种限流算法，他与漏桶算法的实现是一种相反的实现。
-漏桶算法是按照一定频率的速率进行漏水，然后对于我们的请求就可以想象成上边的水龙头。
-令牌桶算法则是定时的往桶中放入令牌，然后每次请求都会从令牌桶中获取一个令牌，如果桶中没有令牌，则拒绝请求或者阻塞直到令牌可以获得。
-分布式的令牌桶算法 因为看到的令牌桶算法都是单机的，举个例子: RateLimiter 他就是一个线程级别的令牌桶算法。
-因为需要实现一个分布式的令牌桶算法，所以我这边使用的是一个 Redis 作为令牌桶的容器。
-然后我们来看看主要的令牌桶算法的思路:
-其实他并没有创建一个线程不断的往令牌桶里边放数据，他采用的懒计算的方式进行处理，这样的好处是性能消耗比较小，可以避免一些无用的轮训操作。
-其实我们可以吧令牌桶想象为一个对象:
-case class RedisPermits( name:String, maxPermits: Long, storePermits: Long, intervalMillis: Long, nextFreeTicketMillis: Long ) {} 我来介绍一下这个令牌桶的成员变量:
-Name: 表示这个令牌桶的名称，也就是存在redis中的key。
-maxPermits: 表示令牌桶中令牌的数目。
-storePermits: 表示令牌桶中当前令牌的数目。
-intervalMillis: 每次放入令牌之间的间隔时间。根据请求的 QPS 求出。
-nextFreeTicketMillis: 下一次能获取这些令牌的时间。
-对于一个获取令牌的操作，我们可以判断为是否能够获取到令牌，也就是 nextFreeTicketMillis 是在当前时间之前还是之后。
-nextFreeTicketMillis 在当前时间之前 通过图中的公式可以计算出当前存储的令牌数目。和你需要的令牌数目相互比较:
- 如果够用就减去需要使用的令牌数目，将 nextFreeTicketMillis 设置为 now。立马返回函数就行啦。 如果不够用就得到当前的令牌数目，将当前令牌数目设置为0，然后求出需要生成的数目，将 nextFreeTicketMillis 向后推，生成的时间。当前线程等待对应 nextFreeTicketMillis - now 的时间就能求出需要等待的时间。进行睡眠，睡眠结束就可以做相应的请求了。  nextFreeTicketMillis 在当前时间之后 nextFreeTicketMillis 因为在当前时间之后所以当前令牌桶肯定是没有数据的，所以我们需要将睡眠的时间往后拖就好了，就是 nextFreeTicketMillis =+ intervalMillis*need 然后当前线程睡眠 nextFreeTicketMillis - now 的时间就行啦。</description>
+      <description>什么是令牌桶算法? 令牌桶算法是一种限流算法，他与漏桶算法的实现是一种相反的实现。 漏桶算法是按照一定频率的速率进行漏水，然后对于我们的请求就可</description>
     </item>
     
     <item>
@@ -38,11 +22,7 @@ nextFreeTicketMillis 在当前时间之前 通过图中的公式可以计算出�
       <pubDate>Sun, 05 Apr 2020 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/</guid>
-      <description>什么是漏斗算法？ 漏斗算法顾名思义采用一个漏斗来对流量进行限制。
-因为漏斗下面有孔，所以会定时的漏水下去，然后我们可以将流量想象为从上边落入漏斗的水。
-这样就会有两种情况，如果流量的注入漏斗的速度比漏斗的漏水的速度慢，漏斗就会处于一个空漏斗的状态，也就是没有超出负荷的状态。
-第二种情况就是，如果流量注入漏斗的速度比漏斗快，那么漏斗就会渐渐的超出最大的容量，对于溢出的流量，漏斗会采用拒绝的方式，防止流量继续进入。
-使用 Java 实现 package info.xiantang.limiter; class FunnelRateLimiter { // 容量  private final int capacity; // 每毫秒漏水的速度  private final double leakingRate; // 漏斗没有被占满的体积  private int emptyCapacity; // 上次漏水的时间  private long lastLeakingTime = System.currentTimeMillis(); FunnelRateLimiter(int capacity, double leakingRate) { this.capacity = capacity; this.leakingRate = leakingRate; // 初始化为一个空的漏斗  this.emptyCapacity = capacity; } private void makeSpace() { long currentTimeMillis = System.currentTimeMillis(); // 计算离上次漏斗的时间  long gap = currentTimeMillis - lastLeakingTime; // 计算离上次漏斗的时间到现在漏掉的水  double deltaQuota = (int) gap * leakingRate; // 更新上次漏的水  lastLeakingTime = currentTimeMillis; // 间隔时间太长，整数数字过大溢出  if (deltaQuota &amp;lt; 0) { emptyCapacity = capacity; } // 更新腾出的空间  emptyCapacity += deltaQuota; // 超出最大限制 复原  if (emptyCapacity &amp;gt; capacity) { emptyCapacity = capacity; } } boolean isActionAllowed(int quota) { makeSpace(); // 如果腾出的空间大于需要的空间  if (emptyCapacity &amp;gt;= quota) { // 给腾出空间注入流量  emptyCapacity -= quota; return true; } return false; } } 我们这边定义了一个 empty capacity 的容量 表示腾出的空间。也可以通过以剩余的水来计算水占用的空间，这是两个角度来计算。但是我们使用的是empty capacity。</description>
+      <description>什么是漏斗算法？ 漏斗算法顾名思义采用一个漏斗来对流量进行限制。 因为漏斗下面有孔，所以会定时的漏水下去，然后我们可以将流量想象为从上边落入漏斗</description>
     </item>
     
     <item>
@@ -51,7 +31,7 @@ nextFreeTicketMillis 在当前时间之前 通过图中的公式可以计算出�
       <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/</guid>
-      <description>No2 单例模式 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够创建  private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton getInstance() { if (instance == null) { synchronized (sybObj) { if (instance == null) { instance = new No2TwiceCheckSingleton(); } } } return instance; } } No3 找到重复的数字 public class No3FindDupNum { public static boolean find(int[] nums) { for (int i = 0; i &amp;lt; nums.</description>
+      <description>No2 单例模式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够创建 private No2TwiceCheckSingleton() { }</description>
     </item>
     
   </channel>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>关于编写可维护的代码的一些实践与想法 - 咸糖 - 自律者自由</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="关于编写可维护的代码的一些实践与想法 最近在改一个代码风格迥异并且经历过很多手的历史代码，发现中间中了很多代码设计上的一些反模式的错误。导致我" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/post/write_-maintainable_code/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="关于编写可维护的代码的一些实践与想法" />
+<meta property="og:description" content="关于编写可维护的代码的一些实践与想法 最近在改一个代码风格迥异并且经历过很多手的历史代码，发现中间中了很多代码设计上的一些反模式的错误。导致我" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/post/write_-maintainable_code/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-04-10T23:08:16+08:00" />
+<meta property="article:modified_time" content="2022-04-10T23:54:53+08:00" />
+
+<meta itemprop="name" content="关于编写可维护的代码的一些实践与想法">
+<meta itemprop="description" content="关于编写可维护的代码的一些实践与想法 最近在改一个代码风格迥异并且经历过很多手的历史代码，发现中间中了很多代码设计上的一些反模式的错误。导致我"><meta itemprop="datePublished" content="2022-04-10T23:08:16+08:00" />
+<meta itemprop="dateModified" content="2022-04-10T23:54:53+08:00" />
+<meta itemprop="wordCount" content="1209"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="keywords" content="code," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
+
+<meta name="twitter:title" content="关于编写可维护的代码的一些实践与想法"/>
+<meta name="twitter:description" content="关于编写可维护的代码的一些实践与想法 最近在改一个代码风格迥异并且经历过很多手的历史代码，发现中间中了很多代码设计上的一些反模式的错误。导致我"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">关于编写可维护的代码的一些实践与想法</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-04-10 </span>
+        
+          <span class="more-meta"> 1209 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#重复编写相同逻辑">重复编写相同逻辑</a></li>
+    <li><a href="#不要上来就直接加-if-else-的特殊逻辑">不要上来就直接加 if else 的特殊逻辑</a></li>
+    <li><a href="#延迟抽象">延迟抽象</a></li>
+    <li><a href="#写代码少炫技">写代码少炫技</a></li>
+    <li><a href="#将代码-group-起来">将代码 group 起来</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="关于编写可维护的代码的一些实践与想法">关于编写可维护的代码的一些实践与想法</h1>
+<p>最近在改一个代码风格迥异并且经历过很多手的历史代码，发现中间中了很多代码设计上的一些反模式的错误。导致我修改代码以及新增功能的时候变得非常的困难，这篇文章是在带着个人情绪的情况下写出的，可能会存在一些主观性。</p>
+<p>我下面列举几点我认为十分影响维护性的编码行为。</p>
+<h2 id="重复编写相同逻辑">重复编写相同逻辑</h2>
+<p>冗长的相同逻辑，编写两遍。很多时候部分开发遇到一段性能较差的历史代码，但是又缺乏时间去优化这段代码，于是我们会重新写一套具有相同行为的代码，同时开出 API 接口出来用。虽然这样做的确是完成了既有的任务，但是其实是非常有隐患的。</p>
+<p>如果有一个新来的同事需要修改既有 API 的行为，会狠狠的踩坑，因为两套逻辑同时在线上跑，并且具有相同的行为，很有可能这个新同事可能只改了一套逻辑，而且忽略了另外一套逻辑，这种情况真的很容易存在，因为新人往往是缺乏信息的。在 QA 不够充分的情况下，会引入难以排查的 BUG。</p>
+<h2 id="不要上来就直接加-if-else-的特殊逻辑">不要上来就直接加 if else 的特殊逻辑</h2>
+<p>很多时候，我们遇到一些需求，简单一看其实没什么修改的，只需要在主流程或者抽象中加入一句 if else 这样的特殊逻辑。
+这样的简单的判断逻辑有很大可能在不久的将来，例如两三个月后狠狠的给你一拳。
+在考虑加 if else 前，思考下这样写对之后自己的修改方便嘛？能否写在配置文件中用配置中心修改？
+实在要加就需要给这段代码加上注释。需要确定你自己的代码的行为，而不是堆一堆逻辑上去，别人问到行为的时候说可能会做这个？可能会做那个？
+通过巧合的方式编程，只会带来越来越多问题。</p>
+<h2 id="延迟抽象">延迟抽象</h2>
+<p>程序员真的是一个非常有意思的群体，对 <code>抽象</code> 这件事情特别的钟情，包括我也是。我在各种仓库也见过好的抽象和烂的抽象。比较烂的抽象往往是那种，在一个接口 <code>interface</code> 中暴露出 10+ 个函数出来，同时每个函数的真正实现就只有两三行，这个我们一般叫它 <code>宽接口</code>。它的缺点是当你横向拓展的时候需要实现 10+ 个函数，非常痛苦，灵活性非常的差。同时每个实现的函数很有可能都是空实现，里面都没有实际执行的代码。</p>
+<p>我的建议是:</p>
+<ol>
+<li>先去写一些实现类，先简单用 switch 语句等行为控制调用，然后慢慢的根据实现类的共性慢慢地抽象出上层的接口，如果你用 <code>Go</code> 可以看看我之前对 Golang 抽象的一些思考。<a href="https://vim0.com/post/how_to_fix_big_interface/">Golang: 如何处理日渐膨胀的 interface</a></li>
+<li>将接口的函数数目大大减少，每个接口最多 4 个函数，这样实现起来较为方便，将大接口根据 <code>单一职责原则</code> 将功能拆分成不同的接口， 然后组合成不同的大接口。可以参考 Golang 的 <a href="https://cs.opensource.google/go/go/+/refs/tags/go1.18:src/io/io.go;l=127">https://cs.opensource.google/go/go/+/refs/tags/go1.18:src/io/io.go;l=127</a> 的实现。</li>
+</ol>
+<h2 id="写代码少炫技">写代码少炫技</h2>
+<p>一行代码写出来一遍，但是会被人读百遍，所以写的时候简单性很重要，秀的代码/滥用设计模式的代码难以维护，同时会给系统带来复杂度。</p>
+<h2 id="将代码-group-起来">将代码 group 起来</h2>
+<p>我经常发现一些代码，整个函数有 500+ 行，同时没有任何注释，并且整个函数 70% 都是在一个 for loop 里面做的。
+我的建议就是如果你在写代码之前将这个函数要做的事情拆成一个个较小的事情，然后每个事情前面都会有注释，代码的可读性会好很多很多。</p>
+<h1 id="结语">结语</h1>
+<p>吐槽结束，希望自己能在写代码的时候多思考一些，写出方便修改的代码。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-04-10
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/21a02de7f1bb855440cc5dc0cd0aa8eb84da0f87" title="M  &#34;content/post/write_ maintainable_code.md&#34;">(21a02de)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/code/">code</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/docker-compose-dev/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">使用 Docker Compose 建立你自己的开发环境</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/two-way-link/">
+            <span class="next-text nav-default">我为什么使用双向链接做笔记？</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

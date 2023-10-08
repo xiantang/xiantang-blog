@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>我为什么使用双向链接做笔记？ - 咸糖 - 自律者自由</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="记忆信息后寻找之间的联系才是人的价值。 之前向身边的朋友推荐双相链接的软件来记录八股文，很多人会来问我“为什么要用双向链接？有啥好处？” 。 我这" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/post/two-way-link/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="我为什么使用双向链接做笔记？" />
+<meta property="og:description" content="记忆信息后寻找之间的联系才是人的价值。 之前向身边的朋友推荐双相链接的软件来记录八股文，很多人会来问我“为什么要用双向链接？有啥好处？” 。 我这" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/post/two-way-link/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-02-27T23:15:45+08:00" />
+<meta property="article:modified_time" content="2022-07-02T23:12:18+08:00" />
+
+<meta itemprop="name" content="我为什么使用双向链接做笔记？">
+<meta itemprop="description" content="记忆信息后寻找之间的联系才是人的价值。 之前向身边的朋友推荐双相链接的软件来记录八股文，很多人会来问我“为什么要用双向链接？有啥好处？” 。 我这"><meta itemprop="datePublished" content="2022-02-27T23:15:45+08:00" />
+<meta itemprop="dateModified" content="2022-07-02T23:12:18+08:00" />
+<meta itemprop="wordCount" content="1043"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="keywords" content="双向链接," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
+
+<meta name="twitter:title" content="我为什么使用双向链接做笔记？"/>
+<meta name="twitter:description" content="记忆信息后寻找之间的联系才是人的价值。 之前向身边的朋友推荐双相链接的软件来记录八股文，很多人会来问我“为什么要用双向链接？有啥好处？” 。 我这"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">我为什么使用双向链接做笔记？</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-02-27 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
+            </div>
+          <span class="more-meta"> 1043 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是双向链接">什么是双向链接？</a></li>
+    <li><a href="#双向链接的好处是">双向链接的好处是？</a></li>
+    <li><a href="#例子">例子</a>
+      <ul>
+        <li><a href="#我想要学习一个知识点">我想要学习一个知识点</a></li>
+        <li><a href="#做记录">做记录</a></li>
+        <li><a href="#回顾">回顾</a></li>
+      </ul>
+    </li>
+    <li><a href="#引用">引用</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p>记忆信息后寻找之间的联系才是人的价值。</p>
+</blockquote>
+<p>之前向身边的朋友推荐双相链接的软件来记录八股文，很多人会来问我“为什么要用双向链接？有啥好处？” 。
+我这边就写一篇短文，来统一回答这些问题。</p>
+<p>我之前尝试了很多种笔记软件，例如 Notion，印象笔记等软件，甚至是直接用 git 来管理的 typora，其实很多时候都没有记笔记的动力。
+原因主要是几点：</p>
+<ul>
+<li>
+<p>第二次去看笔记的时候并没有什么用，看上去就是一坨。如下：
+<img src="2022-02-27-23-32-09.png" alt="之前的笔记"></p>
+</li>
+<li>
+<p>写笔记的时候不知道写哪？这个文件夹还是那个文件夹？</p>
+</li>
+<li>
+<p>笔记之间没有任何联系，没有任何关联性，知识点的复用性很低。写了只是写了而已。</p>
+</li>
+</ul>
+<p>我找到了双向链接，它是一种新的笔记方式，它可以让我们在笔记中直接查找到原来的知识点。</p>
+<h2 id="什么是双向链接">什么是双向链接？</h2>
+<p>双向链接，是指两篇笔记间的引用关系。例如：笔记 A 引用了笔记 B，同时笔记 B 也会自动引用笔记 A，则两篇笔记互相关联，就是双向链接，支持双向跳转。</p>
+<h2 id="双向链接的好处是">双向链接的好处是？</h2>
+<p>我主要列举几点双向链接笔记的好处：</p>
+<ol>
+<li>
+<p><strong>复用性好</strong>，当你写下一个词条之后，如果之后的笔记可以直接引用这个词条。</p>
+</li>
+<li>
+<p><strong>无压记录</strong>，因为你知道不断互相链接笔记能在之后的日子帮助到你，你会更加有动力去记录。同时你也不需要思考将笔记写到哪里，直接把相关的内容写到词条中就可以了，让他们互相链接。之后你可以很方便的找到笔记。</p>
+</li>
+<li>
+<p><strong>便于内化</strong>，当你打算写一篇文章，可能有很多概念，如果你之前有积累这些概念在双向链接笔记中，那么你可以直接引用这些概念。同时对于这个概念，你可以知道哪些笔记引用了这个概念。这样你就可以更加完整地找出你之前总结过知识点，从而输出一篇完整总结的文章。</p>
+</li>
+</ol>
+<h2 id="例子">例子</h2>
+<h3 id="我想要学习一个知识点">我想要学习一个知识点</h3>
+<p>前一段时间我在学习一个知识点是 <code>Golang Channel</code>，同时我阅读了相关的文章，例如： 《Channel Axioms》，《Golang Channels Tutorial》，《Effective Go》。</p>
+<p>首先我会把 Channel 的概念写到双向链接笔记中：</p>
+<p><img src="/image/2022-02-28-00-02-46.png" alt=""></p>
+<h3 id="做记录">做记录</h3>
+<p>对于每一篇文章，我都会在双向链接笔记中写一个词条，这个词条就是文章的标题，然后在词条中写上文章的笔记。
+但是这笔记不是简简单单的拷贝上去，而是用自己的语言来写，需要自己去咀嚼一遍。例如上面的 Channel 的公理：</p>
+<p><img src="../2022-02-28-00-21-46.png" alt=""></p>
+<h3 id="回顾">回顾</h3>
+<p>当你需要去做输出和回顾的时候，你只需要点开 Channel 这个词条，就可以找到之前所有引用 Channel 的笔记了。</p>
+<p><img src="../2022-02-28-00-22-14.png" alt=""></p>
+<p>这样的好处显而易见，在我们输出做提纲的时候，这里反向链接的笔记将很好的提供帮助。最初记录的时候词条很少，但是经过一段时间，我们就可以把词条写得更加完整了。同时在输出一篇文章之后成本会变得很低。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a href="https://dave.cheney.net/2014/03/19/channel-axioms">Channel Axioms</a></li>
+<li><a href="https://staging.yinxiang.com/hc/articles/knowledge/">双向链接与知识星图使用说明-Windows/Mac 端</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-07-02
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/f1994023190fcb0d2638c40d9f2af106b9c2ee35" title="mirgate image">(f199402)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%8F%8C%E5%90%91%E9%93%BE%E6%8E%A5/">双向链接</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/write_-maintainable_code/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">关于编写可维护的代码的一些实践与想法</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/anxiety/">
+            <span class="next-text nav-default">关于焦虑和拖延症</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Docker on 自律者自由</title>
+    <title>Docker on 咸糖 - 自律者自由</title>
     <link>https://vim0.com/categories/docker/</link>
-    <description>Recent content in Docker on 自律者自由</description>
+    <description>Recent content in Docker on 咸糖 - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 05 May 2022 22:08:34 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/docker/index.xml" rel="self" type="application/rss+xml" />
@@ -13,17 +13,7 @@
       <pubDate>Thu, 05 May 2022 22:08:34 +0800</pubDate>
       
       <guid>https://vim0.com/post/docker-compose-dev/</guid>
-      <description>Docker 其实并不是一种新技术，而是一个新瓶装旧酒的工具。
- 其实我在大学上学的时候就用过 Docker，那个时候还是 17 年左右，Docker 还是如日中天的时候。只是用来起各种各样的轻量级应用，比如磁力链接下载器，个人网盘啥的。一直到不久的之前我对 Docker 的理解都还是比较模糊的，随着工作中需求的不断接触，我也不断的了解 Docker，于是打算写一篇文章总结一下最近对 Docker 的使用。
-背景 其实是一直存在一个痛点就是，在我们的开发的时候有多个服务，并且服务之间是有相互的调用关系，但是如果是在本机中起来，服务总是可能会被各种端口占用，而且如果你的本机重启了，那么你的服务也会被关闭，是需要有一套好用的开发环境解决方案。
-docker-compose 提供了将多个容器绑定起来的方式，可以很好的解决上述问题。
-什么是 docker-compose Compose 是一个用于定义和运行多容器 Docker 应用程序的工具。使用 Compose，您可以使用 YAML 文件来配置应用程序的服务。然后，使用一个命令，您可以从您的配置中创建并启动所有服务。
-也就是只需要简单的一句 docker-compose up 就可以启动项目中所依赖的相关服务，例如数据库、缓存、微服务等。
-一直没有玩好的困境 其实在很久之前我就有尝试用 docker-compose 来构建我的开发环境，但是遇到了一些让我觉得不舒服的点，不过随着对 Docker 的理解的不断深入，我也慢慢的会玩明白了。
-难以排查问题 第一点就是上手 Docker 之后难以排查问题，排查问题主要是分成两点，难以排查构建镜像中失败的问题，第二点就是难以排查容器启动失败的问题。
-容器构建失败是非常常见的事情：
-比如见下面这个 Dockerfile
-FROM python:3.6 AS builder COPY requirements.txt ./ RUN python -m pip install -r requirements.txt https://pypi.tuna.tsinghua.edu.cn/simple 就比如说倘若 RUN python -m pip install -r requirements.txt https://pypi.tuna.tsinghua.edu.cn/simple 这个命令一直失败，那我们就可以 Dockerfile 改成上次成功的构建 + CMD[“bash”]</description>
+      <description>Docker 其实并不是一种新技术，而是一个新瓶装旧酒的工具。 其实我在大学上学的时候就用过 Docker，那个时候还是 17 年左右，Docker 还是如日中天的</description>
     </item>
     
   </channel>

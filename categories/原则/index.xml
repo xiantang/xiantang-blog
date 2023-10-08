@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>原则 on 自律者自由</title>
+    <title>原则 on 咸糖 - 自律者自由</title>
     <link>https://vim0.com/categories/%E5%8E%9F%E5%88%99/</link>
-    <description>Recent content in 原则 on 自律者自由</description>
+    <description>Recent content in 原则 on 咸糖 - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 10 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://vim0.com/categories/%E5%8E%9F%E5%88%99/index.xml" rel="self" type="application/rss+xml" />
@@ -13,18 +13,7 @@
       <pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://vim0.com/post/summary/rules/</guid>
-      <description>计算机常用的原则 在写代码的时候我们经常会有一些体会和经验所得，这些经验所得其实老早被之前的大神归纳成为原则。最近这一年我就一直在收集各种原则然后不断的运用和实践。
-KISS 原则 KISS 原则是英语 Keep It Simple，Stupid 的首字母缩略字。
-KISS 原则是指在设计当中应当注重简约的原则。总结工程专业人员在设计过程中的经验，大多数系统的设计应保持简洁和单纯，而不掺入非必要的复杂性，这样的系统运作成效会取得最优。
-正确的做法应该是当开发者遇到一个问题后，把问题拆分成一个个能够明白的小块，然后进入编码阶段。
-  好处：
- 你将可以通过很少的几行代码去解决复杂的问题。 你将可以产出高质量的代码。 当新的需求来了后，你的代码将会更加的灵活。    怎么用：
- 你不是天才，你的代码 stupid simple，所以你没必要是天才。 拆解问题。任务拆解为 4 - 12 小时的子任务。 每个子任务用一个或者很少的类解决问题。保持类要小不用搞太多 uses case 在里面。 保持方法足够短。30 - 40 行。 任何场景尝试简单。    DRY 原则 don&amp;rsquo;t repeat yourself，直译不要重复你自己。
-这个原则其实在工作中特别常用，比如你的代码经常会写重复的，你就可以将它抽成一个函数。
-但是我觉得最佳实践是：如果一件事情做了 3 次，才将它抽成一个函数或做抽象，因为过早的抽象会导致不够普适，不利于代码的维护。
-YAGNI 原则 You aren&amp;rsquo;t gonna need it，YAGNI 的意思是“你不需要它”：在必要之前不要做多余的事情。
-这个原则主要是告诉我们不要太早的去思考一个问题，降低实现的成本。 虽然和前者有些矛盾，但是我们可以通过我上面提到 3 次重复再尝试抽象来做折中来实践会比较好一些。
-单一责任原则 单一职责原则 (Single Responsibility Principle)，简单来说就是一个类只负责一个职责，而不能负责多个职责。在程序设计中，单一职责原则是一个很重要的原则，因为它能够帮助我们更好的组织代码，更好的管理代码，更好的解决问题。</description>
+      <description>计算机常用的原则 在写代码的时候我们经常会有一些体会和经验所得，这些经验所得其实老早被之前的大神归纳成为原则。最近这一年我就一直在收集各种原则</description>
     </item>
     
   </channel>

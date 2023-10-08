@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>neovim on 自律者自由</title>
+    <title>neovim on 咸糖 - 自律者自由</title>
     <link>https://vim0.com/categories/neovim/</link>
-    <description>Recent content in neovim on 自律者自由</description>
+    <description>Recent content in neovim on 咸糖 - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sat, 29 Oct 2022 20:45:20 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/neovim/index.xml" rel="self" type="application/rss+xml" />
@@ -13,14 +13,7 @@
       <pubDate>Sat, 29 Oct 2022 20:45:20 +0800</pubDate>
       
       <guid>https://vim0.com/post/neovim/</guid>
-      <description>本文不会告诉你如何一步一步地配置 neovim，而是告诉你一些关于 PDE 的 &amp;ldquo;道&amp;rdquo;, 不是具体实践的 &amp;ldquo;术&amp;rdquo;。
-介绍什么的 neovim 与 PDE 看到 TJ 的youtube 介绍了 neovim 作为 PDE 的使用，感觉很有意思，于是就自己也尝试了一下，感觉还不错，所以就记录一下。
-什么是 neovim neovim 是一个 vim 的分支，vim 是一个文本编辑器，neovim 是 vim 的一个分支，它的目标是提供一个更好的 vim，而不是 vim 的替代品。
-neovim 和 vim 有什么区别呢？ 区别在于 neovim 重构了 vim 的代码，在兼容 vimscipt 的基础上，支持了 lua 脚本作为配置语言。同时 neovim 在 Github 上比 vim 的社区更加活跃。neovim 有更用的 lsp 服务器，可以理解 neovim 是 vim 的超集。
-什么是 PDE PDE 是个性化开发环境，指的是在满足基础的开发需求的基础上，用户能够对自己使用的开发环境做一些脚本化，自定义化的行为, 从而提升用户的开发体验和效率。
-当你不断地能够解决你开发环境中的痛点，你的开发效率会越来越高，你的开发体验会越来越好，这就是 PDE 的魅力所在。
-你也能从中不断学到新的东西，在这个过程中，你也会从中获得成就感。
-需要满足的基础需求 定义你的 PDE 需要满足的基础需求，比如：</description>
+      <description>本文不会告诉你如何一步一步地配置 neovim，而是告诉你一些关于 PDE 的 &amp;ldquo;道&amp;rdquo;, 不是具体实践的 &amp;ldquo;术&amp;rdqu</description>
     </item>
     
   </channel>

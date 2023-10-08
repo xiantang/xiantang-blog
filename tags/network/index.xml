@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>network on 自律者自由</title>
+    <title>network on 咸糖 - 自律者自由</title>
     <link>https://vim0.com/tags/network/</link>
-    <description>Recent content in network on 自律者自由</description>
+    <description>Recent content in network on 咸糖 - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 01 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/network/index.xml" rel="self" type="application/rss+xml" />
@@ -13,10 +13,7 @@
       <pubDate>Wed, 01 Apr 2020 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/</guid>
-      <description>什么是 TCP  TCP 是一个全双工面向字节流的基于 IP 协议的协议。 TCP 端到端的准确传输。  对于每一个字节进行确认 对于恶劣的网络情况的处理  超时重传 拥塞控制   效率提升  采用滑动窗口协议     TCP 是一个面向连接的协议。  既然面向连接那这个连接是怎么建立的？
-也就是下面的问题如果建立一个虚拟的链路采用三次握手。
-三次挥手是怎么发生的 详细操作 从码出高效扒了一张图下来，我们来讲一下三次握手的流程：
- A 机器首先会计算出一个 seq 索引 x 表示当前发送的数据包的位置并且包的标示为 SYN。 B 机器接受到了这个包，并且将包中的数据存到自己的缓冲区中，因为这个包的大小为 1 字节，所以缓存区的索引是 x + 1 同步到对方的发送 seq 位置，返回一个 SYN 和 ACK 标示的包，并且将自己的发送 seq 索引 y 以及告诉对方自己收到了这个数据包所以 ack + 1。 C 机器收到这个带有 ACK 和 SYN 的包需要返回一个 ACK 表示自己能够收到对方的包，所以发送一个 ACK 和自己当前的发送 seq 以及自己的接受 seq。  为啥要握三次 至于为啥要握三次</description>
+      <description>什么是 TCP TCP 是一个全双工面向字节流的基于 IP 协议的协议。 TCP 端到端的准确传输。 对于每一个字节进行确认 对于恶劣的网络情况的处理 超时重传 拥塞控制 效率提</description>
     </item>
     
   </channel>

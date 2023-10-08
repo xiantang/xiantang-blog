@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>akka on 自律者自由</title>
+    <title>akka on 咸糖 - 自律者自由</title>
     <link>https://vim0.com/categories/akka/</link>
-    <description>Recent content in akka on 自律者自由</description>
+    <description>Recent content in akka on 咸糖 - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 15 Jan 2020 17:51:36 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/akka/index.xml" rel="self" type="application/rss+xml" />
@@ -13,19 +13,7 @@
       <pubDate>Wed, 15 Jan 2020 17:51:36 +0800</pubDate>
       
       <guid>https://vim0.com/post/scala/future_in_actor/</guid>
-      <description>观察了一下业务的代码中发现在 Actor 中采用了很多
-import scala.concurrent.ExecutionContext.Implicits.global
-来作为 Actor 内部的执行 Future 的线程池，之前觉得好像也没啥问题。 但是在看完 akka 源码后发现好像有些不妥。
-简单的讲一下 Actor 的架构吧
-当一个Actor 向另外一个 Actor 中发送信息会将这条信息发送到接受的Actor的 mailbox 中
-mailbox 是一个实现 Runnable 的类，所以可以用线程池执行，所以每当你向一个Actor 发送一条消息的时候 其实是用 接受者的 Dispatcher 来执行这条消息的。
-但是问题是如果你的应用是 IO 密集型的应用
-那么无论你使用 Actor 的默认的 defaultDispather 或者 Future 的global 隐式转换方式，都会因为线程池的核心线程被阻塞任务限制，导致线程饥饿
-并且因为ForkJoinPool 的实现，是一个适合计算的线程池。
-所以这里给出两个方案
-  对于 IO 密集型的任务可以采用自定义线程池的方式进行解决
-但是如果突发的请求很多，仍然会导致线程池中线程都在阻塞，无法立马响应请求的情况。
-  implicit val blockingDispatcher: MessageDispatcher = context.system.dispatchers.lookup(&amp;#34;blocking-io-dispatcher&amp;#34;) blocking-io-dispatcher { type = Dispatcher executor = &amp;#34;thread-pool-executor&amp;#34; thread-pool-executor { fixed-pool-size = 32 } throughput = 1 } 使用 scala.</description>
+      <description>观察了一下业务的代码中发现在 Actor 中采用了很多 import scala.concurrent.ExecutionContext.Implicits.global 来作为 Actor 内部的执行 Future 的线程池，之前觉得好像也没啥问题。 但是在看完 akka 源码后发现好像有些不妥。 简单</description>
     </item>
     
     <item>
@@ -34,8 +22,7 @@ mailbox 是一个实现 Runnable 的类，所以可以用线程池执行，所�
       <pubDate>Wed, 15 Jan 2020 17:26:53 +0800</pubDate>
       
       <guid>https://vim0.com/post/scala/akka_source_code/</guid>
-      <description>object Main1 extends App { val system = ActorSystem(&amp;#34;HelloSystem&amp;#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件  system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件  // 只有 musicListener 接收到这个事件  system.eventStream.publish(Electronic(&amp;#34;Parov Stelar&amp;#34;)) // jazzListener 和 musicListener 都会收到这个事件  system.eventStream.publish(Jazz(&amp;#34;Sonny Rollins&amp;#34;)) } subscribe 逻辑 同步地将 subcriber 和 to 加入到 subscriptions 中，diff 应该是和之前的一次比较保证不会重复发送？
-def subscribe(subscriber: Subscriber, to: Classifier): Boolean = subscriptions.synchronized { val diff = subscriptions.</description>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&amp;#34;HelloSystem&amp;#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&amp;#34;Parov Stelar&amp;#34;)) // jazzListener</description>
     </item>
     
   </channel>

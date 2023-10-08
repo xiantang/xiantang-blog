@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 Docker Compose 建立你自己的开发环境 - 咸糖 - 自律者自由</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xiantang" /><meta name="description" content="Docker 其实并不是一种新技术，而是一个新瓶装旧酒的工具。 其实我在大学上学的时候就用过 Docker，那个时候还是 17 年左右，Docker 还是如日中天的" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://vim0.com/post/docker-compose-dev/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用 Docker Compose 建立你自己的开发环境" />
+<meta property="og:description" content="Docker 其实并不是一种新技术，而是一个新瓶装旧酒的工具。 其实我在大学上学的时候就用过 Docker，那个时候还是 17 年左右，Docker 还是如日中天的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vim0.com/post/docker-compose-dev/" /><meta property="og:image" content="https://vim0.com/post/docker-compose-dev.png" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-05-05T22:08:34+08:00" />
+<meta property="article:modified_time" content="2022-06-19T15:48:09+08:00" />
+
+<meta itemprop="name" content="使用 Docker Compose 建立你自己的开发环境">
+<meta itemprop="description" content="Docker 其实并不是一种新技术，而是一个新瓶装旧酒的工具。 其实我在大学上学的时候就用过 Docker，那个时候还是 17 年左右，Docker 还是如日中天的"><meta itemprop="datePublished" content="2022-05-05T22:08:34+08:00" />
+<meta itemprop="dateModified" content="2022-06-19T15:48:09+08:00" />
+<meta itemprop="wordCount" content="2134"><meta itemprop="image" content="https://vim0.com/post/docker-compose-dev.png">
+<meta itemprop="keywords" content="Docker," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vim0.com/post/docker-compose-dev.png"/>
+
+<meta name="twitter:title" content="使用 Docker Compose 建立你自己的开发环境"/>
+<meta name="twitter:description" content="Docker 其实并不是一种新技术，而是一个新瓶装旧酒的工具。 其实我在大学上学的时候就用过 Docker，那个时候还是 17 年左右，Docker 还是如日中天的"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">xiantang</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
+      </a><a href="https://www.google.com/search?q=site%3Avim0.com">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">xiantang</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/about_me/">AboutMe</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用 Docker Compose 建立你自己的开发环境</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-05-05 </span>
+        <div class="post-category">
+            <a href="/categories/docker/"> Docker </a>
+            </div>
+          <span class="more-meta"> 2134 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#什么是-docker-compose">什么是 docker-compose</a></li>
+    <li><a href="#一直没有玩好的困境">一直没有玩好的困境</a>
+      <ul>
+        <li><a href="#难以排查问题">难以排查问题</a></li>
+        <li><a href="#公司仓库的-private-库">公司仓库的 private 库</a></li>
+        <li><a href="#docker-logs">docker logs</a></li>
+        <li><a href="#容器一起来就挂">容器一起来就挂</a></li>
+      </ul>
+    </li>
+    <li><a href="#编写-compose-的配置文件">编写 compose 的配置文件</a>
+      <ul>
+        <li><a href="#网络隔离">网络隔离</a></li>
+      </ul>
+    </li>
+    <li><a href="#常用的最佳实践">常用的最佳实践</a>
+      <ul>
+        <li><a href="#使用多阶段构建">使用多阶段构建</a></li>
+        <li><a href="#调整-dockerfile-的顺序">调整 Dockerfile 的顺序</a></li>
+      </ul>
+    </li>
+    <li><a href="#最后">最后</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p>Docker 其实并不是一种新技术，而是一个新瓶装旧酒的工具。</p>
+</blockquote>
+<p>其实我在大学上学的时候就用过 Docker，那个时候还是 17 年左右，Docker 还是如日中天的时候。只是用来起各种各样的轻量级应用，比如磁力链接下载器，个人网盘啥的。一直到不久的之前我对 Docker 的理解都还是比较模糊的，随着工作中需求的不断接触，我也不断的了解 Docker，于是打算写一篇文章总结一下最近对 Docker 的使用。</p>
+<h2 id="背景">背景</h2>
+<p>其实是一直存在一个痛点就是，在我们的开发的时候有多个服务，并且服务之间是有相互的调用关系，但是如果是在本机中起来，服务总是可能会被各种端口占用，而且如果你的本机重启了，那么你的服务也会被关闭，是需要有一套好用的开发环境解决方案。</p>
+<p>docker-compose 提供了将多个容器绑定起来的方式，可以很好的解决上述问题。</p>
+<h2 id="什么是-docker-compose">什么是 docker-compose</h2>
+<p>Compose 是一个用于定义和运行多容器 Docker 应用程序的工具。使用 Compose，您可以使用 YAML 文件来配置应用程序的服务。然后，使用一个命令，您可以从您的配置中创建并启动所有服务。</p>
+<p>也就是只需要简单的一句 <code>docker-compose up</code> 就可以启动项目中所依赖的相关服务，例如数据库、缓存、微服务等。</p>
+<h2 id="一直没有玩好的困境">一直没有玩好的困境</h2>
+<p>其实在很久之前我就有尝试用 <code>docker-compose</code> 来构建我的开发环境，但是遇到了一些让我觉得不舒服的点，不过随着对 <code>Docker</code> 的理解的不断深入，我也慢慢的会玩明白了。</p>
+<h3 id="难以排查问题">难以排查问题</h3>
+<p>第一点就是上手 <code>Docker</code> 之后难以排查问题，排查问题主要是分成两点，难以排查构建镜像中失败的问题，第二点就是难以排查容器启动失败的问题。</p>
+<p>容器构建失败是非常常见的事情：</p>
+<p>比如见下面这个 Dockerfile</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 AS builder
+
+COPY requirements.txt ./
+RUN python -m pip install -r requirements.txt  https://pypi.tuna.tsinghua.edu.cn/simple
+</code></pre></td></tr></table>
+</div>
+</div><p>就比如说倘若 <code>RUN python -m pip install -r requirements.txt  https://pypi.tuna.tsinghua.edu.cn/simple</code> 这个命令一直失败，那我们就可以 Dockerfile 改成上次成功的构建 + CMD[“bash”]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 AS builder
+
+COPY requirements.txt ./
+CMD [&#34;bash&#34;]
+</code></pre></td></tr></table>
+</div>
+</div><p>构建成功了之后，将这个容器使用直接起来，或者将 CMD 改写成 <code>bash</code>，就可以进入容器了，然后就可以看看到底是为什么 pip install 失败了。</p>
+<p>docker run 命令是可以跟着参数将 CMD 改写的。</p>
+<p><code>docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</code>
+<code>docker run -ti  --rm  your_image  bash</code></p>
+<h3 id="公司仓库的-private-库">公司仓库的 private 库</h3>
+<p>工作中用 <code>Golang</code> 的时候经常会被各种私有库所挡住，比如 <code>Github</code>、<code>Gitlab</code>、<code>Gitee</code> 等。
+其实这个很简单，就是当发现 <code>go mod download</code> 下不来的时候，可以尝试改写你的 COMMAND 然后进到容器中进行排查。</p>
+<p>对于用来自己开发的 Dockerfile，其实可以使用 <code>.netrc</code> 的方式来解决这个问题。
+参见这个回答：</p>
+<p><code>https://stackoverflow.com/questions/65824786/building-go-apps-with-private-gitlab-modules-in-docker</code></p>
+<h3 id="docker-logs">docker logs</h3>
+<p>如果想要查看容器的日志，可以使用 <code>docker logs</code> 命令，但是需要注意的是如果你的日志都是本地的 log 文件中，没有写到 <code>stdout</code> 的时候，使用 <code>docker logs</code> 是查不到问题的。</p>
+<h3 id="容器一起来就挂">容器一起来就挂</h3>
+<p>很多时候你刚构建完成镜像，尝试 run 的时候，容器会一直退出，这个时候可以使用我上面提到的方法，把默认的 CMD 的命令改写成 bash，直接进去容器去跑一下你的命令，看看退出的日志就可以很轻松的查出问题了。</p>
+<p><code>docker run -ti  --rm  your_image  bash</code></p>
+<h2 id="编写-compose-的配置文件">编写 compose 的配置文件</h2>
+<p>Compose 有两个重要的概念：</p>
+<ul>
+<li><strong>services</strong>，这是一个 <code>map</code>，里面的 key 是容器的名字，value 是容器的配置。</li>
+<li><strong>projects</strong>，由一组关联的应用容器组成的一个完整业务单元，在 docker-compose.yml 文件中定义。</li>
+</ul>
+<p>可见，一个项目可以由多个服务 (容器) 关联而成，Compose 面向项目进行管理。</p>
+<p>其实你可以把 <code>Docker</code> 的容器想的很简单，是一个普通操作系统的进程只不过有独立的网络，独立的文件系统，和自己单独的进程树。</p>
+<p>所以在建设自己的微服务环境的时候，需要关注容器的网络是否是联通的，以及容器中的文件是否需要挂载到本地。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">version: &#39;3&#39;
+services:
+  web:
+    build: .
+    ports:
+     - &#34;5000:5000&#34;
+
+  redis:
+    image: &#34;redis:alpine&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>这就是一个十分简单例子，把 web 和 redis 两个 service 关联起来，让两个容器在同一个项目中工作。</p>
+<h3 id="网络隔离">网络隔离</h3>
+<p>对于网络的联通，我们可以使甼 <code>docker network create --driver bridge your_network</code> 创建一个网络，然后把容器挂载到这个网络中。</p>
+<p>docker compose 也可以定义网络，但是需要注意的是，如果你的网络是自己创建的，那么你需要在 <code>docker-compose.yml</code> 中指定网络的名称。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">networks:
+  your_network:
+    driver: bridge
+</code></pre></td></tr></table>
+</div>
+</div><p>docker 是建议使用自己建立的网络，而不是使用默认的网络。</p>
+<p>在这个 network 下的容器，docker 提供了 DNS lookup service。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">  mysql:
+    ... 
+    networks:
+      - your_network
+  your_service:
+    ...
+    networks:
+      - your_network
+</code></pre></td></tr></table>
+</div>
+</div><p>如果你的容器中有 ping，你就可以在 your_service 中使用 <code>ping mysql</code> 来检查是否能够 ping 过去。就是说可以通过用 <code>docker-compose</code> 中名字来访问到对应的容器。</p>
+<p>也可以使用 <code>busybox</code> (将许多常见 [[UNIX]] 实用程序的微小版本组合成一个小型可执行文件。) 来检查容器的网络是否联通。</p>
+<p><code>docker run -ti --rm  --network=your_network busybox sh</code></p>
+<h2 id="常用的最佳实践">常用的最佳实践</h2>
+<h3 id="使用多阶段构建">使用多阶段构建</h3>
+<p>使用多阶段构建，只会用最后一个阶段的来构建镜像，可以留下一个更加精简的 image-镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 
+WORKDIR /APP
+
+COPY . .
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+CMD [&#34;python&#34;,&#34;spider.py&#34;]
+</code></pre></td></tr></table>
+</div>
+</div><p>可以改写成下面的格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 AS builder
+
+COPY requirements.txt ./
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+FROM python:3.6-slim 
+
+COPY --from=builder /usr/local/lib/python3.6/site-packages /usr/local/lib/python3.6/site-packages
+WORKDIR /APP
+
+COPY spider.csv ./
+COPY *.py ./
+
+CMD [&#34;python&#34;,&#34;spider.py&#34;]
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="调整-dockerfile-的顺序">调整 Dockerfile 的顺序</h3>
+<p>调整 Dockerfile 的顺序，因为每一个步骤发生变化后，后面的步骤的缓存都会废纸，所以将变动较大的放在后面比较好。</p>
+<p>下面的格式就是，当你改动了一个 py 文件中的一行代码，其实每次 docker build 都会把下边的依赖下载的缓存废弃，所以改动较大的放在后面。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6 
+WORKDIR /APP
+
+COPY . .
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+CMD [&#34;python&#34;,&#34;spider.py&#34;]
+</code></pre></td></tr></table>
+</div>
+</div><p>可以改成下面的格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">FROM python:3.6
+
+WORKDIR /APP
+COPY requirements.txt ./
+RUN python -m pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
+COPY spider.csv ./
+COPY *.py ./
+CMD [&#34;python&#34;,&#34;spider.py&#34;]
+</code></pre></td></tr></table>
+</div>
+</div><p>这样就可以改动 spider.py 中的代码没有增加新的依赖的时候，就能复用 pip install 的缓存。</p>
+<h2 id="最后">最后</h2>
+<p>这就是我最近在使用 Docker 与 docker-compose 的时候的一些心得，希望能对大家有所帮助，本文将会不断地继续更新。</p>
+<p>Ref：</p>
+<ul>
+<li>
+<p><a href="https://shenxianpeng.github.io/2022/01/docker-best-practice/">你一定要了解这 17 条 Docker 最佳实践！</a></p>
+</li>
+<li>
+<p><a href="https://coolshell.cn/articles/17010.html">DOCKER 基础技术：LINUX NAMESPACE (上)</a></p>
+</li>
+<li>
+<p><a href="https://docs.docker.com/language/golang/develop/">Use containes for development</a></p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xiantang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-06-19
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/8dadd749500d15967b12f552fcfeb0d2e2b340b3" title="add docker compose dec">(8dadd74)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
+        <span>wechat</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
+        <span>alipay</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">Docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/singapore_3_month/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">肉身翻墙新加坡安顿指南</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/write_-maintainable_code/">
+            <span class="next-text nav-default">关于编写可维护的代码的一些实践与想法</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'xiantang';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://vim0.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>xiantang</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JZTKQCW5D"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9JZTKQCW5D', { 'anonymize_ip': true });
+}
+</script>
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-9JZTKQCW5D', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
