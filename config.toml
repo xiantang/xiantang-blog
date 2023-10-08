@@ -40,32 +40,32 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   filename = "sitemap.xml"
 
 [[languages.zh-cn.menu.main]]             # config your menu              # 配置目录
-  name = "Home"
+  name = "首页"
   weight = 10
   identifier = "home"
   url = "/"
 [[languages.zh-cn.menu.main]]
-  name = "Archives"
+  name = "归档"
   weight = 20
   identifier = "archives"
   url = "/post/"
 [[languages.zh-cn.menu.main]]
-  name = "Tags"
+  name = "标签"
   weight = 30
   identifier = "tags"
   url = "/tags/"
 [[languages.zh-cn.menu.main]]
-  name = "Categories"
+  name = "分类"
   weight = 40
   identifier = "categories"
   url = "/categories/"
 [[languages.zh-cn.menu.main]]
-  name = "AboutMe"
+  name = "关于我"
   weight = 50
   identifier = "aboutme"
   url = "/post/about/about_me/"
 [[languages.zh-cn.menu.main]]
-  name= "Search"
+  name= "搜索"
   weight = 60
   identifier = "search"
   url = "https://www.google.com/search?q=site%3Avim0.com"
