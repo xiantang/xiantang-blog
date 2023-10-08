@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 md_to_be_tanslated="$({
 	find ./content -type f -name '*.en.md' | sed 's/.en.md/.md/'
 	find ./content -type f -name '*.md' | grep -v '.en.md'
