@@ -5,7 +5,7 @@
     <link>https://vim0.com/tags/concurrency/</link>
     <description>Recent content in concurrency on 咸糖 - 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>cn</language>
     <lastBuildDate>Mon, 06 Apr 2020 16:33:34 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/concurrency/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>实现一个AtomicInteger</title>
