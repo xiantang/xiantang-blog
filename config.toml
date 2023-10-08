@@ -70,6 +70,36 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   identifier = "search"
   url = "https://www.google.com/search?q=site%3Avim0.com"
 
+[[languages.en.menu.main]]             # config your menu              # 配置目录
+  name = "Home"
+  weight = 10
+  identifier = "home"
+  url = "/en"
+[[languages.en.menu.main]]
+  name = "Archives"
+  weight = 20
+  identifier = "archives"
+  url = "/en/post/"
+[[languages.en.menu.main]]
+  name = "Tags"
+  weight = 30
+  identifier = "tags"
+  url = "/en/tags/"
+[[languages.en.menu.main]]
+  name = "Categories"
+  weight = 40
+  identifier = "categories"
+  url = "/en/categories/"
+[[languages.en.menu.main]]
+  name = "AboutMe"
+  weight = 50
+  identifier = "aboutme"
+  url = "/en/post/about/about_me/"
+[[languages.en.menu.main]]
+  name= "Search"
+  weight = 60
+  identifier = "search"
+  url = "https://www.google.com/search?q=site%3Avim0.com"
 
 [params]
   version = "4.x"           # Used to give a friendly message when you have an incompatible update
