@@ -156,6 +156,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   baiduAnalytics = ""      # Baidu Analytics
   baiduVerification = ""   # Baidu Verification
   googleVerification = ""  # Google Verification         # 谷歌
+  showLanguageSelector = true
 
   # Link custom CSS and JS assets
   #   (relative to /static/css and /static/js respectively)
