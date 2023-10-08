@@ -1,11 +1,11 @@
 baseURL = "https://vim0.com/"
 languageCode = "zh-cn"
 defaultContentLanguage = "zh-cn"                             # en / zh-cn / ... (This field determines which i18n file to use)
-title = "咸糖 - 自律者自由"
+theme = "even"
+
 preserveTaxonomyNames = true
 enableRobotsTXT = true
 enableEmoji = true
-theme = "even"
 enableGitInfo = true # use git commit log to generate lastmod record # 可根据 Git 中的提交生成最近更新记录。
 
 # Syntax highlighting by Chroma. NOTE: Don't enable `highlightInClient` and `chroma` at the same time!
@@ -19,6 +19,17 @@ paginate = 5                                              # 首页每页显示�
 disqusShortname = "xiantang"      # disqus_shortname
 googleAnalytics = "G-9JZTKQCW5D"      # UA-XXXXXXXX-X
 copyright = ""            # default: author.name ↓        # 默认为下面配置的author.name ↓
+
+[languages]
+
+  [languages.zh-cn]
+    title = "咸糖 - 自律者自由"
+    languageName = "Chinese"
+    weight = 1
+  [languages.en]
+    title = "xiantang"
+    languageName = "English"
+    weight = 2
 
 [author]                  # essential                     # 必需
   name = "xiantang"
