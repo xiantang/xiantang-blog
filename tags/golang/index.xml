@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Golang on 咸糖 - 自律者自由</title>
+    <title>Golang on 自律者自由</title>
     <link>https://vim0.com/tags/golang/</link>
-    <description>Recent content in Golang on 咸糖 - 自律者自由</description>
+    <description>Recent content in Golang on 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 13 Feb 2022 20:23:51 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/golang/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,13 @@
       <pubDate>Sun, 13 Feb 2022 20:23:51 +0800</pubDate>
       
       <guid>https://vim0.com/post/how_to_fix_big_interface/</guid>
-      <description>The bigger the interface，the weaker the abstraction。Go Proverbs 先说结论吧，如果你的 Golang interface 有太多函数导致你很难横向拓展，那就把它按照职责拆分</description>
+      <description>The bigger the interface，the weaker the abstraction。Go Proverbs
+ 先说结论吧，如果你的 Golang interface 有太多函数导致你很难横向拓展，那就把它按照职责拆分成多个 interface，然后使用 embed 组合起来。
+遇到的问题 最近在重构一个管理配置的组件，我们会有一个接口并且有超过 5 个以上的 struct 实现这个接口，遇到了一些问题，就是接口膨胀的问题。当你最开始抽象出来一个 interface 的时候，它可能就只有 1 - 2 个函数，很漂亮，并且你的横向拓展的时候也非常的舒服。 但是很多时候现实的情况和你想象的不一样，因为每个实现可能也有自己想暴露出来的不同方法，这个时候你会把这些函数都暴露出来，每个实现为了满足接口都会去实现这个函数，这样就会导致接口膨胀。
+举个例子 最开始我有一个接口叫做 ConfigManager，拥有两个函数一个是 HandleResync，一个是 HandleWatch。：
+type ConfigManager interface { HandleResync() HandleWatch() } HandleResync 和 HandleWatch 都是对于 etcd 数据的拉取，拉取到数据之后，我们会将数据落盘，并且在内存里面也存储一份最新的副本。
+同时这个接口是有两个实现类，一个是 EtcdConfigManager，一个是 FileConfigManager。这里名字比较随意，主要是要表达一个接口的多个实现。
+type EtcdConfigManager struct { config *Config } type FileConfigManager struct { config *Config } 但是应为业务不断增长，我们对于 EtcdConfigManager 需要多暴露出来两个接口用来做对内存中副本上报等行为。分别是 GetConfig 和 SetConfig。</description>
     </item>
     
     <item>
@@ -22,7 +28,12 @@
       <pubDate>Mon, 24 Jan 2022 21:49:48 +0800</pubDate>
       
       <guid>https://vim0.com/post/kill_process_and_its_childs/</guid>
-      <description>最近周末在维护一个开源项目，叫做 air。它是一个 Golang 的热加载代码的工具，会监听本地的文件变化，然后自动重新加载。 遇到的问题 最近遇到一个特别有意</description>
+      <description>最近周末在维护一个开源项目，叫做 air。它是一个 Golang 的热加载代码的工具，会监听本地的文件变化，然后自动重新加载。
+ 遇到的问题 最近遇到一个特别有意思的问题，就是使用 kill -9 pid 命令杀死进程的时候虽然会杀死它的子进程，但是它的孙子进程还是会继续存活。
+背景 简而言之，就是我们的热加载组件会运行命令，然后会监听文件变化，一旦文件变化就会 kill 掉之前进程，然后重新编译代码，再执行运行的命令。
+但是遇到一个用户提了这样一个问题：https://github.com/cosmtrek/air/issues/216#issuecomment-982348931 在执行命令的时候使用 dlv exec --accept-multiclient --log --headless --continue --listen :2345 --api-version 2 ./tmp/main 来运行代码与开启调试，我们的组件不会彻底的将进程杀死，而是会继续存活。导致下次一次起来的时候对应的端口会被占用。
+排查问题 通过 ps -efj | grep &amp;quot;tmp/main&amp;quot; 能很清楚的看到实际上运行这条命令会起来三个进程
+1594910868 75277 74711 0 10:09PM ttys005 0:00.14 dlv exec --accep xt 75277 0 1 S s005 1594910868 75280 75277 0 10:09PM ttys005 0:00.02 /Library/Develop xt 75280 0 1 S+ s005 1594910868 75281 75280 0 10:09PM ttys005 0:00.</description>
     </item>
     
     <item>
@@ -31,7 +42,11 @@
       <pubDate>Sun, 16 Jan 2022 15:04:40 +0800</pubDate>
       
       <guid>https://vim0.com/post/make_zero_value_useful/</guid>
-      <description>Make the zero value useful。 &amp;ndash;Go Proverbs 让我们从 Golang blog 开始吧：The zero value 当内存被分配来存储一个值时，无论是通过声明还是调用 make 或 new，并且没有提供明确的初始</description>
+      <description>Make the zero value useful。 &amp;ndash;Go Proverbs
+ 让我们从 Golang blog 开始吧：The zero value
+ 当内存被分配来存储一个值时，无论是通过声明还是调用 make 或 new，并且没有提供明确的初始化，内存被赋予一个默认的初始化。这种值的每个元素都被设置为其类型的零值 (zero value)：布尔值为 false，整数为 0，浮点数为 0.0，字符串为 &amp;quot;&amp;quot;，指针、函数、接口、slice、channel 和 map 为 nil。这种初始化是递归进行的，因此，举例来说，如果没有指定值，结构数组的每个元素都将被归零。
+ 这样将一个值设置为零值对程序的安全性和正确性做了很大的保证，同样也能很好的保证程序的可读性与简单性。这也就是 Golang 程序员口中的“让零值更有用 (Make the zero value useful)”。
+零值 cheat sheet    类型 零值     bool false   int 0   float 0.0   string &amp;quot;&amp;quot;   pointer nil   function nil   slice nil   map nil   channel nil    同时零值的初始化是递归的，因此，如果没有指定值，结构数组的每个元素都将被归零。</description>
     </item>
     
     <item>
@@ -40,7 +55,17 @@
       <pubDate>Fri, 07 Jan 2022 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/post/golang/use_mock_to_test/</guid>
-      <description>在工作中我经常会发现很多工程师的 Golang 单测是写的有问题的，只是单纯的调用代码做输出，并且会包含各种 IO 操作，导致单测无法到处运行。 使用 Mock 和 Interface 进行 Golang</description>
+      <description>在工作中我经常会发现很多工程师的 Golang 单测是写的有问题的，只是单纯的调用代码做输出，并且会包含各种 IO 操作，导致单测无法到处运行。
+ 使用 Mock 和 Interface 进行 Golang 单测 本文将介绍 Golang 中如何正确的做单测。
+什么是单元测试？单元测试的特点 单元测试是质量保证十分重要的一环，好的单元测试不仅能及时地发现问题，更能够方便地调试，提高生产效率，所以很多人认为写单元测试是需要额外的时间，会降低生产效率，是对单元测试最大的偏见和误解。
+单测会将对应测试的模块隔离出来进行测试，所以我们要尽可能把所有相关的外部依赖都移除，只对相关的模块进行单测。
+所以大家看到的在业务代码仓库中的一些在 client 模块中调用 HTTP 的单测其实是不规范的，因为 HTTP 是外部依赖，你的目标服务器如果有故障，那么你的单测就会失败。
+func Test_xxx(t *testing.T) { DemoClient := &amp;amp;demo.DemoClient{url: &amp;#34;http://localhost:8080&amp;#34;} DemoClient.Init() resp := DemoCliten.DoHTTPReq() fmt.Println(resp) } 上面这个例子中 DemoClient 在做 DoHTTPReq 方法的时候，会调用 http.Get 方法，这个方法是中包含了外部依赖也就是说他会去请求本地的服务器，如果有一个新的同事刚拿到你的代码，并且本地是没有这个服务器的话，那么你的单测就会失败。
+并且上面这个例子中，对于 DoHTTPReq 这个函数只是简单的做了一个输出，没有对返回值做任何检查，如果内部逻辑修改并且返回值修改了，虽然你的测试还是能够 pass 但是其实你的单测是不起作用的。
+从上面的例子中我们可以总结出两个单测特点:
+ 没有外部依赖，尽量无副作用，能够到处运行 对输出进行检查  此外我还想提及的一点就是对于单测的编写难度其实是有排序的：
+UI &amp;gt; Service &amp;gt; Utils
+所以对于单测的编写，我们会优先考虑对 Utils 的单测, 因为 Utils 不会有太多的依赖。其次是对于 Service 的单测，因为 Service 的单测主要是对上游服务和数据库的依赖，只需要分离出依赖就可以进行逻辑的测试。</description>
     </item>
     
     <item>
@@ -49,7 +74,16 @@
       <pubDate>Tue, 21 Dec 2021 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/post/golang/about_slice/</guid>
-      <description>关于 Golang Slice 的一些细节 在 Golang 中，有两种数据类型： 一种是限定长度的数组，叫做 Array，另外一种是不限定长度的数组，叫做 Slice。 区分 Array 和 Slice Array 和 Slice</description>
+      <description>关于 Golang Slice 的一些细节 在 Golang 中，有两种数据类型：
+一种是限定长度的数组，叫做 Array，另外一种是不限定长度的数组，叫做 Slice。
+区分 Array 和 Slice Array 和 Slice 的区别在于：
+Array 是限定长度的，并且 Array 的长度是类型的一部分，因此 Array 的长度不能改变，而 Slice 可以改变长度。
+Slice 是不限定长度的，可以使用 make 函数来创建。
+foo = make([]int, 5) 并且 Slice 只是一个数据结构，内部有一个指针，指向数组的首地址，可以使用 len 函数来获取 Slice 的长度，也可以使用 cap 函数来获取 Slice 的容量。
+下面会详细的介绍 Slice 的一些实现细节和特性。
+Slice 的实现与特性 上文已经提到 Slice 其实是一个数据结构，内部有一个指针，指向数组的首地址。 让我们来先简单看看 Slice 的实现吧：
+我们先给出一个简单数据结构，用来演示 Slice 的实现：
+type slice struct { array unsafe.Pointer len int cap int } 我们可以看到 Slice 的实现是个结构体，其中包含了三个字段： 第一个字段是指向底层数组的指针，第二个字段是 Slice 的长度，第三个字段是 Slice 的容量。 当你初始化一个长度为 5 的 Slice 的时候，他是这样的：</description>
     </item>
     
   </channel>

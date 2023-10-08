@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>JVM on 咸糖 - 自律者自由</title>
+    <title>JVM on 自律者自由</title>
     <link>https://vim0.com/categories/jvm/</link>
-    <description>Recent content in JVM on 咸糖 - 自律者自由</description>
+    <description>Recent content in JVM on 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 06 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/categories/jvm/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,10 @@
       <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/post/jvm/gc_root/</guid>
-      <description>什么是GC Root 首先我们知道标记算法，JVM 的标记算法我们可以了解为一个可达性算法，所以所有的可达性算法都会有起点，那么这个起点就是GC Root</description>
+      <description>什么是GC Root 首先我们知道标记算法，JVM 的标记算法我们可以了解为一个可达性算法，所以所有的可达性算法都会有起点，那么这个起点就是GC Root。
+也就是需要通过GC Root 找出所有活的对象，那么剩下所有的没有标记的对象就是需要回收的对象。
+GC Root 的特点  当前时刻存活的对象！  GC Root 在哪里  所有Java线程当前活跃的栈帧里指向GC堆里的对象的引用；换句话说，当前所有正在被调用的方法的引用类型的参数/局部变量/临时值。 VM的一些静态数据结构里指向GC堆里的对象的引用，例如说HotSpot VM里的Universe里有很多这样的引用。  这里有个问题? 为什么需要将GC root 设置为 所有Java线程当前活跃的栈帧里指向GC堆里的对象的引用?
+原因很简单，GC Root 需要确保引用所指的对象都是活着的,而当前线程 frame 中的对象，在这一时刻是存活的。</description>
     </item>
     
     <item>
@@ -22,7 +25,15 @@
       <pubDate>Mon, 06 Apr 2020 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/post/jvm/full_gc/</guid>
-      <description>什么是 Minor GC/Major GC 首先我们先科普一下JVM 经典的堆布局: 对于经典的 JVM heap 布局，有两个区域比较清晰，首先是Young 区,一般会来存放年轻的对象或者刚被</description>
+      <description>什么是 Minor GC/Major GC 首先我们先科普一下JVM 经典的堆布局:
+对于经典的 JVM heap 布局，有两个区域比较清晰，首先是Young 区,一般会来存放年轻的对象或者刚被创建没多久的对象。其次是 Old 区，也就是老年代，一般会来存放比较长寿的对象，或者从 young 区晋升的对象。
+对于young 区 我们又有三个区域，一个是 Eden 区，还有两个大小相等的 Survivor 区。
+新生的对象会在 Eden 区创建。
+Minor GC 此时如果新生的对象无法在 Eden 区创建（Eden 区无法容纳) 就会触发一次Young GC 此时会将 S0 区与Eden 区的对象一起进行可达性分析，找出活跃的对象，将它复制到 S1 区并且将S0区域和 Eden 区的对象给清空，这样那些不可达的对象进行清除，并且将S0 区 和 S1区交换。
+但是这里会产生一个问题，Q:为啥会有两个 Survivor 区？
+A: 因为假设设想一下只有一个 Survibor 区 那么就无法实现对于 S0 区的垃圾收集，以及分代年龄的提升。
+Major GC 发生在老年代的GC ，基本上发生了一次Major GC 就会发生一次 Minor GC。并且Major GC 的速度往往会比 Minor GC 慢 10 倍。
+什么时候发生Major GC 既然我们已经知道了 Minor GC 是在 Eden 区快满的情况下才会触发</description>
     </item>
     
   </channel>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>设计模式 on 咸糖 - 自律者自由</title>
+    <title>设计模式 on 自律者自由</title>
     <link>https://vim0.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
-    <description>Recent content in 设计模式 on 咸糖 - 自律者自由</description>
+    <description>Recent content in 设计模式 on 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Fri, 03 Apr 2020 01:37:56 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,17 @@
       <pubDate>Fri, 03 Apr 2020 01:37:56 +0800</pubDate>
       
       <guid>https://vim0.com/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/</guid>
-      <description>单例模式是什么? 单例模式，也叫单子模式，是一种常用的软件设计模式，属于创建型模式的一种。 在这个设计模式中，单例对象的类必须保证只有一个实例存</description>
+      <description>单例模式是什么? 单例模式，也叫单子模式，是一种常用的软件设计模式，属于创建型模式的一种。
+在这个设计模式中，单例对象的类必须保证只有一个实例存在。
+优缺点 优点: 内存中只有一个实例，减少内存开销。
+缺点: 违背单一职责原则，并且没有接口，不能继承。
+单例模式怎么写 单线程 首先我们从单线程的单例模式开始实现:
+先厘清一波思路
+单例的构造器应该为 private ,采用 getInstance 来获取对应的实例。
+单例对象存在于类属性中，保证只有一个。
+class Singleton { private static Singleton instance = null; private Singleton() { } static Singleton getInstance() { if (instance == null) { instance = new Singleton(); } return instance; } } 单线程的单例比较容易实现，但是如果存在多线程竞争，这个单例模式就可能会造成重复创建。
+多线程 我们采用的是双重检验的方式来确保多线程下的访问:
+class TwiceCheckSingleton { private static TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); private TwiceCheckSingleton() { } static TwiceCheckSingleton getInstance() { if (instance == null) { // check 1  synchronized (sybObj) { if (instance == null) { // check 2  instance = new TwiceCheckSingleton(); } } } return instance; } } 但是为什么要使用 TwiceCheckSingleton 并且为啥有两次检验呢?</description>
     </item>
     
   </channel>

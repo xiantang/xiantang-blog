@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>awk on 咸糖 - 自律者自由</title>
+    <title>awk on 自律者自由</title>
     <link>https://vim0.com/tags/awk/</link>
-    <description>Recent content in awk on 咸糖 - 自律者自由</description>
+    <description>Recent content in awk on 自律者自由</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 29 Jun 2022 22:14:09 +0800</lastBuildDate><atom:link href="https://vim0.com/tags/awk/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,13 @@
       <pubDate>Wed, 29 Jun 2022 22:14:09 +0800</pubDate>
       
       <guid>https://vim0.com/post/awk/</guid>
-      <description>篇幅只占20%、然而有效性却达到80% -二八法则 本文你能学到什么？ 在本文中，我们将学习到如何使用二八法则来省力轻松学习 linux 文本处理命令 awk。</description>
+      <description>篇幅只占20%、然而有效性却达到80% -二八法则
+ 本文你能学到什么？ 在本文中，我们将学习到如何使用二八法则来省力轻松学习 linux 文本处理命令 awk。读完本文你就会学习到一种快速学习的方法， 以及使用 awk 来处理文本和 stdout。
+最近在学习 awk 发现真的有很多细节，没办法一开始就抓住最重要的部分，被繁杂的语法所困扰，比较难懂。 于是使用从《软技能-代码之外的生存指南》中学习的二八法则，来实践学习一下 awk 的基本用法，发现效果十分不错。 本文就介绍一下我是如何使用二八法则学习 awk 的。
+什么是二八法则？ 在文章的开篇中有提到 &amp;ldquo;篇幅只占20%、然而有效性却达到80%&amp;quot;，叫做 &amp;ldquo;帕累托法则&amp;rdquo;。指出约有 20% 的因素可以影响 80% 的结果。 对于学习技术也是十分的适用，用得最多的 20% 的技术知识点，可以完成 80% 的技术工作。也就是说其实我们只需要专注最常用的 case 来针对性学习，防止真正重要的内容会被埋没在细枝末节中。
+如何利用二八法则来学习？ 既然二八法则这么好用那如何来实践呢？ 《软技能-代码之外的生存指南》 主要总结了 10 步，也就是学习一个新的技术可以通过下面十步来完成：
+ 第一步： 如何开始： 想要用起来 需要哪些基本知识？ 第二步：学科范围：学的东西有多少大？我要怎么做？ 第三步：需要了解基本的用户案例，和常见问题，知道学哪 20% 满足 80% 应用场景 第四步：寻找资源 第五步：定义目标 第六步： 筛选资源 第七步：开始学习 浅尝即止 第八步：动手操作 边学边玩 第九步：全面掌握，学以致用 第十步：好为人师  我们可以将这 10 步分为两大块
+ 第一块 第一步到第六步，只需要从头到尾执行一次 第二块 第七步到第十步，需要反复执行  其中第一块查找筛选输入资源，定义目标中需要注意的是：</description>
     </item>
     
   </channel>
