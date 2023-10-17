@@ -14,6 +14,6 @@ WORKDIR /app
 COPY . .
 EXPOSE 1313
 
-RUN git submodule init && git submodule update
+RUN git submodule init && git submodule update && git config --global --add safe.directory /app
 CMD hugo server --bind 0.0.0.0 -D --disableFastRender
 
