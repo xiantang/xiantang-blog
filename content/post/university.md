@@ -1,6 +1,5 @@
 ---
 title: "回忆我的大学"
-date: {{< now >}}
 draft: true
 tags: []
 categories: []
