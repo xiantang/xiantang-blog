@@ -1,5 +1,5 @@
 ---
-title: "个人在新加坡和新山吃过最好的食物（持续更新）"
+title: "在新加坡和新山吃过最好的食物（持续更新）"
 date: 2024-11-01T10:00:00+08:00
 author: "xiantang"
 description: "A guide to the best food spots in Singapore and Johor Bahru."
@@ -17,7 +17,7 @@ BTW: 图是从 Google Map 上截的，所以如果有版权问题请联系我删
 ### May Pho Culture（越南河粉）
 **地址**：150 South Bridge Rd, #01-16, Singapore 058727
 
-**推荐理由**：这家越南河粉店的汤底醇厚浓郁，层次丰富。店内提供新鲜的越南香叶（罗勒叶），需要顾客自己一片片摘下放入河粉中，清香四溢，与浓郁的汤底完美融合。
+**推荐理由**：这家越南河粉店的汤底醇厚浓郁，层次丰富。店内提供新鲜的越南香叶（罗勒叶），需要顾客自己一片片摘下放入河粉中，清香四溢，与浓郁的汤底完美融合。感觉比在越南本地吃到的还要好吃，强烈推荐大家去试试。
 
 ![May Pho Culture](image.png)
 
