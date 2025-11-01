@@ -10,6 +10,7 @@ draft: true
 # 个人在新加坡和新山吃过最好的食物（持续更新）
 
 因为我对象特别喜欢吃，并且我作为一个程序员虽然对吃没有太在行，但是我对于找餐厅做 research 是非常专业的。
+BTW: 图是从 Google Map 上截的，所以如果有版权问题请联系我删除。
 
 ## 新加坡
 
@@ -41,3 +42,17 @@ draft: true
 
 ---
 
+### Cafe USAGI Tokyo
+**地址**：3 Temasek Blvd, #02-615A, Singapore 038983
+**推荐理由**：我最喜欢他家的外面裹着麻薯的海盐冰淇凌，每次去 Suntec City 都会去吃一份。
+![Cafe USAGI Tokyo](image-3.png)
+
+---
+
+## 新山
+
+### Ong Shun Seafood Restaurant
+**地址**：67, Jalan Abdul Samad, Kampung Bahru, 80100 Johor Bahru, Johor Darul Ta'zim, 马来西亚
+
+**推荐理由**：这家感觉是个人在吃过最好吃的海鲜餐厅了，都是本地人去吃的，环境也不错，价格也不贵。推荐黑胡椒螃蟹和奶油螃蟹，还有椒盐虾。最厉害是的超级鲜甜，就是黑胡椒螃蟹这么重口的情况下，蟹肉也是超级鲜甜，真的很厉害。
+![alt text](b4ba7cf95dd0b9a41a98a9ea7fa12d8e.jpg)
