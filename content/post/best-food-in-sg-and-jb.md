@@ -49,6 +49,11 @@ BTW: 图是从 Google Map 上截的，所以如果有版权问题请联系我删
 
 ---
 
+### Janggut Laksa @Queensway Shopping Centre
+**地址**：1 Queensway, #01-59, Singapore 149053
+**推荐理由**：这家 Laksa 是我在新加坡吃过最好吃的 Laksa 了，本地人心目中 top 1, 去买折叠自行车的时候发现很多人排队，尝了一下真香。
+![alt text](/post/image-4.png)
+
 ## 新山
 
 ### Ong Shun Seafood Restaurant
