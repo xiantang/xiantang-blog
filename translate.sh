@@ -1,14 +1,32 @@
 #!/bin/bash
-md_to_be_tanslated="$({
-	find ./content -type f -name '*.en.md' | sed 's/.en.md/.md/'
-	find ./content -type f -name '*.md' | grep -v '.en.md'
-} | sort | uniq -u)"
-# check is empty
-if [[ -z $md_to_be_tanslated ]]; then
+
+# Translate markdown files that do not already have a matching .en.md sibling.
+md_to_be_translated=()
+while IFS= read -r path; do
+	case "$path" in
+		*.en.md)
+			continue
+			;;
+		*.zh-cn.md)
+			target="${path%.zh-cn.md}.en.md"
+			;;
+		*.md)
+			target="${path%.md}.en.md"
+			;;
+		*)
+			continue
+			;;
+	esac
+
+	[[ -f "$target" ]] && continue
+	md_to_be_translated+=("$path")
+done < <(find ./content -type f -name '*.md')
+
+if [[ ${#md_to_be_translated[@]} -eq 0 ]]; then
 	echo "no markdown file to be translated"
 	exit 0
 fi
 
-echo "$md_to_be_tanslated" | while read -r line; do
+printf '%s\n' "${md_to_be_translated[@]}" | while IFS= read -r line; do
 	chatgpt-md-translator -m 4 -f 1000 "$line" --out-suffix=.en.md
 done
