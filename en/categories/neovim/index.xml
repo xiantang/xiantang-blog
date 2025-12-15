@@ -6,7 +6,20 @@
     <description>Recent content in neovim on xiantang - Self-discipline set me free.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 29 Oct 2022 20:45:20 +0800</lastBuildDate><atom:link href="https://vim0.com/en/categories/neovim/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Jul 2024 23:16:09 +0800</lastBuildDate><atom:link href="https://vim0.com/en/categories/neovim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Neovim: No Crash Incremental Selection</title>
+      <link>https://vim0.com/en/post/neovim_no_crash_incremental_selection/</link>
+      <pubDate>Thu, 11 Jul 2024 23:16:09 +0800</pubDate>
+      
+      <guid>https://vim0.com/en/post/neovim_no_crash_incremental_selection/</guid>
+      <description>When I use Neovim Treesitter incremental selection, it randomly crashes, but I cannot consistently reproduce it. I found some issues and complaints about this problem, but no solution. So I decided to write a blog post to document this issue and the solution.
+related issues:
+ https://www.reddit.com/r/neovim/comments/10wwkft/comment/j7qla2q/?utm_source=share&amp;amp;utm_medium=web3x&amp;amp;utm_name=web3xcss&amp;amp;utm_term=1&amp;amp;utm_content=share_button https://github.com/neovim/neovim/issues/24336 https://github.com/neovim/neovim/issues/25254 https://www.reddit.com/r/neovim/comments/18dn4qt/treesitter_incremental_selection/  TL;DR Paste this https://github.com/xiantang/nvim-conf/blob/7c0d6cbf6d9fd7b6a8960de887db1109332419bf/lua/plugins/treesitter.lua#L62-L132 into your Neovim configuration file.
+Here is my Treesitter incremental selection configuration:
+1 2 3 4 5 6 7 8 9  incremental_selection = { enable = true, keymaps = { init_selection = true, node_incremental = &amp;#34;v&amp;#34;, node_decremental = &amp;#34;&amp;lt;BS&amp;gt;&amp;#34;, }, },   Sometimes when I use v to expand the selection, it crashes, resulting in a Segmentation fault, and I have the report:</description>
+    </item>
+    
     <item>
       <title>Using neovim as a PDE (Personalized Development Environment)</title>
       <link>https://vim0.com/en/post/neovim/</link>

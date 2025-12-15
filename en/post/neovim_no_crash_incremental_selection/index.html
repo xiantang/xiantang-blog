@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Neovim: No Crash Incremental Selection - 咸糖 - 自律者自由</title>
+  <title>Neovim: No Crash Incremental Selection - xiantang - Self-discipline set me free.</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,11 +16,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="xiantang" /><meta name="description" content="When I use neovim treesitter incremental selection, it randomly crashes, but I cannot stable reproduce it. And I found some issues and complaints about this issue, but no solution. So I decide to write a blog post to record this issue and the solution.
+<meta name="author" content="xiantang" /><meta name="description" content="When I use Neovim Treesitter incremental selection, it randomly crashes, but I cannot consistently reproduce it. I found some issues and complaints about this problem, but no solution. So I decided to write a blog post to document this issue and the solution.
 related issues:
- https://www.reddit.com/r/neovim/comments/10wwkft/comment/j7qla2q/?utm_source=share&amp;amp;utm_medium=web3x&amp;amp;utm_name=web3xcss&amp;amp;utm_term=1&amp;amp;utm_content=share_button https://github.com/neovim/neovim/issues/24336 https://github.com/neovim/neovim/issues/25254 https://www.reddit.com/r/neovim/comments/18dn4qt/treesitter_incremental_selection/  TL;DR paste this https://github.com/xiantang/nvim-conf/blob/7c0d6cbf6d9fd7b6a8960de887db1109332419bf/lua/plugins/treesitter.lua#L62-L132 into your neovim configuration file.
-this is my treesitter incremental selection configuration:
-1 2 3 4 5 6 7 8 9  incremental_selection = { enable = true, keymaps = { init_selection = true, node_incremental = &amp;#34;v&amp;#34;, node_decremental = &amp;#34;&amp;lt;BS&amp;gt;&amp;#34;, }, },   sometime when I use v to expand the selection, it crashes, and it&amp;rsquo;s a Segmentation fault, and I have the report:" />
+ https://www.reddit.com/r/neovim/comments/10wwkft/comment/j7qla2q/?utm_source=share&amp;amp;utm_medium=web3x&amp;amp;utm_name=web3xcss&amp;amp;utm_term=1&amp;amp;utm_content=share_button https://github.com/neovim/neovim/issues/24336 https://github.com/neovim/neovim/issues/25254 https://www.reddit.com/r/neovim/comments/18dn4qt/treesitter_incremental_selection/  TL;DR Paste this https://github.com/xiantang/nvim-conf/blob/7c0d6cbf6d9fd7b6a8960de887db1109332419bf/lua/plugins/treesitter.lua#L62-L132 into your Neovim configuration file.
+Here is my Treesitter incremental selection configuration:
+1 2 3 4 5 6 7 8 9  incremental_selection = { enable = true, keymaps = { init_selection = true, node_incremental = &amp;#34;v&amp;#34;, node_decremental = &amp;#34;&amp;lt;BS&amp;gt;&amp;#34;, }, },   Sometimes when I use v to expand the selection, it crashes, resulting in a Segmentation fault, and I have the report:" />
 
 
 
@@ -30,7 +30,7 @@ this is my treesitter incremental selection configuration:
 <meta name="generator" content="Hugo 0.91.2 with theme even" />
 
 
-<link rel="canonical" href="https://vim0.com/post/neovim_no_crash_incremental_selection/" />
+<link rel="canonical" href="https://vim0.com/en/post/neovim_no_crash_incremental_selection/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -44,33 +44,33 @@ this is my treesitter incremental selection configuration:
 
 
 <meta property="og:title" content="Neovim: No Crash Incremental Selection" />
-<meta property="og:description" content="When I use neovim treesitter incremental selection, it randomly crashes, but I cannot stable reproduce it. And I found some issues and complaints about this issue, but no solution. So I decide to write a blog post to record this issue and the solution.
+<meta property="og:description" content="When I use Neovim Treesitter incremental selection, it randomly crashes, but I cannot consistently reproduce it. I found some issues and complaints about this problem, but no solution. So I decided to write a blog post to document this issue and the solution.
 related issues:
- https://www.reddit.com/r/neovim/comments/10wwkft/comment/j7qla2q/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button https://github.com/neovim/neovim/issues/24336 https://github.com/neovim/neovim/issues/25254 https://www.reddit.com/r/neovim/comments/18dn4qt/treesitter_incremental_selection/  TL;DR paste this https://github.com/xiantang/nvim-conf/blob/7c0d6cbf6d9fd7b6a8960de887db1109332419bf/lua/plugins/treesitter.lua#L62-L132 into your neovim configuration file.
-this is my treesitter incremental selection configuration:
-1 2 3 4 5 6 7 8 9  incremental_selection = { enable = true, keymaps = { init_selection = true, node_incremental = &#34;v&#34;, node_decremental = &#34;&lt;BS&gt;&#34;, }, },   sometime when I use v to expand the selection, it crashes, and it&rsquo;s a Segmentation fault, and I have the report:" />
+ https://www.reddit.com/r/neovim/comments/10wwkft/comment/j7qla2q/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button https://github.com/neovim/neovim/issues/24336 https://github.com/neovim/neovim/issues/25254 https://www.reddit.com/r/neovim/comments/18dn4qt/treesitter_incremental_selection/  TL;DR Paste this https://github.com/xiantang/nvim-conf/blob/7c0d6cbf6d9fd7b6a8960de887db1109332419bf/lua/plugins/treesitter.lua#L62-L132 into your Neovim configuration file.
+Here is my Treesitter incremental selection configuration:
+1 2 3 4 5 6 7 8 9  incremental_selection = { enable = true, keymaps = { init_selection = true, node_incremental = &#34;v&#34;, node_decremental = &#34;&lt;BS&gt;&#34;, }, },   Sometimes when I use v to expand the selection, it crashes, resulting in a Segmentation fault, and I have the report:" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://vim0.com/post/neovim_no_crash_incremental_selection/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
+<meta property="og:url" content="https://vim0.com/en/post/neovim_no_crash_incremental_selection/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2024-07-11T23:16:09+08:00" />
-<meta property="article:modified_time" content="2024-07-11T23:55:44+08:00" /><meta property="og:site_name" content="咸糖 - 自律者自由" />
+<meta property="article:modified_time" content="2025-12-15T14:08:20+08:00" /><meta property="og:site_name" content="xiantang - Self-discipline set me free." />
 
 <meta itemprop="name" content="Neovim: No Crash Incremental Selection">
-<meta itemprop="description" content="When I use neovim treesitter incremental selection, it randomly crashes, but I cannot stable reproduce it. And I found some issues and complaints about this issue, but no solution. So I decide to write a blog post to record this issue and the solution.
+<meta itemprop="description" content="When I use Neovim Treesitter incremental selection, it randomly crashes, but I cannot consistently reproduce it. I found some issues and complaints about this problem, but no solution. So I decided to write a blog post to document this issue and the solution.
 related issues:
- https://www.reddit.com/r/neovim/comments/10wwkft/comment/j7qla2q/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button https://github.com/neovim/neovim/issues/24336 https://github.com/neovim/neovim/issues/25254 https://www.reddit.com/r/neovim/comments/18dn4qt/treesitter_incremental_selection/  TL;DR paste this https://github.com/xiantang/nvim-conf/blob/7c0d6cbf6d9fd7b6a8960de887db1109332419bf/lua/plugins/treesitter.lua#L62-L132 into your neovim configuration file.
-this is my treesitter incremental selection configuration:
-1 2 3 4 5 6 7 8 9  incremental_selection = { enable = true, keymaps = { init_selection = true, node_incremental = &#34;v&#34;, node_decremental = &#34;&lt;BS&gt;&#34;, }, },   sometime when I use v to expand the selection, it crashes, and it&rsquo;s a Segmentation fault, and I have the report:"><meta itemprop="datePublished" content="2024-07-11T23:16:09+08:00" />
-<meta itemprop="dateModified" content="2024-07-11T23:55:44+08:00" />
-<meta itemprop="wordCount" content="774"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+ https://www.reddit.com/r/neovim/comments/10wwkft/comment/j7qla2q/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button https://github.com/neovim/neovim/issues/24336 https://github.com/neovim/neovim/issues/25254 https://www.reddit.com/r/neovim/comments/18dn4qt/treesitter_incremental_selection/  TL;DR Paste this https://github.com/xiantang/nvim-conf/blob/7c0d6cbf6d9fd7b6a8960de887db1109332419bf/lua/plugins/treesitter.lua#L62-L132 into your Neovim configuration file.
+Here is my Treesitter incremental selection configuration:
+1 2 3 4 5 6 7 8 9  incremental_selection = { enable = true, keymaps = { init_selection = true, node_incremental = &#34;v&#34;, node_decremental = &#34;&lt;BS&gt;&#34;, }, },   Sometimes when I use v to expand the selection, it crashes, resulting in a Segmentation fault, and I have the report:"><meta itemprop="datePublished" content="2024-07-11T23:16:09+08:00" />
+<meta itemprop="dateModified" content="2025-12-15T14:08:20+08:00" />
+<meta itemprop="wordCount" content="765"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
 <meta itemprop="keywords" content="neovim," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
 
 <meta name="twitter:title" content="Neovim: No Crash Incremental Selection"/>
-<meta name="twitter:description" content="When I use neovim treesitter incremental selection, it randomly crashes, but I cannot stable reproduce it. And I found some issues and complaints about this issue, but no solution. So I decide to write a blog post to record this issue and the solution.
+<meta name="twitter:description" content="When I use Neovim Treesitter incremental selection, it randomly crashes, but I cannot consistently reproduce it. I found some issues and complaints about this problem, but no solution. So I decided to write a blog post to document this issue and the solution.
 related issues:
- https://www.reddit.com/r/neovim/comments/10wwkft/comment/j7qla2q/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button https://github.com/neovim/neovim/issues/24336 https://github.com/neovim/neovim/issues/25254 https://www.reddit.com/r/neovim/comments/18dn4qt/treesitter_incremental_selection/  TL;DR paste this https://github.com/xiantang/nvim-conf/blob/7c0d6cbf6d9fd7b6a8960de887db1109332419bf/lua/plugins/treesitter.lua#L62-L132 into your neovim configuration file.
-this is my treesitter incremental selection configuration:
-1 2 3 4 5 6 7 8 9  incremental_selection = { enable = true, keymaps = { init_selection = true, node_incremental = &#34;v&#34;, node_decremental = &#34;&lt;BS&gt;&#34;, }, },   sometime when I use v to expand the selection, it crashes, and it&rsquo;s a Segmentation fault, and I have the report:"/>
+ https://www.reddit.com/r/neovim/comments/10wwkft/comment/j7qla2q/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button https://github.com/neovim/neovim/issues/24336 https://github.com/neovim/neovim/issues/25254 https://www.reddit.com/r/neovim/comments/18dn4qt/treesitter_incremental_selection/  TL;DR Paste this https://github.com/xiantang/nvim-conf/blob/7c0d6cbf6d9fd7b6a8960de887db1109332419bf/lua/plugins/treesitter.lua#L62-L132 into your Neovim configuration file.
+Here is my Treesitter incremental selection configuration:
+1 2 3 4 5 6 7 8 9  incremental_selection = { enable = true, keymaps = { init_selection = true, node_incremental = &#34;v&#34;, node_decremental = &#34;&lt;BS&gt;&#34;, }, },   Sometimes when I use v to expand the selection, it crashes, resulting in a Segmentation fault, and I have the report:"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -85,7 +85,7 @@ this is my treesitter incremental selection configuration:
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">xiantang</a>
+    <a href="/en/" class="logo">xiantang</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -95,18 +95,18 @@ this is my treesitter incremental selection configuration:
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">归档</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">标签</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">分类</li>
-      </a><a href="/post/about/about_me/">
-        <li class="mobile-menu-item">关于我</li>
+    <a href="/en/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/en/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/en/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/en/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/en/post/about/about_me/">
+        <li class="mobile-menu-item">AboutMe</li>
       </a><a href="https://www.google.com/search?q=site%3Avim0.com">
-        <li class="mobile-menu-item">搜索</li>
+        <li class="mobile-menu-item">Search</li>
       </a>
   </ul>
 
@@ -118,7 +118,7 @@ this is my treesitter incremental selection configuration:
         
         
 
-        <li class="language-item active">
+        <li class="language-item ">
           
             <a href="https://vim0.com/post/neovim_no_crash_incremental_selection/">zh-cn</a>
           
@@ -127,7 +127,7 @@ this is my treesitter incremental selection configuration:
         
         
 
-        <li class="language-item ">
+        <li class="language-item active">
           
             <a href="https://vim0.com/en/post/neovim_no_crash_incremental_selection/">en</a>
           
@@ -142,7 +142,7 @@ this is my treesitter incremental selection configuration:
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">xiantang</a>
+  <a href="/en/" class="logo">xiantang</a>
 </div>
 
 
@@ -153,7 +153,7 @@ this is my treesitter incremental selection configuration:
         
         
 
-        <li class="language-item active">
+        <li class="language-item ">
           
             <a href="https://vim0.com/post/neovim_no_crash_incremental_selection/">zh-cn</a>
           
@@ -162,7 +162,7 @@ this is my treesitter incremental selection configuration:
         
         
 
-        <li class="language-item ">
+        <li class="language-item active">
           
             <a href="https://vim0.com/en/post/neovim_no_crash_incremental_selection/">en</a>
           
@@ -176,17 +176,17 @@ this is my treesitter incremental selection configuration:
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/en/">Home</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/en/post/">Archives</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/en/tags/">Tags</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/en/categories/">Categories</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/about/about_me/">关于我</a>
+        <a class="menu-item-link" href="/en/post/about/about_me/">AboutMe</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">搜索</a>
+        <a class="menu-item-link" href="https://www.google.com/search?q=site%3Avim0.com">Search</a>
       </li>
   </ul>
 </nav>
@@ -204,16 +204,16 @@ this is my treesitter incremental selection configuration:
       <div class="post-meta">
         <span class="post-time"> 2024-07-11 </span>
         <div class="post-category">
-            <a href="/categories/neovim/"> neovim </a>
+            <a href="/en/categories/neovim/"> neovim </a>
             </div>
-          <span class="more-meta"> 约 774 字 </span>
-          <span class="more-meta"> 预计阅读 4 分钟 </span>
+          <span class="more-meta"> 765 words </span>
+          <span class="more-meta"> 4 mins read </span>
         
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
+  <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
@@ -222,13 +222,8 @@ this is my treesitter incremental selection configuration:
 </nav>
   </div>
 </div>
-  <div class="post-outdated">
-    <div class="warn">
-      <p>【注意】最后更新于 <span class="timeago" datetime="2024-07-11T23:55:44" title="July 11, 2024">July 11, 2024</span>，文中内容可能已过时，请谨慎使用。</p>
-    </div>
-  </div>
     <div class="post-content">
-      <p>When I use neovim treesitter incremental selection, it randomly crashes, but I cannot stable reproduce it. And I found some issues and complaints about this issue, but no solution. So I decide to write a blog post to record this issue and the solution.</p>
+      <p>When I use Neovim Treesitter incremental selection, it randomly crashes, but I cannot consistently reproduce it. I found some issues and complaints about this problem, but no solution. So I decided to write a blog post to document this issue and the solution.</p>
 <p>related issues:</p>
 <ul>
 <li><a href="https://www.reddit.com/r/neovim/comments/10wwkft/comment/j7qla2q/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button">https://www.reddit.com/r/neovim/comments/10wwkft/comment/j7qla2q/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button</a></li>
@@ -237,8 +232,8 @@ this is my treesitter incremental selection configuration:
 <li><a href="https://www.reddit.com/r/neovim/comments/18dn4qt/treesitter_incremental_selection/">https://www.reddit.com/r/neovim/comments/18dn4qt/treesitter_incremental_selection/</a></li>
 </ul>
 <h2 id="tldr">TL;DR</h2>
-<p>paste this <code>https://github.com/xiantang/nvim-conf/blob/7c0d6cbf6d9fd7b6a8960de887db1109332419bf/lua/plugins/treesitter.lua#L62-L132</code> into your neovim configuration file.</p>
-<p>this is my treesitter incremental selection configuration:</p>
+<p>Paste this <code>https://github.com/xiantang/nvim-conf/blob/7c0d6cbf6d9fd7b6a8960de887db1109332419bf/lua/plugins/treesitter.lua#L62-L132</code> into your Neovim configuration file.</p>
+<p>Here is my Treesitter incremental selection configuration:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -263,7 +258,7 @@ this is my treesitter incremental selection configuration:
 
 </code></pre></td></tr></table>
 </div>
-</div><p>sometime when I use <code>v</code> to expand the selection, it crashes, and it&rsquo;s a Segmentation fault, and I have the report:</p>
+</div><p>Sometimes when I use <code>v</code> to expand the selection, it crashes, resulting in a Segmentation fault, and I have the report:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -324,7 +319,7 @@ Core was generated by <span class="sb">`</span>nvim --embed render/src/lib.rs<sp
 </span><span class="s2">#15 0x0000556dc01fb777 in main (argc=&lt;optimized out&gt;, argv=&lt;optimized out&gt;) at /usr/src/debug/neovim/neovim-0.9.2/src/nvim/main.c:642
 </span></code></pre></td></tr></table>
 </div>
-</div><p>But I have no idea how to fix it in neovim source code. After many times I updated the neovim and treesitter, the issue still exists. So I decide to disable the incremental selection feature. And implement a new incremental selection feature by myself.</p>
+</div><p>But I have no idea how to fix it in the Neovim source code. After many updates to Neovim and Treesitter, the issue still exists. So I decided to disable the incremental selection feature and implement a new incremental selection feature myself.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -475,20 +470,18 @@ Core was generated by <span class="sb">`</span>nvim --embed render/src/lib.rs<sp
 
 </code></pre></td></tr></table>
 </div>
-</div><p>And it works well, and I can expand the selection by <code>v</code> and select the parent node by <code>v</code> and restore the last selection by <code>&lt;BS&gt;</code>.</p>
-<p>if there have many people have the same issue, im willing to create a new tressitter plugin that let you config this altrenative incremental selection in treesitter configuration like as below:</p>
+</div><p>And it works well; I can expand the selection with <code>v</code>, select the parent node with <code>v</code>, and restore the last selection with <code>&lt;BS&gt;</code>.</p>
+<p>If many people have the same issue, I&rsquo;m willing to create a new Treesitter plugin that lets you configure this alternative incremental selection in Treesitter configuration as shown below:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="n">no_crash_incremental_selection</span> <span class="o">=</span> <span class="p">{</span>
@@ -499,8 +492,6 @@ Core was generated by <span class="sb">`</span>nvim --embed render/src/lib.rs<sp
           <span class="n">node_decremental</span> <span class="o">=</span> <span class="s2">&#34;&lt;BS&gt;&#34;</span><span class="p">,</span>
   <span class="p">},</span>
 <span class="p">},</span>
-
-
 </code></pre></td></tr></table>
 </div>
 </div>
@@ -508,14 +499,14 @@ Core was generated by <span class="sb">`</span>nvim --embed render/src/lib.rs<sp
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">文章作者</span>
+    <span class="item-title">Author</span>
     <span class="item-content">xiantang</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">上次更新</span>
+    <span class="item-title">LastMod</span>
     <span class="item-content">
-        2024-07-11
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/de02bad63d3005724eae49d07345f3813d1e6bd1" title="add more github issue">(de02bad6)</a>
+        2025-12-15
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/4dd3e0dde07c077bb5f3f7d2ccb31261bb760e06" title="commit">(4dd3e0dd)</a>
     </span>
   </p>
   
@@ -523,31 +514,31 @@ Core was generated by <span class="sb">`</span>nvim --embed render/src/lib.rs<sp
 </div>
 <div class="post-reward">
   <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
+  <label class="reward-button" for="reward">Reward</label>
   <div class="qr-code">
     
     <label class="qr-code-image" for="reward">
         <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b3bbmwj30ha0hbq5e.jpg">
-        <span>微信打赏</span>
+        <span>wechat</span>
       </label>
     <label class="qr-code-image" for="reward">
         <img class="image" src="https://tva1.sinaimg.cn/large/006tNbRwly1gba9b4s82aj30ib0igad3.jpg">
-        <span>支付宝打赏</span>
+        <span>alipay</span>
       </label>
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/neovim/">neovim</a>
+          <a href="/en/tags/neovim/">neovim</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/2024_recap/">
+        <a class="prev" href="/en/post/2024_recap/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">2024 年终总结</span>
-            <span class="prev-text nav-mobile">上一篇</span>
+            <span class="prev-text nav-default">2024 Year-End Summary</span>
+            <span class="prev-text nav-mobile">Prev</span>
           </a>
-        <a class="next" href="/post/2022/">
-            <span class="next-text nav-default">2022 年终总结</span>
-            <span class="next-text nav-mobile">下一篇</span>
+        <a class="next" href="/en/post/nix_use_old_version/">
+            <span class="next-text nav-default">Nixos use old version software</span>
+            <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -581,16 +572,16 @@ Core was generated by <span class="sb">`</span>nvim --embed render/src/lib.rs<sp
       <a href="https://twitter.com/GIA917229015" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://github.com/xiantang" class="iconfont icon-github" title="github"></a>
       <a href="https://www.zhihu.com/people/xian-tang-37-99" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="https://vim0.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://vim0.com/en/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
   <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+    Theme - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 

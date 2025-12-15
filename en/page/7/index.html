@@ -180,6 +180,106 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/en/post/jvm/full_gc/">What is Minor GC/Major GC</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-04-06 </span>
+      <div class="post-category">
+          <a href="/en/categories/chinese/"> Chinese </a>
+          <a href="/en/categories/jvm/"> JVM </a>
+          </div>
+        <span class="more-meta"> 388 words </span>
+        <span class="more-meta"> 2 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      What is Minor GC/Major GC First, let&rsquo;s popularize the classic heap layout of JVM:
+For the classic JVM heap layout, there are two clear areas, the first is the Young area, which generally stores young objects or objects that have just been created. The second is the Old area, also known as the old generation, which generally stores longer-lived objects or objects promoted from the young area.
+For the young area, we have three areas, one is the Eden area, and the other two are Survivor areas of equal size.
+    </div>
+    <div class="read-more">
+      <a href="/en/post/jvm/full_gc/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/en/post/jvm/gc_root/">Where is the GC root?</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-04-06 </span>
+      <div class="post-category">
+          <a href="/en/categories/english/"> English </a>
+          <a href="/en/categories/jvm/"> JVM </a>
+          </div>
+        <span class="more-meta"> 208 words </span>
+        <span class="more-meta"> 1 min read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      What is GC Root First of all, we know the marking algorithm, the JVM&rsquo;s marking algorithm can be understood as a reachability algorithm, so all reachability algorithms will have a starting point, and this starting point is the GC Root.
+That is, it is necessary to find all living objects through the GC Root, and then all the remaining unmarked objects are the objects to be recycled.
+Characteristics of GC Root  Objects that are alive at the current moment!
+    </div>
+    <div class="read-more">
+      <a href="/en/post/jvm/gc_root/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/en/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/">Design and Implementation of the Leaky Bucket Algorithm</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-04-05 </span>
+      <div class="post-category">
+          <a href="/en/categories/chinese/"> Chinese </a>
+          <a href="/en/categories/algorithm/"> algorithm </a>
+          </div>
+        <span class="more-meta"> 551 words </span>
+        <span class="more-meta"> 2 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      What is the Leaky Bucket Algorithm? As the name suggests, the Leaky Bucket algorithm uses a leaky bucket to limit traffic. Because there is a hole at the bottom of the bucket, it will leak water at regular intervals, and we can imagine the traffic as water falling into the bucket from above. This leads to two situations. If the speed at which traffic is injected into the bucket is
+    </div>
+    <div class="read-more">
+      <a href="/en/post/interview/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/en/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/">Pointing to offer</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-04-03 </span>
+      <div class="post-category">
+          <a href="/en/categories/chinese/"> Chinese </a>
+          <a href="/en/categories/algorithm/"> algorithm </a>
+          </div>
+        <span class="more-meta"> 3643 words </span>
+        <span class="more-meta"> 8 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      No2 Singleton Pattern 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 class No2TwiceCheckSingleton { private volatile static No2TwiceCheckSingleton instance = null; private static final Object sybObj = new Object(); // 一定记住要私有化构造器，不然人家还是能够创建 private No2TwiceCheckSingleton() { } static No2TwiceCheckSingleton
+    </div>
+    <div class="read-more">
+      <a href="/en/post/interview/5%E5%A4%A9%E5%88%B7%E5%AE%8C%E5%89%91%E6%8C%87/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/en/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/">Singleton Pattern</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-04-03 </span>
@@ -198,110 +298,6 @@
     </div>
     <div class="read-more">
       <a href="/en/post/interview/%E6%89%8B%E5%86%99%E5%8D%95%E4%BE%8B/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/en/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/">TCP Study for Interviews</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-04-01 </span>
-      <div class="post-category">
-          <a href="/en/categories/english/"> English </a>
-          <a href="/en/categories/network/"> network </a>
-          </div>
-        <span class="more-meta"> 812 words </span>
-        <span class="more-meta"> 4 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      What is TCP  TCP is a full-duplex, byte-stream protocol based on the IP protocol. TCP provides end-to-end accurate transmission.  Acknowledges each byte Handles poor network conditions  Timeout retransmission Congestion control   Efficiency improvement  Uses sliding window protocol     TCP is a connection-oriented protocol.  Since it is connection-oriented, how is this connection established?
-That is, the following question is how to establish a virtual link using a three-way handshake.
-    </div>
-    <div class="read-more">
-      <a href="/en/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/en/post/scala/future_in_actor/">How Actor Handles Blocking Messages</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-01-15 </span>
-      <div class="post-category">
-          <a href="/en/categories/chinese/"> Chinese </a>
-          <a href="/en/categories/scala/"> scala </a>
-          <a href="/en/categories/akka/"> akka </a>
-          </div>
-        <span class="more-meta"> 367 words </span>
-        <span class="more-meta"> 2 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      I noticed in the business code that a lot of
-import scala.concurrent.ExecutionContext.Implicits.global
-is used as the thread pool for executing Future inside the Actor. I didn&rsquo;t think there was a problem before. But after reading the akka source code, it seems a bit inappropriate.
-Let&rsquo;s briefly talk about the architecture of Actor
-When an Actor sends a message to another Actor, it sends this message to the recipient&rsquo;s mailbox
-The mailbox is a class that implements Runnable, so it can be executed by a thread pool.
-    </div>
-    <div class="read-more">
-      <a href="/en/post/scala/future_in_actor/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/en/post/scala/akka_source_code/">Analysis of Akka Source Code</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-01-15 </span>
-      <div class="post-category">
-          <a href="/en/categories/chinese/"> Chinese </a>
-          <a href="/en/categories/scala/"> scala </a>
-          <a href="/en/categories/akka/"> akka </a>
-          </div>
-        <span class="more-meta"> 1222 words </span>
-        <span class="more-meta"> 3 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&#34;HelloSystem&#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&#34;Parov Stelar&#34;)) // jazzListener
-    </div>
-    <div class="read-more">
-      <a href="/en/post/scala/akka_source_code/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/en/post/scala/how_to_learn_scala/">How to learn Scala</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-01-15 </span>
-      <div class="post-category">
-          <a href="/en/categories/english/"> English </a>
-          <a href="/en/categories/scala/"> scala </a>
-          </div>
-        <span class="more-meta"> 536 words </span>
-        <span class="more-meta"> 3 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Background: When I first came to a company with Scala as its technology stack, I spent a long time setting up the environment. After finally getting the project up and running, I found the code inside to be very strange. There were no loops, and data operations were a function nested within another function. This was very puzzling. So, driven by business needs and curiosity, I began to learn about Scala.
-    </div>
-    <div class="read-more">
-      <a href="/en/post/scala/how_to_learn_scala/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>

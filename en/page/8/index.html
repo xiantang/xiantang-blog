@@ -180,6 +180,110 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/en/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/">TCP Study for Interviews</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-04-01 </span>
+      <div class="post-category">
+          <a href="/en/categories/english/"> English </a>
+          <a href="/en/categories/network/"> network </a>
+          </div>
+        <span class="more-meta"> 812 words </span>
+        <span class="more-meta"> 4 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      What is TCP  TCP is a full-duplex, byte-stream protocol based on the IP protocol. TCP provides end-to-end accurate transmission.  Acknowledges each byte Handles poor network conditions  Timeout retransmission Congestion control   Efficiency improvement  Uses sliding window protocol     TCP is a connection-oriented protocol.  Since it is connection-oriented, how is this connection established?
+That is, the following question is how to establish a virtual link using a three-way handshake.
+    </div>
+    <div class="read-more">
+      <a href="/en/post/network/tcp%E9%92%88%E5%AF%B9%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/en/post/scala/future_in_actor/">How Actor Handles Blocking Messages</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-01-15 </span>
+      <div class="post-category">
+          <a href="/en/categories/chinese/"> Chinese </a>
+          <a href="/en/categories/scala/"> scala </a>
+          <a href="/en/categories/akka/"> akka </a>
+          </div>
+        <span class="more-meta"> 367 words </span>
+        <span class="more-meta"> 2 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      I noticed in the business code that a lot of
+import scala.concurrent.ExecutionContext.Implicits.global
+is used as the thread pool for executing Future inside the Actor. I didn&rsquo;t think there was a problem before. But after reading the akka source code, it seems a bit inappropriate.
+Let&rsquo;s briefly talk about the architecture of Actor
+When an Actor sends a message to another Actor, it sends this message to the recipient&rsquo;s mailbox
+The mailbox is a class that implements Runnable, so it can be executed by a thread pool.
+    </div>
+    <div class="read-more">
+      <a href="/en/post/scala/future_in_actor/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/en/post/scala/akka_source_code/">Analysis of Akka Source Code</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-01-15 </span>
+      <div class="post-category">
+          <a href="/en/categories/chinese/"> Chinese </a>
+          <a href="/en/categories/scala/"> scala </a>
+          <a href="/en/categories/akka/"> akka </a>
+          </div>
+        <span class="more-meta"> 1222 words </span>
+        <span class="more-meta"> 3 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&#34;HelloSystem&#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&#34;Parov Stelar&#34;)) // jazzListener
+    </div>
+    <div class="read-more">
+      <a href="/en/post/scala/akka_source_code/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/en/post/scala/how_to_learn_scala/">How to learn Scala</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-01-15 </span>
+      <div class="post-category">
+          <a href="/en/categories/english/"> English </a>
+          <a href="/en/categories/scala/"> scala </a>
+          </div>
+        <span class="more-meta"> 536 words </span>
+        <span class="more-meta"> 3 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Background: When I first came to a company with Scala as its technology stack, I spent a long time setting up the environment. After finally getting the project up and running, I found the code inside to be very strange. There were no loops, and data operations were a function nested within another function. This was very puzzling. So, driven by business needs and curiosity, I began to learn about Scala.
+    </div>
+    <div class="read-more">
+      <a href="/en/post/scala/how_to_learn_scala/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/en/post/scala/aes_limit_length/">AES Requires Limiting SEED Length</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2019-10-20 </span>
@@ -204,81 +308,6 @@ The reason for this is that the online environment does not support the AES algo
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/en/post/translate/java_equals/">How to distinguish between == and .equals() method in Java</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-02-24 </span>
-      <div class="post-category">
-          <a href="/en/categories/english/"> English </a>
-          </div>
-        <span class="more-meta"> 633 words </span>
-        <span class="more-meta"> 3 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Generally speaking, equals() and &quot;==&quot; operator are used to compare whether two objects are equal, but there are many differences between the two:
- The main difference is that .equals() is a method, == is an operator. Use == to compare references, referring to whether they point to the same memory address. Use .equals() to compare the content of objects, comparing values. If .equals is not overridden, it will default to calling the nearest superclass to override this method.
-    </div>
-    <div class="read-more">
-      <a href="/en/post/translate/java_equals/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/en/post/summary/2018_summary/">2018 Year-end Summary</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-12-30 </span>
-      <div class="post-category">
-          <a href="/en/categories/chinese/"> Chinese </a>
-          <a href="/en/categories/year-end-summary/"> Year-end Summary </a>
-          </div>
-        <span class="more-meta"> 770 words </span>
-        <span class="more-meta"> 4 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      It&rsquo;s the end of the year, so I&rsquo;m going to write a little summary of 2018.
-This year, there have been losses and gains. The loss was the failure of a relationship that didn&rsquo;t work out, and the gain was a general improvement in my personal quality.
-Let&rsquo;s not dwell on what&rsquo;s lost.
-Let&rsquo;s talk about the gains.
-The gains can be divided into three aspects: physical, technical, and financial.
-    </div>
-    <div class="read-more">
-      <a href="/en/post/summary/2018_summary/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/en/post/collection/collection/">Java Collection Expansion</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-12-07 </span>
-      <div class="post-category">
-          <a href="/en/categories/java/"> Java </a>
-          </div>
-        <span class="more-meta"> 526 words </span>
-        <span class="more-meta"> 2 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Collection Expansion ArrayList The default capacity of ArrayList is 10, so if you need to handle large amounts of data with ArrayList, you need to use the method of explicitly specifying the capacity. This can reduce unnecessary expansion operations. The main reason is that the expansion operation of ArrayList requires extra space, and it uses the Arrays.copyOf method for copying: 1 2 3 4 5 6 7 8 9 10
-    </div>
-    <div class="read-more">
-      <a href="/en/post/collection/collection/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -286,7 +315,10 @@ The gains can be divided into three aspects: physical, technical, and financial.
         <i class="iconfont icon-left"></i>
         <span class="prev-text">Prev</span>
       </a>
-    
+    <a class="next" href="/en/page/9/">
+        <span class="next-text">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
   </nav>
         </div>
         
