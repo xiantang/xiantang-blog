@@ -1,4 +1,3 @@
-```markdown
 ---
 title: "For Those Who Are Still Confused: My Memories from a Third-Tier University"
 date: 2025-07-05T01:08:16+08:00
@@ -39,7 +38,6 @@ In calculus, I listened attentively in class, but I only scored 26 in the midter
 Later, a helpful senior saw that a few of us freshmen were eager to improve and suggested we self-study microcontrollers, even providing a lot of materials. I looked into it and found that it required buying a development board and connecting it to a computer, which seemed quite complex and costly to get started, so I didn't pursue it.
 
 Throughout my freshman year, I was mostly in this state—wanting to work hard but not knowing where to focus, feeling very lost.
-```
 
 The real turning point was the specialization selection in the second semester of my freshman year. Students in our Electrical Engineering College could choose to stay in electrical engineering or switch to the computer science program.
 

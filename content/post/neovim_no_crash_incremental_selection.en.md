@@ -1,7 +1,14 @@
 ---
-
-title: "Neovim: No Crash Incremental Selection" date: 2024-07-11T23:16:09+08:00 author: "xiantang" tags: ["neovim"] categories: ["neovim"] description: draft: false
-
+title: "Neovim: No Crash Incremental Selection"
+date: 2024-07-11T23:16:09+08:00
+author: "xiantang"
+# lastmod: 
+tags: ["neovim"]
+categories: ["neovim"]
+# images:
+#   - ./post/golang/cover.png
+description:
+draft: false
 ---
 
 When I use Neovim Treesitter incremental selection, it randomly crashes, but I cannot consistently reproduce it. I found some issues and complaints about this problem, but no solution. So I decided to write a blog post to document this issue and the solution.

@@ -1,0 +1,38 @@
+name: Translate
+
+on:
+  push:
+    branches: [ code ]
+  pull_request:
+    branches: [ code ]
+  workflow_dispatch:
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Ensure API key is set
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "OPENAI_API_KEY secret is required to run translations." >&2
+            exit 1
+          fi
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install chatgpt-md-translator (npm)
+        run: npm install --global chatgpt-md-translator
+
+      - name: Run translate script
+        run: bash translate.sh
