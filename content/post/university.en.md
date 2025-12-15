@@ -1,6 +1,7 @@
 ---
 title: "For Those Who Are Still Confused: My Memories from a Third-Tier University"
 date: 2025-07-05T01:08:16+08:00
+lastmod: 2025-07-05T01:08:16+08:00
 author: "xiantang"
 draft: false
 tags: []
