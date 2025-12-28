@@ -48,7 +48,7 @@ Although the Pomodoro Technique seems to be working for 25 minutes and then taki
 
 First, you can make an electronic spreadsheet or paper one. Although the author of the Pomodoro Technique will use the paper method, in fact, as long as the thinking is correct for me.
 
-![Today's Work Sheet](/post/2022-02-06-15-14-10.png)
+![Today's Work Sheet](2022-02-06-15-14-10.png)
 
 ### Estimate Tasks & Decompose Tasks
 
@@ -62,7 +62,7 @@ First, you can make an electronic spreadsheet or paper one. Although the author 
 > **Hide in the headphones**: The best way to avoid interruptions in work life is to wear headphones. People, for some reason, feel more guilty about disturbing a person wearing headphones. This is great, most of the time people will come to you, talk to you, notice your headphones, and then apologize with exaggerated lip movements, and leave. The advantage of this is that most of the time people talk to you not because they really have something, and other times, they can completely email you, and you can deal with it a little later. So you don't need to listen to anything outside, and even the other end of the headphones doesn't need to be connected to anything.
 
 **Re-estimate your task**: Often we encounter situations where you optimistically estimate the number of tomatoes consumed by a task. After consuming all the tomatoes for this task, you can re-estimate the number of tomatoes left to complete this task, and then you can use different markers to record them.
-![Re-estimate](/post/2022-02-06-15-33-04.png)
+![Re-estimate](2022-02-06-15-33-04.png)
 
 ## Some best practices
 
