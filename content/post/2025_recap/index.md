@@ -1,13 +1,13 @@
 ---
 title: "2025 年终总结：降噪、重构与长期主义"
-date: 2025-12-29T15:31:25+08:00
+date: 2025-12-28T15:31:25+08:00
 author: "xiantang"
 # lastmod: 
 tags: ["年终总结"]
 # images:
 #   - ./post/golang/cover.png
 # description: 记录了在新加坡的生活点滴、旅游体验（马来西亚、台湾、韩国、越南）、工作感悟、健身计划、技术学习（AWS CLF 认证）、游戏回顾、电子产品推荐，以及对未来的展望。
-draft: true
+draft: false
 ---
 
 

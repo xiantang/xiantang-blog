@@ -19,7 +19,7 @@ BTW: 图是从 Google Map 上截的，所以如果有版权问题请联系我删
 
 **推荐理由**：这家越南河粉店的汤底醇厚浓郁，层次丰富。店内提供新鲜的越南香叶（罗勒叶），需要顾客自己一片片摘下放入河粉中，清香四溢，与浓郁的汤底完美融合。感觉比在越南本地吃到的还要好吃，强烈推荐大家去试试。
 
-![May Pho Culture](/post/image.png)
+![May Pho Culture](image.png)
 
 ---
 
@@ -31,28 +31,28 @@ BTW: 图是从 Google Map 上截的，所以如果有版权问题请联系我删
 2. **品质保证**：具备顶级榴莲摊的特点——不会在榴莲季刚开始就营业。因为季初很多猫山王会有些夹生，他们只在榴莲品质最佳时才开门迎客，保证每一颗榴莲都处于完美状态。
 
 
-![maoshanking](/post/image-1.png)
+![maoshanking](image-1.png)
 
 ---
 
 ### Muthu's Curry
 **地址**：138 Race Course Rd, #01-01, Singapore 218591
 **推荐理由**：干净又卫生哈，他家的芒果拉西（Mango Lassi）特别好喝，Naan饼也很赞，Chicken Tikka 也很顶。
-![Muthu's Curry](/post/image-2.png)
+![Muthu's Curry](image-2.png)
 
 ---
 
 ### Cafe USAGI Tokyo
 **地址**：3 Temasek Blvd, #02-615A, Singapore 038983
 **推荐理由**：我最喜欢他家的外面裹着麻薯的海盐冰淇凌，每次去 Suntec City 都会去吃一份。
-![Cafe USAGI Tokyo](/post/image-3.png)
+![Cafe USAGI Tokyo](image-3.png)
 
 ---
 
 ### Janggut Laksa @Queensway Shopping Centre
 **地址**：1 Queensway, #01-59, Singapore 149053
 **推荐理由**：这家 Laksa 是我在新加坡吃过最好吃的 Laksa 了，本地人心目中 top 1, 去买折叠自行车的时候发现很多人排队，尝了一下真香。
-![alt text](/post/image-4.png)
+![alt text](image-4.png)
 
 ## 新山
 
@@ -60,4 +60,4 @@ BTW: 图是从 Google Map 上截的，所以如果有版权问题请联系我删
 **地址**：67, Jalan Abdul Samad, Kampung Bahru, 80100 Johor Bahru, Johor Darul Ta'zim, 马来西亚
 
 **推荐理由**：这家感觉是个人在吃过最好吃的海鲜餐厅了，都是本地人去吃的，环境也不错，价格也不贵。推荐黑胡椒螃蟹和奶油螃蟹，还有椒盐虾。最厉害是的超级鲜甜，就是黑胡椒螃蟹这么重口的情况下，蟹肉也是超级鲜甜，真的很厉害。
-![alt text](/post/b4ba7cf95dd0b9a41a98a9ea7fa12d8e.jpg)
+![alt text](b4ba7cf95dd0b9a41a98a9ea7fa12d8e.jpg)
