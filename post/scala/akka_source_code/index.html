@@ -44,11 +44,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vim0.com/post/scala/akka_source_code/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-01-15T17:26:53+08:00" />
-<meta property="article:modified_time" content="2024-07-09T00:29:27+08:00" /><meta property="og:site_name" content="咸糖 - 自律者自由" />
+<meta property="article:modified_time" content="2025-12-29T01:34:06+08:00" /><meta property="og:site_name" content="咸糖 - 自律者自由" />
 
 <meta itemprop="name" content="Akka 源码解析">
 <meta itemprop="description" content="1 2 3 4 5 6 7 8 9 10 11 12 13 14 object Main1 extends App { val system = ActorSystem(&#34;HelloSystem&#34;) val jazzListener = system.actorOf(Props[Listener]) val musicListener = system.actorOf(Props[Listener]) system.eventStream.subscribe(jazzListener, classOf[Jazz]) // jazzListener 订阅 Jazz 事件 system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) // musicListener 订阅 AllKindsOfMusic 以及它的子类 事件 // 只有 musicListener 接收到这个事件 system.eventStream.publish(Electronic(&#34;Parov Stelar&#34;)) // jazzListener"><meta itemprop="datePublished" content="2020-01-15T17:26:53+08:00" />
-<meta itemprop="dateModified" content="2024-07-09T00:29:27+08:00" />
+<meta itemprop="dateModified" content="2025-12-29T01:34:06+08:00" />
 <meta itemprop="wordCount" content="1482"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
 <meta itemprop="keywords" content="scala," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
@@ -213,11 +213,6 @@
 </nav>
   </div>
 </div>
-  <div class="post-outdated">
-    <div class="warn">
-      <p>【注意】最后更新于 <span class="timeago" datetime="2024-07-09T00:29:27" title="July 9, 2024">July 9, 2024</span>，文中内容可能已过时，请谨慎使用。</p>
-    </div>
-  </div>
     <div class="post-content">
       <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -639,8 +634,8 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2024-07-09
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/9ac8718e661b5ac74c6344a278e8b7e79f873ad7" title="english by default">(9ac8718e)</a>
+        2025-12-29
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/4c152d044389d88b3680f0a701f5583d8b82b6c1" title="Migrate to Page Bundles structure">(4c152d04)</a>
     </span>
   </p>
   

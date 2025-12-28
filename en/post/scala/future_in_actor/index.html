@@ -54,7 +54,7 @@ The mailbox is a class that implements Runnable, so it can be executed by a thre
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vim0.com/en/post/scala/future_in_actor/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-01-15T17:51:36+08:00" />
-<meta property="article:modified_time" content="2023-10-08T21:02:03+08:00" /><meta property="og:site_name" content="xiantang - Self-discipline set me free." />
+<meta property="article:modified_time" content="2025-12-29T01:34:06+08:00" /><meta property="og:site_name" content="xiantang - Self-discipline set me free." />
 
 <meta itemprop="name" content="How Actor Handles Blocking Messages">
 <meta itemprop="description" content="I noticed in the business code that a lot of
@@ -63,7 +63,7 @@ is used as the thread pool for executing Future inside the Actor. I didn&rsquo;t
 Let&rsquo;s briefly talk about the architecture of Actor
 When an Actor sends a message to another Actor, it sends this message to the recipient&rsquo;s mailbox
 The mailbox is a class that implements Runnable, so it can be executed by a thread pool."><meta itemprop="datePublished" content="2020-01-15T17:51:36+08:00" />
-<meta itemprop="dateModified" content="2023-10-08T21:02:03+08:00" />
+<meta itemprop="dateModified" content="2025-12-29T01:34:06+08:00" />
 <meta itemprop="wordCount" content="367"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
 <meta itemprop="keywords" content="scala," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
@@ -224,11 +224,6 @@ The mailbox is a class that implements Runnable, so it can be executed by a thre
     <nav id="TableOfContents"></nav>
   </div>
 </div>
-  <div class="post-outdated">
-    <div class="warn">
-      <p>[NOTE] Updated <span class="timeago" datetime="2023-10-08T21:02:03" title="October 8, 2023">October 8, 2023</span>. This article may have outdated content or subject matter.</p>
-    </div>
-  </div>
     <div class="post-content">
       <p>I noticed in the business code that a lot of</p>
 <p><code>import scala.concurrent.ExecutionContext.Implicits.global</code></p>
@@ -311,8 +306,8 @@ The blocking function actually implements <code>ForkJoinPool.ManagedBlocker</cod
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2023-10-08
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/049e9a9b902cc4103a27eb47305da3a164dab1c7" title="commit">(049e9a9b)</a>
+        2025-12-29
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/4c152d044389d88b3680f0a701f5583d8b82b6c1" title="Migrate to Page Bundles structure">(4c152d04)</a>
     </span>
   </p>
   
