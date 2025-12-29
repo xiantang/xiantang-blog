@@ -321,6 +321,9 @@ Although it contradicts the former, we can try to abstract it by doing it 3 time
       
       
       if (window.location.hostname === 'localhost') return;
+      var disqus_config = function () {
+        this.page.identifier = 'post\/summary\/rules\/index';
+      };
 
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
       var disqus_shortname = 'xiantang';

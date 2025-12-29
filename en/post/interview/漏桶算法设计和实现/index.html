@@ -405,6 +405,9 @@
       
       
       if (window.location.hostname === 'localhost') return;
+      var disqus_config = function () {
+        this.page.identifier = 'post\/interview\/漏桶算法设计和实现\/index';
+      };
 
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
       var disqus_shortname = 'xiantang';

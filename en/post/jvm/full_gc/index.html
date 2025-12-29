@@ -314,6 +314,9 @@ For the young area, we have three areas, one is the Eden area, and the other two
       
       
       if (window.location.hostname === 'localhost') return;
+      var disqus_config = function () {
+        this.page.identifier = 'post\/jvm\/Full_GC\/index';
+      };
 
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
       var disqus_shortname = 'xiantang';

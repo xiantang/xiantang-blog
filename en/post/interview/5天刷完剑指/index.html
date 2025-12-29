@@ -1633,6 +1633,9 @@
       
       
       if (window.location.hostname === 'localhost') return;
+      var disqus_config = function () {
+        this.page.identifier = 'post\/interview\/5天刷完剑指\/index';
+      };
 
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
       var disqus_shortname = 'xiantang';

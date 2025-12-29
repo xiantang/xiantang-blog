@@ -402,6 +402,9 @@ Background In short, our hot loading component will run commands, and then will 
       
       
       if (window.location.hostname === 'localhost') return;
+      var disqus_config = function () {
+        this.page.identifier = 'post\/kill_process_and_its_childs\/index';
+      };
 
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
       var disqus_shortname = 'xiantang';
