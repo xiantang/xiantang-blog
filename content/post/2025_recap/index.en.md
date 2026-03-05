@@ -104,7 +104,7 @@ However, I probably won't go on such an in-depth tour again. After demystificati
 ## 8. Identity: Not Achieved by Endurance, but by a Steady Journey
 
 **Obtaining Identity**
-The biggest milestone in my life this year was obtaining Singaporean identity. I am very grateful to have seized this opportunity amidst the global rightward shift, settling in a relatively stable and safe place. 
+The biggest milestone in my life this year was obtaining Singapore PR. I am very grateful to have seized this opportunity amidst the global rightward shift, settling in a relatively stable and safe place. 
 The change in mindset is very straightforward: I am no longer anxious about job hunting, nor do I worry about being sent back home if I lose my job.
 
 **Noise Reduction and Complexity**
