@@ -7,6 +7,16 @@ name: Build image
 on:
   push:
     branches: [ code ]
+    paths-ignore:
+      # 发布流程是「push 代码 → CI 构建 sha-<x> → 把 Chart.yaml 的 appVersion
+      # 改成 sha-<x> 再 push」。第二次 push 只动 chart，不该再触发一次构建。
+      - 'k8s/charts/**'
+      - 'k8s/README.md'
+      # 只匹配仓库根目录的 md（README/AGENTS），不会匹配 content/ 下的博客文章
+      - '*.md'
+      #
+      # 注意别把整个 k8s/** 加进来：Dockerfile.k8s 里有 COPY k8s/nginx.conf，
+      # 改 nginx 配置是必须重新构建镜像的。
   workflow_dispatch:
 
 env:

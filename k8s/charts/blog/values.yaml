@@ -4,9 +4,14 @@ replicaCount: 2
 
 image:
   repository: ghcr.io/xiantang/xiantang-blog
-  pullPolicy: Always
-  # 留空则回退到 Chart.yaml 里的 appVersion
-  tag: "latest"
+  # tag 留空 → 回退到 Chart.yaml 的 appVersion（一个不可变的 sha-<commit> tag）。
+  # 发布新版本请改 Chart.yaml，不要在这里写死。
+  #
+  # 不用 latest：latest 是会漂移的，指向它的话 helm rollback 只会把同一个
+  # 移动靶重新拉一遍，回滚是假的；而且多副本之间可能拉到不同的镜像内容。
+  tag: ""
+  # tag 不可变了，就没必要每次都回源确认，IfNotPresent 更快也更省流量
+  pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP

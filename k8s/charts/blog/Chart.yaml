@@ -9,5 +9,12 @@ type: application
 version: 0.1.0
 
 # appVersion 是被打包的应用的版本，和 chart 版本互相独立。
-# 引号是必须的：不加的话 1.20 会被 YAML 解析成浮点数 1.2
-appVersion: "1.0.0"
+#
+# 这里放的是 CI 构建出的镜像 tag（build-image.yml 里 type=sha,format=long
+# 生成的 sha-<完整40位commit>）。博客没有语义化版本，用 commit sha 做版本
+# 标识既准确又可追溯：拿到这个值就能直接 git show 出线上跑的是哪份代码。
+#
+# values.yaml 里 image.tag 留空，会回退到这里，所以发布时只改这一处。
+#
+# 引号是必须的：不加的话纯数字的版本会被 YAML 当成数字解析。
+appVersion: "sha-f7e1cab5fa971093fce0317a444349792c9e8c6b"
