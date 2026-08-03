@@ -14,6 +14,11 @@ WORKDIR /app
 COPY . .
 EXPOSE 1313
 
-RUN git submodule init && git submodule update && git config --global --add safe.directory /app
-CMD hugo server --bind 0.0.0.0 -D --disableFastRender
+# 容器内是 root，挂载进来的宿主机文件属主不同，git 会报 dubious ownership。
+# 用通配是因为每个 submodule 目录都要单独豁免。
+RUN git config --global --add safe.directory '*'
+
+# 主题以 submodule 引入，且 compose 会把宿主机目录挂到 /app 覆盖镜像内容，
+# 所以必须在启动时初始化，构建时做会被挂载盖掉。
+CMD git submodule update --init --recursive && hugo server --bind 0.0.0.0 -D --disableFastRender
 

@@ -7,6 +7,16 @@ blog
 * bash cardimg.sh (filename without extension)
 * bash sync.sh  (commit and push to github)
 
+## 本地开发
+
+主题通过 git submodule 引入，首次 clone 后需要拉取，否则页面会是空白：
+
+```bash
+git submodule update --init --recursive
+```
+
+然后 `docker compose up`，访问 <http://localhost:1313>。
+
 
 ## 图片 
 需要保证所有图片都在 `content/image` 目录下面，添加 image checker
