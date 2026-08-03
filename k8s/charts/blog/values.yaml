@@ -1,6 +1,6 @@
 # 这是唯一「给使用者改」的文件。templates/ 里的东西是实现细节。
 
-replicaCount: 2
+replicaCount: 3
 
 image:
   repository: ghcr.io/xiantang/xiantang-blog
