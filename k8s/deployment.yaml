@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: blog
-          image: xiantang-blog:latest
-          imagePullPolicy: IfNotPresent
+          image: ghcr.io/xiantang/xiantang-blog:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           readinessProbe:
