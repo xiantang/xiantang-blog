@@ -4,7 +4,7 @@
 （不同于仓库根目录 `Dockerfile`，那个是本地开发用的 `hugo server` + 挂载源码）。
 
 已经在这台机器上按下面的步骤实际验证过一遍：build → import → apply →
-通过 ClusterIP service 和 Traefik ingress（Host: vim0.com）都能正常访问到首页。
+通过 ClusterIP service 和 Traefik ingress（Host: k8s.vim0.com）都能正常访问到首页。
 
 ## 1. 构建镜像
 
@@ -50,11 +50,11 @@ sudo k3s kubectl port-forward svc/xiantang-blog 8080:80
 # 浏览器打开 http://localhost:8080
 ```
 
-Ingress 配的 host 是 `vim0.com`。本地测试不改 DNS 的话，用 curl 带 Host 头访问 k3s 节点的
+Ingress 配的 host 是 `k8s.vim0.com`。本地测试不改 DNS 的话，用 curl 带 Host 头访问 k3s 节点的
 80 端口（Traefik 默认监听宿主机 80/443）：
 
 ```bash
-curl -H "Host: vim0.com" http://<k3s节点IP>/
+curl -H "Host: k8s.vim0.com" http://<k3s节点IP>/
 ```
 
 ## 更新站点内容

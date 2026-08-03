@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: vim0.com
+    - host: k8s.vim0.com
       http:
         paths:
           - path: /
