@@ -57,12 +57,24 @@ Kubernetes / CI / 云服务**,而不是为了把站点跑起来 —— 站点本
 
 ## 当前环境事实
 
+### 这是两台机器,别搞混
+
+- **本地开发机**(你现在看到的这个仓库,`/home/neo/project/xiantang-blog`):写代码、改 YAML、
+  跑 git、跑 `aws` CLI。**这里没有 k3s,也没有集群的 kubeconfig。**
+- **k3s 节点**:一台独立的小云主机,集群跑在上面。所有 `kubectl` 都要 ssh 上去执行。
+
+所以:**不要在本地直接跑 `kubectl`**,它要么不存在,要么连的不是这个集群。涉及集群的操作,
+给出命令并说明"这条要在 k3s 那台机器上跑",由我 ssh 过去执行。
+
+因为是小云主机,**资源紧张是常态**。建议任何要往集群里装的东西,都先估算内存开销,
+并优先考虑精简安装(关掉用不到的组件、显式设 requests/limits),而不是照搬官方的完整 manifest。
+
 省得每次重新查:
 
 | 项 | 值 |
 |---|---|
-| 集群 | 单节点 k3s,自带 Traefik ingress + containerd |
-| kubectl | 节点上用 `sudo k3s kubectl`(见 `k8s/README.md`) |
+| 集群 | 单节点 k3s,跑在独立的小云主机上,自带 Traefik ingress + containerd |
+| kubectl | ssh 到 k3s 节点后用 `sudo k3s kubectl`(见 `k8s/README.md`) |
 | 域名 | `k8s.vim0.com`(k3s),`vim0.com`(GitHub Pages) |
 | TLS | cert-manager + Let's Encrypt,Cloudflare DNS-01,ClusterIssuer 名 `letsencrypt-prod` |
 | 镜像仓库 | GHCR(集群在拉这个) + AWS ECR(同步推送) |
