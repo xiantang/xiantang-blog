@@ -1,5 +1,7 @@
 # Builds the production (nginx + prebuilt Hugo site) image from Dockerfile.k8s
 # and pushes it to GHCR for the k3s/k8s deployment to pull.
+# When the AWS_ROLE_ARN / AWS_REGION / ECR_REPOSITORY repository variables are
+# set, the same image is also pushed to AWS ECR in one multi-registry build.
 name: Build image
 
 on:
@@ -17,6 +19,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write   # required for AWS OIDC federation
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,11 +37,38 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Configure AWS credentials
+        if: vars.AWS_ROLE_ARN != ''
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Log in to Amazon ECR
+        if: vars.AWS_ROLE_ARN != ''
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Compose image list
+        id: images
+        run: |
+          {
+            echo 'list<<EOF'
+            echo "${REGISTRY}/${IMAGE_NAME}"
+            if [ -n "${ECR_REGISTRY}" ]; then
+              echo "${ECR_REGISTRY}/${ECR_REPOSITORY}"
+            fi
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+        env:
+          ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+
       - name: Extract image metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ steps.images.outputs.list }}
           tags: |
             type=sha,format=long
             type=raw,value=latest,enable={{is_default_branch}}
