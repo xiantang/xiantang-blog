@@ -57,6 +57,53 @@ Ingress 配的 host 是 `k8s.vim0.com`。本地测试不改 DNS 的话，用 cur
 curl -H "Host: k8s.vim0.com" http://<k3s节点IP>/
 ```
 
+## 5. 配置 TLS（cert-manager + Cloudflare DNS-01）
+
+用 [cert-manager](https://cert-manager.io/) 自动向 Let's Encrypt 申请证书，走 DNS-01
+校验（而不是 HTTP-01），这样即使域名开着 Cloudflare 代理（橙色云）也不受影响，
+也不用额外为校验开放 80 端口。
+
+### 5.1 装 cert-manager
+
+```bash
+sudo k3s kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.3/cert-manager.yaml
+sudo k3s kubectl get pods -n cert-manager   # 等三个 pod 都 Running 再继续
+```
+
+### 5.2 建 Cloudflare API Token
+
+Cloudflare 控制台 → My Profile → API Tokens → Create Token，用 "Edit zone DNS" 模板，
+Zone Resources 限定到 `vim0.com`（不要用 Global API Key，权限太大）。
+
+拿到 token 后直接在集群里建 secret，**不要把 token 写进仓库里提交**：
+
+```bash
+sudo k3s kubectl create secret generic cloudflare-api-token-secret \
+  --from-literal=api-token=<你的-token> \
+  -n cert-manager
+```
+
+（`k8s/cluster-issuer.yaml` 里引用的就是这个 secret 名字和 key。）
+
+### 5.3 下发 ClusterIssuer 和更新后的 Ingress
+
+```bash
+sudo k3s kubectl apply -f k8s/cluster-issuer.yaml
+sudo k3s kubectl apply -f k8s/ingress.yaml
+```
+
+`k8s/ingress.yaml` 已经加了 `cert-manager.io/cluster-issuer` annotation 和 `tls` 段，
+cert-manager 会看到这个 annotation 自动创建 Certificate 资源并申请证书。
+
+### 5.4 验证
+
+```bash
+sudo k3s kubectl get certificate                 # 等 READY 变 True，通常几十秒到几分钟
+sudo k3s kubectl describe certificate xiantang-blog-tls
+sudo k3s kubectl get challenge                   # 卡住的话看这个排查（DNS 传播延迟、token 权限等）
+curl -v https://k8s.vim0.com/                    # 证书签发完成后验证
+```
+
 ## 更新站点内容
 
 改了博客内容后，重新走一遍第 1、2 步（build + import），然后：

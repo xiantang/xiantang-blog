@@ -3,8 +3,14 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: xiantang-blog
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: traefik
+  tls:
+    - hosts:
+        - k8s.vim0.com
+      secretName: xiantang-blog-tls
   rules:
     - host: k8s.vim0.com
       http:
