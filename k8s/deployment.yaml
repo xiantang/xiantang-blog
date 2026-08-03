@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xiantang-blog
+  labels:
+    app: xiantang-blog
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: xiantang-blog
+  template:
+    metadata:
+      labels:
+        app: xiantang-blog
+    spec:
+      containers:
+        - name: blog
+          image: xiantang-blog:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 200m
+              memory: 64Mi

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: xiantang-blog
+spec:
+  selector:
+    app: xiantang-blog
+  ports:
+    - port: 80
+      targetPort: 80

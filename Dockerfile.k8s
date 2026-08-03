@@ -1,0 +1,28 @@
+# Production image for Kubernetes/k3s: build static site with Hugo,
+# then serve it with nginx (no live hugo server, no bind-mounted source).
+FROM ubuntu:20.04 AS build
+
+RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV HUGO_VERSION=0.91.2
+ENV HUGO_BINARY=hugo_extended_${HUGO_VERSION}_Linux-64bit.deb
+
+ADD https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_BINARY} /tmp/hugo.deb
+RUN dpkg -i /tmp/hugo.deb && rm /tmp/hugo.deb
+
+WORKDIR /app
+COPY . .
+
+# Submodules aren't vendored into the build context by `COPY . .` (they're
+# just empty dirs + gitlinks), so re-fetch them here using the .git metadata
+# that's already in the context.
+RUN git config --global --add safe.directory '*' \
+    && git submodule update --init --recursive \
+    && rm -rf public \
+    && hugo --minify
+
+FROM nginx:1.27-alpine AS runtime
+COPY --from=build /app/public /usr/share/nginx/html
+COPY k8s/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80

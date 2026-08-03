@@ -1,0 +1,18 @@
+# k3s ships Traefik by default, so ingressClassName: traefik works out of the box.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: xiantang-blog
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: vim0.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: xiantang-blog
+                port:
+                  number: 80
