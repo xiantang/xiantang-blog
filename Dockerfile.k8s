@@ -1,6 +1,11 @@
 # Production image for Kubernetes/k3s: build static site with Hugo,
 # then serve it with nginx (no live hugo server, no bind-mounted source).
-FROM ubuntu:20.04 AS build
+#
+# The build stage is pinned to $BUILDPLATFORM (the builder's native arch) on
+# purpose: Hugo extended ships amd64-only binaries for this version, and the
+# generated site is just static files, so there's nothing arch-specific to
+# emulate. Only the nginx runtime stage is built per target platform.
+FROM --platform=$BUILDPLATFORM ubuntu:20.04 AS build
 
 RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates \
     && rm -rf /var/lib/apt/lists/*
