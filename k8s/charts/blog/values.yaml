@@ -1,0 +1,35 @@
+# 这是唯一「给使用者改」的文件。templates/ 里的东西是实现细节。
+
+replicaCount: 2
+
+image:
+  repository: ghcr.io/xiantang/xiantang-blog
+  pullPolicy: Always
+  # 留空则回退到 Chart.yaml 里的 appVersion
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: traefik
+  host: k8s.vim0.com
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+    enabled: true
+    # 留空则自动生成 <release-name>-tls
+    secretName: ""
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 16Mi
+  limits:
+    cpu: 200m
+    memory: 64Mi
+
+# 探针路径对静态站点来说 / 就够了；抽出来是为了以后换成 /healthz 不用改模板
+probePath: /

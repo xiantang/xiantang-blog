@@ -1,0 +1,19 @@
+Release {{ .Release.Name }} 已部署到 namespace {{ .Release.Namespace }}。
+
+查看 pod 状态：
+  kubectl get pods -l app.kubernetes.io/instance={{ .Release.Name }} -n {{ .Release.Namespace }}
+
+{{- if .Values.ingress.enabled }}
+
+站点地址：
+  http{{ if .Values.ingress.tls.enabled }}s{{ end }}://{{ .Values.ingress.host }}/
+{{- if .Values.ingress.tls.enabled }}
+
+证书签发状态（cert-manager 通常需要几十秒到几分钟）：
+  kubectl get certificate -n {{ .Release.Namespace }}
+{{- end }}
+{{- else }}
+
+Ingress 未启用，用 port-forward 访问：
+  kubectl port-forward svc/{{ include "blog.fullname" . }} 8080:{{ .Values.service.port }} -n {{ .Release.Namespace }}
+{{- end }}

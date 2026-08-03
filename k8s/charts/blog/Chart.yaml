@@ -1,0 +1,13 @@
+apiVersion: v2
+name: blog
+description: xiantang 的 Hugo 博客，nginx 提供静态文件服务
+
+# application = 普通应用；另一种是 library（只提供模板片段供别的 chart 引用，不能单独安装）
+type: application
+
+# version 是 chart 自身的版本，改模板/values 结构时递增（必须是 SemVer）
+version: 0.1.0
+
+# appVersion 是被打包的应用的版本，和 chart 版本互相独立。
+# 引号是必须的：不加的话 1.20 会被 YAML 解析成浮点数 1.2
+appVersion: "1.0.0"
