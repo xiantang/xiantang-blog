@@ -7,7 +7,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: blog
+  # ⚠️ 名字必须是 xiantang-blog，不能随便起。两个原因：
+  #
+  # 1. ArgoCD 默认把 Application 名当作 Helm release 名，而 chart 的资源名跟随
+  #    release 名（见 _helpers.tpl 的 blog.fullname）。叫 blog 的话会渲染出一套
+  #    全新的 blog-* 资源，和现有的 xiantang-blog-* 并存，两个 Ingress 抢同一个
+  #    host，cert-manager 还会为同一域名重复签证书（撞 Let's Encrypt 限流）。
+  #
+  # 2. ArgoCD 默认用 label app.kubernetes.io/instance 追踪资源归属，值就是
+  #    Application 名。而 chart 也在写这个 label，且它在 Deployment 的
+  #    spec.selector 里 —— selector 是不可变字段，两边值不一致 sync 会直接失败。
+  #
+  # 名字对齐之后，ArgoCD 会直接接管现有资源，不会重建。
+  name: xiantang-blog
   # Application 必须建在 ArgoCD 自己的 namespace 里，不是被部署应用的 namespace
   namespace: argocd
 spec:
