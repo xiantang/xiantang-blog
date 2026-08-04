@@ -61,6 +61,34 @@ sudo rm -rf /var/lib/buildkit /var/lib/containerd
 `systemctl` 能看到的那个是 nerdctl-full 装的。停错了整个集群就没了,
 先用 `systemctl show containerd -p MainPID -p ExecStart` 确认指向 `/usr/local/bin/containerd`。
 
+### [ ] 调小 pod GC 阈值,让 Evicted Pod 自动清理
+
+2026-08-03 磁盘事故留下了 50+ 个 `Evicted` Pod 墓碑,几小时后还在 `kubectl get pods`
+里刷屏。它们不占资源(容器早没了,只剩 API 对象),但严重干扰排查。
+
+**为什么不会自动消失**:清理由 controller-manager 的 pod GC 负责,
+默认阈值是**已终止 Pod 超过 12500 个**才开始清 —— 对单节点小集群等于永不触发。
+
+零代码解法,给 k3s 透传参数(改 `/etc/systemd/system/k3s.service`):
+
+```
+--kube-controller-manager-arg=terminated-pod-gc-threshold=100
+```
+
+`systemctl daemon-reload && systemctl restart k3s` 生效。
+⚠️ 重启 k3s 会让 apiserver 断几秒,Pod 本身不受影响。
+
+手动清理(phase 要分两次,field-selector 不支持 `in`):
+
+```bash
+kubectl delete pods -n default --field-selector status.phase=Failed
+kubectl delete pods -n default --field-selector status.phase=Succeeded
+```
+
+⚠️ 用 `--field-selector`,**别用 `--all`**,那会把正在跑的一起删掉。
+
+想更进一步就自己写 controller,见「学习方向」一节 —— 但先用上面的方案把问题解决掉。
+
 ### [ ] 绑定 Elastic IP
 
 现在是自动分配的公网 IP,实例一 stop/start 就变,每次都要改 Cloudflare 的 A 记录。
@@ -89,6 +117,11 @@ sudo rm -rf /var/lib/buildkit /var/lib/containerd
 - ArgoCD 需要 ~1GB(5-7 个 Pod)→ 装不下
 - Flux 最小集 ~200Mi → 塞得进但零余量,不值得
 
+> ⚠️ **以上是 2026-08-04 升配前的数字,已经过时。** 之后机器和根卷都扩过,
+> ArgoCD 的 7 个 Pod 已经跑在这台上了。**待办:重新量一遍 `free -h` / `df -h /`
+> 并更新这一节**,不然以后又要靠猜。结论那句话仍然成立:
+> 76% 内存被 k8s 控制面吃掉,业务不到 5%,单节点 k8s 的固有成本就是这样。
+
 76% 内存被 k8s 控制面自己吃掉,真正跑业务的不到 5%。
 这是单节点 k8s 的固有成本 —— 用 k8s 跑个人博客从工程角度不划算,
 但作为学习平台是划算的。**在为学习付费,不是在为博客的可用性付费。**
@@ -97,15 +130,37 @@ sudo rm -rf /var/lib/buildkit /var/lib/containerd
 
 ## 学习方向(不影响线上)
 
-### [ ] 在本地开发机用 kind/k3d 学 ArgoCD / GitOps
+### [ ] 写一个清理 Evicted Pod 的 controller
 
-EC2 那台装不下(见上面天花板)。kind 免费、内存随便用、玩坏了一秒重建。
-`k8s/charts/blog/` 可以直接拿去当第一个 Application,只要覆盖几个 values
-(关掉 TLS、换 host)。
+**先说清楚:对这个需求本身,写 controller 是杀鸡用牛刀。**
+零代码的解法见运维一节的「调 pod GC 阈值」,或者一个跑 `kubectl delete` 的 CronJob。
+**先用那个把问题解决掉,再把 controller 当独立的学习项目慢慢写**,
+别让一个碍眼的真实问题等着代码写完。
 
-⚠️ 要知道的前提:**ArgoCD 不用 Helm 安装**,它跑 `helm template` 再自己 apply。
-所以集群里没有 Helm release,`helm list` / `history` / `rollback` / `get values` 全失效,
-回滚改在 ArgoCD 里做。**但 chart 本身完全复用。**
+但作为**第一个 controller** 这题目选得很好:
+
+- 不需要 CRD,直接 watch 内置的 Pod 资源,省掉一大块概念负担
+- 逻辑一句话说完:看到 `phase=Failed` 且 `reason=Evicted` 的 Pod 就删
+- 和主线是连着的 —— **ArgoCD 本身就是一个 controller**,只是它调谐的是
+  「git 和集群」而不是「Pod 状态」。自己写一遍才算真懂调谐循环
+
+会学到:Informer/Watch(不是轮询,apiserver 推送变更 + 本地缓存)、
+WorkQueue(事件去重 + 失败重试 + 限速)、Reconcile 幂等、最小权限 RBAC、
+leader election。
+
+选型:**Go + controller-runtime**,ArgoCD 和 cert-manager 用的就是这套。
+kubebuilder 的脚手架是围绕「你要定义 CRD」设计的,这个用不上 CRD,
+直接用 controller-runtime 的 manager 手写更清爽,大概 100 行。
+
+⚠️ 一定会踩的坑:
+
+- **别写成 `for { list(); delete(); sleep() }`** —— 那是轮询脚本不是 controller,会压垮 apiserver
+- **`Failed` 不等于 `Evicted`** —— Job 跑失败的 Pod 也是 `Failed`,而且那些是
+  **故意留着给人看的**。必须同时判断 `status.reason == "Evicted"`
+- **删除要容忍 404** —— Reconcile 时对象可能已被别人删掉,这是正常的不是错误
+- RBAC 只给 `pods: list/watch/delete`,别图省事绑 cluster-admin
+
+放哪:倾向**单开一个 repo**,博客仓库里塞个 Go controller 有点怪。
 
 ### [ ] 把 nginx.conf 抽成 ConfigMap
 
@@ -152,6 +207,26 @@ CI 同时推 GHCR 和 ECR,但集群只拉 GHCR。想切到 ECR 需要额外配�
 ---
 
 ## 已完成
+
+- [x] **装上 ArgoCD 并把博客迁过去**(2026-08-04)
+  版本钉在 **v3.4.6**(不是 `stable`,那是会移动的指针,和 `:latest` 同一类问题)。
+  装的时候要用 `kubectl apply --server-side`,否则 ApplicationSet 的 CRD 会撞上
+  annotation 256KB 上限;第一次失败后重试还要 `--force-conflicts` 接管
+  自己上一次 client-side apply 留下的字段所有权。
+
+  Application 定义在 `k8s/argocd/blog-application.yaml`,**名字必须是 `xiantang-blog`**
+  (原因写在文件注释里:ArgoCD 拿 Application 名当 release 名,且拿它当资源追踪
+  label,而那个 label 在 Deployment 的不可变 selector 里)。
+
+  迁移是零停机的:名字对齐后 ArgoCD 直接认领现有资源,`argocd app get` 一上来就是
+  `Synced` + `Healthy`,一次 sync 都不用做。然后只删 Helm 的记账、不动资源:
+  `kubectl delete secret -n default -l owner=helm,name=xiantang-blog`。
+
+  🚫 **从此不要再对博客跑 `helm upgrade` / `rollback` / `get values`** ——
+  集群里已经没有 release 了,这些命令会报 `release: not found`。变更一律走 git → ArgoCD。
+
+  目前 **`syncPolicy.automated` 没开**,是手动 sync。开之前想清楚:
+  开了之后 push 即上线,会失去「改 `Chart.yaml` 的 appVersion 才算发布」这个闸口。
 
 - [x] **干掉 `:latest`**(`f8cba5a7`,2026-08-04)
   chart 的 `image.tag` 留空回退到 `Chart.yaml` 的 `appVersion`,指向不可变的
