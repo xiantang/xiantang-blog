@@ -24,6 +24,10 @@
         {{- else -}}
         this.page.url = '{{ .Permalink }}';
         {{- end }}
+        {{/* Disqus 用 Django 风格的 locale 码（zh_CN / pt_BR），不认 Hugo 的
+             zh-cn —— 实测传 zh-cn 会被降级成通用的 zh。只影响 Reply /
+             Load more comments 这些界面文案，评论正文不翻译。 */ -}}
+        this.language = '{{ if eq .Lang "zh-cn" }}zh_CN{{ else }}{{ .Lang }}{{ end }}';
       };
 
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
