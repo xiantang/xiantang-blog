@@ -1,0 +1,44 @@
+# ArgoCD Application：把 k8s/charts/blog 这个 Helm chart 同步到集群。
+#
+# 注意 ArgoCD 并不用 Helm 安装，它内部跑 `helm template` 渲染出 YAML 再自己 apply。
+# 所以同步之后集群里不会有 Helm release，`helm list` 看不到东西，
+# `helm history` / `rollback` / `get values` 全部失效，回滚改在 ArgoCD 里做。
+# chart 本身完全复用，不用改。
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blog
+  # Application 必须建在 ArgoCD 自己的 namespace 里，不是被部署应用的 namespace
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/xiantang/xiantang-blog.git
+    # 仓库是公开的，不需要配凭据。用 HTTPS 而不是 SSH 也是这个原因。
+    targetRevision: code
+    path: k8s/charts/blog
+
+    helm:
+      # 不写 valueFiles 时默认就用 chart 里的 values.yaml，这里显式写出来是为了清楚
+      valueFiles:
+        - values.yaml
+
+  destination:
+    # in-cluster 的固定写法，指 ArgoCD 自己所在的集群
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  # 先不开自动同步。第一次要手动 sync，好观察 ArgoCD 认为该改什么。
+  # 确认无误之后再考虑加：
+  #   syncPolicy:
+  #     automated:
+  #       prune: true      # git 里删掉的资源，集群里也删
+  #       selfHeal: true   # 有人手动改了集群，自动改回来
+  #
+  # ⚠️ 开了 automated 之后 push 到 git 就等于上线，
+  # 会失去现在「改 appVersion 才算发布」这个闸口，想清楚再开。
+  syncPolicy:
+    syncOptions:
+      # 目标 namespace 不存在时自动创建（这里 default 本来就有，属于无害的保险）
+      - CreateNamespace=true
