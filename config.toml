@@ -262,3 +262,10 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
 #  section = ["HTML", "RSS"]
 #  taxonomy = ["HTML", "RSS"]
 #  taxonomyTerm = ["HTML"]
+
+# hugo --minify 会重命名内联脚本里的局部变量，把主题里的
+# `var disqus_config` 压成 `var c`。Disqus 的 embed.js 只认这个字面名字，
+# 找不到就回退用 window.location.href 当 thread key，导致 k8s.vim0.com
+# 上开出一个空的新 thread（评论 0 条）。关掉 JS 压缩即可。
+[minify]
+  disableJS = true
