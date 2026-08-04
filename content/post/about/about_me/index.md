@@ -26,6 +26,8 @@ Python <https://github.com/xiantang/Spider> 写过一些爬虫。
 
 Java <https://github.com/xiantang/JerryMouse> 写过一个简单的 web 容器。
 
+Lua <https://github.com/xiantang/darcula-dark.nvim> neovim 主题
+
 同时我也比较喜欢使用 neovim，[我的 neovim 配置](https://github.com/xiantang/nvim-conf)。
 
 目前在新加坡工作，同时比较喜欢[开源](https://github.com/xiantang)和投资。
