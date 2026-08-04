@@ -8,9 +8,11 @@ on:
   push:
     branches: [ code ]
     paths-ignore:
-      # 发布流程是「push 代码 → CI 构建 sha-<x> → 把 Chart.yaml 的 appVersion
-      # 改成 sha-<x> 再 push」。第二次 push 只动 chart，不该再触发一次构建。
+      # 这些路径的内容进不了镜像，改了不该重新构建。
+      # 也顺带保证最后那步自动回填 appVersion 的 bot commit 不会循环触发构建
+      # （它只动 k8s/charts/**）。
       - 'k8s/charts/**'
+      - 'k8s/argocd/**'
       - 'k8s/README.md'
       # 只匹配仓库根目录的 md（README/AGENTS），不会匹配 content/ 下的博客文章
       - '*.md'
@@ -27,7 +29,8 @@ jobs:
   build-push:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      # write 是为了最后那步把 appVersion 回填进 Chart.yaml 并 push
+      contents: write
       packages: write
       id-token: write   # required for AWS OIDC federation
     steps:
@@ -97,3 +100,36 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # 镜像推成功之后，把 Chart.yaml 的 appVersion 指向这次构建出的 tag。
+      # ArgoCD 轮询到这个 commit 就会自动滚动更新，整个发布不需要人工介入。
+      #
+      # 不会循环触发构建，有两层保护：
+      #   1. k8s/charts/** 在上面的 paths-ignore 里
+      #   2. 用 GITHUB_TOKEN 推的 commit，GitHub 本身就不会再触发 workflow
+      #
+      # ⚠️ 副作用：仓库里会多出机器人 commit，本地下次 push 前必须先 git pull，
+      #    否则会被拒绝（远端多了你没有的 commit）。
+      - name: Bump chart appVersion to this build
+        if: github.event_name == 'push'
+        run: |
+          set -euo pipefail
+          NEW_TAG="sha-${GITHUB_SHA}"
+          CHART=k8s/charts/blog/Chart.yaml
+
+          # 只替换 appVersion 那一行，注释和其他字段不动
+          sed -i "s|^appVersion: .*|appVersion: \"${NEW_TAG}\"|" "$CHART"
+
+          if git diff --quiet -- "$CHART"; then
+            echo "appVersion 已经是 ${NEW_TAG}，无需提交（多半是重跑了同一个 commit）"
+            exit 0
+          fi
+
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$CHART"
+          git commit -m "chore(k8s): release ${NEW_TAG}" \
+                     -m "由 build-image.yml 自动回填。镜像已推到 GHCR，ArgoCD 会自动同步。"
+
+          # checkout 出来是 detached HEAD，要显式指定推到哪个分支
+          git push origin "HEAD:${GITHUB_REF_NAME}"

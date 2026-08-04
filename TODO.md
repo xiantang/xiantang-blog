@@ -174,15 +174,22 @@ kubebuilder 的脚手架是围绕「你要定义 CRD」设计的,这个用不上
 多节点之后 `topologySpreadConstraints`、`PodDisruptionBudget` 才有意义。
 比继续深挖 Helm 是更大的一块。
 
-### [ ] 决定要不要自动回填 appVersion
+### [ ] 想清楚要不要把发布闸口加回来
 
-现在发布要手动把 commit sha 填进 `Chart.yaml` 的 `appVersion`。
+自动回填 appVersion 之后(见「已完成」),**push 到 `code` 就等于上线**,
+中间没有任何人工确认。这是主动选的,但要知道换掉了什么:
 
-可以让 CI 自动 commit(`paths-ignore` 已覆盖 `k8s/charts/**`,不会触发循环构建),
-但代价是:仓库里多一堆 bot commit、本地每次要先 pull、
-而且失去"改 appVersion 才算发布"这个闸口(push 即上线)。
+之前「改 appVersion 才算发布」是一道闸——写文章 push 只是构建镜像,
+你可以先看看、放几天、再决定上不上。现在没有这一步了。
 
-**先手动跑一段,觉得烦了再说**——那时候对代价的判断会比现在准。
+如果哪天想加回来,常见做法:
+
+- **分支策略**:日常推 `dev`,合到 `code` 才发布
+- **environment + required reviewers**:GitHub Actions 的部署审批,回填那步挂在
+  environment 上,需要人点一下才继续
+- **给 ArgoCD 关掉 automated**:退回手动 `argocd app sync`,但那又要 ssh 上节点
+
+现在一个人写博客,push 即上线是合理的。**等到某次手滑把半成品推上线了,再回来看这条。**
 
 ---
 
@@ -207,6 +214,19 @@ CI 同时推 GHCR 和 ECR,但集群只拉 GHCR。想切到 ECR 需要额外配�
 ---
 
 ## 已完成
+
+- [x] **CI 自动回填 appVersion**(2026-08-04)
+  `build-image.yml` 最后加了一步:镜像推成功后把 `Chart.yaml` 的 `appVersion`
+  改成 `sha-${GITHUB_SHA}`,用 `github-actions[bot]` 身份 commit 并 push。
+  ArgoCD 轮询到就自动滚动更新,**发布全程零人工介入**。
+
+  不会循环触发构建,两层保护:`k8s/charts/**` 在 `paths-ignore` 里;
+  而且用 `GITHUB_TOKEN` 推的 commit,GitHub 本身就不会再触发 workflow。
+
+  ⚠️ **本地下次 push 前必须先 `git pull`** —— 远端会多出 bot 的 commit,
+  不 pull 会被拒绝。这是自动化的固有代价。
+
+  ⚠️ **push 即上线,发布闸口没了。** 取舍见上面「想清楚要不要把发布闸口加回来」。
 
 - [x] **装上 ArgoCD 并把博客迁过去**(2026-08-04)
   版本钉在 **v3.4.6**(不是 `stable`,那是会移动的指针,和 `:latest` 同一类问题)。
