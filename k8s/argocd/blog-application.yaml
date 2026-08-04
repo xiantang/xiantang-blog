@@ -41,16 +41,25 @@ spec:
     server: https://kubernetes.default.svc
     namespace: default
 
-  # 先不开自动同步。第一次要手动 sync，好观察 ArgoCD 认为该改什么。
-  # 确认无误之后再考虑加：
-  #   syncPolicy:
-  #     automated:
-  #       prune: true      # git 里删掉的资源，集群里也删
-  #       selfHeal: true   # 有人手动改了集群，自动改回来
-  #
-  # ⚠️ 开了 automated 之后 push 到 git 就等于上线，
-  # 会失去现在「改 appVersion 才算发布」这个闸口，想清楚再开。
   syncPolicy:
+    automated:
+      # git 里删掉的资源，集群里也删。不开的话从 chart 里移除一个资源后，
+      # 它会永远留在集群里变成孤儿，而 ArgoCD 依然显示 Synced —— 那更隐蔽。
+      #
+      # 安全网：allowEmpty 默认 false，渲染结果为空时 ArgoCD 拒绝 prune，
+      # 所以「模板全炸 → 删光线上资源」这个最坏情况是被挡住的。
+      prune: true
+      # 集群被人手动改了（kubectl scale / edit / patch）自动改回 git 的状态。
+      # ⚠️ 只写 automated 不写 selfHeal 的话，只管 git 侧的变化，
+      # 集群侧的漂移不会被纠正 —— 而漂移自动纠正正是想要 ArgoCD 的主要理由。
+      selfHeal: true
+
     syncOptions:
       # 目标 namespace 不存在时自动创建（这里 default 本来就有，属于无害的保险）
       - CreateNamespace=true
+
+  # 注意：开了自动同步并不会让「push 就上线」。
+  # 发布闸口仍然在 Chart.yaml 的 appVersion：写文章 push 只会让 CI 构建出
+  # sha-X 镜像，appVersion 没改动 → 渲染结果不变 → ArgoCD 不会部署。
+  # 只有手动把 appVersion 改成 sha-X 并 push，才真正触发上线。
+  # 自动同步去掉的只是最后那步「ssh 到节点敲 argocd app sync」。
