@@ -193,6 +193,36 @@ kubebuilder 的脚手架是围绕「你要定义 CRD」设计的,这个用不上
 
 ---
 
+## 博客前端
+
+> ⚠️ 这一节不属于本文件开头声明的范围(k8s / 基础设施)。暂时放这里是因为
+> 没有更合适的地方,觉得碍事就挪走。
+
+### [ ] 决定要不要做「英文页显示英文译文」的评论
+
+现在中英文**共用同一个 thread**(主题 even 的设计:identifier 用
+`.File.Dir + .TranslationBaseName`,并把 permalink 里的 `/en` 前缀剥掉)。
+所以英文页看到的是中文评论原文。
+
+**Disqus 给不了这个能力** —— 它只有 `this.language`,那是界面文案本地化,
+评论正文不翻译。官方文档反而建议按语言分开讨论区:
+
+> "Avoid letting the user pick the language for the discussion."
+
+要做只能绕过 iframe(评论渲染在 disqus.com 的跨域 iframe 里,JS 碰不到它的 DOM):
+
+1. **构建期预翻译** —— CI 里用 Disqus API 拉评论 → 复用现有的 `OPENAI_API_KEY`
+   翻译 → 写成 Hugo data 文件 → 英文页静态渲染译文,下面保留 iframe 用于发表。
+   无前端密钥、无运行时成本,但新评论要等下次构建才有译文。
+2. **运行时前端翻译** —— 浏览器直接调 API。新评论立刻有译文,但 key 暴露、
+   有 CORS 和限流、每次浏览都产生费用。
+3. **放弃翻译,中英文评论分开** —— 改 identifier 加语言。最简单,
+   但现有评论会从英文页消失。
+
+**没做决定,三条路都没动。** 真要做,倾向 1(和仓库现有的构建期翻译流水线同构)。
+
+---
+
 ## 收尾
 
 ### [ ] 处理 `k8s/` 下被 chart 取代的静态 manifest
@@ -214,6 +244,34 @@ CI 同时推 GHCR 和 ECR,但集群只拉 GHCR。想切到 ECR 需要额外配�
 ---
 
 ## 已完成
+
+- [x] **修好 Disqus 评论**(`b4485d94` / `2d36c044`,2026-08-04)
+  `k8s.vim0.com` 和所有英文页的评论一直是 0 条。两个原因叠加:
+
+  1. Disqus 后台的 trusted domain 没有 `k8s.vim0.com`(已在后台补上,不在 git 里)
+  2. **主题 even 把 `var disqus_config` 写在 IIFE 内部**,它是函数局部变量,
+     从来没成为全局。Disqus 的 embed.js 读的是 `window.disqus_config`,
+     读不到就回退用 `window.location.href` 当 thread key。
+
+  第 2 条才是根因,而且**一直是坏的**。中文页看起来正常纯属巧合 ——
+  只有 `vim0.com/post/xxx/` 的 `location.href` 恰好等于规范 URL;
+  英文页(`/en/...`)和 k8s 域名都不满足,于是各自开了空 thread。
+
+  修法是项目级 partial 覆盖(`layouts/partials/comments.html`),
+  把 `var` 改成 `window.`。顺带按 `.Lang` 设了 `this.language`。
+
+  ⚠️ **`this.language` 要用 Django 风格 locale 码**:Hugo 的 `zh-cn` 传进去
+  会被降级成通用 `zh`,必须映射成 `zh_CN`。这点文档没写,是打 embed 接口试出来的。
+
+  ⚠️ 排查时走过一次弯路:先以为是 `hugo --minify` 把变量名压掉了(现象确实存在,
+  压缩后变成 `var c`),加了 `[minify] disableJS = true`。**那是必要不充分的** ——
+  局部变量就算保住名字 Disqus 也读不到。改成 `window.` 之后属性名不会被重命名,
+  那条配置已撤回。**教训:验证到「HTML 里有这几个字符」不等于验证到「它生效了」**,
+  真正的证据是浏览器 Network 里 embed 请求带没带 `t_i` 参数。
+
+  遗留:Disqus 后台多了几个空 thread(修复前回退建的,如
+  `https://k8s.vim0.com/post/university/`)。留着无害,介意可在
+  Community → Discussions 删掉。
 
 - [x] **CI 自动回填 appVersion**(2026-08-04)
   `build-image.yml` 最后加了一步:镜像推成功后把 `Chart.yaml` 的 `appVersion`
