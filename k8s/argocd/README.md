@@ -1,18 +1,36 @@
 # `k8s/argocd/`
 
-这个目录是**引导层**：ArgoCD 自己还没有被 ArgoCD 管理，所以这里的 manifest
-一律用 `kubectl apply` 手动下发，改了不会自动生效。
+这个目录是**引导层**。用 app-of-apps 之后，手动操作被压缩成了**一次性**的
+`k apply -f root-application.yaml`；之后往这里加/改 manifest，push 就生效。
 
 | 文件 | 谁下发 |
 |---|---|
-| `blog-application.yaml` | 手动 `kubectl apply`(之后博客的一切由它接管) |
-| `ingress.yaml` | 手动 `kubectl apply` |
+| `root-application.yaml` | 手动 apply **一次**做引导，之后由它自己管自己 |
+| `blog-application.yaml` | `root`(它再去接管博客的一切) |
+| `ingress.yaml` | `root` |
+| `README.md` | 没人 —— ArgoCD 的目录源只读 `.yaml`/`.yml`/`.json` |
 
-`xiantang-blog` 这个 Application 的 `path` 是 `k8s/charts/blog`,**不包含本目录**。
-push 到 `code` 只是把文件放进了 git,集群里什么都不会变。
+引导顺序不能反:**先 commit + push,再 apply**。root 的 source 指向 git 里的
+本目录,如果 git 里还没有 `root-application.yaml`,它一上来就会发现"集群里有个
+root 而 git 里没有"。
 
-想去掉这层手动操作,做法是 app-of-apps:再建一个 Application 指向本目录,
-让 ArgoCD 管理自己 —— 见 `ROADMAP.md` Phase 6。
+```bash
+git pull                                   # 在节点上
+k apply -f k8s/argocd/root-application.yaml
+k -n argocd get app                        # 两个 Application 都该是 Synced/Healthy
+```
+
+⚠️ **引导之后别再手动 `kubectl edit` 本目录里的东西**，`selfHeal` 会把你的改动
+改回去。这正是目的，但第一次撞上会以为改动丢了。
+
+⚠️ `root` 的 `prune` 故意关着，原因写在 `root-application.yaml` 的注释里。
+
+### 还没做到的
+
+这是「ArgoCD 管理我写的 manifest」，不是「ArgoCD 管理它自己的安装」。
+那 7 个 Pod 仍然是 `kubectl apply -f install.yaml` 装的，升级还得手动 ——
+把官方 manifest 也变成一个 Application 会遇到先有鸡还是先有蛋的问题
+（升级到一半时，执行升级的 argocd-server 自己在重启）。见 `ROADMAP.md`。
 
 ---
 

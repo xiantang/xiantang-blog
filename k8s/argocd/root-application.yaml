@@ -1,0 +1,52 @@
+# app-of-apps 的根节点：管理 k8s/argocd/ 目录本身（包括这个文件自己）。
+#
+# 引导（只需要做一次）：
+#   k apply -f k8s/argocd/root-application.yaml
+#
+# 之后往 k8s/argocd/ 里加/改任何 manifest，push 就生效，不用再手动 apply。
+#
+# ⚠️ 引导之后，本目录下的所有文件都归 root 管了。手动 kubectl edit 会被
+# selfHeal 改回去 —— 这正是目的，但第一次撞上会觉得"我的改动怎么没了"。
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/xiantang/xiantang-blog.git
+    targetRevision: code
+    path: k8s/argocd
+    # 没有 helm/kustomize 段 → ArgoCD 按普通目录处理，把里面每个
+    # .yaml/.yml/.json 原样 apply。README.md 会被忽略。
+    directory:
+      # 只看这一层，不递归。以后目录变多了想分子目录，再打开这个。
+      recurse: false
+
+  destination:
+    server: https://kubernetes.default.svc
+    # 本目录里的东西都在 argocd 命名空间：Application CR 本身要在这里
+    # （ArgoCD 只认自己命名空间下的 Application），ArgoCD 的 Ingress 也在这里。
+    #
+    # 注意这不影响博客部署到哪 —— 那是 blog-application.yaml 自己的
+    # destination 说了算，root 只负责把那个 Application 对象创建出来。
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+      # ⚠️ 故意先关掉 prune。
+      #
+      # 打开的话，任何让 ArgoCD 看不到 blog-application.yaml 的情况
+      # （文件删了、重命名、path 写错、分支切错）都会导致它删掉
+      # Application(xiantang-blog)。
+      #
+      # 后果没有想象中严重：那个 Application 上没有
+      # resources-finalizer.argocd.argoproj.io，所以删它不会级联删除博客的
+      # Deployment/Service/Ingress —— 网站会继续跑，只是变成没人管。
+      # 但"没人管"本身就够麻烦了，所以先让删除保持手动。
+      #
+      # 等这套跑顺了、确认 root 的 path 和 recurse 都对，再改成 true。
+      prune: false
