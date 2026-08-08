@@ -13,6 +13,7 @@ on:
       # （它只动 k8s/charts/**）。
       - 'k8s/charts/**'
       - 'k8s/argocd/**'
+      - 'k8s/scripts/**'
       - 'k8s/README.md'
       # 只匹配仓库根目录的 md（README/AGENTS），不会匹配 content/ 下的博客文章
       - '*.md'

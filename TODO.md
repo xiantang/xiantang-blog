@@ -245,6 +245,25 @@ CI 同时推 GHCR 和 ECR,但集群只拉 GHCR。想切到 ECR 需要额外配�
 
 ## 已完成
 
+- [x] **把 ArgoCD UI 暴露到 https://argocd.vim0.com**(`a445ed24`,2026-08-08)
+  Ingress 在 `k8s/argocd/ingress.yaml`,操作步骤在同目录 README。
+
+  关键的一步是先给 argocd-server 开 `--insecure`(改 `argocd-cmd-params-cm`)。
+  argocd-server 默认自己也终止 TLS 并把 HTTP 301 到 HTTPS,而 Traefik 已经在
+  入口终止了 TLS、回源是明文 —— 两边都要求对方升级,浏览器就 `ERR_TOO_MANY_REDIRECTS`。
+  加密没有变弱:少的只有集群内部那一跳,和博客 Pod 一样。
+
+  证书没有额外配置就签下来了,因为 ClusterIssuer 走的是 Cloudflare **DNS-01**
+  (`k8s/cluster-issuer.yaml`),校验靠 TXT 记录,和 A 记录开不开橙云无关。
+
+  ⚠️ **这个 Ingress 是命令式管理的**,和博客的 GitOps 流程不一致 —— 改了
+  `k8s/argocd/` 下的文件 push 上去,集群里什么都不会变,必须手动 apply。
+  根治办法是 app-of-apps(见「学习方向」)。
+
+  ⚠️ 现在 `admin` 是暴露在公网上的账号。**初始密码必须轮换**(它在聊天记录里
+  明文出现过),轮换后删掉 `argocd-initial-admin-secret`。长期做法是接 SSO
+  之后在 `argocd-cm` 里 `admin.enabled: "false"`。
+
 - [x] **修好 Disqus 评论**(`b4485d94` / `2d36c044`,2026-08-04)
   `k8s.vim0.com` 和所有英文页的评论一直是 0 条。两个原因叠加:
 
