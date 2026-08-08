@@ -74,7 +74,7 @@ Kubernetes / CI / 云服务**,而不是为了把站点跑起来 —— 站点本
 | 项 | 值 |
 |---|---|
 | 集群 | 单节点 k3s,跑在独立的小云主机上,自带 Traefik ingress + containerd |
-| kubectl | ssh 到 k3s 节点后用 `sudo k3s kubectl`(见 `k8s/README.md`) |
+| kubectl | ssh 到 k3s 节点后用 **`k`**(= `kubectl`,已配 alias + 补全)。kubeconfig 复制到了 `~/.kube/config`,`~/.bashrc` 里 `export KUBECONFIG` 指向它,**不再需要 `sudo`**。给我命令时一律写 `k`,别写 `sudo k3s kubectl`(见 `k8s/README.md`) |
 | 域名 | `k8s.vim0.com`(k3s),`vim0.com`(GitHub Pages) |
 | TLS | cert-manager + Let's Encrypt,Cloudflare DNS-01,ClusterIssuer 名 `letsencrypt-prod` |
 | 镜像仓库 | GHCR(集群在拉这个) + AWS ECR(同步推送) |

@@ -6,6 +6,36 @@
 已经在这台机器上按下面的步骤实际验证过一遍：build → import → apply →
 通过 ClusterIP service 和 Traefik ingress（Host: k8s.vim0.com）都能正常访问到首页。
 
+## 0. 节点上的 kubectl 环境
+
+一次性配置，换机器时照着做一遍。配完之后本文档（以及所有对话里给的命令）
+里的 `k` 就是 `kubectl`，**不需要 `sudo`**。
+
+```bash
+# 1) 把 kubeconfig 复制到自己 home，去掉 sudo
+mkdir -p ~/.kube
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo chown "$(id -u):$(id -g)" ~/.kube/config
+chmod 600 ~/.kube/config
+
+# 2) 追加到 ~/.bashrc（顺序不能反，见下）
+export KUBECONFIG="$HOME/.kube/config"
+source <(kubectl completion bash)
+alias k=kubectl
+complete -o default -F __start_kubectl k
+```
+
+⚠️ **`export KUBECONFIG` 必须在 `kubectl completion` 之前。**
+`/usr/local/bin/kubectl` 是指向 k3s 二进制的软链，行为等同 `k3s kubectl`：
+`KUBECONFIG` 没设置时它**硬编码**去读 `/etc/rancher/k3s/k3s.yaml`（`0600 root:root`），
+而不是标准的 `~/.kube/config`。顺序反了的话，`completion` 那行自己会执行一次
+kubectl，把 `permission denied` 打进你的 shell。
+
+⚠️ `complete` 里的 `-o default` 不能省，否则 `k apply -f <TAB>` 补不了文件路径。
+
+⚠️ **`~/.kube/config` 里是 admin 凭据**，别 scp 到别处，更别进 git。
+没走 `--write-kubeconfig-mode 644` 就是为了不让机器上其他用户拿到它。
+
 ## 1. 构建镜像
 
 这台机器上没有 docker，装的是 `nerdctl-full`（独立的 containerd + buildkit + CNI，
