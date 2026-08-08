@@ -45,3 +45,6 @@ echo "emh1amluZ2RpMTk5OEBnbWFpbC5jb20=" | base64 -d
 ## 关注我
 
 我自己是一个十分喜欢用 rss 来获取信息的人，如果你想关注我，订阅我的更新可以使用 rss 来订阅这个博客 <https://vim0.com/index.xml>
+
+
+谢谢
