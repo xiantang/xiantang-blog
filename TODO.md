@@ -8,7 +8,7 @@ k8s / 基础设施部分的待办。博客内容相关的不记在这里。
 
 ## 运维(影响站点可用性)
 
-### [ ] 加资源监控和告警 ← 最该做的一件事
+### [x] 加资源监控和告警 ← 已完成 2026-08-08,详见「已完成」一节
 
 **为什么**:2026-08-03 23:02 根卷用满(93%)触发 kubelet DiskPressure,所有 Pod 被驱逐,
 站点挂了 **4 小时**才被发现。整个过程没有任何东西报警。
@@ -26,23 +26,20 @@ k8s / 基础设施部分的待办。博客内容相关的不记在这里。
 
 真正的教训不是"buildkit 占空间",而是**一个缓慢增长的资源没有人看着它**。
 
-**怎么做**(由简到繁,先做第一个就够):
+**做的是第 1 档的变体**:cron 每 5 分钟跑 `k8s/scripts/healthcheck.sh`,
+但上报改成心跳而不是发邮件(理由见「已完成」)。往上还可以做:
 
-1. cron + 邮件:每小时检查 `df -h /` 和 `kubectl get nodes`,超阈值就发邮件
 2. 加 node-exporter + 一个轻量告警
 3. 完整的 Prometheus + Alertmanager(注意内存开销,见下面「资源天花板」)
 
-比继续学新的 k8s 组件实用得多。
+**但先别急着上 2/3。** 现在这套已经能抓到磁盘、节点、Pod、站点四类问题,
+且成本为零。上 Prometheus 是为了看**趋势**(增长率、容量预测),
+不是为了看**状态** —— 等真的想回答"照这个速度多久会满"再说。
 
-### [ ] 扩根卷到 20-30GB
+### [x] 扩根卷到 20-30GB ← 已完成
 
-当前 6.7G,已用 6.1G(93%)。6.7G 跑 k8s 本来就太小,光 k3s 镜像就 852M。
-
-在线扩容不用停机:控制台 Modify volume → `growpart` + `resize2fs`。
-gp3 约 $0.08/GB/月,扩到 30G 每月多约 $1.9。
-顺手把 gp2 改成 gp3(便宜约 20%,基线 3000 IOPS)。
-
-⚠️ 同一个卷 **6 小时内只能修改一次**,一次调到位。
+已扩到 **28G,用量 29%**(2026-08-08 巡检脚本上报)。
+DiskPressure 的根因消失了。
 
 ### [ ] 清掉 buildkit / 独立 containerd 死重
 
@@ -69,14 +66,19 @@ sudo rm -rf /var/lib/buildkit /var/lib/containerd
 **为什么不会自动消失**:清理由 controller-manager 的 pod GC 负责,
 默认阈值是**已终止 Pod 超过 12500 个**才开始清 —— 对单节点小集群等于永不触发。
 
-零代码解法,给 k3s 透传参数(改 `/etc/systemd/system/k3s.service`):
+零代码解法,给 k3s 透传参数。**改 `/etc/rancher/k3s/config.yaml`,
+不要改 systemd unit** —— 前者是 k3s 官方的配置入口,升级不会被覆盖:
 
-```
---kube-controller-manager-arg=terminated-pod-gc-threshold=100
+```yaml
+kube-controller-manager-arg:
+  - "terminated-pod-gc-threshold=100"
 ```
 
-`systemctl daemon-reload && systemctl restart k3s` 生效。
-⚠️ 重启 k3s 会让 apiserver 断几秒,Pod 本身不受影响。
+`sudo systemctl restart k3s` 生效。
+⚠️ 重启 k3s 会让 apiserver 断十几秒,已在跑的容器不受影响(由 containerd 管着)。
+⚠️ 这个文件如果已存在是**合并不是覆盖**。
+
+完整步骤记在 `k8s/README.md` 第 0.2 节 —— 它不在 git 里,重装机器就没了。
 
 手动清理(phase 要分两次,field-selector 不支持 `in`):
 
@@ -118,8 +120,11 @@ kubectl delete pods -n default --field-selector status.phase=Succeeded
 - Flux 最小集 ~200Mi → 塞得进但零余量,不值得
 
 > ⚠️ **以上是 2026-08-04 升配前的数字,已经过时。** 之后机器和根卷都扩过,
-> ArgoCD 的 7 个 Pod 已经跑在这台上了。**待办:重新量一遍 `free -h` / `df -h /`
-> 并更新这一节**,不然以后又要靠猜。结论那句话仍然成立:
+> ArgoCD 的 7 个 Pod 已经跑在这台上了。
+>
+> 已知的新数字(2026-08-08,来自巡检脚本的上报):**根卷 28G,用量 29%**。
+> 磁盘从此不再是瓶颈 —— 上次那次 DiskPressure 大驱逐的根因已经消失。
+> **内存还没重新量**(`free -h`),待办。结论那句话仍然成立:
 > 76% 内存被 k8s 控制面吃掉,业务不到 5%,单节点 k8s 的固有成本就是这样。
 
 76% 内存被 k8s 控制面自己吃掉,真正跑业务的不到 5%。
@@ -244,6 +249,36 @@ CI 同时推 GHCR 和 ECR,但集群只拉 GHCR。想切到 ECR 需要额外配�
 ---
 
 ## 已完成
+
+- [x] **监控告警上线**(2026-08-08)
+  `k8s/scripts/healthcheck.sh` + root cron 每 5 分钟,上报到 Healthchecks.io,
+  邮件通知。安装步骤记在 `k8s/README.md` 第 0.3 节(**装机这步不在 git 里**)。
+
+  **没用 SMTP 发邮件**,因为机器挂了就发不出邮件 —— 一个只会「出事时通知你」
+  的系统,恰恰在最该通知你的时候是哑的。改成心跳后,「没声音」本身就是告警,
+  这是纯邮件方案覆盖不了的第三种情况。
+
+  查六项:磁盘(阈值 80%)、节点 Ready、节点 Condition、博客 Pod、
+  Evicted 堆积、站点 HTTP 200。最后一项从外部真实请求,能抓到「前五项全绿
+  但 nginx 返回 500」。报告塞在 ping 的 body 里,邮件正文直接看得到,不用 ssh。
+
+  ✅ **已用 `DISK_WARN_PCT=1` 实际触发验证过告警会响。** 没验证过的告警系统
+  等于没有 —— 这步别省。
+
+- [x] **app-of-apps:ArgoCD 管理 `k8s/argocd/` 目录**(`004e52d7`,2026-08-08)
+  `root` Application 指向本目录(包含它自己),手动 `apply` 从此变成一次性引导。
+
+  ⚠️ 踩到一个只有「Application 管自己」才会暴露的坑:写 `directory: {recurse: false}`
+  会导致永久 `OutOfSync` 且 sync 不掉 —— `recurse: false` 是默认值,ArgoCD 存
+  spec 时把它丢掉了,于是 git 里有、集群里没有。修法是整段删掉(`f67399cf`)。
+
+  ⚠️ 这是「ArgoCD 管我写的 manifest」,**不是「ArgoCD 管自己的安装」**。
+  那 7 个 Pod 仍是手动 `apply -f install.yaml` 装的,升级还得手动。
+
+  ⚠️ 待查:`k -n argocd get ingress argocd-server -o jsonpath='{.metadata.labels}'`
+  是空的,说明 3.4.6 的资源追踪**可能不是标签式而是注解式**。如果确认是注解式,
+  `blog-application.yaml` 里那段「名字必须叫 xiantang-blog」的注释有一半理由
+  不成立(Helm release 名那个理由仍然成立),要去改准。
 
 - [x] **把 ArgoCD UI 暴露到 https://argocd.vim0.com**(`a445ed24`,2026-08-08)
   Ingress 在 `k8s/argocd/ingress.yaml`,操作步骤在同目录 README。

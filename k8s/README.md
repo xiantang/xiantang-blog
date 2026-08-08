@@ -6,10 +6,15 @@
 已经在这台机器上按下面的步骤实际验证过一遍：build → import → apply →
 通过 ClusterIP service 和 Traefik ingress（Host: k8s.vim0.com）都能正常访问到首页。
 
-## 0. 节点上的 kubectl 环境
+## 0. 节点级配置（换机器时照做）
 
-一次性配置，换机器时照着做一遍。配完之后本文档（以及所有对话里给的命令）
-里的 `k` 就是 `kubectl`，**不需要 `sudo`**。
+⚠️ **这一节的东西都不在 git 里** —— 它们是 k3s 节点本地的文件和 crontab，
+重装机器就全没了。所以才要记在这，否则只能靠回忆。
+
+### 0.1 kubectl 环境
+
+配完之后本文档（以及所有对话里给的命令）里的 `k` 就是 `kubectl`，
+**不需要 `sudo`**。
 
 ```bash
 # 1) 把 kubeconfig 复制到自己 home，去掉 sudo
@@ -35,6 +40,69 @@ kubectl，把 `permission denied` 打进你的 shell。
 
 ⚠️ **`~/.kube/config` 里是 admin 凭据**，别 scp 到别处，更别进 git。
 没走 `--write-kubeconfig-mode 644` 就是为了不让机器上其他用户拿到它。
+
+### 0.2 k3s 启动参数：让 Evicted Pod 自动清理
+
+`/etc/rancher/k3s/config.yaml`：
+
+```yaml
+kube-controller-manager-arg:
+  - "terminated-pod-gc-threshold=100"
+```
+
+改完 `sudo systemctl restart k3s`。
+
+⚠️ **这个文件如果已存在，是往里合并，不是覆盖** —— 里面可能有装集群时设的
+其它参数。
+
+⚠️ 重启 k3s 会让控制平面中断十几秒（API server 重启），但**不影响线上**：
+已经在跑的容器由 containerd 管着，kubelet 重连之前照常服务。这期间 `k` 连不上、
+ArgoCD 报错，都会自己恢复。
+
+`terminated-pod-gc-threshold` 默认 **12500**，意思是要攒够 12500 个终态 Pod 才
+开始按时间顺序清理 —— 按这个集群的速度基本等于永不触发，所以 Evicted Pod
+会一直堆着。
+
+**这只治标。** 驱逐的根因是磁盘写满（已通过扩 EBS 解决），GC 阈值只负责收尸。
+它的价值是下次再出问题时 `k get pods` 不会被几十行垃圾淹没，能更快看清状态。
+
+验证：
+
+```bash
+sudo journalctl -u k3s | grep -o 'terminated-pod-gc-threshold=[0-9]*' | tail -1
+```
+
+### 0.3 巡检 + 告警
+
+脚本在 `k8s/scripts/healthcheck.sh`（在 git 里），但**装到机器上这步不在**。
+
+```bash
+sudo install -m 755 k8s/scripts/healthcheck.sh /usr/local/bin/blog-healthcheck
+
+# HC_URL 有密钥性质（拿到就能伪造心跳），单独放，不进 git
+sudo sh -c 'echo HC_URL=https://hc-ping.com/<uuid> > /etc/blog-healthcheck.env'
+sudo chmod 600 /etc/blog-healthcheck.env
+
+sudo /usr/local/bin/blog-healthcheck        # 先手动跑一次，看输出
+sudo crontab -e                             # root 的 crontab，脚本要读 k3s.yaml
+# */5 * * * * /usr/local/bin/blog-healthcheck >/dev/null 2>&1
+```
+
+Healthchecks.io 那边 **Period 5 分钟、Grace 5 分钟**。
+
+⚠️ **Period 别留默认的 1 day。** 那样机器挂了要沉默超过 24 小时才告警，而
+"自动发现没声音"正是这套方案唯一比发邮件强的地方 —— 主动报错谁都能做，
+机器死了发不出邮件才是要解决的问题。
+
+⚠️ **装完必须验证告警真的会响**，没验证过的告警系统等于没有：
+
+```bash
+sudo DISK_WARN_PCT=1 /usr/local/bin/blog-healthcheck   # 故意触发
+sudo /usr/local/bin/blog-healthcheck                   # 再恢复成绿
+```
+
+几秒内应该收到邮件，正文里带着完整报告（哪一项挂了、`df -h` 输出），
+不用 ssh 上去查。
 
 ## 1. 构建镜像
 
