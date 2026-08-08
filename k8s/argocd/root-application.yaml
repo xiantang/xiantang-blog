@@ -21,9 +21,15 @@ spec:
     path: k8s/argocd
     # 没有 helm/kustomize 段 → ArgoCD 按普通目录处理，把里面每个
     # .yaml/.yml/.json 原样 apply。README.md 会被忽略。
-    directory:
-      # 只看这一层，不递归。以后目录变多了想分子目录，再打开这个。
-      recurse: false
+    #
+    # 也没有 directory: 段：不递归是默认行为。
+    #
+    # ⚠️ 别写 `directory: {recurse: false}` 来"显式说明"。ArgoCD 存 spec 时
+    # 会丢掉等于默认值的字段，于是 git 里有 directory、集群里没有，两边
+    # 永远对不上 —— root 会卡在 OutOfSync，sync 多少次都好不了（一 sync 完
+    # 就又被归一化掉）。这个坑只在 Application 管理自己时才会暴露。
+    #
+    # 以后真要递归子目录，那时 recurse: true 不是默认值，写进去没问题。
 
   destination:
     server: https://kubernetes.default.svc
