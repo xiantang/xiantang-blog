@@ -1,0 +1,42 @@
+# 把 ArgoCD UI 暴露到 https://argocd.vim0.com
+#
+# ⚠️ 前置条件：argocd-server 必须先切到 --insecure 模式，否则会无限重定向。
+#
+# 原因：argocd-server 默认自己也终止 TLS，并把 HTTP 请求 301 到 HTTPS。
+# 而 Traefik 已经在入口终止了 TLS，转发到后端是明文 HTTP，于是 argocd-server
+# 又要求升级 → 浏览器再来一次 → Traefik 又转成 HTTP → 无限循环
+# （浏览器报 ERR_TOO_MANY_REDIRECTS）。
+#
+# --insecure 只是让 argocd-server 不自己搞 TLS，浏览器到 Traefik 那段仍然是
+# HTTPS。不加密的只有集群内部那一跳，和博客 Pod 的处理方式一样。
+#
+# 开启方式（ArgoCD 目前不是自管的，所以这步是命令式的）：
+#   kubectl -n argocd patch configmap argocd-cmd-params-cm \
+#     --type merge -p '{"data":{"server.insecure":"true"}}'
+#   kubectl -n argocd rollout restart deployment argocd-server
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server
+  namespace: argocd
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - argocd.vim0.com
+      secretName: argocd-server-tls
+  rules:
+    - host: argocd.vim0.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  # argocd-server 的 Service 同时暴露 80 和 443。
+                  # --insecure 模式下走 80（明文），TLS 由 Traefik 负责。
+                  name: http
