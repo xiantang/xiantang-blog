@@ -232,7 +232,8 @@ aws ecr put-lifecycle-policy \
 查看当前生效的策略：
 
 ```bash
-aws ecr get-lifecycle-policy --repository-name xiantang-blog --query 'lifecyclePolicyText' --output text | jq
+aws ecr get-lifecycle-policy --repository-name xiantang-blog \
+  --region ap-southeast-1 --query 'lifecyclePolicyText' --output text | jq
 ```
 
 ### 两条规则的取舍
@@ -241,11 +242,41 @@ aws ecr get-lifecycle-policy --repository-name xiantang-blog --query 'lifecycleP
 构建都把 `latest` 指向新镜像，旧的那个就失去了所有标签。现在 CI 不推 `latest`
 了，这条基本不会再命中，留着是兜底（比如手动推错一个 tag 之后重推）。
 
-⚠️ 这里有个跟多架构构建相关的坑要留意：镜像是 `linux/amd64,linux/arm64` 一起
-推的，顶层是一个 manifest list，底下两个平台镜像自己**没有 tag**。如果 ECR 把
-它们算作 untagged 并按这条规则删掉，manifest list 就会指向不存在的层。
-**每次改这条规则都先跑 preview 确认删的是什么** —— preview 会把具体 digest
-列出来，比在这里猜可靠。
+⚠️ **未解决的问题：这条规则可能会打断多架构镜像。**
+
+镜像是 `linux/amd64,linux/arm64` 一起推的，一次构建在 ECR 里是**三个条目**
+（2026-08-09 实测，时间戳相差不到一秒）：
+
+```
+14:09:42.130   Tags: None                       ← 平台镜像
+14:09:42.759   Tags: None                       ← 平台镜像
+14:09:43.401   Tags: ['sha-03086bc8...']        ← manifest list，只有它带 tag
+```
+
+两个平台镜像**自己没有 tag**。如果 ECR 把它们当成普通 untagged 并按这条规则
+删掉，manifest list 就会指向不存在的层 —— tag 还在，但拉不下来。
+已经在节点上的镜像不受影响，**新 Pod、扩容、重启会全部挂在拉取失败上**。
+
+**间接证据倾向于 ECR 会保护它们**：仓库里现在有 104 个镜像，其中只有约 20 个
+带 tag（规则 2 的上限），剩下 80 多个无 tag 的如果真被每天清理，不可能积到这个量。
+但策略是异步执行的（约每 24 小时一轮），也可能只是还没轮到。
+
+**没有定论之前不要改这条规则。** 要确认就跑 preview，它会列出具体 digest：
+
+```bash
+aws ecr start-lifecycle-policy-preview --repository-name xiantang-blog \
+  --region ap-southeast-1 \
+  --lifecycle-policy-text "$(cat aws/ecr-lifecycle-policy.json)"
+
+aws ecr get-lifecycle-policy-preview --repository-name xiantang-blog \
+  --region ap-southeast-1 \
+  --query 'previewResults[].{Tags:imageTags,Action:action.type,Rule:appliedRulePriority}' \
+  --output table
+```
+
+判读：**preview 里出现无 tag 的条目 = 危险**，规则 1 得改（最省事的做法是直接
+删掉它 —— 现在不推 `latest` 了，它本来就没什么可清理的）。
+**只列出老的带 tag 镜像 = 当前配置安全**，把这段结论改成确定的。
 
 **规则 2（保留 20 个）** 是回滚窗口。`git revert` 一个旧 commit 会把
 `appVersion` 指回那个 `sha-`，如果对应镜像已经被清掉，回滚就会失败在
@@ -261,29 +292,32 @@ aws ecr get-lifecycle-policy --repository-name xiantang-blog --query 'lifecycleP
 真要固定在旧版本运行，先把 `countNumber` 调大，或者给那个 tag 单独加一条
 保留规则。
 
-### IMMUTABLE 标签
+### IMMUTABLE 标签（已开启，2026-08-09）
 
-`aws ecr put-image-tag-mutability --image-tag-mutability IMMUTABLE` 强制
-「同一个 tag 不许覆盖推送」，正好匹配这套发布流程「`sha-<commit>` 不可变」
-的前提 —— 这样「`Chart.yaml` 里写的 tag 指向哪个镜像」就由 ECR 保证，
-不再只是一个约定。
-
-前提条件已经满足：`build-image.yml` 不再推 `latest`（那行去掉了，因为
-`latest` 天生要被覆盖，跟 IMMUTABLE 互斥）。
+仓库现在是 `IMMUTABLE`：**同一个 tag 不许覆盖推送**。这样「`Chart.yaml` 里写的
+`sha-abc` 指向哪个镜像」由 ECR 从服务端保证，不再只是一个约定 ——
+`helm rollback` 和 `git revert` 能真正工作的前提。
 
 ```bash
-# 先确认 CI 真的不推 latest 了 —— 去掉那行之后至少跑过一次构建再开
-aws ecr describe-images --repository-name xiantang-blog \
-  --query 'sort_by(imageDetails,&imagePushedAt)[-3:].{Pushed:imagePushedAt,Tags:imageTags}' \
-  --output table
-
-aws ecr put-image-tag-mutability \
-  --repository-name xiantang-blog --image-tag-mutability IMMUTABLE
+# 确认当前状态
+aws ecr describe-repositories --repository-names xiantang-blog \
+  --region ap-southeast-1 --query 'repositories[0].imageTagMutability' --output text
 ```
 
-开了之后，重跑一次同一个 commit 的构建会在 push 阶段失败
-（`ImageTagAlreadyExistsException`）—— 这是预期行为，不是 CI 坏了。
-真需要重推同一个 tag，只能先 `batch-delete-image` 删掉旧的。
+开启的前提是先去掉 CI 里的 `latest`（`fa95a73e`）——「同一个 tag 不许覆盖」和
+「`latest` 天生要被覆盖」互斥，不去掉的话每次构建都会挂在 push 阶段。
+
+⚠️ **在 GitHub Actions 页面点 "Re-run jobs" 重跑同一个 commit 会失败**，
+报 `ImageTagAlreadyExistsException`。**这是预期行为，不是 CI 坏了。**
+真需要重推同一个 tag，只能先删掉旧的：
+
+```bash
+aws ecr batch-delete-image --repository-name xiantang-blog --region ap-southeast-1 \
+  --image-ids imageTag=sha-<那个commit>
+```
+
+⚠️ **GHCR 那边不受影响**，仍然是可变的。回退路径（把 `values.yaml` 的
+`repository` 改回 GHCR）还在，但那条路上没有这层保证。
 
 历史上那个 `latest` tag 不用特意处理：它挂在某个 `sha-` 镜像上，
 等规则 2 把那个镜像淘汰掉时会一起消失。

@@ -366,10 +366,19 @@ CI 同时推 GHCR 和 ECR,但集群只拉 GHCR。想切到 ECR 需要额外配�
   用 `latest` 时每个 revision 的 manifest 写的都是同一个字符串,回滚等于没回滚。
   同时把 `pullPolicy` 从 `Always` 改成 `IfNotPresent`。
 
-  收尾(2026-08-09):CI 里 `type=raw,value=latest` 那行也去掉了。集群早就不看
-  `latest`,但它挡着 ECR 的 `IMMUTABLE` —— 「同一个 tag 不许覆盖」和「latest
-  天生要被覆盖」互斥。开 IMMUTABLE 的命令在 `aws/README.md`,**等这行改动
-  跑过一次构建、确认 ECR 里不再出现 latest 之后再开**。
+  收尾(2026-08-09):CI 里 `type=raw,value=latest` 那行去掉了(`fa95a73e`),
+  **ECR 仓库已开 `IMMUTABLE`**。集群早就不看 `latest`,但它挡着 IMMUTABLE ——
+  「同一个 tag 不许覆盖」和「latest 天生要被覆盖」互斥。
+
+  现在「`Chart.yaml` 里写的 `sha-abc` 指向哪个镜像」由 ECR 从服务端保证,
+  不再只是约定。⚠️ **副作用:在 Actions 页面点 Re-run 重跑同一个 commit 会失败**
+  (`ImageTagAlreadyExistsException`),这是预期行为。要重推得先 `batch-delete-image`。
+
+- [ ] **确认生命周期规则 1 会不会打断多架构镜像** ← 未解决,别忘了
+  一次构建在 ECR 里是三个条目:两个无 tag 的平台镜像 + 一个带 tag 的 manifest list。
+  规则 1 清理 untagged,**如果它把平台镜像也删了,tag 就成了拉不下来的空壳**。
+  间接证据(104 个镜像里 80 多个无 tag 没被清)倾向于 ECR 会保护它们,但没定论。
+  跑 `start-lifecycle-policy-preview` 就有答案,命令和判读方法在 `aws/README.md`。
 
 - [x] **把静态 manifest 改写成 Helm chart**(`b013d7a4`,2026-08-04)
   `k8s/charts/blog/`。资源名跟随 release 名,replicas / 镜像 tag / ingress host /
