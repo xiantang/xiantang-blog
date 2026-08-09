@@ -11,6 +11,7 @@
 | `ecr-lifecycle-policy.json` | `xiantang-blog` 仓库的生命周期策略 |
 | `budget.json` + `budget-notifications.json` | 成本异常告警（gross 口径，$60/月） |
 | `budget-net-tripwire.json` + `budget-net-tripwire-notifications.json` | credit 烧完的绊线（net 口径，$5/月） |
+| `check-orphans.sh` | 孤儿资源巡检（只读脚本，不是配置） |
 
 ## 成本护栏（AWS Budgets）
 
@@ -203,6 +204,58 @@ aws ce get-cost-and-usage --time-period Start=2026-08-01,End=2026-08-10 \
 查账单本身要钱 —— 别写进循环或监控脚本。
 
 ⚠️ `ce` 和 `budgets` 一样是全局服务，`--region us-east-1` 是必须的。
+
+### 控制台怎么看（免费，比 CLI 划算）
+
+`Billing and Cost Management → Cost Explorer`。右上角 region 显示 Global / N. Virginia
+是对的，别切到 `ap-southeast-1`。
+
+右侧 Report parameters：**Group by → Dimension → `Service`**，然后
+**Filters → `Charge type` → 只勾 `Usage`**。
+
+⚠️ **`Charge type` 可能不在默认展示的 filter 列表里**，藏在 `More filters` 后面，
+有些版本叫 `Record type`（就是 CLI 里那个 `RECORD_TYPE`）。找不到的话有两条替代路：
+
+- **Group by 换成 `Charge type`** —— 柱子会拆成 0 轴上方的 `Usage` 和下方的 `Credit`，
+  先用它确认真实用量的数量级，再切回 Group by Service 看构成比例。
+- **`Billing → Bills`** —— 本来就按服务列，且 credit 单独一节。看当月构成比
+  Cost Explorer 更直接；Cost Explorer 的强项是趋势和自定义切片。
+
+调好参数点右上角 **`Save to report library`** 存下来，下次从
+`Cost Explorer → Reports` 一键调出，不用重设 filter。存的是参数不是数据快照，
+上限 50 个，保存本身不花钱 —— 但别在里面开 **Hourly granularity / Resource-level data**，
+那两个要额外付费。
+
+## 孤儿资源巡检
+
+「不用也在计费」的资源有个共同点：**它们很安静** —— 没有告警、没有报错，
+每月扣几块钱能扣好几年。所以需要主动查。
+
+```bash
+./aws/check-orphans.sh          # 只扫 ap-southeast-1
+./aws/check-orphans.sh --all    # 扫所有启用的 region（慢）
+```
+
+只读，只跑 `describe`/`list`，不删任何东西。查五类：
+
+| 资源 | 约 $/月 | 陷阱 |
+|---|---|---|
+| EKS 控制面 | ~$73 | 每集群 $0.10/h，**零节点的空集群也是全价** |
+| NAT Gateway | ~$33 + 流量 | `terraform-aws-modules/vpc` 默认建，且**每个 AZ 一个** |
+| ALB / NLB | ~$16 起 | 零请求也收小时费 |
+| 未挂载 EBS 卷 | ~$0.10/GB | 删实例时**数据卷默认不跟着删**，最常见的一类 |
+| 未关联 EIP | ~$3.6 | 纯浪费，唯一一个删了完全没副作用的 |
+
+脚本里的单价是量级估算，只为让数字有体感，**准确数字看 Cost Explorer**。
+
+⚠️ 这些 API 都是 **region-scoped**。手滑最容易发生在你不常看的 region
+（跟着某个教程在 `us-east-1` 建了东西然后忘了），所以偶尔要跑一次 `--all`。
+
+⚠️ 跟 `ce` 不同，`ec2 describe-*` 这些**不收费**，放心跑。
+
+**判断标准**：这个账号目前的架构里，五类应该**全是空的**。
+唯一在计费的公网 IPv4 是挂在 EC2 实例上正在用的那个（~$1.9/月），
+它不是孤儿，脚本也不会报它。任何一条有输出，都值得停下来搞清楚是谁建的。
 
 ---
 
