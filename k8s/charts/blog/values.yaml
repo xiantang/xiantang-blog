@@ -28,8 +28,9 @@ ecr:
   secretName: ecr-pull-secret
   # 这两个镜像自己是从公网拉的，不受 ECR 凭据影响 —— 否则会变成
   # 「要先有凭据才能拉到刷新凭据的镜像」的死锁。
-  awsCliImage: amazon/aws-cli:2.31.35
-  kubectlImage: rancher/kubectl:v1.31.0
+  # kubectl 的 tag 跟 k3s 的 k8s 版本对齐（k version | grep Server）
+  awsCliImage: amazon/aws-cli:2.36.19
+  kubectlImage: rancher/kubectl:v1.36.2
 
 service:
   type: ClusterIP
