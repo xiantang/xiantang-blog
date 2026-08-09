@@ -7,6 +7,8 @@
 #   ./aws/check-orphans.sh              # 只查 ap-southeast-1
 #   ./aws/check-orphans.sh --all        # 查所有启用的 region（慢，但手滑通常发生在你不看的 region）
 #
+# S3 是全局服务（桶列表不分 region），所以不管加不加 --all 都只查一遍。
+#
 # 环境变量：
 #   AWS_PROFILE   默认 blog
 #
@@ -21,6 +23,7 @@ PRICE_NAT=33         # $0.045/h，不含 $0.045/GB 处理费
 PRICE_ALB=16         # $0.0225/h，不含 LCU
 PRICE_EKS=73         # $0.10/h，零节点也收
 PRICE_EBS_PER_GB=0.10
+PRICE_S3_PER_GB=0.025
 
 RED=$'\033[31m'; YEL=$'\033[33m'; GRN=$'\033[32m'; DIM=$'\033[2m'; OFF=$'\033[0m'
 
@@ -103,6 +106,78 @@ check_region() {
   fi
 }
 
+# S3 单独一个函数，不进 region 循环 —— 桶列表是全局的，
+# 塞进循环的话 --all 会把同一个桶报 30 遍。
+check_s3() {
+  local buckets b br out n bytes gb since now
+  local empty_buckets=""
+
+  printf '\n%s\n' "── S3（全局）───────────────────────────────"
+
+  buckets=$(aws_q s3api list-buckets --query 'Buckets[].Name' | tr '\t' '\n')
+  if [[ -z "$buckets" ]]; then
+    printf '%s\n' "${GRN}✓ 一个桶都没有${OFF}"
+    return
+  fi
+
+  # CloudWatch 的 BucketSizeBytes 是【每天一个点】的指标，所以要往回捞两天，
+  # 取最后一个数据点。比 list-objects 累加快几个数量级，而且不花钱
+  # （GetMetricStatistics 每月前 100 万次请求免费）。
+  since=$(date -u -d '2 days ago' +%Y-%m-%dT%H:%M:%SZ)
+  now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+  for b in $buckets; do
+    # 桶的 region 要单独查：分段上传和 CloudWatch 都必须打到桶所在的 region。
+    # us-east-1 的 LocationConstraint 是空的（历史原因），CLI 会返回 None。
+    br=$(aws_q s3api get-bucket-location --bucket "$b" --query LocationConstraint)
+    [[ -z "$br" || "$br" == "None" ]] && br="us-east-1"
+
+    # ① 未完成的分段上传 —— S3 最隐蔽的浪费。
+    # 上传中断后分片留在桶里，【控制台的对象列表看不到】，但照常按存储计费。
+    out=$(aws_q s3api list-multipart-uploads --bucket "$b" --region "$br" \
+      --query 'Uploads[].[Initiated,Key]')
+    if [[ -n "$out" ]]; then
+      n=$(wc -l <<<"$out")
+      hit "✗ ${b} (${br})：未完成的分段上传 × ${n}"
+      sed 's/^/    /' <<<"$out" | head -5
+      [[ $n -gt 5 ]] && note "    …还有 $((n - 5)) 个"
+      note "    这些分片在控制台对象列表里看不到。大小要 list-parts 逐个查，未计入下方估算。"
+      note "    清掉：aws s3api abort-multipart-upload --bucket ${b} --key <key> --upload-id <id>"
+      note "    治本：给桶加一条 AbortIncompleteMultipartUpload 的 lifecycle 规则，让它自动过期"
+      findings=$((findings + n))
+    fi
+
+    # ② 桶大小。不是"孤儿"，但一个在悄悄长大又没人看的桶，
+    # 和 2026-08-03 那次磁盘写满是同一类问题：缓慢增长 + 无人监视。
+    bytes=$(aws_q cloudwatch get-metric-statistics --region "$br" \
+      --namespace AWS/S3 --metric-name BucketSizeBytes \
+      --dimensions Name=BucketName,Value="$b" Name=StorageType,Value=StandardStorage \
+      --start-time "$since" --end-time "$now" --period 86400 \
+      --statistics Average --query 'Datapoints[-1].Average')
+
+    if [[ -z "$bytes" || "$bytes" == "None" ]]; then
+      # 新建的桶还没有指标（CloudWatch 每天才出一个点），空桶也一样。
+      empty_buckets+="    ${b} (${br})"$'\n'
+      continue
+    fi
+
+    gb=$(calc "$bytes / 1073741824")
+    # 只有超过 1GB 才值得说 —— 再小的桶，存储费还不够看一眼的时间成本。
+    if awk "BEGIN{exit !($gb > 1)}"; then
+      note "· ${b} (${br})  ${gb} GB  ~\$$(calc "$gb * $PRICE_S3_PER_GB")/月"
+      # 没有生命周期规则 = 这个桶只会一直涨。查不到规则时 CLI 报错，aws_q 吞掉后返回空。
+      if [[ -z "$(aws_q s3api get-bucket-lifecycle-configuration --bucket "$b" --region "$br" --query 'Rules[].ID')" ]]; then
+        note "    ↑ 没有 lifecycle 规则，只进不出"
+      fi
+    fi
+  done
+
+  if [[ -n "$empty_buckets" ]]; then
+    note "空桶 / 无 CloudWatch 数据（不计费，仅列出）："
+    printf '%s' "$empty_buckets"
+  fi
+}
+
 # ── main ──────────────────────────────────────────────
 
 if ! aws --profile "$PROFILE" sts get-caller-identity >/dev/null 2>&1; then
@@ -126,6 +201,8 @@ fi
 for r in $regions; do
   check_region "$r"
 done
+
+check_s3
 
 printf '\n────────────────────────────────────────\n'
 if [[ $findings -eq 0 ]]; then
