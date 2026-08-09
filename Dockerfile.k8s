@@ -22,8 +22,11 @@ COPY . .
 # Submodules aren't vendored into the build context by `COPY . .` (they're
 # just empty dirs + gitlinks), so re-fetch them here using the .git metadata
 # that's already in the context.
+# 只点名 Hugo 主题，【不要】用 --recursive —— 那会连 infra/ 一起拉，
+# 而它是私有仓库 + SSH URL，构建容器里既没有 ssh 也没有凭据。
+# 站点构建也根本不需要 Terraform 代码。
 RUN git config --global --add safe.directory '*' \
-    && git submodule update --init --recursive \
+    && git submodule update --init --depth 1 themes/ananke themes/even \
     && rm -rf public \
     && hugo --minify
 

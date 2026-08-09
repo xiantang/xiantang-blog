@@ -20,5 +20,7 @@ RUN git config --global --add safe.directory '*'
 
 # 主题以 submodule 引入，且 compose 会把宿主机目录挂到 /app 覆盖镜像内容，
 # 所以必须在启动时初始化，构建时做会被挂载盖掉。
-CMD git submodule update --init --recursive && hugo server --bind 0.0.0.0 -D --disableFastRender
+# 只点名主题，不用 --recursive —— infra/ 是私有仓库 + SSH URL，
+# 容器里没有 SSH agent，拉它必然失败，而且本地预览也用不到它。
+CMD git submodule update --init themes/ananke themes/even && hugo server --bind 0.0.0.0 -D --disableFastRender
 
