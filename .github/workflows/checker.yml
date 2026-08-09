@@ -21,7 +21,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: code
-          submodules: true  # Fetch Hugo themes
+          # check_pub_img.sh 只处理 markdown，不需要主题。
+          # 而且 submodules: true 会连私有的 infra/ 一起拉，runner 拉不到。
+          submodules: false
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
     # use check_pub_img.sh to check image
       - name: Check image

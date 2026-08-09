@@ -38,8 +38,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: true
+          # 不能用 submodules: true —— 它会连 infra/ 一起拉，而那是个【私有】
+          # 仓库且配的是 SSH URL，runner 既没有 SSH key，GITHUB_TOKEN 也读不到
+          # 别的私有仓库。构建镜像只需要 Hugo 主题，下一步单独初始化。
+          submodules: false
           fetch-depth: 0
+
+      - name: Fetch Hugo themes
+        run: git submodule update --init --depth 1 themes/ananke themes/even
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3

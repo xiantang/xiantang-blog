@@ -16,7 +16,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: true
+          # translate.sh 只处理 markdown，不需要主题。
+          # 而且 submodules: true 会连私有的 infra/ 一起拉，runner 拉不到。
+          submodules: false
           fetch-depth: 0
 
       - name: Ensure API key is set

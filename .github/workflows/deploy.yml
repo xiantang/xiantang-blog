@@ -27,8 +27,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-          submodules: true  # Fetch Hugo themes
+          # 不能用 submodules: true —— 它会连私有的 infra/ 一起拉，runner 拉不到。
+          # Hugo 主题在下一步单独初始化。
+          submodules: false
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+    - name: Fetch Hugo themes
+      run: git submodule update --init --depth 1 themes/ananke themes/even
 
     # Step 2 - Sets up the latest version of Hugo
     - name: Setup Hugo
