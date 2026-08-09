@@ -86,9 +86,13 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ steps.images.outputs.list }}
+          # 只推 sha-<commit>，不推 latest。
+          # 集群拉的是 Chart.yaml 里的 appVersion（一个 sha- tag），latest 没有
+          # 任何消费者；而它每次被覆盖都会在 ECR 里留下一个 untagged 孤儿镜像，
+          # 更重要的是它挡着 ECR 的 IMMUTABLE ——「同一个 tag 不许覆盖」和
+          # 「latest 天生要被覆盖」是互斥的。
           tags: |
             type=sha,format=long
-            type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push
         uses: docker/build-push-action@v6

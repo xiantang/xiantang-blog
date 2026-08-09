@@ -2,7 +2,7 @@
   "rules": [
     {
       "rulePriority": 1,
-      "description": "untagged 镜像 1 天后清理。它们是 latest 被覆盖后留下的孤儿层，没有任何东西引用。",
+      "description": "untagged 镜像 1 天后清理。CI 不再推 latest 之后这条基本不会命中，留着兜底。",
       "selection": {
         "tagStatus": "untagged",
         "countType": "sinceImagePushed",

@@ -41,9 +41,15 @@ aws ecr get-lifecycle-policy --repository-name xiantang-blog --query 'lifecycleP
 
 ### 两条规则的取舍
 
-**规则 1（untagged）** 清理的是 `latest` 被覆盖后留下的孤儿镜像。CI 每次构建
-都会把 `latest` 指向新镜像，旧的那个就失去了所有标签。它们不占多少空间，
-但会让 `describe-images` 的输出越来越难看。
+**规则 1（untagged）** 原本清理的是 `latest` 被覆盖后留下的孤儿镜像 —— CI 每次
+构建都把 `latest` 指向新镜像，旧的那个就失去了所有标签。现在 CI 不推 `latest`
+了，这条基本不会再命中，留着是兜底（比如手动推错一个 tag 之后重推）。
+
+⚠️ 这里有个跟多架构构建相关的坑要留意：镜像是 `linux/amd64,linux/arm64` 一起
+推的，顶层是一个 manifest list，底下两个平台镜像自己**没有 tag**。如果 ECR 把
+它们算作 untagged 并按这条规则删掉，manifest list 就会指向不存在的层。
+**每次改这条规则都先跑 preview 确认删的是什么** —— preview 会把具体 digest
+列出来，比在这里猜可靠。
 
 **规则 2（保留 20 个）** 是回滚窗口。`git revert` 一个旧 commit 会把
 `appVersion` 指回那个 `sha-`，如果对应镜像已经被清掉，回滚就会失败在
@@ -59,14 +65,29 @@ aws ecr get-lifecycle-policy --repository-name xiantang-blog --query 'lifecycleP
 真要固定在旧版本运行，先把 `countNumber` 调大，或者给那个 tag 单独加一条
 保留规则。
 
-### 为什么不开 IMMUTABLE 标签
+### IMMUTABLE 标签
 
-`aws ecr put-image-tag-mutability --image-tag-mutability IMMUTABLE` 能强制
+`aws ecr put-image-tag-mutability --image-tag-mutability IMMUTABLE` 强制
 「同一个 tag 不许覆盖推送」，正好匹配这套发布流程「`sha-<commit>` 不可变」
-的前提。
+的前提 —— 这样「`Chart.yaml` 里写的 tag 指向哪个镜像」就由 ECR 保证，
+不再只是一个约定。
 
-**但现在开了 CI 会失败** —— `build-image.yml` 同时推 `latest`
-（`type=raw,value=latest`），而 `latest` 天生要被覆盖。
+前提条件已经满足：`build-image.yml` 不再推 `latest`（那行去掉了，因为
+`latest` 天生要被覆盖，跟 IMMUTABLE 互斥）。
 
-要开的话得先把 `latest` 那行去掉。它现在没有任何东西在用（集群拉的是
-`sha-` tag），留着纯粹是历史惯性。这件事排在 `TODO.md` 里。
+```bash
+# 先确认 CI 真的不推 latest 了 —— 去掉那行之后至少跑过一次构建再开
+aws ecr describe-images --repository-name xiantang-blog \
+  --query 'sort_by(imageDetails,&imagePushedAt)[-3:].{Pushed:imagePushedAt,Tags:imageTags}' \
+  --output table
+
+aws ecr put-image-tag-mutability \
+  --repository-name xiantang-blog --image-tag-mutability IMMUTABLE
+```
+
+开了之后，重跑一次同一个 commit 的构建会在 push 阶段失败
+（`ImageTagAlreadyExistsException`）—— 这是预期行为，不是 CI 坏了。
+真需要重推同一个 tag，只能先 `batch-delete-image` 删掉旧的。
+
+历史上那个 `latest` tag 不用特意处理：它挂在某个 `sha-` 镜像上，
+等规则 2 把那个镜像淘汰掉时会一起消失。

@@ -77,18 +77,19 @@ Kubernetes / CI / 云服务**,而不是为了把站点跑起来 —— 站点本
 | kubectl | ssh 到 k3s 节点后用 **`k`**(= `kubectl`,已配 alias + 补全)。kubeconfig 复制到了 `~/.kube/config`,`~/.bashrc` 里 `export KUBECONFIG` 指向它,**不再需要 `sudo`**。给我命令时一律写 `k`,别写 `sudo k3s kubectl`(见 `k8s/README.md`) |
 | 域名 | `k8s.vim0.com`(k3s),`vim0.com`(GitHub Pages) |
 | TLS | cert-manager + Let's Encrypt,Cloudflare DNS-01,ClusterIssuer 名 `letsencrypt-prod` |
-| 镜像仓库 | GHCR(集群在拉这个) + AWS ECR(同步推送) |
+| 镜像仓库 | AWS ECR(集群在拉这个) + GHCR(同步推送,留作回退) |
 | ECR | `521218410956.dkr.ecr.ap-southeast-1.amazonaws.com/xiantang-blog` |
 | AWS profile | `blog`,region `ap-southeast-1` |
 | CI | `.github/workflows/build-image.yml`,push 到 `code` 分支触发,多架构 amd64+arm64 |
-| 镜像 tag | `latest` + `sha-<完整 commit sha>` |
+| 镜像 tag | 只有 `sha-<完整 commit sha>`。**不推 `latest`** —— 它没有消费者,又挡着 ECR 的 IMMUTABLE |
 
-### 两个已知的待办 / 粗糙点
+### 已知的粗糙点
 
-- **`k8s/deployment.yaml` 用的是 `:latest` + 手动 `rollout restart`**。这和 GitOps 是冲突的:
-  git 里的内容永远不变,ArgoCD 之类的工具无法感知镜像更新,也没法回滚。要上 GitOps 就得先解决
-  这个(让 CI 把 `sha-` tag 写回 git,或者用 Image Updater)。
-- **k3s 目前拉 GHCR,没配 ECR 的 imagePullSecret**。想切到 ECR 需要额外配凭据。
+- **不带 tag 拉镜像会失败**:没有 `latest` 了,`docker pull .../xiantang-blog` 默认找
+  `:latest` 会 404。手动拉要带 `sha-<commit>`,或者从 `k8s/charts/blog/Chart.yaml` 的
+  `appVersion` 里抄当前线上那个。
+- **`k8s/deployment.yaml` / `service.yaml` / `ingress.yaml` 是死文件**,已被
+  `k8s/charts/blog/` 取代,改它们对线上没有影响(见 `k8s/README.md` 第 3 节)。
 
 ### 仓库里两个 Dockerfile 别混
 

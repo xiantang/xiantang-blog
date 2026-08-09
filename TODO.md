@@ -366,6 +366,11 @@ CI 同时推 GHCR 和 ECR,但集群只拉 GHCR。想切到 ECR 需要额外配�
   用 `latest` 时每个 revision 的 manifest 写的都是同一个字符串,回滚等于没回滚。
   同时把 `pullPolicy` 从 `Always` 改成 `IfNotPresent`。
 
+  收尾(2026-08-09):CI 里 `type=raw,value=latest` 那行也去掉了。集群早就不看
+  `latest`,但它挡着 ECR 的 `IMMUTABLE` —— 「同一个 tag 不许覆盖」和「latest
+  天生要被覆盖」互斥。开 IMMUTABLE 的命令在 `aws/README.md`,**等这行改动
+  跑过一次构建、确认 ECR 里不再出现 latest 之后再开**。
+
 - [x] **把静态 manifest 改写成 Helm chart**(`b013d7a4`,2026-08-04)
   `k8s/charts/blog/`。资源名跟随 release 名,replicas / 镜像 tag / ingress host /
   TLS 开关都抽到 `values.yaml`。ClusterIssuer 故意没放进 chart(集群级、多应用共享)。
