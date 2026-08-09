@@ -1,0 +1,22 @@
+{
+  "BudgetName": "monthly-gross-spend",
+  "BudgetLimit": {
+    "Amount": "60",
+    "Unit": "USD"
+  },
+  "TimeUnit": "MONTHLY",
+  "BudgetType": "COST",
+  "CostTypes": {
+    "IncludeCredit": false,
+    "IncludeRefund": false,
+    "IncludeDiscount": true,
+    "IncludeTax": true,
+    "IncludeSubscription": true,
+    "IncludeSupport": true,
+    "IncludeUpfront": true,
+    "IncludeRecurring": true,
+    "IncludeOtherSubscription": true,
+    "UseBlended": false,
+    "UseAmortized": false
+  }
+}

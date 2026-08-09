@@ -2,7 +2,7 @@
 
 > 在 AWS 上用 Kubernetes / GitOps / IaC 搭一套生产级平台。
 >
-> 最后更新:2026-08-04
+> 最后更新:2026-08-09
 
 **Target Stack**:AWS · EKS · Terraform · Argo CD · GitHub Actions · Helm ·
 Prometheus · Grafana · Loki · cert-manager
@@ -33,7 +33,7 @@ ALB Controller、EBS CSI)。
 |---|---|
 | 集群 | 单节点 **k3s**,跑在一台 EC2 上 |
 | Ingress | **Traefik**(k3s 自带),**不是** ingress-nginx |
-| 镜像 | GHCR + ECR,tag 是不可变的 `sha-<完整commit>` |
+| 镜像 | **ECR**(集群拉这个)+ GHCR(同步推,留作回退),tag 只有不可变的 `sha-<完整commit>` |
 | 部署 | Helm chart(`k8s/charts/blog/`)+ Argo CD 自动同步 |
 | 发布 | CI 构建后自动回填 `Chart.yaml` 的 `appVersion` → **push 即上线** |
 | TLS | cert-manager + Let's Encrypt,Cloudflare DNS-01 |
@@ -55,11 +55,29 @@ ALB Controller、EBS CSI)。
 
 ## 💰 成本护栏 ← 新增,做 Phase 9 之前必须完成
 
-- [ ] **AWS Budgets 设一个 $20/月 的告警**(邮件通知)
-- [ ] 会用 Cost Explorer 按服务查开销
-- [ ] 知道哪些资源"不用也在计费":EKS 控制面、NAT Gateway、
+- [x] **AWS Budgets 告警**(邮件通知)—— 建了**两个,口径相反**,配置见 `aws/README.md`
+      - `monthly-gross-spend` $60,不看抵扣 → 异常检测(挖矿、手滑建 NAT)
+      - `net-spend-tripwire` $5,看抵扣 → **credit 烧完的绊线**
+      两个都要,因为 gross 那个在 credit 用完时数字不会变(用量没变,变的是谁在付)。
+      **一开始设的 $20 是错的**:低于 $40 的正常速率 → 每月必响 → 三个月后你会
+      条件反射删掉它,连带真出事那次。**阈值必须设在正常情况下不会响的地方。**
+- [x] 会用 Cost Explorer 按服务查开销
+      `aws ce get-cost-and-usage`。**坑**:它默认把 credit 净掉,所以有抵扣时
+      按服务查全是 0 —— 要 `--filter RECORD_TYPE=Usage` 才看得到真实用量。
+      **每次调用收 $0.01**,别写进脚本。
+- [x] 知道哪些资源"不用也在计费":EKS 控制面、NAT Gateway、
       ALB、未挂载的 EBS 卷、未关联的 Elastic IP
+      补一个 2024 年新增的:**公网 IPv4 地址 $0.005/小时,正在用的也收**
+      (本账号里就是那笔挂在 VPC 名下的 ~$1.9/月)。
 - [ ] 定期检查孤儿资源(`available` 状态的 EBS 卷是最常见的)
+
+> ⏰ **2026-10-30:credit 见底**(余额 $106.49 ÷ $1.30/天 ≈ 82 天,算于 2026-08-09)。
+> 控制台写的「180 天后过期」轮不到 —— 先烧完。那天起账单从 $0 变成约 **$40/月**,
+> 其中 **91% 是 EC2 实例本身**。
+>
+> 在那之前要回答:**为了学习,值不值得每月付 $40?** 值就签 Savings Plan 或降配,
+> 不值就把 k3s 和 EKS 都改成「用完就 destroy」。**别现在签一年期** ——
+> Phase 9/10 要用 Terraform 重建、上 EKS,基础设施半年内会变形。
 
 > **为什么排这么前**:之前还在算 30GB EBS 会不会超免费额度,
 > 而 EKS 那套默认路径是每月两百刀。没有告警的话,发现时已经是账单了。
@@ -149,9 +167,14 @@ ALB Controller、EBS CSI)。
 - [x] Sync / Auto Sync / selfHeal / prune
 - [x] Rollback
 - [x] Health Status
-- [ ] **Ingress** ← 进行中,manifest 已写好(`k8s/argocd/ingress.yaml`)
-- [ ] GitHub webhook(把 3 分钟轮询变成秒级)
-- [ ] **让 Argo CD 管理它自己**(app-of-apps)
+- [x] **Ingress** —— `argocd.vim0.com`(`k8s/argocd/ingress.yaml`)。
+      要点:ArgoCD server 必须先跑在 `--insecure` 下,否则它自己也做 HTTPS 跳转,
+      和 Traefik 的终止叠在一起变成重定向死循环。
+- [x] GitHub webhook(把 3 分钟轮询变成秒级)
+- [x] **让 Argo CD 管理它自己**(app-of-apps)
+      `k8s/argocd/root-application.yaml`。**坑**:别在 spec 里写等于默认值的字段
+      (比如 `directory.recurse: false`)—— ArgoCD 存 spec 时会丢掉它们,git 里有、
+      集群里没有,`root` 会永久 OutOfSync 且 sync 多少次都好不了。
 
 > **踩过的坑**:装的时候要 `kubectl apply --server-side`(ApplicationSet 的
 > CRD 会撞 annotation 256KB 上限);Application 的名字同时充当 Helm release 名
@@ -167,9 +190,14 @@ ALB Controller、EBS CSI)。
 
 **不是**完整的 Prometheus 栈,就是"挂了我能立刻知道"。
 
-- [ ] cron + 邮件:定时检查 `df -h` 和 `kubectl get nodes`
-- [ ] 站点可用性外部探测(UptimeRobot / Healthchecks.io 之类,免费档够用)
-- [ ] 调小 pod GC 阈值,让 Evicted Pod 自动清理
+- [x] cron + 邮件:定时检查 `df -h` 和 `kubectl get nodes`
+      `k8s/scripts/healthcheck.sh`,六项检查。**告警链路实测过**(临时把阈值设成 1%)。
+- [x] 站点可用性外部探测 —— Healthchecks.io,**dead man's switch**:
+      脚本主动上报「我还活着」,超时不报到才告警。这比「出事了发邮件」强的地方在于
+      **机器彻底挂了就发不出邮件**,而没上报本身就是信号。
+- [x] 调小 pod GC 阈值,让 Evicted Pod 自动清理
+      `terminated-pod-gc-threshold` 默认 12500(等于形同虚设)。改在
+      `/etc/rancher/k3s/config.yaml`,**不是**改 systemd unit。
 
 > **为什么提前**:2026-08-03 23:02 根卷用满触发 kubelet DiskPressure,
 > 所有 Pod 被驱逐,**站点挂了 4 小时才被发现**。根因是几个月前用 nerdctl
@@ -184,15 +212,34 @@ ALB Controller、EBS CSI)。
 
 # Phase 8 — AWS 核心服务 ← 和原 Phase 7 对调
 
-- [ ] IAM(User / Role / Policy / 信任策略 / STS)
-- [ ] VPC(CIDR 规划、子网、路由表)
-- [ ] Internet Gateway vs NAT Gateway(**注意 NAT 的费用**)
-- [ ] Security Group vs NACL
+- [x] IAM(User / Role / Policy / 信任策略 / STS)
+      关键分辨:身份策略没有 `Principal`("谁"由挂在哪决定),资源策略有;
+      信任策略就是挂在 Role 上的资源策略。评估顺序:默认拒绝 → 显式允许 → 显式拒绝优先。
+      已落地:`github-actions-ecr`(OIDC 联合)、`k3s-node`(实例配置文件)。
+- [x] VPC(CIDR 规划、子网、路由表)
+      默认 VPC `172.31.0.0/16`,三个全公网 `/20` 子网。VPC 属于 region,子网属于 AZ(1:1)。
+      AWS 每个子网保留 5 个 IP。路由表按最长前缀匹配,`local` 那条是 VPC 内互通。
+- [x] Internet Gateway vs NAT Gateway(**注意 NAT 的费用**)
+      IGW 免费、做 1:1 NAT(OS 里永远只看得到私网 IP);NAT Gateway 约 $33/月 + $0.045/GB。
+      **当前没有 NAT Gateway,不要手滑建一个。** 走 S3/DynamoDB 用 Gateway Endpoint 是免费的。
+- [x] Security Group vs NACL
+      SG 有状态(回包自动放行)、只有允许、多条取并集、可以引用另一个 SG;
+      NACL 无状态(必须自己放行 1024-65535 临时端口)、按编号首个匹配、有拒绝、只认 CIDR。
 - [ ] EC2 / EBS
-- [ ] Route53(Hosted Zone、A / Alias 记录)
+- [x] Route53(Hosted Zone、A / Alias 记录)
+      **实际用的是 Cloudflare,没建 hosted zone**($0.50/区/月)。概念对应:
+      Route53 的 Alias ≈ Cloudflare 的 CNAME Flattening,都是绕开「顶级域不能用 CNAME」。
 - [ ] S3
-- [ ] ECR
-- [ ] CloudWatch
+- [x] ECR
+      没有用户名密码,`GetAuthorizationToken` 换一个 **12 小时**的 token —— 所以集群里有个
+      CronJob 每 8 小时重建 imagePullSecret(`k8s/charts/blog/templates/ecr-credentials.yaml`)。
+      仓库必须先存在,推之前不会自动创建。生命周期策略见 `aws/README.md`。
+- [x] CloudWatch
+      结论是**这个账号基本不用它**:EC2 的基础指标里没有内存和文件系统使用率
+      (hypervisor 看不到 guest OS 内部),要就得装 Agent —— 而 `k8s/scripts/healthcheck.sh`
+      已经用 `df -h` 覆盖了。成本告警走 Budgets 更合适(见 Phase 0)。
+      记住两条:custom metric 按 **dimension 组合**计费,别拿用户 ID / 路径当 dimension;
+      Log Group 默认 **Never Expire**,建了就设 `put-retention-policy`。
 
 > **为什么和 Terraform 对调**:原计划 Phase 7 让你用 Terraform 建 VPC、
 > 子网、IGW、NAT、安全组、IAM Role,但这些概念在 Phase 8 才学。

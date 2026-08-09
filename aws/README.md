@@ -9,6 +9,202 @@
 | 文件 | 对应资源 |
 |---|---|
 | `ecr-lifecycle-policy.json` | `xiantang-blog` 仓库的生命周期策略 |
+| `budget.json` + `budget-notifications.json` | 成本异常告警（gross 口径，$60/月） |
+| `budget-net-tripwire.json` + `budget-net-tripwire-notifications.json` | credit 烧完的绊线（net 口径，$5/月） |
+
+## 成本护栏（AWS Budgets）
+
+账号的成本护栏，也是笔记本上那把 `AdministratorAccess` access key 的兜底：
+key 要是泄漏被拿去挖矿，这是你**唯一**会知道的途径。
+
+用 Budgets 而不是 CloudWatch Alarm 的原因：Budgets 除了当月实际花费，还会算
+**预测的月末花费** —— 挖矿在第 3 天就能触发 FORECASTED 告警，而
+CloudWatch 的 `EstimatedCharges` 要等实际累计真的超标才响。
+
+### 两个 budget，口径相反
+
+| budget | 口径 | 额度 | 作用 |
+|---|---|---|---|
+| `monthly-gross-spend` | **gross**（`IncludeCredit: false`） | $60 | 异常检测：挖矿、手滑建 NAT Gateway |
+| `net-spend-tripwire` | **net**（`IncludeCredit: true`） | $5 | **credit 烧完的绊线** |
+
+为什么要两个 —— 这是 2026-08-09 排查出来的，值得写清楚：
+
+账号现在有 credit，**实付是 $0，但真实用量约 $40/月**。gross 那个 budget 报的是
+$40（因为它不看抵扣），这正是我们要的信号：credit 会用完，到时候 $40 就是真金白银。
+
+但也正因为它不看抵扣，**credit 烧完的那天它的数字不会有任何变化** —— 之前 $40，
+之后还是 $40。用量没变，变的是谁在付。光靠它，你只会在收到第一张真实账单时才发现。
+
+所以加了第二个，口径相反：net 口径在 credit 用完前永远是 $0，从不打扰；
+credit 一断，当月净额爬过 $5 立刻响。**「开始真的花钱了」这个事件需要它自己的探针。**
+
+⚠️ **前 2 个 budget 免费**，之后 $0.02/天/个（约 $0.60/月）。正好用满，不多花钱。
+
+### 额度是怎么定的
+
+**gross $60**：真实速率 $40/月，留 1.5 倍余量。
+
+⚠️ 一开始设的是 $20，**这是错的** —— 低于正常速率意味着 ACTUAL 100% 每个月固定触发。
+**每月必响的告警等于没有告警**：三个月后你会条件反射删掉它，然后真出事那次也一起删了。
+告警阈值必须设在「正常情况下不会响」的地方，否则它训练你忽略它。
+
+**net $5**：只要不是 $0 就说明 credit 没了，$5 是防止零星尾数误报的缓冲。
+
+### 下发
+
+```bash
+# Budgets 是全局服务，endpoint 固定在 us-east-1（跟资源在哪个 region 无关，
+# 写成 ap-southeast-1 会直接报错）
+# 邮箱不写进仓库（公开仓库），apply 时替换进去
+sed 's/__EMAIL__/你的邮箱/' aws/budget-notifications.json > /tmp/n1.json
+sed 's/__EMAIL__/你的邮箱/' aws/budget-net-tripwire-notifications.json > /tmp/n2.json
+
+aws budgets create-budget --account-id 521218410956 --region us-east-1 \
+  --budget file://aws/budget.json \
+  --notifications-with-subscribers file:///tmp/n1.json
+
+aws budgets create-budget --account-id 521218410956 --region us-east-1 \
+  --budget file://aws/budget-net-tripwire.json \
+  --notifications-with-subscribers file:///tmp/n2.json
+
+rm /tmp/n1.json /tmp/n2.json
+```
+
+⚠️ **`create-budget` 不幂等**，对已存在的 budget 报 `DuplicateRecordException`。
+改额度用 `update-budget`；**改名字只能删了重建**（名字是主键）：
+
+```bash
+# 早期那个 monthly-20-usd 已经改名成 monthly-gross-spend，要先删掉旧的
+aws budgets delete-budget --account-id 521218410956 \
+  --budget-name monthly-20-usd --region us-east-1
+
+aws budgets update-budget --account-id 521218410956 --region us-east-1 \
+  --new-budget file://aws/budget.json
+```
+
+（budget 名字里刻意不写金额 —— 写了的话每次调额度都得删了重建。）
+
+核对：
+
+```bash
+aws budgets describe-budgets --account-id 521218410956 --region us-east-1 \
+  --query 'Budgets[].{Name:BudgetName,Limit:BudgetLimit.Amount,Actual:CalculatedSpend.ActualSpend.Amount,Forecast:CalculatedSpend.ForecastedSpend.Amount}' \
+  --output table
+
+aws budgets describe-notifications-for-budget --account-id 521218410956 \
+  --budget-name monthly-gross-spend --region us-east-1 \
+  --query 'Notifications[].{Type:NotificationType,Threshold:Threshold}' --output table
+```
+
+### gross budget 的三条告警
+
+| 类型 | 阈值 | 意义 |
+|---|---|---|
+| ACTUAL | 50%（$30） | 早期信号 |
+| ACTUAL | 100%（$60） | 已经超了 |
+| **FORECASTED** | 100%（$60） | **按当前速率月末会超** ← 最有价值的一条 |
+
+### 几个要知道的前提
+
+⚠️ **不是实时的。** Budgets 的数据来自账单系统，**8～12 小时刷新一次**。
+被拿去开一堆 GPU 实例的话，等你收到邮件可能已经烧掉几百刀了。
+这是**事后兜底，不是实时防御** —— 真正的防线是给 root 和 `Jed` 开 MFA、
+以及别把长期 access key 放在笔记本上。这两件都还欠着，见 `TODO.md`。
+
+⚠️ **邮件不需要确认。** 跟 SNS 订阅不一样，Budgets 的邮件订阅直接生效，
+没有「点链接确认」那一步 —— 所以**地址写错了不会有任何提示**，
+告警会安静地发到不存在的邮箱。下发完照着上面的命令核对一遍。
+
+⚠️ **FORECASTED 需要历史数据才准。** 新账号或刚变更过用量时 AWS 样本不够，
+这条可能一开始不触发（`describe-budgets` 里 `ForecastedSpend` 是空的）。
+跑满一两个账期后才可靠。
+
+---
+
+## 成本构成与 credit 跑道（2026-08-09 实测）
+
+### 钱花在哪
+
+8 月 1–9 日，**gross** 口径：
+
+| 服务 | 9 天 | 折月 | 占比 |
+|---|---|---|---|
+| **EC2 Compute** | $10.57 | ~$36 | **91%** |
+| VPC（公网 IPv4 地址费） | $0.55 | ~$1.9 | 5% |
+| EC2 - Other（28G EBS） | $0.55 | ~$1.9 | 5% |
+| ECR | $0.008 | ~$0.03 | ~0 |
+
+**实例本身就是全部。** ECR、S3 加起来一个月三分钱 —— ECR 生命周期策略在成本上
+几乎没意义（它防的是「几年后积累几十 GB」，那个价值仍在，但别指望它省钱）。
+
+VPC 那笔是 **公网 IPv4 地址费**：2024 年 2 月起 AWS 对每个公网 IPv4 收
+$0.005/小时，**包括正在使用的**。你需要公网 IP，这笔避不掉；
+但**多出来一个未关联的 EIP 就是纯浪费**，值得定期查。
+
+### ⏰ credit 什么时候烧完
+
+```
+余额 $106.49 ÷ 燃烧速率 $1.30/天 ≈ 82 天
+```
+
+**≈ 2026-10-30 见底。** 控制台显示的「180 天后过期」（2027-02）轮不到 ——
+**先烧完，而不是先过期**。那天起账单从 $0 变成约 $40/月。
+
+查余额（**没有 CLI/API，只能看控制台**）：
+`Billing and Cost Management → Credits`，看 Amount Remaining 和 Expiration Date。
+
+### 2026-10-30 之前要做的决定
+
+**为了学习，值不值得每月付 $40？**
+
+- 值 → 签 1 年期 Compute Savings Plan（省三成左右，$36 → ~$25），或者降配
+- 不值 → 把 k3s 和 EKS 练习都改成「用完就 destroy」，只在动手时开机
+
+⚠️ **现在别签 Savings Plan。** 一年期锁定的前提是「我确定一年后还要这台机器」，
+而 ROADMAP Phase 9/10 要用 Terraform 重建、上 EKS —— 基础设施在未来半年会变形。
+credit 期间实付 $0，提前签也不会更省。**这 82 天是用来做决定的，不是用来做承诺的。**
+
+⚠️ 降配要小心：`TODO.md` 里记过「76% 内存被 k8s 控制面吃掉」。
+降到 2G 大概率跑不动 k3s + cert-manager + ArgoCD，**别为了省钱把学习环境搞崩**。
+
+### 为什么 budget 和 Cost Explorer 对不上
+
+排查时踩的坑，记下来免得重踩：`describe-budgets` 说花了 $12.43，
+`get-cost-and-usage` 说花了 $0.0003。差四个数量级。
+
+原因是**两边默认口径相反**：
+
+- `get-cost-and-usage` **默认把 credit 算进去**（净额）→ 用量 +11.67、抵扣 −11.67 ≈ 0
+- 我们的 budget 设了 `IncludeCredit: false`（gross）→ 报 $12.43
+
+拆开验证（`RECORD_TYPE` 分组是关键）：
+
+```bash
+aws ce get-cost-and-usage --time-period Start=2026-08-01,End=2026-08-10 \
+  --granularity MONTHLY --metrics UnblendedCost \
+  --group-by Type=DIMENSION,Key=RECORD_TYPE --region us-east-1 \
+  --query 'ResultsByTime[0].Groups[].{Type:Keys[0],Cost:Metrics.UnblendedCost.Amount}' \
+  --output table
+```
+
+只看真实用量，要显式过滤掉 credit：
+
+```bash
+aws ce get-cost-and-usage --time-period Start=2026-08-01,End=2026-08-10 \
+  --granularity MONTHLY --metrics UnblendedCost \
+  --filter '{"Dimensions":{"Key":"RECORD_TYPE","Values":["Usage"]}}' \
+  --group-by Type=DIMENSION,Key=SERVICE --region us-east-1 \
+  --query 'ResultsByTime[0].Groups[].{Service:Keys[0],Cost:Metrics.UnblendedCost.Amount}' \
+  --output table
+```
+
+⚠️ **Cost Explorer API 每次调用收 $0.01**（控制台界面免费）。
+查账单本身要钱 —— 别写进循环或监控脚本。
+
+⚠️ `ce` 和 `budgets` 一样是全局服务，`--region us-east-1` 是必须的。
+
+---
 
 ## ECR 生命周期策略
 
