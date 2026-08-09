@@ -6,3 +6,6 @@
 [submodule "themes/even"]
 	path = themes/even
 	url = https://github.com/xiantang/hugo-theme-even.git
+[submodule "infra"]
+	path = infra
+	url = git@github.com:xiantang/xiantang-infra.git
