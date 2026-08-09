@@ -287,6 +287,9 @@ ALB Controller、EBS CSI)。
        所以"这个东西要不要单独 import"没法凭直觉判断,只能查文档。
 3. [ ] **最后才碰 EC2 / EBS / EIP**,只用 `import` 块,
        反复看 plan 直到显示 `No changes`。**看到任何 `destroy` 就停下**
+    1. [x] EIP ← 2026-08-09
+    2. [ ] EBS ← 待判断:根卷则跳过,跟 EC2 一起进来(见下方清单)
+    3. [x] 安全组 ← 2026-08-09
 4. [ ] 加 Cloudflare provider 管 DNS 记录
 
 > 📌 **纪律补一条**:纳管存量资源时,plan 里出现 **`to add` 就是错的**。
@@ -305,9 +308,23 @@ ALB Controller、EBS CSI)。
 现在全是控制台点出来的,**没有任何记录**。EC2 挂了没法重建:
 
 - [ ] EC2 实例(AMI、机型、user_data)  ← 🛑 最后做,单独找整块时间
-- [ ] 安全组规则
-- [ ] EBS 卷
-- [ ] Elastic IP
+- [x] 安全组规则 ← 2026-08-09,`infra/blog/security-group.tf`
+      资源此前已在 state 里,只是 `.tf` 一直没进版本库。
+      **一课**:`ingress = [...]` 这种属性式写法(generate-config-out 的默认产物)
+      把整组规则变成一个原子值,加一条规则时 plan 显示的是整个 list 被替换。
+      后续该拆成独立的 `aws_vpc_security_group_ingress_rule`。
+      ⚠️ `name` 和 `description` 是 ForceNew,改动 = 销毁重建。
+- [ ] EBS 卷 ← 先判断是不是根卷。**是根卷就不该单独 import**:
+      它会同时被 `aws_instance` 的 `root_block_device` 描述,两个资源管一块盘,
+      plan 反复横跳,最坏情况是删实例时把卷从 `aws_ebs_volume` 脚下抽走。
+      判断命令:`aws ec2 describe-volumes` 看 `Attachments[0].Device`,
+      `/dev/xvda` 或 `/dev/sda1` = 根卷。
+- [x] Elastic IP ← 2026-08-09,`infra/blog/eip.tf`
+      **一课**:`instance` 和 `network_interface` 是同一绑定关系的两种写法、
+      schema 里互斥,但 `-generate-config-out` 从 state 反推时不管这个约束,
+      两个都会吐出来,直接用会报 Conflicting configuration arguments。
+      ⚠️ 它的破坏形态不是"重建"是【换 IP】:EIP 一旦 release 就要不回来,
+      k8s.vim0.com 和 ssh 会同时失效。
 - [x] ECR 仓库 + 生命周期策略 ← 2026-08-09,`infra/blog/ecr.tf`
 - [x] GitHub OIDC 的 IAM Role 和信任策略 ← 2026-08-09,`infra/blog/iam.tf`
       三个资源:OIDC provider、Role(信任策略是它的字段)、`ecr-push` 内联策略
