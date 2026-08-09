@@ -1,14 +1,20 @@
 # `aws/`
 
 账号级的配置，**不由 ArgoCD 管理** —— 这些是 AWS 资源，不是 k8s 对象。
-放在这里是为了让配置有个可读、可 diff 的出处，以后转 Terraform 时直接就是
-对应资源的输入。
+放在这里是为了让配置有个可读、可 diff 的出处。
 
 下发一律手动，改了不会自动生效。
 
+> ⚠️ **这个目录正在被 Terraform 逐步取代。** 从 2026-08-09 开始，
+> AWS 资源改由 `infra/`（submodule，私有仓库 `xiantang-infra`）管理。
+> 已经迁走的条目在下表里用删除线标出 —— 那些文件留着只为记录取舍理由，
+> **改它们对线上没有任何影响**，而手动下发还会造成 drift。
+>
+> 迁移进度见 `ROADMAP.md` 的 Phase 9。
+
 | 文件 | 对应资源 |
 |---|---|
-| `ecr-lifecycle-policy.json` | `xiantang-blog` 仓库的生命周期策略 |
+| ~~`ecr-lifecycle-policy.json`~~ | **已被 Terraform 取代**，改它对线上没有影响。见下 |
 | `budget.json` + `budget-notifications.json` | 成本异常告警（gross 口径，$60/月） |
 | `budget-net-tripwire.json` + `budget-net-tripwire-notifications.json` | credit 烧完的绊线（net 口径，$5/月） |
 | `check-orphans.sh` | 孤儿资源巡检（只读脚本，不是配置） |
@@ -295,24 +301,40 @@ S3 **不进 region 循环** —— 桶列表是全局的，塞进去的话 `--al
 
 CI 每次提交都推一个新镜像，ECR 存储约 $0.10/GB/月，只增不减。这个策略负责收尾。
 
-⚠️ **先 preview，再 apply。过期是不可逆的。**
+> 🔴 **2026-08-09 起，ECR 仓库和这条策略都归 Terraform 管**
+> （`infra/blog/ecr.tf`，仓库是私有的 `xiantang-infra`）。
+>
+> **不要再跑 `aws ecr put-lifecycle-policy`。** 它会造成 **drift** ——
+> AWS 上被你改了，而 Terraform 的 state 还记着旧值，下次 `plan` 会
+> 提议把你的改动撤销。改策略的唯一入口是改 `.tf` 然后 `terraform apply`。
+>
+> `ecr-lifecycle-policy.json` 保留下来只是记录策略的来历和取舍理由
+> （下面「两条规则的取舍」那一节），**它已经不是任何东西的输入了**。
+> 和 `k8s/deployment.yaml` 被 chart 取代是同一种情况。
+
+⚠️ **先 preview，再改。过期是不可逆的。**
 
 ```bash
-# 1. 预览会删掉哪些（不实际删除）
+# 预览【当前生效的】策略会删掉哪些（只读，不实际删除）
+#
+# 注意 policy-text 是从 AWS 现拉的，不是 cat 那个 json 文件 ——
+# 那个文件现在可能和线上不一致，拿它 preview 等于在预览一个不存在的策略。
+POLICY=$(aws ecr get-lifecycle-policy --repository-name xiantang-blog \
+  --region ap-southeast-1 --query lifecyclePolicyText --output text)
+
 aws ecr start-lifecycle-policy-preview \
-  --repository-name xiantang-blog \
-  --lifecycle-policy-text "$(cat aws/ecr-lifecycle-policy.json)"
+  --repository-name xiantang-blog --region ap-southeast-1 \
+  --lifecycle-policy-text "$POLICY"
 
 # 稍等几秒，看结果
 aws ecr get-lifecycle-policy-preview \
-  --repository-name xiantang-blog \
+  --repository-name xiantang-blog --region ap-southeast-1 \
   --query 'previewResults[].{Tags:imageTags,Action:action.type}' --output table
-
-# 2. 确认无误后正式生效
-aws ecr put-lifecycle-policy \
-  --repository-name xiantang-blog \
-  --lifecycle-policy-text "$(cat aws/ecr-lifecycle-policy.json)"
 ```
+
+**想改策略**：改 `infra/blog/ecr.tf` 里的 `jsonencode({...})`，
+`terraform plan` 会给出结构化的 diff（只显示改动的那几行，不是整段字符串重写），
+确认后 `terraform apply`。
 
 查看当前生效的策略：
 
@@ -349,9 +371,12 @@ aws ecr get-lifecycle-policy --repository-name xiantang-blog \
 **没有定论之前不要改这条规则。** 要确认就跑 preview，它会列出具体 digest：
 
 ```bash
+# 同样从 AWS 现拉策略，不要 cat 那个 json（它已经不是线上的真相了）
+POLICY=$(aws ecr get-lifecycle-policy --repository-name xiantang-blog \
+  --region ap-southeast-1 --query lifecyclePolicyText --output text)
+
 aws ecr start-lifecycle-policy-preview --repository-name xiantang-blog \
-  --region ap-southeast-1 \
-  --lifecycle-policy-text "$(cat aws/ecr-lifecycle-policy.json)"
+  --region ap-southeast-1 --lifecycle-policy-text "$POLICY"
 
 aws ecr get-lifecycle-policy-preview --repository-name xiantang-blog \
   --region ap-southeast-1 \

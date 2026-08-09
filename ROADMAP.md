@@ -256,31 +256,61 @@ ALB Controller、EBS CSI)。
 
 ## 概念
 
-- [ ] Provider / Resource / Variable / Output
-- [ ] **State**(以及为什么要放 S3 + 加锁)
-- [ ] `plan` 和 `apply` 的关系,为什么永远先看 plan
-- [ ] Module
-- [ ] `import` 块(Terraform 1.5+),把已有资源纳管
+- [x] Provider / Resource / Variable / Output
+- [x] **State**(以及为什么要放 S3 + 加锁)
+      state 在 `xiantang-tfstate-20260809`,用 **S3 原生锁**(`use_lockfile`)
+      而不是 DynamoDB —— 后者在 Terraform 1.11 起已废弃。
+      存 state 的桶【故意】不归 Terraform 管(鸡生蛋),手动建的。
+- [x] `plan` 和 `apply` 的关系,为什么永远先看 plan
+      不加 `-out` 的 apply 会重新 plan 一次,所以看到的和执行的之间仍有缝隙。
+      CI 里的标准姿势是 `plan -out=tfplan` → 人审 → `apply tfplan`。
+- [x] Module —— **学了,但现在【不用】**
+      module 就是一个装 .tf 的目录,`variable` 是入参、`output` 是返回值。
+      只调用一次的东西抽成 module 是纯亏(多一层间接,改个字段要动三处)。
+      **同样的东西建第三遍时再抽**。第一个可能真需要的地方是 Phase 10 的 EKS。
+- [x] `import` 块(Terraform 1.5+),把已有资源纳管
+      `plan -generate-config-out=x.tf` 能读真实资源生成配置,把"猜字段"
+      变成"删多余的"。生成物要清掉 `tags_all`(只读属性,写了会报错)、
+      值为 `null` 的字段、和 provider 重复的 `region`。
 
 ## 建议的入门顺序 ← 别一上来就 import EC2
 
-1. [ ] **从零建一个无害资源**(比如 S3 bucket),跑通
+1. [x] **从零建一个无害资源**(比如 S3 bucket),跑通
        `init / plan / apply / destroy`,理解 state 是什么
-2. [ ] **纳管"删了也不心疼"的**:ECR 仓库、IAM Role
+       ← 2026-08-09 完成,`infra/playground/`
+2. [x] **纳管"删了也不心疼"的**:ECR 仓库、IAM Role ← 2026-08-09 完成
+       `infra/blog/ecr.tf`(仓库 + 生命周期策略)、`infra/blog/iam.tf`
+       (OIDC provider + Role + `ecr-push` 内联策略)。
+       **一课**:IAM 在 Terraform 里的结构不对称 —— 信任策略是 role 的一个
+       *字段*(`assume_role_policy`),而权限策略是*独立资源*
+       (`aws_iam_role_policy`)。而 ECR 那边仓库和生命周期策略都是独立资源。
+       所以"这个东西要不要单独 import"没法凭直觉判断,只能查文档。
 3. [ ] **最后才碰 EC2 / EBS / EIP**,只用 `import` 块,
        反复看 plan 直到显示 `No changes`。**看到任何 `destroy` 就停下**
 4. [ ] 加 Cloudflare provider 管 DNS 记录
+
+> 📌 **纪律补一条**:纳管存量资源时,plan 里出现 **`to add` 就是错的**。
+> 意图是 import,唯一正确的输出是 `to import`。
+>
+> 这条比"看到 destroy 就停"更容易漏,因为 `to add` 看起来人畜无害。
+> 但有些资源没有唯一性约束 —— `aws_instance` 的 "创建" 会真的**再开一台**,
+> 你以为在纳管,实际在复制,而且它不会被 `check-orphans.sh` 抓到
+> (它不是孤儿,它正被 Terraform 管着)。
+>
+> 2026-08-09 就踩了一次:收尾步骤(删 import 块)提前到 apply 之前做了,
+> plan 于是显示 `1 to add`。ECR 策略是幂等覆盖所以无害,换成 EC2 就是双倍账单。
 
 ## 要纳管的现有资源
 
 现在全是控制台点出来的,**没有任何记录**。EC2 挂了没法重建:
 
-- [ ] EC2 实例(AMI、机型、user_data)
+- [ ] EC2 实例(AMI、机型、user_data)  ← 🛑 最后做,单独找整块时间
 - [ ] 安全组规则
 - [ ] EBS 卷
 - [ ] Elastic IP
-- [ ] ECR 仓库
-- [ ] GitHub OIDC 的 IAM Role 和信任策略
+- [x] ECR 仓库 + 生命周期策略 ← 2026-08-09,`infra/blog/ecr.tf`
+- [x] GitHub OIDC 的 IAM Role 和信任策略 ← 2026-08-09,`infra/blog/iam.tf`
+      三个资源:OIDC provider、Role(信任策略是它的字段)、`ecr-push` 内联策略
 - [ ] Cloudflare DNS 记录
 
 > ⚠️ **不要用 Terraform 的 kubernetes provider 管 k8s 资源。**
