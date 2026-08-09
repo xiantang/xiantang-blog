@@ -22,7 +22,7 @@ image:
 # ⚠️ 开启前置条件：节点的 k3s-node Role 必须挂上
 #    arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
 ecr:
-  enabled: false
+  enabled: true
   region: ap-southeast-1
   registry: 521218410956.dkr.ecr.ap-southeast-1.amazonaws.com
   secretName: ecr-pull-secret
