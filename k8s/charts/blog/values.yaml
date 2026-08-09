@@ -3,7 +3,10 @@
 replicaCount: 2
 
 image:
-  repository: ghcr.io/xiantang/xiantang-blog
+  # 从 ECR 拉，凭据由 ecr-credentials.yaml 里的 CronJob 每 8 小时刷新。
+  # CI 仍然同时推 GHCR（ghcr.io/xiantang/xiantang-blog），两边 tag 一致，
+  # 所以把这行改回 GHCR 就能立刻回退 —— 保留双推是零成本的备份路径。
+  repository: 521218410956.dkr.ecr.ap-southeast-1.amazonaws.com/xiantang-blog
   # tag 留空 → 回退到 Chart.yaml 的 appVersion（一个不可变的 sha-<commit> tag）。
   # 发布新版本请改 Chart.yaml，不要在这里写死。
   #
