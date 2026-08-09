@@ -14,6 +14,10 @@ spec:
       labels:
         {{- include "blog.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.ecr.enabled }}
+      imagePullSecrets:
+        - name: {{ .Values.ecr.secretName }}
+      {{- end }}
       containers:
         - name: blog
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"

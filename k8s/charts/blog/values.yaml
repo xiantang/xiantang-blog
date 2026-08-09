@@ -13,6 +13,24 @@ image:
   # tag 不可变了，就没必要每次都回源确认，IfNotPresent 更快也更省流量
   pullPolicy: IfNotPresent
 
+# 从 ECR 拉镜像所需的凭据刷新。
+#
+# ECR 不是公开仓库，而且它的登录 token 只有 12 小时有效期 —— 所以需要一个
+# CronJob 定期重建 imagePullSecret（见 templates/ecr-credentials.yaml）。
+# GHCR 那边不需要这些，因为镜像是 public 的。
+#
+# ⚠️ 开启前置条件：节点的 k3s-node Role 必须挂上
+#    arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+ecr:
+  enabled: false
+  region: ap-southeast-1
+  registry: 521218410956.dkr.ecr.ap-southeast-1.amazonaws.com
+  secretName: ecr-pull-secret
+  # 这两个镜像自己是从公网拉的，不受 ECR 凭据影响 —— 否则会变成
+  # 「要先有凭据才能拉到刷新凭据的镜像」的死锁。
+  awsCliImage: amazon/aws-cli:2.31.35
+  kubectlImage: rancher/kubectl:v1.31.0
+
 service:
   type: ClusterIP
   port: 80
