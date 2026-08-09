@@ -275,6 +275,100 @@ sudo kubectl get deploy xiantang-blog -o yaml    # 集群里实际是什么
 `helm get values` 输出 `null` 才是干净状态。如果里面有东西，是之前某次
 `--set` 留下的，它的优先级高于 `values.yaml`，要用 `helm upgrade --reset-values` 清掉。
 
+## 镜像从哪来（ECR + 凭据自动刷新）
+
+集群拉的是 **ECR**，不是 GHCR：
+
+```
+521218410956.dkr.ecr.ap-southeast-1.amazonaws.com/xiantang-blog:sha-<commit>
+```
+
+CI 仍然**同时推 GHCR 和 ECR**，两边 tag 一致。所以把 `values.yaml` 的
+`image.repository` 改回 `ghcr.io/xiantang/xiantang-blog` 再 push，就是完整的回退。
+
+### 凭据链
+
+集群里**没有任何长期密钥**。整条链全是临时凭据：
+
+```
+EC2 实例挂着 k3s-node 这个 instance profile
+      ↓ IMDS 提供实例凭据（1 小时，自动续）
+CronJob xiantang-blog-ecr-refresher（每 8 小时）
+      ↓ aws ecr get-login-password
+写成 Secret ecr-pull-secret（docker-registry 类型）
+      ↓
+Deployment 的 imagePullSecrets → kubelet 拉镜像
+```
+
+模板在 `k8s/charts/blog/templates/ecr-credentials.yaml`，开关是
+`values.yaml` 里的 `ecr.enabled`。
+
+前置条件（一次性，不在 git 里）：
+
+```bash
+aws iam attach-role-policy --role-name k3s-node \
+  --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+```
+
+### 三个踩过的坑
+
+**1. ECR 的登录 token 只有 12 小时有效期。**
+所以不能建一次 imagePullSecret 就完事，必须定期重建 —— CronJob 存在的全部理由。
+（GHCR 不需要这些，因为镜像是 public 的，压根不用凭据。）
+刷新周期设成 8 小时是为了留 4 小时余量，一次失败不会立刻导致拉不到镜像。
+
+**2. Pod 访问 IMDS 会多一跳，默认被拦。**
+实例的 `HttpPutResponseHopLimit` 默认是 1，而 Pod 在容器网络里到 IMDS 多一跳，
+IMDSv2 的 PUT 请求会被丢弃，取不到凭据。
+
+解法是给这个 CronJob 开 `hostNetwork: true`（共享宿主机网络栈，没有额外跳数）。
+
+⚠️ **不要改成把 hop limit 调到 2** —— 那等于允许集群里**所有** Pod 读 IMDS，
+一个有 SSRF 的应用就能偷走节点的 AWS 凭据。Capital One 2019 年那次一亿多条
+数据泄露就是这个路径。只给一个可信的 CronJob 开 hostNetwork 是小得多的口子。
+
+**3. `rancher/kubectl` 没有 `/bin/sh`。**
+它是精简镜像，entrypoint 就是 kubectl 二进制。写
+`command: ["/bin/sh", "-c", ...]` 会失败在：
+
+```
+exec: "/bin/sh": stat /bin/sh: no such file or directory
+```
+
+⚠️ 这个报错**不是** `ImagePullBackOff` —— 镜像拉到了，是容器起不来。
+事件里会同时出现 `Container image ... already present on machine`，
+看到这行就说明问题不在拉取。distroless / scratch 基础镜像越来越常见，
+`/bin/sh` 不能想当然。
+
+绕开的办法：让带 shell 的 aws-cli initContainer 直接把完整的 Secret YAML
+生成到共享 volume，kubectl 容器只剩一条 `args: ["apply", "-f", ...]`，
+不需要 shell 也不需要管道。
+
+### 排查
+
+```bash
+k get cronjob xiantang-blog-ecr-refresher
+k get secret ecr-pull-secret                     # 类型该是 kubernetes.io/dockerconfigjson
+
+# 手动跑一次，不等 8 小时
+k delete job ecr-test --ignore-not-found
+k create job --from=cronjob/xiantang-blog-ecr-refresher ecr-test
+k logs job/ecr-test --all-containers
+```
+
+⚠️ `--from=cronjob` 复制的是**集群里当前的** CronJob 模板。改了 chart 之后
+要先确认 ArgoCD 同步完，否则测的还是旧版本。
+
+Pod 报错的对应关系：
+
+| 症状 | 原因 |
+|---|---|
+| `401` / `no basic auth credentials` | Secret 过期或 registry 地址不匹配 |
+| `denied` / `not authorized` | `k3s-node` Role 少了 ECR 读权限 |
+| initContainer 取不到凭据 | `hostNetwork` 没生效（见坑 2） |
+
+生命周期策略和 `latest` 标签的问题见 `aws/README.md`。
+
 ## 关于 blog.conf
 
 仓库里原来的 `blog.conf` 目前没有被任何地方引用，是历史遗留文件；
