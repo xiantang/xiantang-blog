@@ -17,4 +17,4 @@ version: 0.1.0
 # values.yaml 里 image.tag 留空，会回退到这里，所以发布时只改这一处。
 #
 # 引号是必须的：不加的话纯数字的版本会被 YAML 当成数字解析。
-appVersion: "sha-1d9076d603e15d46178e9db66843eceef4e7320c"
+appVersion: "sha-4d91dad0bc39fa38bea65aaa7930eca3a91c9fa6"
