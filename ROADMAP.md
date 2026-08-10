@@ -407,12 +407,61 @@ ALB Controller、EBS CSI)。
 
 # Phase 10 — Amazon EKS(可销毁的练习环境)
 
-- [ ] 用 Terraform 建 EKS 集群
-- [ ] Managed Node Group
-- [ ] kubeconfig
-- [ ] AWS VPC CNI / CoreDNS / kube-proxy
-- [ ] 把博客用**同一个 chart**部署上去(只覆盖 values)
-- [ ] **`terraform destroy` 并确认能重建**
+- [x] 用 Terraform 建 EKS 集群 ← 2026-08-10,`infra/eks/`(独立 state)
+- [x] Managed Node Group ← 1 × t3.small,`v1.35.6-eks`
+- [x] kubeconfig
+- [x] AWS VPC CNI / CoreDNS / kube-proxy
+- [x] 把博客用**同一个 chart**部署上去(只覆盖 values)
+      ← `k8s/values-eks.yaml`,`templates/` 一行没改
+- [x] **`terraform destroy` 并确认能重建** ← 建毁各跑过两轮
+
+## ⏱ 实测数字(2026-08-10)
+
+| 操作 | 耗时 |
+|---|---|
+| `terraform apply`(从零建 11 个资源) | **8m03s** |
+| `terraform destroy` | **3m44s** |
+| 完整一轮「建 → 用 → 毁」 | **≈ 12 分钟** |
+
+> **毁比建快一倍以上**,这个方向对纪律有利:退出成本低于进入成本,
+> 就不容易拖着不关。而 8 分钟这个数字直接决定了「练完就关」能不能执行 ——
+> 换成 40 分钟,人就会倾向于让它开着。
+
+## 📌 这一期学到的
+
+**① chart 的可移植性成立,而且代价比想象中小。**
+`helm template` 本地渲染对比(零成本,不需要集群):
+
+| | 资源数 |
+|---|---|
+| k3s 默认 values | 7(Deployment/Service/Ingress/CronJob/SA/Role/RoleBinding) |
+| `values-eks.yaml` | 2(Deployment/Service) |
+
+消失的 5 个里 4 个是 ECR 凭据机制。**chart 里最复杂的那个组件,
+在 EKS 上根本不是问题** —— k3s 需要 CronJob 每 8 小时重建
+imagePullSecret(ECR token 只有 12 小时有效期),而 EKS 优化版 AMI 的
+kubelet 自带 ECR credential provider,直接用节点 instance role 认证。
+那套机制不是 k8s 的通用需求,是 k3s 环境的补丁。
+
+**② 版本滑进 EXTENDED_SUPPORT,控制面费率翻 6 倍。**
+$0.10/小时 → $0.60/小时(约 $438/月),**费率自己涨,你什么都不用做**。
+原本随手写的默认版本 1.33 正好踩在扩展支持上,查表才发现。
+每次建集群前跑 `aws eks describe-cluster-versions`,选
+`STANDARD_SUPPORT` 里**不是最新**的那个(addon 兼容版本会滞后几周)。
+
+**③ pod 数上限由网卡数决定,不是内存。**
+VPC CNI 给每个 pod 分配 VPC 里的真实 IP,所以 t3.small ≈ 11 个 pod,
+系统组件占掉 5 个,只剩 6 个位置 —— 而它有 2GB 内存,跑几十个静态站
+绰绰有余。**先耗尽的是 IP 不是内存**,这在 k3s(flannel 覆盖网络)上
+永远不会遇到。
+
+**④ 两个 state 必须分开。**
+`terraform destroy` 是**目录级**的,没有「只销毁一部分」。`eks/` 和
+`blog/` 共用 state 的话,某次想清掉 EKS 会连博客一起端走。
+同一个 S3 bucket、不同的 key 就够了。
+
+**⑤ 省下的两笔:** 不建 NAT Gateway(-$33/月,也省掉一堆网络复杂度,
+节点放公有子网直接出网);不开控制面日志(CloudWatch 按量收费,练习用不上)。
 
 ## 💰 省钱的具体做法
 
