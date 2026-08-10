@@ -315,7 +315,31 @@ ALB Controller、EBS CSI)。
     > 通用做法:**删到最简,用 plan 验证,不够再加回来**。
     > Optional+Computed 的字段删掉不影响 plan,真实值仍在 state 里。
     > EC2 这次删了二十多个,一次就 `0 to add / 0 to change / 0 to destroy`。
-4. [ ] 加 Cloudflare provider 管 DNS 记录
+4. [x] 加 Cloudflare provider 管 DNS 记录 ← 2026-08-10,`infra/blog/dns.tf`
+       14 条记录。**纳管线路到此收官**,state 里 AWS 12 个 + Cloudflare 14 个。
+
+    > **这一步的价值不在"记录现状",在跨 provider 引用**:
+    >
+    > ```hcl
+    > content = aws_eip.k3s.public_ip   # k8s / argocd 的 A 记录
+    > ```
+    >
+    > 两朵云进同一个 state 之后,EIP 和 DNS 在代码层面绑定,换 IP 不会漏改。
+    > 这是前面几步(各自记录现状)拿不到的东西。
+    >
+    > **凭据**:provider 块故意留空,token 走 `CLOUDFLARE_API_TOKEN` 环境变量。
+    > 和集群里 cert-manager 那个是两个独立 token(权限都是 `Zone:DNS:Edit`
+    > 限定 vim0.com),分开隔离爆炸半径。token **不进 state** ——
+    > provider 配置不持久化,state 里只有记录本身。
+    > ⚠️ 环境变量只活在当前 shell,换个终端跑 plan 会认证失败,那不是配置坏了。
+    >
+    > **三个踩到的点**:
+    > ① provider v5 是大改写(`cloudflare_record` → `cloudflare_dns_record`、
+    > `value` → `content`),网上多数示例还是 v4 写法;
+    > ② TXT 内容自带引号(SPF / DKIM 要转义),但 google 验证那条没有 ——
+    > 不是笔误,是 Cloudflare 存的就不一样;
+    > ③ MX 的 `priority` 是独有的必填字段,查记录时漏了不会报错,
+    > 但猜错会悄悄改变邮件路由。
 
 > 📌 **纪律补一条**:纳管存量资源时,plan 里出现 **`to add` 就是错的**。
 > 意图是 import,唯一正确的输出是 `to import`。
@@ -362,7 +386,15 @@ ALB Controller、EBS CSI)。
 - [x] ECR 仓库 + 生命周期策略 ← 2026-08-09,`infra/blog/ecr.tf`
 - [x] GitHub OIDC 的 IAM Role 和信任策略 ← 2026-08-09,`infra/blog/iam.tf`
       三个资源:OIDC provider、Role(信任策略是它的字段)、`ecr-push` 内联策略
-- [ ] Cloudflare DNS 记录
+- [x] Cloudflare DNS 记录 ← 2026-08-10,`infra/blog/dns.tf`,14 条。
+      **故意留在外面的两类,这个判断比纳管本身更值得记**:
+      - `_acme-challenge.{k8s,argocd}.vim0.com` TXT ×2 ——
+        cert-manager 在 DNS-01 校验时自建自删。记录长在 Cloudflare,
+        但**所有者是集群**。写进来会变成拉锯战:cert-manager 删掉 →
+        plan 要求重建 → 续期时又被改内容。
+        对应下面那条边界:云资源归 Terraform,集群的东西归集群。
+      - `my` / `inve` / `zjd` / 四条 ACM 验证 CNAME —— 属于别的项目。
+        这个 state 的边界是「博客 + k3s」,混进来就说不清它管的是什么了。
 
 > ⚠️ **不要用 Terraform 的 kubernetes provider 管 k8s 资源。**
 > 那会和 Argo CD 打架,而且 Terraform 的 state 模型不适合调谐型资源。
