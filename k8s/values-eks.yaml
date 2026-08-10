@@ -1,0 +1,59 @@
+# EKS 练习环境的 values 覆盖（ROADMAP Phase 10）。
+#
+# 用法：
+#   helm upgrade --install blog ./k8s/charts/blog -f ./k8s/values-eks.yaml
+#
+# 这个文件存在的意义是验证一件事：**同一个 chart 能不能在 k3s 和 EKS 上都跑**。
+# 结论是能 —— templates/ 一行都不用改，三处差异全部靠 values 覆盖掉。
+# 下面每一条都记了「为什么 k3s 上需要、EKS 上不需要」，那才是有信息量的部分。
+
+# ── ① ECR 拉取凭据：EKS 上完全不需要 ──────────────────────────────────
+#
+# k3s 那边有一整套机制：一个 CronJob 每 8 小时跑 `aws ecr get-login-password`
+# 重建 imagePullSecret（见 templates/ecr-credentials.yaml），因为 ECR 的登录
+# token 只有 12 小时有效期。
+#
+# EKS 上这套东西是多余的：EKS 优化版 AMI 里的 kubelet 自带 ECR credential
+# provider，它直接用节点 instance role 的身份去认证。节点 role 上挂着
+# AmazonEC2ContainerRegistryReadOnly（见 infra/eks/nodegroup.tf），拉取就直接成了。
+#
+# 👉 这是这次移植里最值得记的一条：**chart 里最复杂的那个组件，在 EKS 上
+#    是不存在的问题**。它不是 k8s 的通用需求，是 k3s 环境的补丁。
+ecr:
+  enabled: false
+
+# ── ② Ingress：EKS 上根本没有 ingress controller ─────────────────────
+#
+# k3s 自带 Traefik，所以 className: traefik + cert-manager 注解直接可用。
+# 裸 EKS 什么都没有 —— 没有 ingress controller，也没有 cert-manager。
+#
+# 要在 EKS 上做 ingress 得先装 AWS Load Balancer Controller（ROADMAP Phase 11），
+# 那时用 ALB + ACM 证书，和 Traefik + cert-manager 是完全不同的一套。
+# 练习阶段先关掉，用 port-forward 验证部署本身是否正确。
+ingress:
+  enabled: false
+
+# ── ③ Service 类型 ───────────────────────────────────────────────────
+#
+# 保持 ClusterIP，用 port-forward 访问：
+#   kubectl port-forward svc/blog 8080:80
+#   curl localhost:8080
+#
+# 💰 也可以改成 type: LoadBalancer，AWS 会自动建一个 NLB 给你真实的公网地址。
+#    但有两个代价，练习阶段不划算：
+#      1. 约 $0.022/小时，比整个 t3.small 节点还贵
+#      2. ⚠️ 那个 NLB【不在 Terraform state 里】—— 是 k8s 的 cloud controller
+#         建的。忘了先 `kubectl delete svc` 就 `terraform destroy`，VPC 里会
+#         留着 ENI 拆不掉，控制面删除卡住十几分钟甚至失败。
+#         这是 EKS destroy 卡住的头号原因。
+service:
+  type: ClusterIP
+  port: 80
+
+# ── 其余保持 chart 默认 ──────────────────────────────────────────────
+#
+# replicaCount: 2 在 t3.small 上没问题 —— pod 上限约 11 个，
+# 系统组件占掉 5 个，剩 6 个位置。注意这个上限由网卡数决定，不是内存。
+#
+# image / resources / probePath 全部沿用默认，镜像也是同一个 ECR 仓库、
+# 同一个 sha- tag。**k3s 和 EKS 跑的是同一份二进制**，这正是要验证的东西。
