@@ -285,11 +285,36 @@ ALB Controller、EBS CSI)。
        *字段*(`assume_role_policy`),而权限策略是*独立资源*
        (`aws_iam_role_policy`)。而 ECR 那边仓库和生命周期策略都是独立资源。
        所以"这个东西要不要单独 import"没法凭直觉判断,只能查文档。
-3. [ ] **最后才碰 EC2 / EBS / EIP**,只用 `import` 块,
+3. [x] **最后才碰 EC2 / EBS / EIP**,只用 `import` 块,
        反复看 plan 直到显示 `No changes`。**看到任何 `destroy` 就停下**
+       ← 2026-08-10 全部完成
     1. [x] EIP ← 2026-08-09
-    2. [ ] EBS ← 待判断:根卷则跳过,跟 EC2 一起进来(见下方清单)
+    2. [x] EBS ← 2026-08-09 判定不适用:是根卷,跟 EC2 一起进来(见下方清单)
     3. [x] 安全组 ← 2026-08-09
+    4. [x] EC2 ← 2026-08-10,`infra/blog/ec2.tf`。带
+           `lifecycle { prevent_destroy = true }`,
+           让任何会销毁它的 plan 在 **plan 阶段就报错**,而不是等 apply 问 yes/no。
+           这台机器挂了没法重建,根卷又是 DeleteOnTermination=true。
+
+    > **这一步最值钱的两课**,都关于 `-generate-config-out`:
+    >
+    > **① 它会吐出互斥字段。** 它是从 state 反推的,不管 schema 的
+    > `ConflictsWith`。EIP 碰到一对(`instance` / `network_interface`),
+    > EC2 碰到三对,严重到直接让生成失败:
+    > `primary_network_interface` ↔ `associate_public_ip_address`、
+    > `ipv6_address_count` ↔ `ipv6_addresses`。
+    > **这是工具的固有行为,不是偶发**,下次直接预期它。
+    >
+    > **② 有一类冲突 `validate` 抓不到。** `security_groups`(按名字)和
+    > `vpc_security_group_ids`(按 ID)是同一件事的两种写法,schema 层面
+    > 没标 `ConflictsWith`,所以 `validate` 通过、生成器照吐不误 ——
+    > 但两个同时写会让**每次 plan 都想改**,而它的变更是 ForceNew。
+    > 照抄下去就是「几周后某次 plan 突然要重建你的 k3s」。
+    > 前者是 EC2-Classic 时代的遗留,在 VPC 里只该用后者。
+    >
+    > 通用做法:**删到最简,用 plan 验证,不够再加回来**。
+    > Optional+Computed 的字段删掉不影响 plan,真实值仍在 state 里。
+    > EC2 这次删了二十多个,一次就 `0 to add / 0 to change / 0 to destroy`。
 4. [ ] 加 Cloudflare provider 管 DNS 记录
 
 > 📌 **纪律补一条**:纳管存量资源时,plan 里出现 **`to add` 就是错的**。
@@ -307,18 +332,27 @@ ALB Controller、EBS CSI)。
 
 现在全是控制台点出来的,**没有任何记录**。EC2 挂了没法重建:
 
-- [ ] EC2 实例(AMI、机型、user_data)  ← 🛑 最后做,单独找整块时间
+- [x] EC2 实例(AMI、机型)← 2026-08-10,`infra/blog/ec2.tf`
+      `i-0ce7898e977b18717`,c7i-flex.large,ap-southeast-1a。
+      ⚠️ **`user_data` 故意没纳管**。它是 ForceNew,而 import 后 state 里
+      存的是哈希,配置里写的值只要对不上就触发重建 —— 重建 = k3s 连同根卷
+      一起消失。不写则 Terraform 不管它,plan 才干净。
+      想纳管它是另一件需要小心的事,不要顺手做。
 - [x] 安全组规则 ← 2026-08-09,`infra/blog/security-group.tf`
       资源此前已在 state 里,只是 `.tf` 一直没进版本库。
       **一课**:`ingress = [...]` 这种属性式写法(generate-config-out 的默认产物)
       把整组规则变成一个原子值,加一条规则时 plan 显示的是整个 list 被替换。
       后续该拆成独立的 `aws_vpc_security_group_ingress_rule`。
       ⚠️ `name` 和 `description` 是 ForceNew,改动 = 销毁重建。
-- [ ] EBS 卷 ← 先判断是不是根卷。**是根卷就不该单独 import**:
-      它会同时被 `aws_instance` 的 `root_block_device` 描述,两个资源管一块盘,
+- [x] EBS 卷 ← 2026-08-09 判定为**不适用**,不单独纳管。
+      `vol-0951edfb52473db5b`,30GB gp3,挂在 `/dev/sda1` 上 = 根卷。
+      根卷会作为 `aws_instance` 的 `root_block_device` 块跟着实例一起进来;
+      单独 import 成 `aws_ebs_volume` 会让同一块盘被两个资源描述,
       plan 反复横跳,最坏情况是删实例时把卷从 `aws_ebs_volume` 脚下抽走。
-      判断命令:`aws ec2 describe-volumes` 看 `Attachments[0].Device`,
-      `/dev/xvda` 或 `/dev/sda1` = 根卷。
+      ⚠️ 它的 `DeleteOnTermination` 是 `true`(根卷的默认值),
+      实例一旦 terminate,k3s 的全部状态(etcd、PV、镜像)当场消失。
+      **注意这和数据卷的默认值方向相反**(数据卷默认 `false`,所以才会变孤儿),
+      这一对很容易记反 —— 见本文件"孤儿资源"一节和 `aws/README.md`。
 - [x] Elastic IP ← 2026-08-09,`infra/blog/eip.tf`
       **一课**:`instance` 和 `network_interface` 是同一绑定关系的两种写法、
       schema 里互斥,但 `-generate-config-out` 从 state 反推时不管这个约束,
