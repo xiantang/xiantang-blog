@@ -476,18 +476,87 @@ VPC CNI 给每个 pod 分配 VPC 里的真实 IP,所以 t3.small ≈ 11 个 pod,
 
 # Phase 11 — AWS Controllers
 
-- [ ] AWS Load Balancer Controller(ALB 集成)
+- [x] AWS Load Balancer Controller(ALB 集成)← 2026-08-11
+      AWS 侧 `infra/eks/alb-controller.tf`(IRSA + 官方 IAM 策略 + 子网标签),
+      controller 用 Helm 装(边界:云资源归 Terraform,集群里的归 Helm),
+      Ingress 配置 `k8s/values-eks-alb.yaml`。
+      验收:Ingress → ALB 自动创建 → `curl -H "Host: ..."` 拿到 HTML。
 - [ ] EBS CSI Driver(动态卷供给)← 顺带补上 Phase 2 欠的 PV/PVC
+
+## 📌 这一期的四个坑
+
+**① `vpcId` / `region` 必须显式传给 controller,否则启动即崩。**
+不传它会去 IMDS 自动发现,而托管节点组的 `HttpPutResponseHopLimit`
+默认是 **1** —— pod 里的包多走一跳(pod netns → 宿主机)就把 TTL 耗尽,
+报 `ec2imds GetMetadata, context deadline exceeded`。
+
+hop limit=1 是**故意的安全设计**:节点 instance role 的凭据挂在 IMDS 上,
+任何 pod 能读 IMDS 就等于能拿节点权限(和 `blog/ec2.tf` 里 IMDSv2 那段
+注释是同一件事)。**修法不是放宽 hop limit**,而是让 controller 不必去问 ——
+它用 IRSA 拿凭据,本来就不需要 IMDS。
+
+> 三个设计单看都对,凑一起就是启动即崩。而错误信息只说
+> `context deadline exceeded`,完全没提「权限」或「安全策略」,看起来像
+> 网络不通。**防护生效了但报错像故障**,是云上排障最费时间的一类。
+
+**② 复用默认 VPC 就要自己给子网打标。**
+标准教程里子网是 Terraform 自建的顺手打了标签。没有
+`kubernetes.io/role/elb=1` 的话 Ingress 一直没有 ADDRESS,
+日志报 `unable to discover at least one subnet`。
+
+**③ `target-type` 和 Service 类型是绑死的。**
+`ip` → ALB 直接打到 pod IP,Service 用 ClusterIP;
+`instance` → 打到 NodePort,Service 必须是 NodePort。
+写错的表现是 ALB 建出来了但 target group 一直不健康。
+
+选 `ip` 能成立,是因为 VPC CNI 给 pod 分配了 VPC 真实 IP,ALB 在同一个
+VPC 里直接路由得到 —— 目标组里注册的确实是两个 pod IP,不是节点 IP。
+**k3s 的覆盖网络做不到这点**,只能走 NodePort 多一跳。
+代价就是 Phase 10 记的那条:pod 数被网卡数卡在 11 个。
+
+**④ Helm 对 map 是深度合并不是替换。**
+base `values.yaml` 里的 `cert-manager.io/cluster-issuer` 注解会漏进
+EKS 的 Ingress。要显式写 `cert-manager.io/cluster-issuer: null` 才删得掉。
+不删功能上无害(没装 cert-manager),但这类**继承下来的僵尸配置**
+是多环境 values 最容易积累的脏东西。
+
+> ⚠️ **ALB 不在 Terraform state 里**(是 controller 通过 AWS API 建的)。
+> 销毁顺序必须是:`kubectl delete ingress` / `helm uninstall blog`
+> → 确认 `describe-load-balancers` 返回 0 → 卸 controller
+> → `terraform destroy`。顺序反了 ENI 拆不掉,控制面删除卡死。
 
 ---
 
 # Phase 12 — IRSA
 
-- [ ] ServiceAccount / IAM Role / OIDC / STS
-- [ ] Pod 安全地访问 AWS 服务
+- [x] ServiceAccount / IAM Role / OIDC / STS ← 2026-08-11,**被 Phase 11 提前带出来了**
+- [x] Pod 安全地访问 AWS 服务 ← ALB Controller 就是第一个例子
 
 > 和 Phase 4 里 GitHub Actions 的 OIDC 是**同一套机制**的不同应用:
 > 用短期凭据换掉长期 AK/SK。对比着看会很快。
+>
+> **确实很快 —— 做 ALB Controller 时顺手就做完了**,因为 controller 必须
+> 有 AWS 权限,而给 pod 权限只有三条路:
+>
+> | 方式 | 问题 |
+> |---|---|
+> | 塞 AK/SK 进 Secret | 长期凭据,泄漏就完蛋 |
+> | 用节点的 instance role | 节点上**所有** pod 共享同样权限,没有隔离 |
+> | **IRSA** | ServiceAccount ↔ IAM Role 绑定,只有这个 pod 有权限 |
+>
+> 三件套和 `blog/iam.tf` 一模一样,区别只在签发方:
+> 那边是 `token.actions.githubusercontent.com`,这边是集群自己的
+> OIDC issuer(`data.tls_certificate` 算指纹,不硬编码)。
+>
+> ⚠️ **第一号故障**:信任策略里的 `sub` 必须和 helm 装出来的
+> ServiceAccount 完全一致 ——
+> `system:serviceaccount:kube-system:aws-load-balancer-controller`。
+> 对不上的报错是 `WebIdentityErr`,而且它**出现得比较晚**:要等 controller
+> 真正开始调 AWS API 才暴露,启动阶段的崩溃(见 Phase 11 坑①)是另一回事。
+>
+> 补一句:AWS 后来出了 **EKS Pod Identity**,不用建 OIDC provider,比 IRSA
+> 简单。这里选 IRSA 是为了和 Phase 4 对照 —— 理解了 IRSA 再看 Pod Identity
+> 只是省了几步。
 
 ---
 

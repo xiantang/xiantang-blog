@@ -1,0 +1,55 @@
+# 在 values-eks.yaml 之上再叠一层：把 Ingress 打开，走 ALB。
+#
+# 用法（顺序有意义，后面的覆盖前面的）：
+#   helm upgrade --install blog ./k8s/charts/blog \
+#     -f ./k8s/values-eks.yaml \
+#     -f ./k8s/values-eks-alb.yaml
+#
+# 拆成两个文件而不是一个：values-eks.yaml 是「能在 EKS 上跑起来」的最小集，
+# 不花额外的钱；这一层是「暴露到公网」，会真的建一个 ALB。
+# 💰 ALB ~$0.0225/小时，比整个 t3.small 节点还贵 —— 所以默认不叠这层。
+
+ingress:
+  enabled: true
+
+  # 由 ALB Controller 创建的 IngressClass，和 k3s 上的 traefik 对应。
+  className: alb
+
+  # ⚠️ 这个域名【没有真实 DNS 记录】。
+  #    Ingress 模板里 host 是必填的，而给练习环境建 DNS 记录不值当
+  #    （ALB 的地址每次重建都会变）。验证时用 Host 头骗它：
+  #      curl -H "Host: eks.vim0.com" http://<ALB-DNS>/
+  #    这样既验证了 ALB 的路由规则，又不用碰 Cloudflare。
+  host: eks.vim0.com
+
+  annotations:
+    # ⚠️ Helm 对 map 是【深度合并】不是替换，所以 base values.yaml 里的
+    #    cert-manager 注解会漏过来。显式设成 null 才能删掉它。
+    #    不删的话功能上无害（集群里没有 cert-manager），但将来真装了，
+    #    它会去签一张永远签不成的证书 —— 这类「继承下来的僵尸配置」
+    #    是多环境 values 最容易积累的脏东西。
+    cert-manager.io/cluster-issuer: null
+
+    # 面向公网。internal 的话建在私有子网、只有 VPC 内能访问。
+    alb.ingress.kubernetes.io/scheme: internet-facing
+
+    # ⚠️ 这一条和 service.type 是绑死的：
+    #      target-type: ip       → ALB 直接把流量打到 pod IP，
+    #                              Service 用 ClusterIP 就行
+    #      target-type: instance → ALB 打到节点的 NodePort，
+    #                              Service 必须是 NodePort
+    #    values-eks.yaml 里是 ClusterIP，所以这里必须是 ip。
+    #    写错的表现是 ALB 建出来了但 target group 一直不健康。
+    #
+    #    ip 模式能用是因为 VPC CNI 给每个 pod 分配了 VPC 里的真实 IP ——
+    #    ALB 本来就在同一个 VPC 里，直接路由得到。k3s 的覆盖网络做不到这点。
+    alb.ingress.kubernetes.io/target-type: ip
+
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /
+
+  # 关掉 TLS：这里没有 cert-manager。
+  # ALB 上做 HTTPS 是另一条路 —— 用 ACM 证书 + certificate-arn 注解，
+  # 和 k3s 上 cert-manager 签发 Secret 完全不同的机制（ROADMAP Phase 13）。
+  tls:
+    enabled: false
