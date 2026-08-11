@@ -111,6 +111,19 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          # 关掉 buildx 默认生成的 provenance 证明（SLSA attestation）。
+          #
+          # 为什么：多架构构建下，每个 sha- 标签是一个 manifest index，
+          # 它指向的子清单本来该是 2 个（amd64 + arm64），但 provenance
+          # 会给每个平台再加一个 attestation 清单，变成 4 个。
+          # 2026-08-09 在 ECR 里实测：18 个索引 → 72 个 untagged 子清单，
+          # 正好 4 倍。关掉之后是 2 倍。
+          #
+          # 代价：失去构建来源的可验证记录。对有下游消费者、需要证明
+          # 「这个镜像确实由这份源码在这条流水线上构建」的项目，这东西
+          # 有意义。这个仓库的镜像只有自己的集群在拉，没有任何东西会去
+          # 校验它 —— 纯粹是存储和认知负担。
+          provenance: false
 
       # 镜像推成功之后，把 Chart.yaml 的 appVersion 指向这次构建出的 tag。
       # ArgoCD 轮询到这个 commit 就会自动滚动更新，整个发布不需要人工介入。
