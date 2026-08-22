@@ -1,0 +1,52 @@
+# ArgoCD Application:把面试流程看板同步到集群。
+#
+# 这是唯一留在 blog 仓库里的 jobhunt 相关文件 —— 因为 root-application
+# 只监管 k8s/argocd/ 这个目录，新应用必须在这里露个头才能被发现。
+# chart 本体和源码都在 https://github.com/xiantang/jobhunt-board。
+#
+# 和 blog 那个 Application 的区别：
+#   - 目标 namespace 是 jobhunt 而不是 default（有状态应用，单独隔开）
+#   - 源仓库是另一个仓库（公开，所以不需要配任何凭据）
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  # ⚠️ 名字必须是 jobhunt。ArgoCD 默认拿 Application 名当 Helm release 名，
+  #    而 chart 的资源名跟随 release 名（见 _helpers.tpl 的 jobhunt.fullname）。
+  #    改了名字，Ingress 上那条 middleware 注解里拼出来的
+  #    <ns>-<name>-basicauth@kubernetescrd 会指向一个不存在的中间件 ——
+  #    Traefik 找不到中间件时【不报错也不拦截】,看板直接裸奔。
+  name: jobhunt
+  # Application 必须建在 ArgoCD 自己的 namespace 里
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/xiantang/jobhunt-board.git
+    # 仓库是公开的，所以用 HTTPS 且不需要凭据。私有的话这里还得配 deploy key。
+    targetRevision: master
+    path: k8s/charts/jobhunt
+
+    helm:
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: jobhunt
+
+  syncPolicy:
+    automated:
+      # git 里删掉的资源集群里也删。PVC 例外 —— 它上面有
+      # argocd.argoproj.io/sync-options: Prune=false,数据不会被自动化带走。
+      prune: true
+      # 集群被手动改了(kubectl edit / scale)自动改回 git 的状态
+      selfHeal: true
+
+    syncOptions:
+      # jobhunt namespace 还不存在，让 ArgoCD 建
+      - CreateNamespace=true
+
+  # 注意：开了自动同步不等于「push 就上线」。
+  # 发布闸口在 Chart.yaml 的 appVersion,只有 CI 推完镜像回填了它，
+  # 渲染结果才会变，ArgoCD 才会部署。
