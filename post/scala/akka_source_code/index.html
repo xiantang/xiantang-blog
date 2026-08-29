@@ -37,6 +37,7 @@
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="Akka 源码解析" />
@@ -271,19 +272,44 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi6sifoj312k06878y.jpg" alt="image-20200109114040999"></p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi7d0o9j30t40f2tho.jpg" alt="image-20200109131215939"></p>
+</div><p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi6sifoj312k06878y.jpg"
+     alt="image-20200109114040999"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi7d0o9j30t40f2tho.jpg"
+     alt="image-20200109131215939"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>addValue 中有个比较重要的方法，就是从 <code>subkeys</code> 也就是 subscribe 中到找对应的类。</p>
 <p>可以将 <code>subkeys</code> 想象为一个多叉树中的一个节点，节点的 key 为订阅源类型，value 为所对应的订阅者 Actor</p>
 <p>然后这个节点也有自己的 <code>subkeys</code> 这些 subkeys 为的 key 为上层类型的子类，同时订阅者是与是上层订阅者的拓展</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi7rh9jj30ss0g0wit.jpg" alt="image-20200109140449787"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi7rh9jj30ss0g0wit.jpg"
+     alt="image-20200109140449787"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>对于重复的订阅，他会做一次去重，类似于 arc diff</p>
 <p>对于 <code> system.eventStream.subscribe(jazzListener, classOf[Jazz])</code></p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi88df2j311m05gadr.jpg" alt="image-20200109120145086"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi88df2j311m05gadr.jpg"
+     alt="image-20200109120145086"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>会产生一个这样的 diff 然后加入到 cache 中</p>
 <p>cache 的数据结构是一个 <code>private var cache = Map.empty[Classifier, Set[Subscriber]]</code> Map 分别是订阅源和订阅者</p>
 <p>对于 <code>system.eventStream.subscribe(musicListener, classOf[AllKindsOfMusic]) </code></p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi8ptj5j31j804kjuu.jpg" alt="image-20200109120406852"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi8ptj5j31j804kjuu.jpg"
+     alt="image-20200109120406852"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <h2 id="publish-逻辑">publish 逻辑</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -420,7 +446,12 @@
 </div>
 </div><p>将 message 包装为信封，调用 Cell 的 sendMessage 方法</p>
 <p>是因为 Cell 实现了</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi95pdbj31kc09utcl.jpg" alt="image-20200109195143660"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gaxdi95pdbj31kc09utcl.jpg"
+     alt="image-20200109195143660"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>Dispatch 特质</p>
 <p>其实是执行的 Dispatch 特质中的 sendMessage 方法</p>
 <div class="highlight"><div class="chroma">
@@ -784,6 +815,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

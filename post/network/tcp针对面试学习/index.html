@@ -37,6 +37,7 @@
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="TCP 针对面试学习" />
@@ -250,7 +251,12 @@
 <p>也就是下面的问题如果建立一个虚拟的链路采用三次握手。</p>
 <h3 id="三次挥手是怎么发生的">三次挥手是怎么发生的</h3>
 <h3 id="详细操作">详细操作</h3>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c4z6xrj30wn0u0tal.jpg" alt="image-20200331164958404"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c4z6xrj30wn0u0tal.jpg"
+     alt="image-20200331164958404"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>从码出高效扒了一张图下来，我们来讲一下三次握手的流程：</p>
 <ul>
 <li>A 机器首先会计算出一个 seq 索引 x 表示当前发送的数据包的位置并且包的标示为 SYN。</li>
@@ -268,11 +274,21 @@
 <li>
 <p>确保彼此的接受和发送能力</p>
 <p>第三次握手能保证 B 机器的发报能力，以及 A 机器的接受能力</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c5z93tj316y0d6ju3.jpg" alt="image-20200331170448728"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c5z93tj316y0d6ju3.jpg"
+     alt="image-20200331170448728"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 </li>
 </ol>
 <h4 id="防止脏连接">防止脏连接</h4>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c5ma90j30u00yidiz.jpg" alt="image-20200331171058004"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c5ma90j30u00yidiz.jpg"
+     alt="image-20200331171058004"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>A 机器发送一个 SYN 包给 B 机器但是这个包被因为网络原因没有及时发到，又由于 TCP 的超时时间小于 TTL 因为如果 TCP 的超时间太长，那么重发封包的效率会很慢。</p>
 <p>所以 A 机器又会发送一个 TCP，并且建立了连接，此时这个包已经到了 B 机器。</p>
 <p>B 机器重新建立了连接，返回一个 ACK 给 A 机器。</p>
@@ -280,7 +296,12 @@
 <p>三次握手的话，B 需要有一次 A 的 ACK 确保自己的发送能力，同时也避免了脏连接，A 不会发送 ACK 给 B 所以 B 的视角也不会存在连接。</p>
 <h3 id="四次挥手是如何发生的">四次挥手是如何发生的</h3>
 <h3 id="详细操作-1">详细操作</h3>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c6fwquj30v90u0di1.jpg" alt="image-20200331174147939"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c6fwquj30v90u0di1.jpg"
+     alt="image-20200331174147939"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>确保双方的数据都处理完成。</p>
 <ul>
 <li>A 发送剩余数据已经 FIN 给 B 处于 FIN_WAIT</li>
@@ -459,6 +480,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

@@ -38,6 +38,7 @@ That is, the following question is how to establish a virtual link using a three
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="TCP Study for Interviews" />
@@ -254,7 +255,12 @@ That is, the following question is how to establish a virtual link using a three
 <p>That is, the following question is how to establish a virtual link using a three-way handshake.</p>
 <h3 id="how-does-the-three-way-handshake-happen">How does the three-way handshake happen</h3>
 <h3 id="detailed-operation">Detailed operation</h3>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c4z6xrj30wn0u0tal.jpg" alt="image-20200331164958404"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c4z6xrj30wn0u0tal.jpg"
+     alt="image-20200331164958404"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>I took a picture from the high-efficiency code, let&rsquo;s talk about the process of the three-way handshake:</p>
 <ul>
 <li>Machine A first calculates a seq index x to indicate the position of the current data packet and the packet is marked as SYN.</li>
@@ -272,11 +278,21 @@ That is, the following question is how to establish a virtual link using a three
 <li>
 <p>Ensure each other&rsquo;s reception and transmission capabilities</p>
 <p>The third handshake can guarantee the reporting ability of machine B and the receiving ability of machine A</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c5z93tj316y0d6ju3.jpg" alt="image-20200331170448728"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c5z93tj316y0d6ju3.jpg"
+     alt="image-20200331170448728"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 </li>
 </ol>
 <h4 id="preventing-dirty-connections">Preventing Dirty Connections</h4>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c5ma90j30u00yidiz.jpg" alt="image-20200331171058004"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c5ma90j30u00yidiz.jpg"
+     alt="image-20200331171058004"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>Machine A sends a SYN packet to Machine B, but this packet is not sent in time due to network reasons, and because the TCP timeout is less than TTL, if the TCP timeout is too long, the efficiency of resending packets will be slow.</p>
 <p>So Machine A will send another TCP and establish a connection, at this time this packet has arrived at Machine B.</p>
 <p>Machine B re-establishes the connection and returns an ACK to Machine A.</p>
@@ -284,7 +300,12 @@ That is, the following question is how to establish a virtual link using a three
 <p>In the case of three handshakes, Machine B needs an ACK from Machine A to ensure its own sending ability and also avoid dirty connections. Machine A will not send ACK to Machine B, so from Machine B&rsquo;s perspective, there will be no connection.</p>
 <h3 id="how-does-the-four-way-handshake-occur">How does the four-way handshake occur</h3>
 <h3 id="detailed-operation-1">Detailed Operation</h3>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c6fwquj30v90u0di1.jpg" alt="image-20200331174147939"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gde7c6fwquj30v90u0di1.jpg"
+     alt="image-20200331174147939"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>Ensure that both parties have completed data processing.</p>
 <ul>
 <li>Machine A sends remaining data and FIN to Machine B and is in FIN_WAIT</li>
@@ -463,6 +484,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

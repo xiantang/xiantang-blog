@@ -37,6 +37,7 @@
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="2025 Year-End Summary: Noise Reduction, Refactoring, and Long-termism" />
@@ -44,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vim0.com/en/post/2025_recap/" /><meta property="og:image" content="https://vim0.com/post/main_cover.png"/><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2025-12-28T15:31:25+08:00" />
-<meta property="article:modified_time" content="2026-03-05T23:04:59+08:00" /><meta property="og:site_name" content="xiantang - Self-discipline set me free." />
+<meta property="article:modified_time" content="2026-08-29T16:28:57+08:00" /><meta property="og:site_name" content="xiantang - Self-discipline set me free." />
 
 <meta itemprop="name" content="2025 Year-End Summary: Noise Reduction, Refactoring, and Long-termism">
 <meta itemprop="description" content="A record of life in Singapore, travel experiences (Malaysia, Taiwan, Korea, Vietnam), work insights, fitness plans, technical learning (AWS CLF certification), game reviews, electronic product recommendations, and future outlook."><meta itemprop="datePublished" content="2025-12-28T15:31:25+08:00" />
-<meta itemprop="dateModified" content="2026-03-05T23:04:59+08:00" />
-<meta itemprop="wordCount" content="2095"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
+<meta itemprop="dateModified" content="2026-08-29T16:28:57+08:00" />
+<meta itemprop="wordCount" content="2097"><meta itemprop="image" content="https://vim0.com/post/main_cover.png"/>
 <meta itemprop="keywords" content="Year-End Summary," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vim0.com/post/main_cover.png"/>
 
@@ -188,7 +189,7 @@
       <div class="post-meta">
         <span class="post-time"> 2025-12-28 </span>
         
-          <span class="more-meta"> 2095 words </span>
+          <span class="more-meta"> 2097 words </span>
           <span class="more-meta"> 10 mins read </span>
         
       </div>
@@ -211,11 +212,6 @@
 </nav>
   </div>
 </div>
-  <div class="post-outdated">
-    <div class="hint">
-      <p>[NOTE] Updated <span class="timeago" datetime="2026-03-05T23:04:59" title="March 5, 2026">March 5, 2026</span>. This article may have outdated content or subject matter.</p>
-    </div>
-  </div>
     <div class="post-content">
       <h1 id="2025-year-end-summary-noise-reduction-refactoring-and-long-termism">2025 Year-End Summary: Noise Reduction, Refactoring, and Long-termism</h1>
 <p>After Christmas comes New Year&rsquo;s Day. I just tried to organize my thoughts verbally, but was interrupted halfway by the cat. After feeding it, I continued writing.</p>
@@ -225,9 +221,10 @@
 <p><strong>K8s: Pain Points as Fulcrums</strong>
 In the first half of the year, I transferred to a new department, fully embracing Kubernetes. The depth of K8s is vast, but in daily work, I found many painful points in the process. As an engineer, enduring repetitive pain is more unbearable than writing code. So, I couldn&rsquo;t resist and created a &ldquo;wheel&rdquo; internally to address these pain points.</p>
 <p>Initially, it was just for my convenience, but colleagues in the group started trying it out. Instead of seeing it as &ldquo;reinventing the wheel,&rdquo; they began submitting PRs to the project. Watching the internal repository become active with commits, and everyone optimizing and discussing the same tool, this &ldquo;internal open source small circle&rdquo; atmosphere became the greatest source of accomplishment in my work this year—it gave meaning to the mundane work.</p>
-<p><strong>The Return of Air and the Support of AI</strong>
-<img src="image-5.png" alt="alt text">
-In terms of open source, I recently listened to a talk by <strong>Terry</strong>, who said, &ldquo;Even if you&rsquo;re busy, make at least one PR a day.&rdquo; This sentence was like a hook, pulling me back to GitHub, forcing myself to pick up the maintenance work of <code>air</code> again.
+<p><strong>The Return of Air and the Support of AI</strong></p>
+<pre><code>![alt text](image-5.png)
+</code></pre>
+<p>In terms of open source, I recently listened to a talk by <strong>Terry</strong>, who said, &ldquo;Even if you&rsquo;re busy, make at least one PR a day.&rdquo; This sentence was like a hook, pulling me back to GitHub, forcing myself to pick up the maintenance work of <code>air</code> again.
 However, during maintenance, I also felt a deep sense of powerlessness. Often, after fixing a complex bug and happily submitting a PR, I found that the users who raised the issue didn&rsquo;t care about how elegantly the code was written; they only cared about, &ldquo;Does it work? Is the bug gone?&rdquo;</p>
 <p>Fortunately, AI became my new partner. At the beginning of the year, I started using <strong>Code Agent</strong> and <strong>AI Deep Search</strong> more intensively.</p>
 <ul>
@@ -238,7 +235,12 @@ This gave me a new sense of control over life and work.</li>
 <h2 id="2-investment-rationality-and-luck">2. Investment: Rationality and Luck</h2>
 <p><strong>17% Return: Didn&rsquo;t Beat the Market</strong></p>
 <p>This year, the annualized return rate of my US stock account is around <strong>15%-17%</strong>. Reflecting on entering the market in the second half of 2021, I experienced various fluctuations, with the worst being a 40% floating loss on a full position in QQQ. Fortunately, I always believed in the resilience of the US stock market, which is backed by solid technological productivity. I believe all the money that flows out of the US stock market will eventually return.
-<img src="image.png" alt="alt text"></p>
+<img src="image.png"
+     alt="alt text"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p><strong>Current Holdings and Strategy</strong>
 Currently, I mainly hold <strong>SMH</strong> (semiconductors), <strong>QQQ</strong> (technology stocks), and <strong>SPY</strong> (S&amp;P 500). To hedge risks, I also have a bit of gold. My investment philosophy is simple: <strong>If a stock rises 30% from the last time I sold it, I sell one-third of it.</strong> This is a discipline of forced profit-taking. Although I might miss out on some surges, I hope to always have cash (ammunition) on hand. In a market without price limits, having cash in hand keeps me calm, which is also a way to protect my mindset.</p>
 <h2 id="4-friends-no-forced-integration-only-resonance">4. Friends: No Forced Integration, Only Resonance</h2>
@@ -261,32 +263,91 @@ The new friends I made this year were all attracted by the &ldquo;flavor&rdquo; 
 </ul>
 <p><strong>Laicai: The Healing Power of Black</strong></p>
 <p>A new resident has joined the family, a black Devon Rex cat named &ldquo;Laicai.&rdquo; This way, when I call my cat, I can sing the lyrics, &ldquo;Laicai, come! Laicai, come!&rdquo;
-<img src="image-1.png" alt="alt text"></p>
+<img src="image-1.png"
+     alt="alt text"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>Initially, I was against having a cat, thinking it would be troublesome. But when this little guy snuggled into my bed on the first night and insisted on sleeping next to me every night thereafter, I was completely won over. It&rsquo;s not just a pet; it&rsquo;s family. In this world full of uncertainties, it provides the most certain emotional value.</p>
 <h2 id="6-2025-the-golden-age-for-gamers">6. 2025, The Golden Age for Gamers</h2>
 <p>This year, I spent more time on games than ever before, and it was thoroughly enjoyable.</p>
 <ul>
-<li><strong>Hollow Knight: Silksong</strong>: This game is a &ldquo;hand-eye coordination deterrent.&rdquo; The mission guidance is very subtle, and if you wander around without thinking, it&rsquo;s really exhausting. The difficulty is several levels higher than the first game. It&rsquo;s no exaggeration to say that if you don&rsquo;t use a controller macro, playing it manually is nearly impossible. But once you cross that threshold, it truly deserves the title of Game of the Year.
-<img src="image-12.png" alt="alt text"></li>
-<li><strong>First Berserker: Kazan</strong>: Possibly the most exhausting game I&rsquo;ve played this year. Its blocking mechanism is reminiscent of &ldquo;Sekiro,&rdquo; with lenient judgment, but that doesn&rsquo;t mean it&rsquo;s easy—the initial difficulty was downright insane. I had to lower the difficulty to barely get past some bosses. The visual style is dark, and playing for long periods really strains the eyes, but it&rsquo;s definitely a hardcore action game that challenges your limits.
-<img src="image-11.png" alt="alt text"></li>
-<li><strong>Elden Ring: Nightreign</strong>: <strong>Best Co-op Game of the Year</strong>. Played it with a childhood friend, and we had planned this before the game was released. This kind of tacit understanding doesn&rsquo;t need much explanation. Although he&rsquo;s not very skilled (laughs), I can carry him without taking damage. This game is the complete version of &ldquo;Monster Hunter: Wilds,&rdquo; offering a vast amount of content and top-notch combat experience and update frequency. The only regret is that the map is too large and time is too limited, so we can only explore a little at a time, feeling like we&rsquo;ll never finish.
-<img src="image-9.png" alt="alt text"></li>
-<li><strong>Bloodborne (SteamDeck Emulator Version)</strong>: Played on SteamDeck using the shadPS4 emulator. Although it experienced some frame drops and even crashes later on, I still consider it a masterpiece. The Lovecraftian oppressive atmosphere and the beasts of Yharnam are spot on. Ranked just behind &ldquo;Sekiro,&rdquo; it&rsquo;s definitely my second favorite in the Souls series. Unfortunately, the emulator&rsquo;s performance is limited, and I haven&rsquo;t played the DLC yet. I&rsquo;ll definitely complete it when I get a better device in the future.
-<img src="image-10.png" alt="alt text"></li>
-<li><strong>God of War (PSP Version)</strong>: To make up for not being able to afford a PSP as a child, I installed an emulator on the SteamDeck and completed &ldquo;Chains of Olympus&rdquo; and &ldquo;Ghost of Sparta&rdquo; in one go. Games back then were so pure, with no fancy systems, just one word: satisfying.
-<img src="image-7.png" alt="alt text"></li>
-<li><strong>Elden Ring DLC</strong>: I left it halfway last year, but finished it by the end of the year. Elden Ring is indeed a work of art.</li>
-<li><strong>Dark Souls 3 DLC</strong>: Also completed the Dark Souls 3 DLC. No need to say more, another masterpiece from FS Studio.
-<img src="image-8.png" alt="alt text"></li>
+<li>
+<p><strong>Hollow Knight: Silksong</strong>: This game is a &ldquo;hand-eye coordination deterrent.&rdquo; The mission guidance is very subtle, and if you wander around without thinking, it&rsquo;s really exhausting. The difficulty is several levels higher than the first game. It&rsquo;s no exaggeration to say that if you don&rsquo;t use a controller macro, playing it manually is nearly impossible. But once you cross that threshold, it truly deserves the title of Game of the Year.</p>
+<p><img src="image-12.png"
+     alt="alt text"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
+</li>
+<li>
+<p><strong>First Berserker: Kazan</strong>: Possibly the most exhausting game I&rsquo;ve played this year. Its blocking mechanism is reminiscent of &ldquo;Sekiro,&rdquo; with lenient judgment, but that doesn&rsquo;t mean it&rsquo;s easy—the initial difficulty was downright insane. I had to lower the difficulty to barely get past some bosses. The visual style is dark, and playing for long periods really strains the eyes, but it&rsquo;s definitely a hardcore action game that challenges your limits.</p>
+<p><img src="image-11.png"
+     alt="alt text"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
+</li>
+<li>
+<p><strong>Elden Ring: Nightreign</strong>: <strong>Best Co-op Game of the Year</strong>. Played it with a childhood friend, and we had planned this before the game was released. This kind of tacit understanding doesn&rsquo;t need much explanation. Although he&rsquo;s not very skilled (laughs), I can carry him without taking damage. This game is the complete version of &ldquo;Monster Hunter: Wilds,&rdquo; offering a vast amount of content and top-notch combat experience and update frequency. The only regret is that the map is too large and time is too limited, so we can only explore a little at a time, feeling like we&rsquo;ll never finish.</p>
+<p><img src="image-9.png"
+     alt="alt text"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
+</li>
+<li>
+<p><strong>Bloodborne (SteamDeck Emulator Version)</strong>: Played on SteamDeck using the shadPS4 emulator. Although it experienced some frame drops and even crashes later on, I still consider it a masterpiece. The Lovecraftian oppressive atmosphere and the beasts of Yharnam are spot on. Ranked just behind &ldquo;Sekiro,&rdquo; it&rsquo;s definitely my second favorite in the Souls series. Unfortunately, the emulator&rsquo;s performance is limited, and I haven&rsquo;t played the DLC yet. I&rsquo;ll definitely complete it when I get a better device in the future.</p>
+<p><img src="image-10.png"
+     alt="alt text"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
+</li>
+<li>
+<p><strong>God of War (PSP Version)</strong>: To make up for not being able to afford a PSP as a child, I installed an emulator on the SteamDeck and completed &ldquo;Chains of Olympus&rdquo; and &ldquo;Ghost of Sparta&rdquo; in one go. Games back then were so pure, with no fancy systems, just one word: satisfying.</p>
+<p><img src="image-7.png"
+     alt="alt text"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
+</li>
+<li>
+<p><strong>Elden Ring DLC</strong>: I left it halfway last year, but finished it by the end of the year. Elden Ring is indeed a work of art.</p>
+</li>
+<li>
+<p><strong>Dark Souls 3 DLC</strong>: Also completed the Dark Souls 3 DLC. No need to say more, another masterpiece from FS Studio.</p>
+<p><img src="image-8.png"
+     alt="alt text"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
+</li>
 </ul>
 <h2 id="7-travel-a-demystifying-journey-to-japan">7. Travel: A Demystifying Journey to Japan</h2>
 <p>This year, I took a trip to Japan, visiting Tokyo, Osaka, Nara, Uji, and Kyoto, spending a total of 16-17 days there.
 In the latter part of the trip, I noticeably felt a bit of aesthetic fatigue from exploring the cities and just wanted to return to work in Singapore.
-<img src="image-6.png" alt="alt text">
+<img src="image-6.png"
+     alt="alt text"
+     
+     loading="lazy"
+     decoding="async" />
+
 Of course, the service in Japan is truly excellent, which is probably why many locals in Singapore are eager to visit Japan—while in Singapore you can only buy products, in Japan, for the same price, you can get products plus top-notch service.
 However, I probably won&rsquo;t go on such an in-depth tour again. After demystification, Japan seems more like a place to occasionally shop (buying HHKB, game discs) rather than a spiritual homeland. Future travels might lean towards more relaxing destinations.
-<img src="image-3.png" alt="alt text"></p>
+<img src="image-3.png"
+     alt="alt text"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <h2 id="8-identity-not-achieved-by-endurance-but-by-a-steady-journey">8. Identity: Not Achieved by Endurance, but by a Steady Journey</h2>
 <p><strong>Obtaining Identity</strong>
 The biggest milestone in my life this year was obtaining Singapore PR. I am very grateful to have seized this opportunity amidst the global rightward shift, settling in a relatively stable and safe place.
@@ -301,7 +362,12 @@ When you stop anxiously counting the days for identity, it will inevitably come 
 Although I secured my identity, my health is average.
 Perhaps due to being busy at work, the cooling rainy season in the second half of the year, and taking a bit too much sick leave, catching colds became commonplace.
 The strength training I used to do three times a week gradually shrank to twice a week in the second half of the year due to being busy. Sometimes, I was too tired after training to even remember to drink protein shakes, and I didn&rsquo;t manage my diet well.</p>
-<p><img src="image-4.png" alt="alt text">
+<p><img src="image-4.png"
+     alt="alt text"
+     
+     loading="lazy"
+     decoding="async" />
+
 <strong>Flag for 2026:</strong> Ensure adequate protein intake and get back in shape.</p>
 <h2 id="9-in-conclusion">9. In Conclusion</h2>
 <p>Watching the tightening of domestic social platforms, I increasingly feel how important it is to have a personal space for free expression.
@@ -318,8 +384,8 @@ I hope everyone reading this blog will be healthy, happy, and safe in 2026.</p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2026-03-05
-        <a href="https://github.com/xiantang/xiantang.github.io/commit/a089eb16b4109f775cb0d4cbd4e547d7db3c14bc" title="Update index.en.md">(a089eb16)</a>
+        2026-08-29
+        <a href="https://github.com/xiantang/xiantang.github.io/commit/c49ef5ad44d1638bf8b0652f7a978410d88007a5" title="fix(content): 修正 2025 总结中列表内图片的排版">(c49ef5ad)</a>
     </span>
   </p>
   
@@ -459,6 +525,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

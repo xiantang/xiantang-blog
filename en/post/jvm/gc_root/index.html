@@ -39,6 +39,7 @@ Characteristics of GC Root  Objects that are alive at the current moment!" />
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="Where is the GC root?" />
@@ -226,7 +227,12 @@ Characteristics of GC Root  Objects that are alive at the current moment!"/>
       <h2 id="what-is-gc-root">What is GC Root</h2>
 <p>First of all, we know the marking algorithm, the JVM&rsquo;s marking algorithm can be understood as a reachability algorithm, so all reachability algorithms will have a starting point, and this starting point is the GC Root.</p>
 <p>That is, it is necessary to find all living objects through the GC Root, and then all the remaining unmarked objects are the objects to be recycled.</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdjy7qsfg9j30w60cc47s.jpg" alt="image-20200406124709630"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdjy7qsfg9j30w60cc47s.jpg"
+     alt="image-20200406124709630"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <h2 id="characteristics-of-gc-root">Characteristics of GC Root</h2>
 <ul>
 <li>Objects that are alive at the current moment!</li>
@@ -394,6 +400,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

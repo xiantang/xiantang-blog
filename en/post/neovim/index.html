@@ -39,6 +39,7 @@ What is neovim Neovim is a branch of vim, vim is a text editor, neovim is a bran
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="Using neovim as a PDE (Personalized Development Environment)" />
@@ -275,7 +276,12 @@ The difference is that neovim has refactored vim&rsquo;s code, supports lua scri
 <h2 id="personalized-needs">Personalized needs</h2>
 <p>Sometimes I always have some interesting needs, let me just give an example:</p>
 <p>For example, I often modify multiple projects in vim at the same time, but NERDTreeFind in nerdtree will only find from the current tree, and the root directory of the tree is always wrong. My requirement is to find this file in the bookmarks of nerdtree, and the root directory is the first matched bookmark.</p>
-<p><img src="https://user-images.githubusercontent.com/34479567/204140677-0c11c2c8-cca7-44d2-8971-12632e3f0874.gif" alt="show off"></p>
+<p><img src="https://user-images.githubusercontent.com/34479567/204140677-0c11c2c8-cca7-44d2-8971-12632e3f0874.gif"
+     alt="show off"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>You can refer to my implementation:</p>
 <p><a href="https://github.com/xiantang/nvim-conf/blob/dev/lua/nerdtree.lua">https://github.com/xiantang/nvim-conf/blob/dev/lua/nerdtree.lua</a></p>
 <p>Basically all the functions you want can be achieved by modifying lua, or by using nvim series plugins.</p>
@@ -476,6 +482,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

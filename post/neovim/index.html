@@ -37,6 +37,7 @@
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="使用 neovim 作为 PDE(个性化开发环境)" />
@@ -267,7 +268,12 @@
 <h2 id="个性化的需求">个性化的需求</h2>
 <p>有些时候我总有一些有趣的需求, 我就简单举一个例子吧:</p>
 <p>比如说我很多时候会同时修改多个项目在 vim 中, 但是 nerdtree 的 NERDTreeFind 只会从当前树里面找，并且树的根目录总是错的，我的需求是想要在 nerdtree 的 bookmarks 里面找到这个文件，并且根目录是第一个匹配到的 bookmark.</p>
-<p><img src="https://user-images.githubusercontent.com/34479567/204140677-0c11c2c8-cca7-44d2-8971-12632e3f0874.gif" alt="show off"></p>
+<p><img src="https://user-images.githubusercontent.com/34479567/204140677-0c11c2c8-cca7-44d2-8971-12632e3f0874.gif"
+     alt="show off"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>可以参考我的实现:</p>
 <p><a href="https://github.com/xiantang/nvim-conf/blob/dev/lua/nerdtree.lua">https://github.com/xiantang/nvim-conf/blob/dev/lua/nerdtree.lua</a></p>
 <p>基本上所有你想要的功能都可以通过修改 lua 来达成, 或者通过使用 nvim 系列的插件。</p>
@@ -467,6 +473,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

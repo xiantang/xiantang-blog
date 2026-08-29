@@ -37,6 +37,7 @@
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="Design and Implementation of the Leaky Bucket Algorithm" />
@@ -220,7 +221,12 @@
 <p>Because there is a hole at the bottom of the bucket, it will leak water at regular intervals, and we can imagine the traffic as water falling into the bucket from above.</p>
 <p>This leads to two situations. If the speed at which traffic is injected into the bucket is slower than the speed at which the bucket leaks, the bucket will be in an empty state, that is, it is not overloaded.</p>
 <p>The second situation is that if the speed of traffic injection into the bucket is faster than the bucket, then the bucket will gradually exceed its maximum capacity. For the overflow traffic, the bucket will reject it to prevent further traffic from entering.</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdjauntjbcj30sy0j840y.jpg" alt="image-20200405231856133"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdjauntjbcj30sy0j840y.jpg"
+     alt="image-20200405231856133"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <h2 id="implementation-in-java">Implementation in Java</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -336,7 +342,12 @@
 
 </code></pre></td></tr></table>
 </div>
-</div><p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdjb0mojzyj30v80lygp8.jpg" alt="image-20200405232439711"></p>
+</div><p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdjb0mojzyj30v80lygp8.jpg"
+     alt="image-20200405232439711"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>Here we define an &ldquo;empty capacity&rdquo; to represent the freed space. It can also be calculated by the remaining water to calculate the space occupied by the water, which are two perspectives. But we use &ldquo;empty capacity&rdquo;.</p>
 <p>For the new traffic, we need to judge whether the Empty Capacity can accommodate these flows. If it can, reduce the size of the Empty Capacity. If it can&rsquo;t, reject it.</p>
 <h2 id="differences-from-the-token-bucket">Differences from the Token Bucket</h2>
@@ -504,6 +515,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

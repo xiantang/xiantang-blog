@@ -37,6 +37,7 @@
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="GC root 在哪里？" />
@@ -218,7 +219,12 @@
       <h2 id="什么是gc-root">什么是GC Root</h2>
 <p>首先我们知道标记算法，JVM 的标记算法我们可以了解为一个可达性算法，所以所有的可达性算法都会有起点，那么这个起点就是GC Root。</p>
 <p>也就是需要通过GC Root 找出所有活的对象，那么剩下所有的没有标记的对象就是需要回收的对象。</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdjy7qsfg9j30w60cc47s.jpg" alt="image-20200406124709630"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdjy7qsfg9j30w60cc47s.jpg"
+     alt="image-20200406124709630"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <h2 id="gc-root-的特点">GC Root 的特点</h2>
 <ul>
 <li>当前时刻存活的对象！</li>
@@ -386,6 +392,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

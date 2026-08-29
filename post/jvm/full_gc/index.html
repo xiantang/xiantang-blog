@@ -37,6 +37,7 @@
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="什么是 Minor GC/Major GC" />
@@ -222,7 +223,12 @@
     <div class="post-content">
       <h2 id="什么是-minor-gcmajor-gc">什么是 Minor GC/Major GC</h2>
 <p>首先我们先科普一下JVM 经典的堆布局:</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdk3ifey1ej30lk08gwm5.jpg" alt="image-20200406155036951"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdk3ifey1ej30lk08gwm5.jpg"
+     alt="image-20200406155036951"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>对于经典的 JVM heap 布局，有两个区域比较清晰，首先是Young 区,一般会来存放年轻的对象或者刚被创建没多久的对象。其次是 Old 区，也就是老年代，一般会来存放比较长寿的对象，或者从 young 区晋升的对象。</p>
 <p>对于young 区 我们又有三个区域，一个是 Eden 区，还有两个大小相等的 Survivor 区。</p>
 <p>新生的对象会在 Eden 区创建。</p>
@@ -248,7 +254,12 @@
 </li>
 </ol>
 <p>详见下图:</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdk486fnmtj310b0u04ig.jpg" alt="image-20200406161521283"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdk486fnmtj310b0u04ig.jpg"
+     alt="image-20200406161521283"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <h2 id="避免频繁的full-gc">避免频繁的Full GC</h2>
 <ul>
 <li>避免定义过大的对象(数组)</li>
@@ -410,6 +421,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

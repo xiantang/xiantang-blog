@@ -37,6 +37,7 @@
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="关于 Golang Slice 的一些细节" />
@@ -261,7 +262,12 @@
 当你初始化一个长度为 5 的 Slice 的时候，他是这样的：</p>
 <p><code>foo = make([]int, 5)</code></p>
 <p><code>foo = make([]int, 3, 5)</code></p>
-<p><img src="https://divan.dev/images/slice2.png" alt="slice"></p>
+<p><img src="https://divan.dev/images/slice2.png"
+     alt="slice"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>当你初始化一个为 nil 的 Slice 的时候，他是这样的：
 <code>var foo []int</code></p>
 <div class="highlight"><div class="chroma">
@@ -621,6 +627,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

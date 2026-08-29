@@ -39,6 +39,7 @@ For the young area, we have three areas, one is the Eden area, and the other two
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="What is Minor GC/Major GC" />
@@ -230,7 +231,12 @@ For the young area, we have three areas, one is the Eden area, and the other two
     <div class="post-content">
       <h2 id="what-is-minor-gcmajor-gc">What is Minor GC/Major GC</h2>
 <p>First, let&rsquo;s popularize the classic heap layout of JVM:</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdk3ifey1ej30lk08gwm5.jpg" alt="image-20200406155036951"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdk3ifey1ej30lk08gwm5.jpg"
+     alt="image-20200406155036951"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>For the classic JVM heap layout, there are two clear areas, the first is the Young area, which generally stores young objects or objects that have just been created. The second is the Old area, also known as the old generation, which generally stores longer-lived objects or objects promoted from the young area.</p>
 <p>For the young area, we have three areas, one is the Eden area, and the other two are Survivor areas of equal size.</p>
 <p>New objects are created in the Eden area.</p>
@@ -256,7 +262,12 @@ For the young area, we have three areas, one is the Eden area, and the other two
 </li>
 </ol>
 <p>See the image below:</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdk486fnmtj310b0u04ig.jpg" alt="image-20200406161521283"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdk486fnmtj310b0u04ig.jpg"
+     alt="image-20200406161521283"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <h2 id="avoid-frequent-full-gc">Avoid frequent Full GC</h2>
 <ul>
 <li>Avoid defining overly large objects (arrays)</li>
@@ -418,6 +429,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

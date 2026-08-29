@@ -37,6 +37,7 @@
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="漏桶算法的设计与实现" />
@@ -220,7 +221,12 @@
 <p>因为漏斗下面有孔，所以会定时的漏水下去，然后我们可以将流量想象为从上边落入漏斗的水。</p>
 <p>这样就会有两种情况，如果流量的注入漏斗的速度比漏斗的漏水的速度慢，漏斗就会处于一个空漏斗的状态，也就是没有超出负荷的状态。</p>
 <p>第二种情况就是，如果流量注入漏斗的速度比漏斗快，那么漏斗就会渐渐的超出最大的容量，对于溢出的流量，漏斗会采用拒绝的方式，防止流量继续进入。</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdjauntjbcj30sy0j840y.jpg" alt="image-20200405231856133"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdjauntjbcj30sy0j840y.jpg"
+     alt="image-20200405231856133"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <h2 id="使用-java-实现">使用 Java 实现</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -336,7 +342,12 @@
 
 </code></pre></td></tr></table>
 </div>
-</div><p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdjb0mojzyj30v80lygp8.jpg" alt="image-20200405232439711"></p>
+</div><p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdjb0mojzyj30v80lygp8.jpg"
+     alt="image-20200405232439711"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>我们这边定义了一个 empty capacity 的容量 表示腾出的空间。也可以通过以剩余的水来计算水占用的空间，这是两个角度来计算。但是我们使用的是empty capacity。</p>
 <p>对于新来的流量，我们要判断是否Empty Capacity 能够容纳这些流量，如果能够容纳，就减少Empty Capacity的大小，不能的话就拒绝。</p>
 <h2 id="与令牌桶的区别">与令牌桶的区别</h2>
@@ -504,6 +515,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

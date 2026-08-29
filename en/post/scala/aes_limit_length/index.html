@@ -39,6 +39,7 @@ The reason for this is that the online environment does not support the AES algo
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="AES Requires Limiting SEED Length" />
@@ -219,7 +220,12 @@ The reason for this is that the online environment does not support the AES algo
     <div class="post-content">
       <p>I wrote a utility class to encrypt and decrypt the app field in the database</p>
 <p>There are no problems running unit tests in the local environment, but bugs appear in the production environment.</p>
-<p><img src="../images/image-20191109145633818.png" alt="image-20191109145633818"></p>
+<p><img src="../images/image-20191109145633818.png"
+     alt="image-20191109145633818"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>The reason for this is that the online environment does not support the AES algorithm Provider. It needs to be solved by adding a third-party package that supports it under the ext package or introducing a third-party library.</p>
 <p>I chose to introduce a third-party library:</p>
 <div class="highlight"><div class="chroma">
@@ -240,7 +246,12 @@ The reason for this is that the online environment does not support the AES algo
 </div>
 </div><p>This solves the problem of No installed provider supports this key.</p>
 <p>But when it comes to the test environment, there is another problem:</p>
-<p><img src="../images/image-20191109150457772.png" alt="image-20191109150457772"></p>
+<p><img src="../images/image-20191109150457772.png"
+     alt="image-20191109150457772"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>It shows that there is no valid AES key</p>
 <p>First, I set the length of SEED to 16 characters. There is no problem locally, but the test environment still reports an error. I suddenly found that my SEED will undergo a SHA-256 algorithm hash, and then its number of characters will increase to 32.</p>
 <p>We need to clarify the differences between the local environment and the online environment:</p>
@@ -427,6 +438,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>

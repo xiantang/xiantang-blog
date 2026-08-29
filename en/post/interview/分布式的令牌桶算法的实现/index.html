@@ -39,6 +39,7 @@ The token bucket algorithm, on the other hand, periodically puts tokens into the
 
 <link href="/sass/main.min.4747d1be8010357c5daf4cd103b0bc1cff65936180045419874ea97f32138102.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/custom.css">
 
 
 <meta property="og:title" content="Implementation of Distributed Token Bucket Algorithm" />
@@ -231,9 +232,19 @@ The token bucket algorithm, on the other hand, periodically puts tokens into the
       <h2 id="what-is-the-token-bucket-algorithm">What is the Token Bucket Algorithm?</h2>
 <p>The token bucket algorithm is a rate limiting algorithm, which is the opposite implementation of the leaky bucket algorithm.</p>
 <p>The leaky bucket algorithm leaks at a certain frequency rate, and our requests can be imagined as the faucet above.</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdnjduhuivj30cb08b74u.jpg" alt="img"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdnjduhuivj30cb08b74u.jpg"
+     alt="img"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>The token bucket algorithm, on the other hand, periodically puts tokens into the bucket, and each request will get a token from the token bucket. If there are no tokens in the bucket, the request is rejected or blocked until a token can be obtained.</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdnjhiarxgj30bp06pwek.jpg" alt="img"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdnjhiarxgj30bp06pwek.jpg"
+     alt="img"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <h2 id="distributed-token-bucket-algorithm">Distributed Token Bucket Algorithm</h2>
 <p>Because all the token bucket algorithms I&rsquo;ve seen are single-machine, for example: RateLimiter is a thread-level token bucket algorithm.</p>
 <p>Because I need to implement a distributed token bucket algorithm, I use Redis as the container for the token bucket.</p>
@@ -268,14 +279,24 @@ The token bucket algorithm, on the other hand, periodically puts tokens into the
 <p>nextFreeTicketMillis: The next time these tokens can be obtained.</p>
 <p>For a token acquisition operation, we can judge whether we can get the token, that is, whether the nextFreeTicketMillis is before or after the current time.</p>
 <h3 id="nextfreeticketmillis-is-before-the-current-time">nextFreeTicketMillis is before the current time</h3>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdnkapnorij31fk0n045x.jpg" alt="image-20200409154830414"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdnkapnorij31fk0n045x.jpg"
+     alt="image-20200409154830414"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>The current number of tokens stored can be calculated through the formula in the picture. Compare it with the number of tokens you need:</p>
 <ul>
 <li>If it is enough, subtract the number of tokens needed, set nextFreeTicketMillis to now, and return the function immediately.</li>
 <li>If it is not enough, get the current number of tokens, set the current number of tokens to 0, then find out the number needed, push nextFreeTicketMillis back, generate the time. The current thread waits for the corresponding nextFreeTicketMillis - now time to find out the waiting time. Go to sleep, and you can make the corresponding request after waking up.</li>
 </ul>
 <h3 id="nextfreeticketmillis-is-after-the-current-time">nextFreeTicketMillis is after the current time</h3>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdnkj2oezoj31ig0dk79x.jpg" alt="image-20200409155633013"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdnkj2oezoj31ig0dk79x.jpg"
+     alt="image-20200409155633013"
+     
+     loading="lazy"
+     decoding="async" />
+</p>
 <p>Since nextFreeTicketMillis is after the current time, the current token bucket must be empty, so we need to drag the sleep time back, that is, nextFreeTicketMillis =+ intervalMillis*need, and then the current thread sleeps for nextFreeTicketMillis - now time.</p>
 <h2 id="advantages">Advantages</h2>
 <p>The token bucket algorithm can use the method of setting maxPermits, that is, the maximum token quantity, to 1, to evenly distribute the requests, which is very suitable for scenarios that need to be called at a uniform speed.</p>
@@ -436,6 +457,7 @@ if (!doNotTrack) {
 
 
 
+<script src="/js/zoom.js"></script>
 
 
 </body>
