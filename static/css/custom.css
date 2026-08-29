@@ -1,0 +1,41 @@
+/* 图片显示优化：独占一段的图片按块级居中，限制高度，避免竖版长图刷屏 */
+.post-content p > img:only-child,
+.post-content li > p > img:only-child {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 460px;
+  margin: 1.2em auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  background: #f7f7f7;
+}
+
+/* 列表项里的图片跟随缩进，不要顶到最左边 */
+.post-content li > p > img:only-child {
+  margin-left: 0;
+}
+
+/* 点击放大（靠浏览器原生行为兜底时至少给个手势提示） */
+.post-content p > img:only-child {
+  cursor: zoom-in;
+}
+
+/* lightbox */
+.img-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.85);
+  cursor: zoom-out;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.img-lightbox.active { display: flex; }
+.img-lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 4px;
+}
