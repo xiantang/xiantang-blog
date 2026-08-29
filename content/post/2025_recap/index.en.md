@@ -26,7 +26,8 @@ In the first half of the year, I transferred to a new department, fully embracin
 Initially, it was just for my convenience, but colleagues in the group started trying it out. Instead of seeing it as "reinventing the wheel," they began submitting PRs to the project. Watching the internal repository become active with commits, and everyone optimizing and discussing the same tool, this "internal open source small circle" atmosphere became the greatest source of accomplishment in my work this year—it gave meaning to the mundane work.
 
 **The Return of Air and the Support of AI**
-![alt text](image-5.png)
+
+    ![alt text](image-5.png)
 In terms of open source, I recently listened to a talk by **Terry**, who said, "Even if you're busy, make at least one PR a day." This sentence was like a hook, pulling me back to GitHub, forcing myself to pick up the maintenance work of `air` again.
 However, during maintenance, I also felt a deep sense of powerlessness. Often, after fixing a complex bug and happily submitting a PR, I found that the users who raised the issue didn't care about how elegantly the code was written; they only cared about, "Does it work? Is the bug gone?"
 
@@ -79,18 +80,24 @@ Initially, I was against having a cat, thinking it would be troublesome. But whe
 This year, I spent more time on games than ever before, and it was thoroughly enjoyable.
 
 *   **Hollow Knight: Silksong**: This game is a "hand-eye coordination deterrent." The mission guidance is very subtle, and if you wander around without thinking, it's really exhausting. The difficulty is several levels higher than the first game. It's no exaggeration to say that if you don't use a controller macro, playing it manually is nearly impossible. But once you cross that threshold, it truly deserves the title of Game of the Year.
-![alt text](image-12.png)
+
+    ![alt text](image-12.png)
 *   **First Berserker: Kazan**: Possibly the most exhausting game I've played this year. Its blocking mechanism is reminiscent of "Sekiro," with lenient judgment, but that doesn't mean it's easy—the initial difficulty was downright insane. I had to lower the difficulty to barely get past some bosses. The visual style is dark, and playing for long periods really strains the eyes, but it's definitely a hardcore action game that challenges your limits.
-![alt text](image-11.png)
+
+    ![alt text](image-11.png)
 *   **Elden Ring: Nightreign**: **Best Co-op Game of the Year**. Played it with a childhood friend, and we had planned this before the game was released. This kind of tacit understanding doesn't need much explanation. Although he's not very skilled (laughs), I can carry him without taking damage. This game is the complete version of "Monster Hunter: Wilds," offering a vast amount of content and top-notch combat experience and update frequency. The only regret is that the map is too large and time is too limited, so we can only explore a little at a time, feeling like we'll never finish.
-![alt text](image-9.png)
+
+    ![alt text](image-9.png)
 *   **Bloodborne (SteamDeck Emulator Version)**: Played on SteamDeck using the shadPS4 emulator. Although it experienced some frame drops and even crashes later on, I still consider it a masterpiece. The Lovecraftian oppressive atmosphere and the beasts of Yharnam are spot on. Ranked just behind "Sekiro," it's definitely my second favorite in the Souls series. Unfortunately, the emulator's performance is limited, and I haven't played the DLC yet. I'll definitely complete it when I get a better device in the future.
-![alt text](image-10.png)
+
+    ![alt text](image-10.png)
 *   **God of War (PSP Version)**: To make up for not being able to afford a PSP as a child, I installed an emulator on the SteamDeck and completed "Chains of Olympus" and "Ghost of Sparta" in one go. Games back then were so pure, with no fancy systems, just one word: satisfying.
-![alt text](image-7.png)
+
+    ![alt text](image-7.png)
 *   **Elden Ring DLC**: I left it halfway last year, but finished it by the end of the year. Elden Ring is indeed a work of art.
 *   **Dark Souls 3 DLC**: Also completed the Dark Souls 3 DLC. No need to say more, another masterpiece from FS Studio.
-![alt text](image-8.png)
+
+    ![alt text](image-8.png)
 
 ## 7. Travel: A Demystifying Journey to Japan
 
